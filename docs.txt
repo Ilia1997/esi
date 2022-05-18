@@ -1,0 +1,2 @@
+https://simeydotme.github.io/svelte-range-slider-pips/
+https://www.npmjs.com/package/svelte-range-slider-pips
