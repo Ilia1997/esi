@@ -1,22 +1,40 @@
 <script>
+   import {contributionData} from '../../stores/store'
   let currentPeriod = "Monthly";
   let currentCurrency = "USD";
   let activePeriod = false;
   let activeCurrency = false;
   let periods = ["Monthly", "Bi-Monthly"];
   let currencys = ["USD", "EUR", "CAD", "CHF", "GBP", "JPY"];
-  let currentAmount;
+
+  let currencySymbols = {
+    USD: "$",
+    EUR: "€",
+    CAD: "$",
+    CHF: "₣",
+    GBP: "£",
+    JPY: "¥",
+  };
 
   function setPeriod(value) {
     currentPeriod = value;
+    // set data to our store
+    $contributionData.period = value
+    
   }
   function showCurrency(value) {
     currentCurrency = value;
+    // set data to our store
+    $contributionData.currency = value
+    $contributionData.currencySymbol = currencySymbols[value]
   }
+
+
+
 </script>
 
 <div class="contribution__form">
-  <form>
+  <form  on:submit|preventDefault>
     <div class="period">
       <div class="label__text">Period*</div>
       <div class="dropdown__wrapper">
@@ -85,7 +103,7 @@
 
     <div class="amount">
       <label class="label__text" for="amount">Amount*</label>
-      <input type="number" bind:value={currentAmount} />
+      <input type="number" bind:value={$contributionData.amount} min="20" max="9999" maxlength="4" onKeyPress="if(this.value.length==4) return false;"/>
     </div>
   </form>
   <div class="contribution__help--text">
@@ -93,9 +111,11 @@
   </div>
 </div>
 
+
 <style>
   .contribution__form form {
     display: flex;
+    margin-top: 14px;
   }
   .currency {
     margin: 0 20px;

@@ -1,13 +1,17 @@
 <script>
-
+  import {stepCounter} from '../stores/store'
+  let stepCountValue;
+  stepCounter.subscribe(value => {
+		stepCountValue = value;
+	});
 </script>
 
 <div class="head__steps">
-    <div class="head__step visited">Step 1 Contribution</div>
-    <div class="head__step">Step 2 Plan</div>
-    <div class="head__step">Step 3 Information</div>
-    <div class="head__step">Step 4 Legal</div>
-    <div class="head__step">Step 5 Payment</div>
+    <div class="head__step" class:visited ={stepCountValue > 0}>Step 1 Contribution</div>
+    <div class="head__step" class:visited ={stepCountValue > 1}>Step 2 Plan</div>
+    <div class="head__step" class:visited ={stepCountValue > 2}>Step 3 Information</div>
+    <div class="head__step" class:visited ={stepCountValue > 3}>Step 4 Legal</div>
+    <div class="head__step" class:visited ={stepCountValue > 4}>Step 5 Payment</div>
   </div>
 
 
