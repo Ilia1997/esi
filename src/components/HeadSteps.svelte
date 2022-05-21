@@ -1,9 +1,11 @@
 <script>
   import {stepCounter} from '../stores/store'
+  import { onDestroy } from 'svelte';
   let stepCountValue;
-  stepCounter.subscribe(value => {
+  const unsubscribe = stepCounter.subscribe(value => {
 		stepCountValue = value;
 	});
+  onDestroy(unsubscribe)
 </script>
 
 <div class="head__steps">

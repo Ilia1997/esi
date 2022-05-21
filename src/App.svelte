@@ -1,23 +1,26 @@
 <script>
   import Contribution from "./components/contributions/Contribution.svelte";
+  import { onDestroy } from 'svelte';
   import HeadSteps from "./components/HeadSteps.svelte";
-import Plan from "./components/plans/Plan.svelte";
+  import Plan from "./components/plans/Plan.svelte";
   import {stepCounter} from './stores/store'
   let stepCountValue;
-  stepCounter.subscribe(value => {
+  const unsubscribe = stepCounter.subscribe(value => {
 		stepCountValue = value;
+    console.log(value)
 	});
+  onDestroy(unsubscribe)
 </script>
 
 <main>
   <div class="container">
     <HeadSteps />
     <div class="step__content">
-      <!-- {#if stepCountValue ===1}
-      <Contribution /> -->
-      <!-- {:else if stepCountValue ===2 } -->
+      <!-- {#if stepCountValue === 1}
+      <Contribution /> 
+      {:else if stepCountValue === 2 } -->
       <Plan />
-      <!-- {/if} -->
+       <!-- {/if} -->
      
     </div>
     {stepCountValue}

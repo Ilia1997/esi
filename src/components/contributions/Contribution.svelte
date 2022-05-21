@@ -1,15 +1,18 @@
 <script>
   import Form from "./Form.svelte";
   import { incrementStep, contributionData } from "../../stores/store";
-  import { beforeUpdate } from "svelte";
+  import { beforeUpdate,  onDestroy } from "svelte";
   import Rules from "./Rules.svelte";
 import ButtonRight from "../buttons/ButtonRight.svelte";
   let changeCounter = 0;
   let amountErrorMessage = 'Error message',
       amountErrorMessageState = false;
   function changeStep() {
+    console.log('here click')
     if (validateAmount()) {
+      console.log('here')
       if (changeCounter === 0) {
+        console.log('here', changeCounter)
         incrementStep();
         changeCounter += 1;
       }
@@ -17,7 +20,7 @@ import ButtonRight from "../buttons/ButtonRight.svelte";
   }
 
   let data;
-  contributionData.subscribe((value) => {
+  const unsubscribe = contributionData.subscribe((value) => {
     data = value;
   });
   function validateAmount(){
@@ -47,14 +50,8 @@ import ButtonRight from "../buttons/ButtonRight.svelte";
     yrVal = moVal * 12;
     fiveYrVal = yrVal * 5;
   });
-  let currencySymbols = {
-    USD: "$",
-    EUR: "€",
-    CAD: "$",
-    CHF: "₣",
-    GBP: "£",
-    JPY: "¥",
-  };
+
+  onDestroy(unsubscribe)
 </script>
 
 <div class="contribution__main">
@@ -101,7 +98,7 @@ import ButtonRight from "../buttons/ButtonRight.svelte";
           <div class="error__message">{amountErrorMessage}</div>
           {/if}
           
-    <ButtonRight  on:click={changeStep}/>
+       <ButtonRight  on:click={changeStep}/>
       </div>
     </div>
   </div>

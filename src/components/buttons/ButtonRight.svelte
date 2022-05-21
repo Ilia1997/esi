@@ -1,4 +1,4 @@
-<button class="btn">
+<button class="btn" on:click>
   Next
   <svg
     xmlns="http://www.w3.org/2000/svg"

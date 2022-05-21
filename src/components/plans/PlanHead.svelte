@@ -1,10 +1,12 @@
 <script>
     import {  contributionData } from "../../stores/store";
+    import { onDestroy } from 'svelte';
     let data;
-    contributionData.subscribe((value) => {
+    const unsubscribe = contributionData.subscribe((value) => {
       data = value;
     });
     let moVal = data.monthlyValue;
+    onDestroy(unsubscribe)
 </script>
 
 <div class="plans__head">
