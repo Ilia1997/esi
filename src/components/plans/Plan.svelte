@@ -28,10 +28,7 @@
     <PlanItems />
   </div>
   {#if $plansModalState}
-  <PlanModal
-  className="save"
-  contributionName="Green Safe"
-  contributionDesc="Safe as a bank account. This fund invests exclusively in green bonds and is the perfect option for Green Savers who want to be sure their funds are secure. The Green Safe plan involves a commitment to institutional and governmental bonds and enables subscribers to have a global, national, and local impact."/>
+  <PlanModal />
   {/if}
 
   <div class="subscribe__all">
