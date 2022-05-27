@@ -16,11 +16,11 @@
   <div class="container">
     <HeadSteps />
     <div class="step__content">
-      <!-- {#if stepCountValue === 1}
+      {#if stepCountValue === 1}
       <Contribution /> 
-      {:else if stepCountValue === 2 } -->
+      {:else if stepCountValue === 2 }
       <Plan />
-       <!-- {/if} -->
+       {/if}
      
     </div>
     {stepCountValue}

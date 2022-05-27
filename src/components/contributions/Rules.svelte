@@ -1,47 +1,41 @@
 <div class="contribution__right">
+  <div class="contribution__right__head">
     <h2>Our House. Our Rules.</h2>
     <p>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean
-      ultricies gravida enim, ac congue diam. Cras faucibus lorem et velit
-      tempus viverra.
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ultricies
+      gravida enim, ac congue diam. Cras faucibus lorem et velit tempus viverra.
     </p>
-    <ul>
-      <li>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean
-        ultricies gravida enim, ac congue diam.
-      </li>
-      <li>
-        Cras faucibus lorem et velit tempus viverra. Nulla facilisi. Nulla
-        neque neque, bibendum sit amet consequat id, dapibus at purus.
-      </li>
-      <li>
-        Etiam cursus varius turpis, vitae efficitur erat facilisis ut. Quisque
-        fringilla in purus non posuere. Mauris lobortis et orci at
-        scelerisque.
-      </li>
-      <li>Curabitur elementum consectetur eros eget congue.</li>
-      <li>
-        Morbi aliquet eleifend elementum. Ut et tempor quam, id sodales mi.
-      </li>
-    </ul>
   </div>
 
-  <style>
-      .contribution__right {
-    background: linear-gradient(
-      90deg,
-      rgba(53, 159, 161, 0.48) 0.23%,
-      rgba(53, 159, 161, 0.36) 100%
-    );
+  <ul>
+    <li>
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ultricies
+      gravida enim, ac congue diam.
+    </li>
+    <li>
+      Cras faucibus lorem et velit tempus viverra. Nulla facilisi. Nulla neque
+      neque, bibendum sit amet consequat id, dapibus at purus.
+    </li>
+    <li>
+      Etiam cursus varius turpis, vitae efficitur erat facilisis ut. Quisque
+      fringilla in purus non posuere. Mauris lobortis et orci at scelerisque.
+    </li>
+    <li>Curabitur elementum consectetur eros eget congue.</li>
+    <li>Morbi aliquet eleifend elementum. Ut et tempor quam, id sodales mi.</li>
+  </ul>
+</div>
+
+<style>
+  .contribution__right {
     width: 100%;
     height: 100%;
-    border: 2px solid #359fa1;
-    padding: 81px 31px 0 34px;
-    border-bottom-right-radius: 10px;
+  }
+  .contribution__right__head{
+    padding-left: 32px;
+    max-width: 455px;
   }
   .contribution__right h2,
   .contribution__right p {
-    text-align: center;
   }
   .contribution__right ul {
     margin-top: 24px;
@@ -57,4 +51,4 @@
   .contribution__right ul li:last-child {
     margin-bottom: 0px;
   }
-  </style>
+</style>

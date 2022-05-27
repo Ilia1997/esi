@@ -92,6 +92,7 @@ import ButtonRight from "../buttons/ButtonRight.svelte";
             </div>
           </div>
         </div>
+        <Rules />
       </div>
       <div class="contribution__footer">
           {#if amountErrorMessageState}
@@ -101,9 +102,6 @@ import ButtonRight from "../buttons/ButtonRight.svelte";
        <ButtonRight  on:click={changeStep}/>
       </div>
     </div>
-  </div>
-  <div class="column-right">
-    <Rules />
   </div>
 </div>
 
@@ -118,30 +116,29 @@ import ButtonRight from "../buttons/ButtonRight.svelte";
 
   .contribution__main {
     display: flex;
+    padding: 20px 40px 36px 40px;
   }
 
   .rules {
-    padding: 20px 67px 20px 40px;
-    background: linear-gradient(
-      90deg,
-      rgba(53, 159, 161, 0.48) 0.23%,
-      rgba(53, 159, 161, 0.36) 100%
-    );
-    border: 2px solid #359fa1;
-    border-right: none;
+    background: #91EA6D;
+    border-radius: 10px;
+    overflow: hidden;
   }
   .rules__head {
     font-weight: 500;
     font-size: 24px;
     line-height: 36px;
     color: #032b01;
+    background: #6DB94F;
+    padding: 23px 32px;
   }
   .rules__items {
     display: flex;
     justify-content: space-between;
     width: 100%;
     max-width: 653px;
-    margin-top: 16px;
+    margin-top: 28px;
+    padding: 0 32px;
   }
   .rules__item {
     padding: 16px 50px 26px 50px;
@@ -180,12 +177,8 @@ import ButtonRight from "../buttons/ButtonRight.svelte";
 
   .column-left {
     width: 100%;
-    max-width: 760px;
   }
-  .column-right {
-    width: 100%;
-    max-width: 520px;
-  }
+
   .green {
     color: #359fa1;
   }
@@ -195,7 +188,6 @@ import ButtonRight from "../buttons/ButtonRight.svelte";
     line-height: 54px;
   }
   .contribution__head {
-    padding: 20px 40px 36px 40px;
   }
   .contribution__footer {
     display: flex;
