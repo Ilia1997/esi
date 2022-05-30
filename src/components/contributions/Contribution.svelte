@@ -1,6 +1,6 @@
 <script>
   import Form from "./Form.svelte";
-  import { incrementStep, contributionData } from "../../stores/store";
+  import { incrementStep, contributionData, headSteps } from "../../stores/store";
   import { beforeUpdate,  onDestroy } from "svelte";
   import Rules from "./Rules.svelte";
 import ButtonRight from "../buttons/ButtonRight.svelte";
@@ -8,11 +8,9 @@ import ButtonRight from "../buttons/ButtonRight.svelte";
   let amountErrorMessage = 'Error message',
       amountErrorMessageState = false;
   function changeStep() {
-    console.log('here click')
     if (validateAmount()) {
-      console.log('here')
+      $headSteps.secondStep = true;
       if (changeCounter === 0) {
-        console.log('here', changeCounter)
         incrementStep();
         changeCounter += 1;
       }
@@ -41,11 +39,11 @@ import ButtonRight from "../buttons/ButtonRight.svelte";
     // if period monthly - set current value
     if (data.period === "Monthly") {
       moVal = data.amount;
-      $contributionData.monthlyValue = data.amount;
+      $contributionData.monthlyValue = moVal;
       // if bi-monthly - divide value into two
     } else if (data.period === "Bi-Monthly") {
-      moVal = data.amount / 2;
-      $contributionData.monthlyValue = data.amount / 2;
+      moVal = data.amount * 2;
+      $contributionData.monthlyValue = moVal;
     }
     yrVal = moVal * 12;
     fiveYrVal = yrVal * 5;
@@ -69,27 +67,30 @@ import ButtonRight from "../buttons/ButtonRight.svelte";
               Your <span>Green</span>
               Contribution
             </div>
-            <div class="rules__val">
+            <div class="rules__val__wrapper">   <div class="rules__val">
               {data.currencySymbol}{moVal ? moVal : 0}<span>/mo</span
               >
-            </div>
+            </div></div>
+         
           </div>
           <div class="rules__item center">
             <div class="rules_text">
               Annual <span>Green</span> Conversion
             </div>
-            <div class="rules__val">
+            <div class="rules__val__wrapper">            <div class="rules__val">
               {data.currencySymbol}{yrVal}<span>/yr</span>
-            </div>
+            </div></div>
+
           </div>
           <div class="rules__item">
             <div class="rules_text">
               <span>Green</span>
               Saving Projection
             </div>
-            <div class="rules__val">
+            <div class="rules__val__wrapper">            <div class="rules__val">
               {data.currencySymbol}{fiveYrVal}<span>/5yrs</span>
-            </div>
+            </div></div>
+
           </div>
         </div>
         <Rules />
@@ -116,19 +117,21 @@ import ButtonRight from "../buttons/ButtonRight.svelte";
 
   .contribution__main {
     display: flex;
+    width: 100%;
     padding: 20px 40px 36px 40px;
   }
 
   .rules {
     background: #91EA6D;
     border-radius: 10px;
+    margin-top: 36px;
     overflow: hidden;
   }
   .rules__head {
     font-weight: 500;
     font-size: 24px;
     line-height: 36px;
-    color: #032b01;
+    color: #fff;
     background: #6DB94F;
     padding: 23px 32px;
   }
@@ -164,7 +167,15 @@ import ButtonRight from "../buttons/ButtonRight.svelte";
   .rules_text span {
     color: #fff;
   }
+  .rules__val__wrapper{
+    height: 54px;
+    width: 135px;
+    position: relative;
+  }
   .rules__val {
+    position: absolute;
+    top: 0;
+    left: 0;
     font-weight: 500;
     font-size: 36px;
     line-height: 54px;
@@ -187,10 +198,11 @@ import ButtonRight from "../buttons/ButtonRight.svelte";
     font-size: 36px;
     line-height: 54px;
   }
-  .contribution__head {
-  }
+
   .contribution__footer {
+    margin: 56px 0 0 0 ;
     display: flex;
+    justify-content: flex-end;
     position: relative;
   }
 </style>

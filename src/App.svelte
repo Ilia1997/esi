@@ -7,7 +7,6 @@
   let stepCountValue;
   const unsubscribe = stepCounter.subscribe(value => {
 		stepCountValue = value;
-    console.log(value)
 	});
   onDestroy(unsubscribe)
 </script>
@@ -46,20 +45,5 @@
     backdrop-filter: blur(5px);
     border-radius: 0px 0px 10px 10px;
   }
-  .column-left {
-    width: 100%;
-    max-width: 760px;
-  }
-  .column-right {
-    width: 100%;
-    max-width: 520px;
-  }
-  .green {
-    color: #359fa1;
-  }
-  h2 {
-    font-weight: 500;
-    font-size: 36px;
-    line-height: 54px;
-  }
+
 </style>

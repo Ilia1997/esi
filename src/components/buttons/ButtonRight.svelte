@@ -1,5 +1,4 @@
 <button class="btn" on:click>
-  Next
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width="14"
@@ -16,12 +15,15 @@
 
 <style>
   .btn {
+    width: 142px;
+    height: 66px;
+    display: flex;
+    justify-content: center;
     background: rgba(0, 110, 255, 0.1);
     border: 1px solid #006eff;
     color: #0085ff;
   }
   .btn svg {
-    margin-left: 10px;
   }
   .btn:hover {
     background: #006eff;

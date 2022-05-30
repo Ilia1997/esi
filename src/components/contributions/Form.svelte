@@ -1,11 +1,21 @@
 <script>
-   import {contributionData} from '../../stores/store'
+  import { contributionData } from "../../stores/store";
+  import {afterUpdate} from 'svelte'
   let currentPeriod = "Monthly";
   let currentCurrency = "USD";
   let activePeriod = false;
   let activeCurrency = false;
   let periods = ["Monthly", "Bi-Monthly"];
   let currencys = ["USD", "EUR", "CAD", "CHF", "GBP", "JPY"];
+
+
+  let nextPaymentDay = 1;
+  const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+  let currentMonthIndex =  new Date().getMonth();
+  let currentDay = new Date().getDate()
+  let paymentMounthIndex = currentMonthIndex + 1
+  $: nextPaymentMonth =  months[paymentMounthIndex];
+
 
   let currencySymbols = {
     USD: "$",
@@ -15,26 +25,36 @@
     GBP: "£",
     JPY: "¥",
   };
-
+  afterUpdate(()=>{
+    // if period bi-monthly set next payment day and payment mounth
+    if( $contributionData.period === "Bi-Monthly"){
+      if(currentDay < 15){
+        paymentMounthIndex = currentMonthIndex;
+        nextPaymentDay = 15;
+      }else if(currentDay >= 15){
+        paymentMounthIndex = currentMonthIndex + 1;
+        nextPaymentDay = 1;
+      }
+   }else {
+    paymentMounthIndex = currentMonthIndex + 1;
+    nextPaymentDay = 1;
+   }
+  })
   function setPeriod(value) {
     currentPeriod = value;
     // set data to our store
-    $contributionData.period = value
-    
+    $contributionData.period = value;
   }
   function showCurrency(value) {
     currentCurrency = value;
     // set data to our store
-    $contributionData.currency = value
-    $contributionData.currencySymbol = currencySymbols[value]
+    $contributionData.currency = value;
+    $contributionData.currencySymbol = currencySymbols[value];
   }
-
-
-
 </script>
 
 <div class="contribution__form">
-  <form  on:submit|preventDefault>
+  <form on:submit|preventDefault>
     <div class="period">
       <div class="label__text">Period*</div>
       <div class="dropdown__wrapper">
@@ -103,7 +123,21 @@
 
     <div class="amount">
       <label class="label__text" for="amount">Amount*</label>
-      <input type="number" bind:value={$contributionData.amount} min="20" max="9999" maxlength="4" onKeyPress="if(this.value.length==4) return false;"/>
+      <input
+        type="number"
+        bind:value={$contributionData.amount}
+        on:mousewheel={(e)=>{e.target.blur()}}
+        min="20"
+        max="9999"
+        maxlength="4"
+        onKeyPress="if(this.value.length==4) return false;"
+      />
+    </div>
+    <div class="next__payment">
+      *The next payment will be on the <span class="payment__day"
+        >{nextPaymentDay}st</span
+      >
+      of the <span>{nextPaymentMonth}</span>
     </div>
   </form>
   <div class="contribution__help--text">
@@ -111,10 +145,10 @@
   </div>
 </div>
 
-
 <style>
   .contribution__form form {
     display: flex;
+    align-items: flex-end;
     margin-top: 14px;
   }
   .currency {
@@ -160,6 +194,20 @@
     line-height: 24px;
     color: #053900;
     margin-top: 24px;
+  }
+  .next__payment {
+    max-width: 266px;
+    margin: 0 0 10px 47px;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    color: #053900;
+  }
+  .next__payment span {
+    font-weight: 500;
+  }
+  .payment__day {
+    font-size: 20px;
   }
   .dropdown__wrapper {
     position: relative;

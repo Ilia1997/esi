@@ -1,16 +1,18 @@
 <script>
-  import { incrementStep, plansModalState  } from "../../stores/store";
+  import { incrementStep,decrementStep, plansModalState  } from "../../stores/store";
   import PlanHead from "./PlanHead.svelte";
   import ButtonLeft from "../buttons/ButtonLeft.svelte";
   import ButtonRight from "../buttons/ButtonRight.svelte";
   import PlanItems from "./PlanItems.svelte";
   import PlanModal from "./PlanModal.svelte";
-  let changeCounter = 0;
-  function changeStep() {
-    if (changeCounter === 0) {
-      incrementStep();
-      changeCounter += 1;
-    }
+  let prevStep = ()=>{
+    decrementStep()
+  }
+  let nextStep = () => {
+
+  }
+  let validate = () =>{
+
   }
 </script>
 
@@ -63,8 +65,8 @@
     <div class="subscribe__text">Subscribe to All Plan</div>
   </div>
   <div class="bottom__btns">
-    <ButtonLeft />
-    <ButtonRight />
+    <ButtonLeft on:click={prevStep}/>
+    <ButtonRight on:click={nextStep}/>
   </div>
 </div>
 
