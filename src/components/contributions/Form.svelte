@@ -1,8 +1,6 @@
 <script>
   import { contributionData } from "../../stores/store";
   import {afterUpdate} from 'svelte'
-  let currentPeriod = "Monthly";
-  let currentCurrency = "USD";
   let activePeriod = false;
   let activeCurrency = false;
   let periods = ["Monthly", "Bi-Monthly"];
@@ -41,12 +39,10 @@
    }
   })
   function setPeriod(value) {
-    currentPeriod = value;
     // set data to our store
     $contributionData.period = value;
   }
   function showCurrency(value) {
-    currentCurrency = value;
     // set data to our store
     $contributionData.currency = value;
     $contributionData.currencySymbol = currencySymbols[value];
@@ -75,7 +71,7 @@
               fill="#032B01"
             />
           </svg>
-          <div class="dropdown__item--current">{currentPeriod}</div>
+          <div class="dropdown__item--current">{$contributionData.period}</div>
           <div class="dropdown__items">
             {#each periods as period}
               <div class="dropdown__item" on:click={() => setPeriod(period)}>
@@ -106,7 +102,7 @@
               fill="#032B01"
             />
           </svg>
-          <div class="dropdown__item--current">{currentCurrency}</div>
+          <div class="dropdown__item--current">{$contributionData.currency}</div>
           <div class="dropdown__items">
             {#each currencys as currency}
               <div

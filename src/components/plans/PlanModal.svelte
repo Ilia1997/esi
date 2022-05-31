@@ -66,13 +66,13 @@
     opacity: 0.5;
   }
   .pop_up.save {
-    background: #006eff;
+    background: #006EFF;
   }
   .pop_up.adventure {
-    background: #51764e;
+    background: #6DB94F;
   }
   .pop_up.founder {
-    background: #5e0bc9;
+    background: #5E0BC9;
   }
 
   .content {

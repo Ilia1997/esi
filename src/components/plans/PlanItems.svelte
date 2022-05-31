@@ -1,26 +1,53 @@
 <script>
-  import { beforeUpdate } from "svelte";
-  import { contributionData, allocatedContributions, plansModalState, plansModalData } from "../../stores/store";
+  import { beforeUpdate, afterUpdate } from "svelte";
+  import {
+    contributionData,
+    allocatedContributions,
+    plansModalState,
+    plansModalData,
+    sortPersantageVariable,
+    planData,
+    firstClickedDropdown,
+    subscribeAllState
+  } from "../../stores/store";
   import PlanBtn from "./PlanBtn.svelte";
 
-  let savePercentages = [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100];
+  let savePercentages;
+  $: savePercentages;
+
+  savePercentages = [...planData];
 
   let safePrice = 0,
     adventurePrice = 0,
     founderPrice = 0;
-    
+
   beforeUpdate(() => {
-    if ($allocatedContributions.save === undefined) {
-      $allocatedContributions.save = 0;
-    }
     safePrice =
-      ($allocatedContributions.save * $contributionData.monthlyValue) / 100;
+      ($allocatedContributions.safe * $contributionData.monthlyValue) / 100;
     adventurePrice =
       ($allocatedContributions.adventure * $contributionData.monthlyValue) /
       100;
     founderPrice =
       ($allocatedContributions.founder * $contributionData.monthlyValue) / 100;
+
+    // set allow point to dropdown
+    switch ($sortPersantageVariable) {
+      case "all":
+        savePercentages = [...planData];
+        break;
+      case "fourth":
+        savePercentages = planData.map((n) =>
+          n.sortName === "third" ? { ...n, visibility: !n.visibility } : n
+        );
+        break;
+      case "third":
+        savePercentages = planData.map((n) =>
+          n.sortName === "fourth" ? { ...n, visibility: !n.visibility } : n
+        );
+        break;
+    }
   });
+  afterUpdate(() => {});
 
   let savePlan = "save",
     advPlan = "adv",
@@ -32,60 +59,96 @@
 
   $: allowPercentageVal =
     100 -
-    $allocatedContributions.save -
+    $allocatedContributions.safe -
     $allocatedContributions.adventure -
     $allocatedContributions.founder;
 
   function setPercentage(item, plan) {
+    $sortPersantageVariable = item.sortName;
+    $subscribeAllState = false;
     switch (plan) {
       case "save":
-        $allocatedContributions.save = item;
+        $allocatedContributions.safe = item.persentage;
+        $allocatedContributions.safeName = item.value;
         break;
       case "adv":
-        $allocatedContributions.adventure = item;
+        $allocatedContributions.adventure = item.persentage;
+        $allocatedContributions.adventureName = item.value;
         break;
       case "found":
-        $allocatedContributions.founder = item;
+        $allocatedContributions.founder = item.persentage;
+        $allocatedContributions.founderName = item.value;
         break;
       default:
         console.log("Error");
     }
   }
 
-  function showModal(plan){
+  function showModal(plan) {
     switch (plan) {
       case "save":
-      $plansModalData.class = 'save';
-      $plansModalData.name = 'Green Safe';
-      $plansModalData.desc=  'Safe as a bank account. This fund invests exclusively in green bonds and is the perfect option for Green Savers who want to be sure their funds are secure. The Green Safe plan involves a commitment to institutional and governmental bonds and enables subscribers to have a global, national, and local impact.';
-      $plansModalData.lottie = "https://uploads-ssl.webflow.com/627ca4b5fcfd5674acf264e6/6281f1b9694dfd538fae0ee3_Safe.json";
+        $plansModalData.class = "save";
+        $plansModalData.name = "Green Safe";
+        $plansModalData.desc =
+          "Safe as a bank account. This fund invests exclusively in green bonds and is the perfect option for Green Savers who want to be sure their funds are secure. The Green Safe plan involves a commitment to institutional and governmental bonds and enables subscribers to have a global, national, and local impact.";
+        $plansModalData.lottie =
+          "https://uploads-ssl.webflow.com/627ca4b5fcfd5674acf264e6/6281f1b9694dfd538fae0ee3_Safe.json";
         break;
       case "adv":
-      $plansModalData.class = 'adventure';
-      $plansModalData.name = 'Green Adventure';
-      $plansModalData.desc=  'A growth fund with more risks and more rewards. The Green Adventure plan is for Green Savers who want to put their funds toward ventures that have a significantly more direct impact on mitigating climate change and are devoted to creating and developing green businesses around the world. The plan also includes investments in green equities to reward companies that already make a difference and an activism investment fund for pressuring companies to become green.';
-      $plansModalData.lottie = "https://uploads-ssl.webflow.com/627ca4b5fcfd5674acf264e6/628203b9fca88d2dde5b697f_Adventure.json";
+        $plansModalData.class = "adventure";
+        $plansModalData.name = "Green Adventure";
+        $plansModalData.desc =
+          "A growth fund with more risks and more rewards. The Green Adventure plan is for Green Savers who want to put their funds toward ventures that have a significantly more direct impact on mitigating climate change and are devoted to creating and developing green businesses around the world. The plan also includes investments in green equities to reward companies that already make a difference and an activism investment fund for pressuring companies to become green.";
+        $plansModalData.lottie =
+          "https://uploads-ssl.webflow.com/627ca4b5fcfd5674acf264e6/628203b9fca88d2dde5b697f_Adventure.json";
         break;
       case "found":
-      $plansModalData.class = 'founder';
-      $plansModalData.name = 'Green Change';
-      $plansModalData.desc=  'The ESi future is green, and we want YOU to be part of it. Becoming a founder Green Saver involves owning part of ESi. This option is limited to a predetermined target, and you will own a portion of ESi based on your contribution up to a collective 35% of ESi capital. Our vision is to create a sustainable green finance ecosystem making ethical green investing accessible. Collectively, we plan to become the most prominent green investor and green financial product provider.';
-      $plansModalData.lottie = "https://uploads-ssl.webflow.com/627ca4b5fcfd5674acf264e6/628203e11d51fd22eede66f3_Founder.json";
+        $plansModalData.class = "founder";
+        $plansModalData.name = "Green Change";
+        $plansModalData.desc =
+          "The ESi future is green, and we want YOU to be part of it. Becoming a founder Green Saver involves owning part of ESi. This option is limited to a predetermined target, and you will own a portion of ESi based on your contribution up to a collective 35% of ESi capital. Our vision is to create a sustainable green finance ecosystem making ethical green investing accessible. Collectively, we plan to become the most prominent green investor and green financial product provider.";
+        $plansModalData.lottie =
+          "https://uploads-ssl.webflow.com/627ca4b5fcfd5674acf264e6/628203e11d51fd22eede66f3_Founder.json";
         break;
       default:
         console.log("Error");
     }
-    $plansModalState = true
-    }
+    $plansModalState = true;
+  }
+  function setFirstClikedItem(name) {
+    // switch (name){
+    //   case'save':
+    //   if($allocatedContributions.safe === 0 && $allocatedContributions.founder + $allocatedContributions.adventure < 1){
+    //    $firstClickedDropdown.safe = true;
+    //    console.log($firstClickedDropdown)
+    //   }else if ($allocatedContributions.safe === 0 &&  $allocatedContributions.founder + $allocatedContributions.adventure < 1 && sortPersantageVariable === 'all'){
+    //     $firstClickedDropdown.safe = false;
+    //    console.log($firstClickedDropdown)
+    //   }
+    //   break
+    // }
+  }
 </script>
 
 <div class="plans__items">
   <div class="plans__item save">
     <div class="item__head">
       <div class="column">
+        <img
+          class="plan__icon"
+          src="https://uploads-ssl.webflow.com/627ca4b5fcfd5674acf264e6/627e4841370604453befc5d7_green.svg"
+          alt=""
+        />
+
+        <div class="item__head__name">Select GREEN SAFE</div>
+      </div>
+      <div class="column">
+        <!-- <div class="current__value">
+          {$contributionData.currencySymbol + safePrice}
+        </div> -->
         <div class="item__head__checkbox">
           <svg
-            class:visible={$allocatedContributions.save != 0}
+            class:visible={$allocatedContributions.safe != 0}
             xmlns="http://www.w3.org/2000/svg"
             width="20"
             height="20"
@@ -111,19 +174,16 @@
             </defs>
           </svg>
         </div>
-        <div class="item__head__name">GREEN SAFE</div>
-      </div>
-      <div class="column">
-        <div class="current__value">
-          {$contributionData.currencySymbol + safePrice}
-        </div>
       </div>
     </div>
     <div class="item__body">
       <div>
         <div class="item__top">
           <div class="item__top__head">You contribute to Green Safe</div>
-          <div class="dropdown__wrapper">
+          <div
+            class="dropdown__wrapper"
+            on:click={() => setFirstClikedItem(savePlan)}
+          >
             <div
               class="dropdown"
               class:activeDropdownSave
@@ -142,24 +202,30 @@
                 />
               </svg>
               <div class="dropdown__item--current">
-                {$allocatedContributions.save}%
+                {$allocatedContributions.safeName}
               </div>
               <div class="dropdown__items">
                 {#each savePercentages as item}
                   <div
                     class="dropdown__item"
-                    class:disabled={item > allowPercentageVal &&
-                      allowPercentageVal + $allocatedContributions.save < item}
+                    class:disabled={!item.visibility ||
+                      (item.persentage > allowPercentageVal &&
+                        allowPercentageVal + $allocatedContributions.safe <
+                          item.persentage)}
                     on:click={() => setPercentage(item, savePlan)}
                   >
-                    {item}%
+                    {item.value}
                   </div>
                 {/each}
               </div>
             </div>
           </div>
-          <div class="item__current__money">
-            {$contributionData.currencySymbol + safePrice}
+          <div class="item__current__money safe">
+            <div class="percents">{$allocatedContributions.safe}%</div>
+            <div class="money">
+              {$contributionData.currencySymbol + Math.round(safePrice)}
+            </div>
+            
           </div>
         </div>
         <div class="portfolio">
@@ -173,13 +239,28 @@
             *depending on availability and contribution size
           </div>
         </div>
-        <PlanBtn content={"Green Safe info"} className={"blue"} on:click={()=>showModal(savePlan)}/>
+        <PlanBtn
+          content={"Green Safe info"}
+          className={"blue"}
+          on:click={() => showModal(savePlan)}
+        />
       </div>
     </div>
   </div>
   <div class="plans__item adventure">
     <div class="item__head">
       <div class="column">
+        <img
+          src="https://uploads-ssl.webflow.com/627ca4b5fcfd5674acf264e6/627e4bde122aa36a24438411_tab-icon-02.svg"
+          alt=""
+          class="plan__icon"
+        />
+        <div class="item__head__name">Select GREEN Adventure</div>
+      </div>
+      <div class="column">
+        <!-- <div class="current__value">
+          {$contributionData.currencySymbol + adventurePrice}
+        </div> -->
         <div class="item__head__checkbox">
           <svg
             class:visible={$allocatedContributions.adventure != 0}
@@ -208,12 +289,6 @@
             </defs>
           </svg>
         </div>
-        <div class="item__head__name">GREEN Adventure</div>
-      </div>
-      <div class="column">
-        <div class="current__value">
-          {$contributionData.currencySymbol + adventurePrice}
-        </div>
       </div>
     </div>
     <div class="item__body">
@@ -239,25 +314,29 @@
                 />
               </svg>
               <div class="dropdown__item--current">
-                {$allocatedContributions.adventure}%
+                {$allocatedContributions.adventureName}
               </div>
               <div class="dropdown__items">
                 {#each savePercentages as item}
                   <div
                     class="dropdown__item"
-                    class:disabled={item > allowPercentageVal &&
-                      allowPercentageVal + $allocatedContributions.adventure <
-                        item}
+                    class:disabled={!item.visibility ||
+                      (item.persentage > allowPercentageVal &&
+                        allowPercentageVal + $allocatedContributions.adventure <
+                          item.persentage)}
                     on:click={() => setPercentage(item, advPlan)}
                   >
-                    {item}%
+                    {item.value}
                   </div>
                 {/each}
               </div>
             </div>
           </div>
-          <div class="item__current__money">
-            {$contributionData.currencySymbol + adventurePrice}
+          <div class="item__current__money adventure">
+            <div class="percents">{$allocatedContributions.adventure}%</div>
+            <div class="money">
+              {$contributionData.currencySymbol + Math.round(adventurePrice)}
+            </div>
           </div>
         </div>
         <div class="portfolio">
@@ -269,13 +348,28 @@
           </ul>
           <div class="portfolio__heler" />
         </div>
-        <PlanBtn content={"Green Adventure info"} className={"green"} on:click={()=>showModal(advPlan)}/>
+        <PlanBtn
+          content={"Green Adventure info"}
+          className={"green"}
+          on:click={() => showModal(advPlan)}
+        />
       </div>
     </div>
   </div>
   <div class="plans__item founder">
     <div class="item__head">
       <div class="column">
+        <img
+          src="https://uploads-ssl.webflow.com/627ca4b5fcfd5674acf264e6/627e4be882a78868831022d1_founder.svg"
+          alt=""
+          class="plan__icon"
+        />
+        <div class="item__head__name">Green Founder</div>
+      </div>
+      <div class="column">
+        <!-- <div class="current__value">
+          {$contributionData.currencySymbol + founderPrice}
+        </div> -->
         <div class="item__head__checkbox">
           <svg
             class:visible={$allocatedContributions.founder != 0}
@@ -304,12 +398,6 @@
             </defs>
           </svg>
         </div>
-        <div class="item__head__name">Green Founder</div>
-      </div>
-      <div class="column">
-        <div class="current__value">
-          {$contributionData.currencySymbol + founderPrice}
-        </div>
       </div>
     </div>
     <div class="item__body">
@@ -335,25 +423,31 @@
                 />
               </svg>
               <div class="dropdown__item--current">
-                {$allocatedContributions.founder}%
+                {$allocatedContributions.founderName}
               </div>
               <div class="dropdown__items">
                 {#each savePercentages as item}
                   <div
                     class="dropdown__item"
-                    class:disabled={item > allowPercentageVal &&
-                      allowPercentageVal + $allocatedContributions.founder <
-                        item}
-                    on:click={() => setPercentage(item, foundPlan)}
+                    class:disabled={!item.visibility ||
+                      (item.persentage > allowPercentageVal &&
+                        allowPercentageVal + $allocatedContributions.founder <
+                          item.persentage)}
+                    on:click={() => {
+                      setPercentage(item, foundPlan);
+                    }}
                   >
-                    {item}%
+                    {item.value}
                   </div>
                 {/each}
               </div>
             </div>
           </div>
-          <div class="item__current__money">
-            {$contributionData.currencySymbol + founderPrice}
+          <div class="item__current__money founder">
+            <div class="percents">{$allocatedContributions.founder}%</div>
+            <div class="money">
+              {$contributionData.currencySymbol + Math.round(founderPrice)}
+            </div>
           </div>
         </div>
         <div class="portfolio">
@@ -365,7 +459,11 @@
             *Limited offer of 150K shares at 20$ per share for 35% equity stake
           </div>
         </div>
-        <PlanBtn content={"Green Founder info"} className={"violet"} on:click={()=>showModal(foundPlan)}/>
+        <PlanBtn
+          content={"Green Founder info"}
+          className={"violet"}
+          on:click={() => showModal(foundPlan)}
+        />
       </div>
     </div>
   </div>
@@ -375,15 +473,22 @@
   .plans__items {
     margin-top: 16px;
     display: flex;
+    align-items: center;
   }
   .plans__item {
     width: 100%;
     max-width: 387px;
+    border-radius: 6px;
+    overflow: hidden;
+  }
+  .plan__icon {
+    width: 38px;
+    height: 38px;
   }
   .plans__item .item__head {
     display: flex;
     justify-content: space-between;
-    padding: 18px 34px 18px 40px;
+    padding: 11px 34px 11px 24px;
   }
   .plans__item.save .item__head {
     background: #338df3;
@@ -447,6 +552,7 @@
   }
   .item__head .column {
     display: flex;
+    align-items: center;
   }
   .item__top {
     padding: 32px 43px 24px 43px;
@@ -456,15 +562,35 @@
     padding: 10px;
   }
   .item__current__money {
-    background: #f5f5f5;
-    border: 1px solid #dddddd;
     border-radius: 10px;
     width: 100%;
     height: 70px;
     color: #000;
     padding: 23px 30px;
     margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
+  .item__current__money .percents {
+    color: #ffffff;
+  }
+  .item__current__money .money {
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 30px;
+    color: #ffffff;
+  }
+  .item__current__money.safe {
+    background: #338df3;
+  }
+  .item__current__money.adventure {
+    background: #6cc800;
+  }
+  .item__current__money.founder {
+    background: #8336e4;
+  }
+  /* founder   #6CC800*/
 
   .portfolio {
     padding: 32px 20px 40px 43px;
