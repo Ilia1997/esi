@@ -20,13 +20,6 @@
   function subscribeAllPlans (){
 
 
-    // safe: 0,
-    // safeName: "0 of Total Contribution",
-    // adventure: 0,
-    // adventureName: "0 of Total Contribution",
-    // founder: 0,
-    // founderName: "0 of Total Contribution",
-
     if(!$subscribeAllState){
       $allocatedContributions.safe = 33.33;
       $allocatedContributions.safeName=  "1/3 of Total Contribution";
@@ -163,8 +156,9 @@
 
   .green {
     color: #6cc800;
+
   }
-  h2 {
+  h2, .green {
     font-weight: 500;
     font-size: 24px;
     line-height: 36px;

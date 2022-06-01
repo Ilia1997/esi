@@ -44,7 +44,6 @@
     line-height: 24px;
     color: #032b01;
   }
-
   .contribution__right ul {
     padding-left: 20px;
     font-weight: 400;

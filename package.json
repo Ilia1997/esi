@@ -19,6 +19,7 @@
   },
   "dependencies": {
     "@lottiefiles/svelte-lottie-player": "^0.2.0",
+    "intl-tel-input": "^17.0.16",
     "sirv-cli": "^2.0.0"
   }
 }

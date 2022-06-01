@@ -143,9 +143,6 @@
         <div class="item__head__name">Select GREEN SAFE</div>
       </div>
       <div class="column">
-        <!-- <div class="current__value">
-          {$contributionData.currencySymbol + safePrice}
-        </div> -->
         <div class="item__head__checkbox">
           <svg
             class:visible={$allocatedContributions.safe != 0}
@@ -225,7 +222,6 @@
             <div class="money">
               {$contributionData.currencySymbol + Math.round(safePrice)}
             </div>
-            
           </div>
         </div>
         <div class="portfolio">
@@ -258,9 +254,6 @@
         <div class="item__head__name">Select GREEN Adventure</div>
       </div>
       <div class="column">
-        <!-- <div class="current__value">
-          {$contributionData.currencySymbol + adventurePrice}
-        </div> -->
         <div class="item__head__checkbox">
           <svg
             class:visible={$allocatedContributions.adventure != 0}
