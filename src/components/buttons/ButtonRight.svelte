@@ -1,4 +1,8 @@
-<button class="btn" on:click>
+<script>
+  export let buttonState = true;
+</script>
+
+<button class="btn" on:click disabled={!buttonState}>
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width="14"
@@ -14,6 +18,14 @@
 </button>
 
 <style>
+  button:disabled {
+    background: rgba(182, 182, 182, 0.2);
+    border: 1px solid #6a6a6a;
+    pointer-events: none;
+  }
+  button:disabled svg path {
+    fill: #6a6a6a;
+  }
   .btn {
     width: 142px;
     height: 66px;
@@ -29,8 +41,8 @@
     background: #006eff;
     color: #fff;
   }
-  .btn:hover svg path{
-    fill: #fff
+  .btn:hover svg path {
+    fill: #fff;
   }
   .btn:active {
     background: rgba(0, 110, 255, 0.2);

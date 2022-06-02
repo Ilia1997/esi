@@ -1,5 +1,5 @@
 <script>
-    import {  contributionData } from "../../stores/store";
+    import {  contributionData } from "../../stores/contributionsStore";
     import { onDestroy } from 'svelte';
     let data;
     const unsubscribe = contributionData.subscribe((value) => {

@@ -1,5 +1,5 @@
 <script>
-  import { contributionData } from "../../stores/store";
+  import { contributionData } from "../../stores/contributionsStore";
   import {afterUpdate} from 'svelte'
   let activePeriod = false;
   let activeCurrency = false;

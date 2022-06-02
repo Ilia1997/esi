@@ -20,13 +20,15 @@ body {
   padding: 0px;
   font-family: "Poppins", sans-serif;
 }
-h2 {
+h2, .green {
   font-weight: 500;
   font-size: 36px;
   line-height: 54px;
   color: #032b01;
-
 }
+
+
+
 p {
   font-weight: 400;
   font-size: 14px;
@@ -48,7 +50,7 @@ p {
   background: #FFFFFF;
 border: 1px solid #DDDDDD;
 border-radius: 10px;
-padding: 23px 30px;
+padding: 22px 30px;
 width: 100%;
 }
 .iti {

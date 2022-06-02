@@ -1,14 +1,23 @@
 <script>
-  import { incrementStep,decrementStep, plansModalState, allocatedContributions,  subscribeAllState } from "../../stores/store";
+  import { headSteps, incrementStep, decrementStep, plansModalState, subscribeAllState } from "../../stores/store";
+  import { allocatedContributions} from "../../stores/contributionsStore";
   import PlanHead from "./PlanHead.svelte";
   import ButtonLeft from "../buttons/ButtonLeft.svelte";
   import ButtonRight from "../buttons/ButtonRight.svelte";
   import PlanItems from "./PlanItems.svelte";
   import PlanModal from "./PlanModal.svelte";
+
+  let changeCounter = 0;
+
   let prevStep = ()=>{
     decrementStep()
   }
   let nextStep = () => {
+    $headSteps.thirdStep = true;
+      if (changeCounter === 0) {
+        incrementStep();
+        changeCounter += 1;
+      }
 
   }
   let validate = () =>{
@@ -105,12 +114,9 @@
 </div>
 
 <style>
-  .bottom__btns {
-    margin-top: 32px;
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-  }
+.green {
+  color: #359fa1;
+}
   .subscribe__all {
     display: flex;
     cursor: pointer;
@@ -150,17 +156,7 @@
   }
 
   .plans__main {
-    padding: 40px;
     width: 100%;
   }
 
-  .green {
-    color: #6cc800;
-
-  }
-  h2, .green {
-    font-weight: 500;
-    font-size: 24px;
-    line-height: 36px;
-  }
 </style>

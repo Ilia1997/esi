@@ -1,6 +1,7 @@
 <script>
   import Form from "./Form.svelte";
-  import { incrementStep, contributionData, headSteps } from "../../stores/store";
+  import { incrementStep,  headSteps } from "../../stores/store";
+  import {  contributionData } from "../../stores/contributionsStore";
   import { beforeUpdate,  onDestroy } from "svelte";
   import Rules from "./Rules.svelte";
 import ButtonRight from "../buttons/ButtonRight.svelte";
@@ -95,7 +96,7 @@ import ButtonRight from "../buttons/ButtonRight.svelte";
         </div>
         <Rules />
       </div>
-      <div class="contribution__footer">
+      <div class="step__footer">
           {#if amountErrorMessageState}
           <div class="error__message">{amountErrorMessage}</div>
           {/if}
@@ -113,12 +114,13 @@ import ButtonRight from "../buttons/ButtonRight.svelte";
     top: 50px;
     color: red;
 }
-
+.green {
+  color: #359fa1;
+}
 
   .contribution__main {
     display: flex;
     width: 100%;
-    padding: 20px 40px 36px 40px;
   }
 
   .rules {
@@ -190,16 +192,8 @@ import ButtonRight from "../buttons/ButtonRight.svelte";
     width: 100%;
   }
 
-  .green {
-    color: #359fa1;
-  }
-  h2 {
-    font-weight: 500;
-    font-size: 36px;
-    line-height: 54px;
-  }
 
-  .contribution__footer {
+  .step__footer{
     margin: 56px 0 0 0 ;
     display: flex;
     justify-content: flex-end;

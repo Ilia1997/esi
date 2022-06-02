@@ -28,8 +28,8 @@ function getIti(){
   <div class="tab__head">Contact</div>
   <div class="tab__subhead">Please put your legal Phone and Email</div>
   <div class="tab__form__fields">
-    <input type="tel" class="input" bind:this={input} />
-    <input type="email" class="input" placeholder="Email" />
+    <input type="tel" class="input" bind:this={input} autocomplete />
+    <input type="email" class="input" placeholder="Email" autocomplete/>
   </div>
 </div>
 

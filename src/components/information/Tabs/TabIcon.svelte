@@ -2,7 +2,7 @@
   import { beforeUpdate } from "svelte";
 
   export let categoryName;
-  import { allowItemIndex } from "../infoStore";
+  import { allowItemIndex } from "../../../stores/infoStore";
   let classNameContact = "",
     classNameAddress = "",
     classNamePass = "";

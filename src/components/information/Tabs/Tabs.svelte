@@ -2,6 +2,7 @@
 
     import TabIcon from './TabIcon.svelte'
     export let tabItems;
+
     
 
 </script>
@@ -10,7 +11,7 @@
     <ul>
         {#each tabItems as item, i}
             <li>
-                <div class="icon" >  <TabIcon categoryName={item} /> </div>
+                <div class="icon" >  <TabIcon categoryName={item.name} /> </div>
             </li>
         {/each}
     </ul>

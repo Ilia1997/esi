@@ -1,49 +1,79 @@
 <script>
   import { writable } from "svelte/store";
-   import NameForm from './TabForms/NameForm.svelte'
-   import ContactForm from './TabForms/ContactForm.svelte'
+  import NameForm from "./TabForms/NameForm.svelte";
+  import ContactForm from "./TabForms/ContactForm.svelte";
   import Tabs from "./Tabs/Tabs.svelte";
-  import AddressForm from './TabForms/AddressForm.svelte'
-  import { allowItemIndex } from "./infoStore";
-  let tabItems = ["Name", "Contacts", "Address", "Password"];
-  let activeItem = "Name";
+  import AddressForm from "./TabForms/AddressForm.svelte";
+  import PasswordForm from "./TabForms/PasswordForm.svelte";
+  import { allowItemIndex } from "../../stores/infoStore";
+  import {headSteps, decrementStep, incrementStep} from '../../stores/store'
+  import ButtonLeft from '../buttons/ButtonLeft.svelte'
+  import ButtonRight from '../buttons/ButtonRight.svelte'
+  let tabItems = [
+    { name: "Name", component: NameForm },
+    { name: "Contacts", component: ContactForm },
+    { name: "Address", component: AddressForm },
+    { name: "Password", component: PasswordForm },
+  ];
+
+  let formButtonText = "Next";
+  let activeItem = tabItems[0];
+  let changeCounter = 0;
+  let nextButtonState = false;
+
+  $: formButtonText, nextButtonState;
 
   function nextTab() {
     if ($allowItemIndex < 5) {
-      let index = tabItems.indexOf(activeItem);
+      let index = tabItems.findIndex((object) => {
+        return object.name === activeItem.name;
+      });
       if (index + 1 != tabItems.length) {
         activeItem = tabItems[index + 1];
         $allowItemIndex = $allowItemIndex + 1;
+        if (index + 1 === 3) {
+          formButtonText = "Save";
+          nextButtonState = true;
+        } else {
+          formButtonText = "Next";
+        }
       }
     }
   }
   function prevTab() {
     if ($allowItemIndex > 1) {
-      let index = tabItems.indexOf(activeItem);
+      let index = tabItems.findIndex((object) => {
+        return object.name === activeItem.name;
+      });
       if (index != 0) {
         activeItem = tabItems[index - 1];
         $allowItemIndex = $allowItemIndex - 1;
       }
     }
   }
+  let prevStep = ()=>{
+    decrementStep()
+  }
+  let nextStep = () => {
+    $headSteps.fourthStep = true;
+      if (changeCounter === 0) {
+        incrementStep();
+        changeCounter += 1;
+      }
+
+  }
 </script>
 
 <div class="main__wrapper">
   <div class="info__main">
-    <div class="main__head">
+    <h2 class="main__head">
       Personal <span class="green">Information</span>
-    </div>
+    </h2>
     <div class="main__tabs">
-      <Tabs {tabItems}  />
-      {#if activeItem === "Name"}
-       <NameForm />
-      {:else if activeItem === "Contacts"}
-        <ContactForm />
-      {:else if activeItem === "Address"}
-        <AddressForm />
-      {:else}
-        <p>This is a demo of Svelte</p>
-      {/if}
+      <form>
+        <Tabs {tabItems} />
+        <svelte:component this={activeItem.component}/>
+      </form>
     </div>
     <div class="buttons__wrapper">
       {#if $allowItemIndex > 1}
@@ -62,15 +92,19 @@
           </svg>Back</button
         >
       {/if}
-      <button class="btn next" on:click={nextTab}>Next</button>
+      <button class="btn next" on:click={nextTab}>{formButtonText}</button>
     </div>
+  </div>
+  <div class="bottom__btns">
+    <ButtonLeft on:click={prevStep}/>
+    <ButtonRight on:click={nextStep} buttonState={nextButtonState}/>
   </div>
 </div>
 
 <style>
   :global(.tab__wrapper) {
     text-align: center;
-    margin-bottom: 32px;
+    margin-bottom: 24px;
   }
   :global(.tab__head) {
     font-weight: 600;
@@ -88,7 +122,7 @@
     z-index: 3;
   }
   :global(.tab__form__fields .input::placeholder) {
-   color: #000000;
+    color: #000000;
   }
   :global(.tab__form__fields .input) {
     margin-bottom: 8px;
@@ -96,6 +130,7 @@
   :global(.tab__form__fields .input:last-child) {
     margin-bottom: 0px;
   }
+ 
 
   .buttons__wrapper {
     display: flex;
@@ -141,19 +176,16 @@
   }
   .main__wrapper {
     width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
   }
-  .main__head,
   .green {
-    font-weight: 500;
-    font-size: 36px;
-    line-height: 54px;
-    text-align: center;
-  }
-  .main__head .green {
-    color: #5b9c42;
-  }
+  color: #359fa1;
+}
   .info__main {
     max-width: 528px;
+    width: 100%;
     padding: 64px 20px 0 20px;
     margin: 0 auto;
   }

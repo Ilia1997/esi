@@ -1,8 +1,6 @@
 <script>
   import { beforeUpdate, afterUpdate } from "svelte";
   import {
-    contributionData,
-    allocatedContributions,
     plansModalState,
     plansModalData,
     sortPersantageVariable,
@@ -10,6 +8,10 @@
     firstClickedDropdown,
     subscribeAllState
   } from "../../stores/store";
+  import {
+    contributionData,
+    allocatedContributions,
+  } from "../../stores/contributionsStore";
   import PlanBtn from "./PlanBtn.svelte";
 
   let savePercentages;
@@ -116,17 +118,6 @@
     $plansModalState = true;
   }
   function setFirstClikedItem(name) {
-    // switch (name){
-    //   case'save':
-    //   if($allocatedContributions.safe === 0 && $allocatedContributions.founder + $allocatedContributions.adventure < 1){
-    //    $firstClickedDropdown.safe = true;
-    //    console.log($firstClickedDropdown)
-    //   }else if ($allocatedContributions.safe === 0 &&  $allocatedContributions.founder + $allocatedContributions.adventure < 1 && sortPersantageVariable === 'all'){
-    //     $firstClickedDropdown.safe = false;
-    //    console.log($firstClickedDropdown)
-    //   }
-    //   break
-    // }
   }
 </script>
 

@@ -4,6 +4,7 @@
   import HeadSteps from "./components/HeadSteps.svelte";
   import Plan from "./components/plans/Plan.svelte";
   import {stepCounter} from './stores/store'
+  import Legal  from './components/legal/Legal.svelte'
 import Information from "./components/information/Information.svelte";
   let stepCountValue;
   const unsubscribe = stepCounter.subscribe(value => {
@@ -20,17 +21,19 @@ import Information from "./components/information/Information.svelte";
       <Contribution /> 
       {:else if stepCountValue === 2 }
       <Plan />
-       {/if} -->
+      {:else if stepCountValue === 3 }
        <Information />
+       {/if} -->
+       <Legal />
+       
      
     </div>
-    {stepCountValue}
   </div>
 </main>
 
 <style>
   main {
-    padding: 50px 0;
+    padding: 50px 0 150px 0;
   }
   .container {
     max-width: 1360px;
@@ -47,6 +50,13 @@ import Information from "./components/information/Information.svelte";
       inset 0px 0px 35px rgba(255, 255, 255, 0.15);
     backdrop-filter: blur(5px);
     border-radius: 0px 0px 10px 10px;
+    padding: 40px;
+  }
+  :global(.bottom__btns) {
+    margin-top: 20px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
   }
 
 </style>
