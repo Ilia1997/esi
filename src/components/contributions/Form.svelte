@@ -1,19 +1,30 @@
 <script>
   import { contributionData } from "../../stores/contributionsStore";
-  import {afterUpdate} from 'svelte'
+  import { afterUpdate } from "svelte";
   let activePeriod = false;
   let activeCurrency = false;
   let periods = ["Monthly", "Bi-Monthly"];
   let currencys = ["USD", "EUR", "CAD", "CHF", "GBP", "JPY"];
 
-
   let nextPaymentDay = 1;
-  const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-  let currentMonthIndex =  new Date().getMonth();
-  let currentDay = new Date().getDate()
-  let paymentMounthIndex = currentMonthIndex + 1
-  $: nextPaymentMonth =  months[paymentMounthIndex];
-
+  const months = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+  let currentMonthIndex = new Date().getMonth();
+  let currentDay = new Date().getDate();
+  let paymentMounthIndex = currentMonthIndex + 1;
+  $: nextPaymentMonth = months[paymentMounthIndex];
 
   let currencySymbols = {
     USD: "$",
@@ -23,21 +34,21 @@
     GBP: "£",
     JPY: "¥",
   };
-  afterUpdate(()=>{
+  afterUpdate(() => {
     // if period bi-monthly set next payment day and payment mounth
-    if( $contributionData.period === "Bi-Monthly"){
-      if(currentDay < 15){
+    if ($contributionData.period === "Bi-Monthly") {
+      if (currentDay < 15) {
         paymentMounthIndex = currentMonthIndex;
         nextPaymentDay = 15;
-      }else if(currentDay >= 15){
+      } else if (currentDay >= 15) {
         paymentMounthIndex = currentMonthIndex + 1;
         nextPaymentDay = 1;
       }
-   }else {
-    paymentMounthIndex = currentMonthIndex + 1;
-    nextPaymentDay = 1;
-   }
-  })
+    } else {
+      paymentMounthIndex = currentMonthIndex + 1;
+      nextPaymentDay = 1;
+    }
+  });
   function setPeriod(value) {
     // set data to our store
     $contributionData.period = value;
@@ -102,7 +113,9 @@
               fill="#032B01"
             />
           </svg>
-          <div class="dropdown__item--current">{$contributionData.currency}</div>
+          <div class="dropdown__item--current">
+            {$contributionData.currency}
+          </div>
           <div class="dropdown__items">
             {#each currencys as currency}
               <div
@@ -122,7 +135,9 @@
       <input
         type="number"
         bind:value={$contributionData.amount}
-        on:mousewheel={(e)=>{e.target.blur()}}
+        on:mousewheel={(e) => {
+          e.target.blur();
+        }}
         min="20"
         max="9999"
         maxlength="4"
@@ -169,8 +184,6 @@
     border: 1px solid #dddddd;
     border-radius: 10px;
     padding: 12px 30px;
-    font-size: 16px;
-    line-height: 24px;
   }
   /* Chrome, Safari, Edge, Opera */
   .amount input::-webkit-outer-spin-button,
@@ -252,5 +265,58 @@
   .dropdown.activePeriod .dropdown__items,
   .dropdown.activeCurrency .dropdown__items {
     display: block;
+  }
+
+  @media only screen and (max-width: 991px) {
+    .next__payment {
+      display: none;
+    }
+    .contribution__form form {
+      flex-wrap: wrap;
+    }
+    .period,
+    .currency {
+      width: 49%;
+      margin: 0;
+    }
+    .period {
+      margin-right: 10px;
+    }
+    .dropdown__wrapper {
+      width: 100%;
+    }
+    .amount {
+      margin-top: 8px;
+    }
+    .amount,
+    .amount input {
+      width: 100%;
+    }
+    .contribution__help--text {
+      margin-top: 0;
+    }
+  }
+  @media only screen and (max-width: 768px) {
+    .label__text {
+      padding: 3px 10px;
+    }
+    .dropdown {
+      padding: 16px;
+    }
+    .dropdown svg{
+      top: 15px;
+    }
+    .amount input {
+      height: 50px;
+      padding: 12px 15px;
+    }
+    .contribution__help--text {
+      font-size: 10px;
+      line-height: 24px;
+    }
+    .period,
+    .currency {
+      width: 48%;
+    }
   }
 </style>

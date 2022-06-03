@@ -457,7 +457,7 @@
   .plans__items {
     margin-top: 16px;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
   }
   .plans__item {
     width: 100%;
@@ -679,4 +679,17 @@
   .dropdown.activeDropdownFound .dropdown__items {
     display: block;
   }
+
+@media only screen and (max-width: 1280px){
+  .item__top {
+    padding: 32px 20px 24px 20px;
+  }
+  .portfolio {
+    padding: 20px;
+  }
+  .dropdown__item--current, .dropdown__item, .item__head__name {
+    font-size: 14px;
+  }
+}
+
 </style>

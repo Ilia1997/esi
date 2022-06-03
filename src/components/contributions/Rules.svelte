@@ -49,7 +49,7 @@
     font-weight: 400;
     font-size: 14px;
     line-height: 24px;
-    color: #FFFFFF;
+    color: #ffffff;
   }
   .contribution__right ul li {
     margin-bottom: 22px;
@@ -64,5 +64,45 @@
     border: 1px solid #032b01;
     border-top-right-radius: 10px;
     border-bottom-right-radius: 10px;
+  }
+  @media only screen and (max-width: 991px) {
+    .contribution__right__head h2 {
+      font-size: 24px;
+      line-height: 36px;
+    }
+    .rules__list {
+      background: transparent;
+      border: none;
+      margin: 16px 0 0 0;
+      padding: 0;
+    }
+
+    .contribution__right__head {
+      padding: 0;
+    }
+    .contribution__right {
+      padding: 11px 25.17px 24px 21px;
+    }
+    .contribution__right ul {
+      color: #032b01;
+      font-size: 12px;
+      line-height: 16px;
+    }
+    .contribution__right ul li {
+      font-size: 12px;
+      line-height: 16px;
+      margin-bottom: 16px;
+  }
+  }
+  @media only screen and (max-width: 768px) {
+    .contribution__right__head h2 {
+      font-size: 16px;
+      line-height: 26px;
+    }
+    .contribution__right__head p {
+      font-size: 12px;
+      line-height: 16px;
+      margin-top: 10px;
+    }
   }
 </style>

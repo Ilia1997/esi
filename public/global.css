@@ -4,14 +4,15 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0px;
-  font-size: 16px;
-  line-height: 24px;
+
 }
 html,
 body {
   position: relative;
   width: 100%;
   height: 100%;
+  font-size: 16px;
+  line-height: 24px;
 }
 
 body {
@@ -71,5 +72,16 @@ width: 100%;
   .iti__flag {
     background-image: url("https://uploads-ssl.webflow.com/627ca4b5fcfd5674acf264e6/629773f0e6f94103f5901866_flags%402x.png") !important;
   }
+}
+@media only screen and (max-width: 768px){
+  body {
+    font-size: 12px;
+    line-height: 18px;
+  }
+  h2, h2 span.green{
+    font-size: 24px;
+    line-height: 36px;
+  }
+
 }
 

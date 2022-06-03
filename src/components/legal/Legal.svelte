@@ -7,18 +7,16 @@
   import ButtonRight from "../buttons/ButtonRight.svelte";
   let changeCounter = 0;
 
-
-
   function agreeAllTerms(e) {
-      if(e.target.checked){
-        $checkboxStates.a = true;
-        $checkboxStates.b = true;
-        $checkboxStates.c = true;
-      }else {
-        $checkboxStates.a = false;
-        $checkboxStates.b = false;
-        $checkboxStates.c = false;
-      }
+    if (e.target.checked) {
+      $checkboxStates.a = true;
+      $checkboxStates.b = true;
+      $checkboxStates.c = true;
+    } else {
+      $checkboxStates.a = false;
+      $checkboxStates.b = false;
+      $checkboxStates.c = false;
+    }
   }
 
   let prevStep = () => {
@@ -33,9 +31,9 @@
         incrementStep();
         changeCounter += 1;
       }
-    }else{
-          alert('fill all checkbox')
-      }
+    } else {
+      alert("fill all checkbox");
+    }
   };
 </script>
 
@@ -81,11 +79,15 @@
       {/each}
     </Accordion>
     <div class="agree__all">
-        <input
+      <input
         type="checkbox"
-        on:change={(e)=>{agreeAllTerms(e)}}
+        on:change={(e) => {
+          agreeAllTerms(e);
+        }}
       />
-      <p>I agree to all Terms & Conditions, Contract Agreement, Privacy & Cookie</p>
+      <p>
+        I agree to all Terms & Conditions, Contract Agreement, Privacy & Cookie
+      </p>
     </div>
   </div>
 
@@ -96,6 +98,12 @@
 </div>
 
 <style>
+  .legal__wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
   :global(.accordion) {
     width: 100%;
     margin: 0 auto;
@@ -120,7 +128,8 @@
     display: flex;
     align-items: center;
   }
-  .header input, input[type="checkbox"] {
+  .header input,
+  input[type="checkbox"] {
     width: 24px;
     height: 24px;
     margin-right: 8px;
@@ -131,7 +140,8 @@
     appearance: none;
     cursor: pointer;
   }
-  .header input:checked, input[type="checkbox"]:checked {
+  .header input:checked,
+  input[type="checkbox"]:checked {
     background-image: url("https://uploads-ssl.webflow.com/627ca4b5fcfd5674acf264e6/6298c07528d25ce00212030f_svgexport-6.svg");
     background-position: center;
   }
@@ -169,7 +179,6 @@
     color: #053900;
   }
 
-
   /* Custom scroll bar */
   /* width */
   .body::-webkit-scrollbar {
@@ -190,9 +199,9 @@
     background: #6cc800;
     border-radius: 10px;
   }
-  .agree__all{
-      display: flex;
-      align-items: center;
-      margin: 16px 0 32px 0;
+  .agree__all {
+    display: flex;
+    align-items: center;
+    margin: 16px 0 32px 0;
   }
 </style>

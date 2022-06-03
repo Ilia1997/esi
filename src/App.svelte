@@ -14,17 +14,20 @@ import Information from "./components/information/Information.svelte";
 </script>
 
 <main>
-  <div class="container">
+  <div class="container__form">
     <HeadSteps />
+
     <div class="step__content">
-      <!-- {#if stepCountValue === 1}
+      {#if stepCountValue === 1}
       <Contribution /> 
       {:else if stepCountValue === 2 }
       <Plan />
       {:else if stepCountValue === 3 }
        <Information />
-       {/if} -->
+       {:else if stepCountValue === 4 }
        <Legal />
+       {/if}
+      
        
      
     </div>
@@ -35,7 +38,7 @@ import Information from "./components/information/Information.svelte";
   main {
     padding: 50px 0 150px 0;
   }
-  .container {
+  .container__form {
     max-width: 1360px;
     margin-right: auto;
     margin-left: auto;
@@ -58,5 +61,12 @@ import Information from "./components/information/Information.svelte";
     display: flex;
     justify-content: space-between;
   }
-
+  @media only screen and (max-width: 768px) {
+    .container__form{
+      padding: 0 6.5px;
+    }
+    .step__content{
+      padding: 20px 0;
+    }
+  }
 </style>

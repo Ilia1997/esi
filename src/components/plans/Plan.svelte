@@ -120,6 +120,7 @@
   .subscribe__all {
     display: flex;
     cursor: pointer;
+    min-width: 200px;
   }
   .subscribe__checkbox {
     width: 24px;
