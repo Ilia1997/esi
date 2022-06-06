@@ -284,6 +284,9 @@
     .contribution__head{
       padding: 0 21px;
     }
+    .step__footer {
+      padding: 0 16px;
+    }
     
 
   }

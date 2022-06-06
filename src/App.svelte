@@ -1,16 +1,17 @@
 <script>
   import Contribution from "./components/contributions/Contribution.svelte";
-  import { onDestroy } from 'svelte';
+  import { onDestroy } from "svelte";
   import HeadSteps from "./components/HeadSteps.svelte";
   import Plan from "./components/plans/Plan.svelte";
-  import {stepCounter} from './stores/store'
-  import Legal  from './components/legal/Legal.svelte'
-import Information from "./components/information/Information.svelte";
+  import FinalReview from './components/FinalReview.svelte'
+  import { stepCounter } from "./stores/store";
+  import Legal from "./components/legal/Legal.svelte";
+  import Information from "./components/information/Information.svelte";
   let stepCountValue;
-  const unsubscribe = stepCounter.subscribe(value => {
-		stepCountValue = value;
-	});
-  onDestroy(unsubscribe)
+  const unsubscribe = stepCounter.subscribe((value) => {
+    stepCountValue = value;
+  });
+  onDestroy(unsubscribe);
 </script>
 
 <main>
@@ -18,21 +19,21 @@ import Information from "./components/information/Information.svelte";
     <HeadSteps />
 
     <div class="step__content">
-      {#if stepCountValue === 1}
-      <Contribution /> 
-      {:else if stepCountValue === 2 }
-      <Plan />
-      {:else if stepCountValue === 3 }
-       <Information />
-       {:else if stepCountValue === 4 }
-       <Legal />
-       {/if}
-      
-       
+      <!-- {#if stepCountValue === 1}
+        <Contribution />
+      {:else if stepCountValue === 2}
+        <Plan />
+      {:else if stepCountValue === 3}
+        <Information />
+      {:else if stepCountValue === 4} -->
+        <Legal />
+      <!-- {/if} -->
      
     </div>
   </div>
+
 </main>
+<FinalReview />
 
 <style>
   main {
@@ -62,11 +63,15 @@ import Information from "./components/information/Information.svelte";
     justify-content: space-between;
   }
   @media only screen and (max-width: 768px) {
-    .container__form{
+    .container__form {
       padding: 0 6.5px;
     }
-    .step__content{
+    .step__content {
       padding: 20px 0;
+      min-height: auto;
+    }
+    :global(.bottom__btns) {
+      padding: 0 16px;
     }
   }
 </style>

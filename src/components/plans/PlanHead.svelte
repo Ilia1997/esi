@@ -1,43 +1,42 @@
 <script>
-    import {  contributionData } from "../../stores/contributionsStore";
-    import { onDestroy } from 'svelte';
-    let data;
-    const unsubscribe = contributionData.subscribe((value) => {
-      data = value;
-    });
-    let moVal = data.monthlyValue;
-    onDestroy(unsubscribe)
+  import { contributionData } from "../../stores/contributionsStore";
+  import { onDestroy } from "svelte";
+  let data;
+  const unsubscribe = contributionData.subscribe((value) => {
+    data = value;
+  });
+  let moVal = data.monthlyValue;
+  onDestroy(unsubscribe);
 </script>
 
 <div class="plans__head">
-    <div class="column">
-      <div class="column__item left">
-        <div class="text">
-          Your <span class="green">Green</span>
-          Contribution
-        </div>
-        <div class="plans__val">
-          {data.currencySymbol}{moVal ? moVal : 0}<span>/mo</span>
-        </div>
+  <div class="column">
+    <div class="column__item left">
+      <div class="text">
+        Your <span class="green">Green</span>
+        Contribution
       </div>
-
-      <div class="line" />
+      <div class="plans__val">
+        {data.currencySymbol}{moVal ? moVal : 0}<span>/mo</span>
+      </div>
     </div>
-    <div class="column">
-      <div class="column__item rigth">
-        <p>
-          You can choose between numerous plans, from the Green Safe to the
-          Green Adventure and/or Green Founder. Change your plan selection and
-          choose how to distribute your periodic contribution anytime. You can
-          change, and therefore we adapt!
-        </p>
-      </div>
+
+    <div class="line" />
+  </div>
+  <div class="column right">
+    <div class="column__item rigth">
+      <p>
+        You can choose between numerous plans, from the Green Safe to the Green
+        Adventure and/or Green Founder. Change your plan selection and choose
+        how to distribute your periodic contribution anytime. You can change,
+        and therefore we adapt!
+      </p>
     </div>
   </div>
+</div>
 
-  <style>
-
-.plans__head {
+<style>
+  .plans__head {
     display: flex;
     max-width: 874px;
     min-height: 136px;
@@ -83,4 +82,28 @@
   .green {
     color: #6cc800;
   }
-  </style>
+  @media only screen and (max-width: 768px) {
+    .plans__head .line,
+    .column.right {
+      display: none;
+    }
+    .plans__head{
+      min-height: auto;
+      margin-top: 24px;
+    }
+    .plans__head .text,
+    .plans__head span {
+      font-size: 14px;
+      line-height: 21px;
+     
+    }
+    .plans__val {
+      font-size: 24px;
+      line-height: 36px;
+    }
+    .plans__val span {
+      font-size: 10px;
+      line-height: 15px;
+    }
+  }
+</style>

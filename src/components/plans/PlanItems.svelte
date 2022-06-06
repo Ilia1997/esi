@@ -5,8 +5,7 @@
     plansModalData,
     sortPersantageVariable,
     planData,
-    firstClickedDropdown,
-    subscribeAllState
+    subscribeAllState,
   } from "../../stores/store";
   import {
     contributionData,
@@ -22,6 +21,23 @@
   let safePrice = 0,
     adventurePrice = 0,
     founderPrice = 0;
+
+    
+  let savePlan = "save",
+    advPlan = "adv",
+    foundPlan = "found";
+
+  let activeDropdownSave = false;
+  let activeDropdownAdv = false;
+  let activeDropdownFound = false;
+
+  $: allowPercentageVal =
+    100 -
+    $allocatedContributions.safe -
+    $allocatedContributions.adventure -
+    $allocatedContributions.founder;
+
+    let current =  savePlan;
 
   beforeUpdate(() => {
     safePrice =
@@ -51,19 +67,6 @@
   });
   afterUpdate(() => {});
 
-  let savePlan = "save",
-    advPlan = "adv",
-    foundPlan = "found";
-
-  let activeDropdownSave = false;
-  let activeDropdownAdv = false;
-  let activeDropdownFound = false;
-
-  $: allowPercentageVal =
-    100 -
-    $allocatedContributions.safe -
-    $allocatedContributions.adventure -
-    $allocatedContributions.founder;
 
   function setPercentage(item, plan) {
     $sortPersantageVariable = item.sortName;
@@ -117,13 +120,12 @@
     }
     $plansModalState = true;
   }
-  function setFirstClikedItem(name) {
-  }
+  function setFirstClikedItem(name) {}
 </script>
 
 <div class="plans__items">
-  <div class="plans__item save">
-    <div class="item__head">
+  <div class="plans__item save" class:active={current === savePlan}>
+    <div class="item__head" on:click="{() => current === savePlan ? current = '' : current = savePlan}">
       <div class="column">
         <img
           class="plan__icon"
@@ -161,6 +163,20 @@
               </linearGradient>
             </defs>
           </svg>
+        </div>
+        <div class="mob__arrow">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            class="arrow"
+            ><path
+              d="M4.29279 7.30529C4.48031 7.11782 4.73462 7.0125 4.99979 7.0125C5.26495 7.0125 5.51926 7.11782 5.70679 7.30529L11.9998 13.5983L18.2928 7.30529C18.385 7.20978 18.4954 7.1336 18.6174 7.08119C18.7394 7.02878 18.8706 7.00119 19.0034 7.00004C19.1362 6.99888 19.2678 7.02419 19.3907 7.07447C19.5136 7.12475 19.6253 7.199 19.7192 7.29289C19.8131 7.38679 19.8873 7.49844 19.9376 7.62133C19.9879 7.74423 20.0132 7.87591 20.012 8.00869C20.0109 8.14147 19.9833 8.27269 19.9309 8.39469C19.8785 8.5167 19.8023 8.62704 19.7068 8.71929L12.7068 15.7193C12.5193 15.9068 12.265 16.0121 11.9998 16.0121C11.7346 16.0121 11.4803 15.9068 11.2928 15.7193L4.29279 8.71929C4.10532 8.53176 4 8.27745 4 8.01229C4 7.74712 4.10532 7.49282 4.29279 7.30529Z"
+              fill="white"
+            /></svg
+          >
         </div>
       </div>
     </div>
@@ -215,6 +231,17 @@
             </div>
           </div>
         </div>
+
+        <div class="mob__plan__info">
+          <div class="plan__info__head">Green Safe</div>
+          <div class="plan__info__text">
+            Safe as a bank account. This fund invests exclusively in green bonds
+            and is the perfect option for Green Savers who want to be sure their
+            funds are secure. The Green Safe plan involves a commitment to
+            institutional and governmental bonds and enables subscribers to have
+            a global, national, and local impact.
+          </div>
+        </div>
         <div class="portfolio">
           <div class="portfolio__head">Portfolio</div>
           <ul>
@@ -234,8 +261,8 @@
       </div>
     </div>
   </div>
-  <div class="plans__item adventure">
-    <div class="item__head">
+  <div class="plans__item adventure" class:active={current === advPlan}>
+    <div class="item__head" on:click="{() =>  current === advPlan ? current = '' : current = advPlan}">
       <div class="column">
         <img
           src="https://uploads-ssl.webflow.com/627ca4b5fcfd5674acf264e6/627e4bde122aa36a24438411_tab-icon-02.svg"
@@ -272,6 +299,20 @@
               </linearGradient>
             </defs>
           </svg>
+        </div>
+        <div class="mob__arrow">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            class="arrow"
+            ><path
+              d="M4.29279 7.30529C4.48031 7.11782 4.73462 7.0125 4.99979 7.0125C5.26495 7.0125 5.51926 7.11782 5.70679 7.30529L11.9998 13.5983L18.2928 7.30529C18.385 7.20978 18.4954 7.1336 18.6174 7.08119C18.7394 7.02878 18.8706 7.00119 19.0034 7.00004C19.1362 6.99888 19.2678 7.02419 19.3907 7.07447C19.5136 7.12475 19.6253 7.199 19.7192 7.29289C19.8131 7.38679 19.8873 7.49844 19.9376 7.62133C19.9879 7.74423 20.0132 7.87591 20.012 8.00869C20.0109 8.14147 19.9833 8.27269 19.9309 8.39469C19.8785 8.5167 19.8023 8.62704 19.7068 8.71929L12.7068 15.7193C12.5193 15.9068 12.265 16.0121 11.9998 16.0121C11.7346 16.0121 11.4803 15.9068 11.2928 15.7193L4.29279 8.71929C4.10532 8.53176 4 8.27745 4 8.01229C4 7.74712 4.10532 7.49282 4.29279 7.30529Z"
+              fill="white"
+            /></svg
+          >
         </div>
       </div>
     </div>
@@ -323,6 +364,18 @@
             </div>
           </div>
         </div>
+        <div class="mob__plan__info">
+          <div class="plan__info__head">Green Adventure</div>
+          <div class="plan__info__text">
+            A growth fund with more risks and more rewards. The Green Adventure
+            plan is for Green Savers who want to put their funds toward ventures
+            that have a significantly more direct impact on mitigating climate
+            change and are devoted to creating and developing green businesses
+            around the world. The plan also includes investments in green
+            equities to reward companies that already make a difference and an
+            activism investment fund for pressuring companies to become green.
+          </div>
+        </div>
         <div class="portfolio">
           <div class="portfolio__head">Portfolio</div>
           <ul>
@@ -340,8 +393,8 @@
       </div>
     </div>
   </div>
-  <div class="plans__item founder">
-    <div class="item__head">
+  <div class="plans__item founder" class:active={current === foundPlan}>
+    <div class="item__head" on:click="{() =>  current === foundPlan ? current = '' : current = foundPlan}">
       <div class="column">
         <img
           src="https://uploads-ssl.webflow.com/627ca4b5fcfd5674acf264e6/627e4be882a78868831022d1_founder.svg"
@@ -381,6 +434,20 @@
               </linearGradient>
             </defs>
           </svg>
+        </div>
+        <div class="mob__arrow">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            class="arrow"
+            ><path
+              d="M4.29279 7.30529C4.48031 7.11782 4.73462 7.0125 4.99979 7.0125C5.26495 7.0125 5.51926 7.11782 5.70679 7.30529L11.9998 13.5983L18.2928 7.30529C18.385 7.20978 18.4954 7.1336 18.6174 7.08119C18.7394 7.02878 18.8706 7.00119 19.0034 7.00004C19.1362 6.99888 19.2678 7.02419 19.3907 7.07447C19.5136 7.12475 19.6253 7.199 19.7192 7.29289C19.8131 7.38679 19.8873 7.49844 19.9376 7.62133C19.9879 7.74423 20.0132 7.87591 20.012 8.00869C20.0109 8.14147 19.9833 8.27269 19.9309 8.39469C19.8785 8.5167 19.8023 8.62704 19.7068 8.71929L12.7068 15.7193C12.5193 15.9068 12.265 16.0121 11.9998 16.0121C11.7346 16.0121 11.4803 15.9068 11.2928 15.7193L4.29279 8.71929C4.10532 8.53176 4 8.27745 4 8.01229C4 7.74712 4.10532 7.49282 4.29279 7.30529Z"
+              fill="white"
+            /></svg
+          >
         </div>
       </div>
     </div>
@@ -434,6 +501,19 @@
             </div>
           </div>
         </div>
+        <div class="mob__plan__info">
+          <div class="plan__info__head">Green Change</div>
+          <div class="plan__info__text">
+            The ESi future is green, and we want YOU to be part of it. Becoming
+            a founder Green Saver involves owning part of ESi. This option is
+            limited to a predetermined target, and you will own a portion of ESi
+            based on your contribution up to a collective 35% of ESi capital.
+            Our vision is to create a sustainable green finance ecosystem making
+            ethical green investing accessible. Collectively, we plan to become
+            the most prominent green investor and green financial product
+            provider.
+          </div>
+        </div>
         <div class="portfolio">
           <div class="portfolio__head">Portfolio</div>
           <ul>
@@ -454,6 +534,9 @@
 </div>
 
 <style>
+  .mob__plan__info {
+    display: none;
+  }
   .plans__items {
     margin-top: 16px;
     display: flex;
@@ -530,10 +613,11 @@
     text-transform: uppercase;
     margin-left: 8px;
   }
-  .item__head .current__value {
-    font-weight: 700;
-    color: white;
+  .mob__arrow {
+    margin-left: 10px;
+    display: none;
   }
+
   .item__head .column {
     display: flex;
     align-items: center;
@@ -574,7 +658,6 @@
   .item__current__money.founder {
     background: #8336e4;
   }
-  /* founder   #6CC800*/
 
   .portfolio {
     padding: 32px 20px 40px 43px;
@@ -680,16 +763,108 @@
     display: block;
   }
 
-@media only screen and (max-width: 1280px){
-  .item__top {
-    padding: 32px 20px 24px 20px;
+  @media only screen and (max-width: 1280px) {
+    .item__top {
+      padding: 32px 20px 24px 20px;
+    }
+    .portfolio {
+      padding: 20px;
+    }
+    .dropdown__item--current,
+    .dropdown__item,
+    .item__head__name {
+      font-size: 14px;
+    }
   }
-  .portfolio {
-    padding: 20px;
+  @media only screen and (max-width: 991px) {
+    .plans__items {
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 40px;
+    }
+    .plans__item {
+      max-width: 340px;
+    }
+    .plans__item.adventure {
+      margin: 0;
+    }
+    .dropdown__item--current,
+    .dropdown__item {
+      font-size: 16px;
+      line-height: 24px;
+      color: #000000;
+    }
   }
-  .dropdown__item--current, .dropdown__item, .item__head__name {
-    font-size: 14px;
-  }
-}
+  @media only screen and (max-width: 768px) {
+    .mob__plan__info {
+      display: block;
+      text-align: center;
+      padding: 24px 21px;
+      color: #053900;
+    }
+    .plan__info__head {
+      font-weight: 600;
+      font-size: 24px;
+      line-height: 36px;
+    }
+    .plan__info__text {
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 21px;
+      margin-top: 16px;
+    }
 
+    .item__top__head {
+      font-size: 16px;
+      line-height: 24px;
+    }
+    .plans__items {
+      margin-top: 20px;
+      gap: 0;
+    }
+    .plans__item {
+      max-width: 100%;
+      border-radius: 0;
+      
+    }
+    .mob__arrow {
+      display: flex;
+      align-items: center;
+      color: white;
+    }
+
+    .dropdown__wrapper {
+      max-width: none;
+    }
+    .portfolio {
+      padding: 20px 24px;
+      min-height: 150px;
+    }
+
+    .plans__item.active .mob__arrow {
+      transform: rotate(180deg);
+    }
+    /* accordion logic style */
+    .plans__item .item__body{
+      padding: 0;
+      max-height: 0rem;
+      overflow: hidden;
+      transition: all ease .4s;
+    }
+    .plans__item.active .item__body{
+      padding-bottom: 36px;
+      max-height: 45rem;
+    }
+  }
+  @media only screen and (max-width: 568px) {
+    .portfolio ul li {
+      font-weight: 400;
+      font-size: 12px;
+      line-height: 36px;
+    }
+    .portfolio__heler {
+      font-size: 10px;
+      line-height: 15px;
+    }
+  }
 </style>

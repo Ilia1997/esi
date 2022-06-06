@@ -78,4 +78,9 @@
   button.violet:active{
     background:#7d39d6;
   }
+  @media only screen and (max-width: 768px) {
+  .wrapper {
+      display: none;
+    }
+  }
 </style>

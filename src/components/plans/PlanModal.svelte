@@ -66,13 +66,13 @@
     opacity: 0.5;
   }
   .pop_up.save {
-    background: #006EFF;
+    background: #006eff;
   }
   .pop_up.adventure {
-    background: #6DB94F;
+    background: #6db94f;
   }
   .pop_up.founder {
-    background: #5E0BC9;
+    background: #5e0bc9;
   }
 
   .content {
@@ -100,5 +100,13 @@
     overflow: hidden;
     display: flex;
     justify-content: center;
+  }
+  @media only screen and (max-width: 991px) {
+    .pop_up {
+      flex-direction: column;
+    }
+    .content{
+      margin: 0 0 40px 0;
+    }
   }
 </style>

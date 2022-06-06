@@ -21,7 +21,7 @@ body {
   padding: 0px;
   font-family: "Poppins", sans-serif;
 }
-h2, .green {
+h2, h2 .green {
   font-weight: 500;
   font-size: 36px;
   line-height: 54px;
