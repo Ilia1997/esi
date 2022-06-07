@@ -1,8 +1,28 @@
+<script>
+  let userName = 'Ron'
+  import {contributionData} from '../stores/contributionsStore'
+
+  let currentDate = new Date();
+  let currentYear = currentDate.getFullYear();
+  let currentDay = currentDate.getDate();
+
+  $: currentYear;
+
+  if( $contributionData.nextPaymentMonth === "January"){
+    if($contributionData.period === 'Monthly' ){
+      currentYear = currentYear + 1
+    }else if($contributionData.period === "Bi-Monthly" && currentDay >= 15 ){
+      currentYear = currentYear + 1
+    }
+}
+
+</script>
+
 <div class="pop__up">
   <div class="pop__up__wrapper">
     <div class="pop__up__head">
       <div class="pop__up_head__text">
-        "USERNAME" LET'S MAKE SURE WE'VE GOT EVERYTHING RIGHT!
+        {userName} LET'S MAKE SURE WE'VE GOT EVERYTHING RIGHT!
       </div>
       <div class="pop__up__close"><span /></div>
     </div>
@@ -32,7 +52,7 @@
             <div class="change__btn">Change</div>
           </div>
           <div class="item__body">
-            <div class="text">$600 USD per Month Starting 15th June 2022</div>
+            <div class="text">{$contributionData.currencySymbol}{$contributionData.monthlyValue} USD per Month Starting {$contributionData.nextPaymentDay}th {$contributionData.nextPaymentMonth} {currentYear}</div>
           </div>
         </div>
         <div class="pop__up__item">
@@ -196,7 +216,7 @@
     width: 100%;
     height: auto;
     padding: 0;
-    background-color: rgba(0, 0, 0, 0.15);
+    background-color: rgba(0, 0, 0, 0.50);
   }
   .pop__up__wrapper {
     border-radius: 10px;
@@ -208,6 +228,7 @@
     max-width: 999px;
     font-size: 14px;
     line-height: 21px;
+    margin: 120px auto;
   }
   .pop__up__head {
     width: 100%;

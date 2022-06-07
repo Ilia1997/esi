@@ -19,21 +19,21 @@
     <HeadSteps />
 
     <div class="step__content">
-      <!-- {#if stepCountValue === 1}
+      {#if stepCountValue === 1}
         <Contribution />
       {:else if stepCountValue === 2}
         <Plan />
       {:else if stepCountValue === 3}
         <Information />
-      {:else if stepCountValue === 4} -->
+      {:else if stepCountValue === 4}
         <Legal />
-      <!-- {/if} -->
+      {/if}
      
     </div>
   </div>
 
 </main>
-<FinalReview />
+<!-- <FinalReview /> -->
 
 <style>
   main {

@@ -1,12 +1,32 @@
 import {get, writable } from 'svelte/store';
 
+const months = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+let currentDate = new Date();
+  let currentMonthIndex = currentDate.getMonth();
+  let paymentMounthIndex = currentMonthIndex + 1;
+
 
 export const contributionData = writable({
 	period: 'Monthly',
 	currency: 'USD',
     currencySymbol: '$',
     amount: 600,
-    monthlyValue: 600
+    monthlyValue: 600,
+    nextPaymentDay: 1,
+    nextPaymentMonth: months[paymentMounthIndex]
 })
 
 export const allocatedContributions = writable({
@@ -17,4 +37,6 @@ export const allocatedContributions = writable({
     founder: 0,
     founderName: "0 of Total Contribution",
 })
+
+
 

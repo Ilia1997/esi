@@ -6,7 +6,7 @@
   let periods = ["Monthly", "Bi-Monthly"];
   let currencys = ["USD", "EUR", "CAD", "CHF", "GBP", "JPY"];
 
-  let nextPaymentDay = 1;
+ 
   const months = [
     "January",
     "February",
@@ -24,7 +24,9 @@
   let currentMonthIndex = new Date().getMonth();
   let currentDay = new Date().getDate();
   let paymentMounthIndex = currentMonthIndex + 1;
-  $: nextPaymentMonth = months[paymentMounthIndex];
+
+  $: $contributionData.nextPaymentMonth = months[paymentMounthIndex];
+  
 
   let currencySymbols = {
     USD: "$",
@@ -39,14 +41,14 @@
     if ($contributionData.period === "Bi-Monthly") {
       if (currentDay < 15) {
         paymentMounthIndex = currentMonthIndex;
-        nextPaymentDay = 15;
+        $contributionData.nextPaymentDay = 15;
       } else if (currentDay >= 15) {
         paymentMounthIndex = currentMonthIndex + 1;
-        nextPaymentDay = 1;
+        $contributionData.nextPaymentDay = 1;
       }
     } else {
       paymentMounthIndex = currentMonthIndex + 1;
-      nextPaymentDay = 1;
+      $contributionData.nextPaymentDay = 1;
     }
   });
   function setPeriod(value) {
@@ -146,9 +148,9 @@
     </div>
     <div class="next__payment">
       *The next payment will be on the <span class="payment__day"
-        >{nextPaymentDay}st</span
+        >{$contributionData.nextPaymentDay}st</span
       >
-      of the <span>{nextPaymentMonth}</span>
+      of the <span>{$contributionData.nextPaymentMonth}</span>
     </div>
   </form>
   <div class="contribution__help--text">
