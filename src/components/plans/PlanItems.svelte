@@ -1,12 +1,13 @@
 <script>
   import { beforeUpdate, afterUpdate } from "svelte";
+  import { subscribeAllState } from "../../stores/store";
   import {
+    planData,
     plansModalState,
     plansModalData,
     sortPersantageVariable,
-    planData,
-    subscribeAllState,
-  } from "../../stores/store";
+    disableAllDropdown,
+  } from "../../stores/plansStore";
   import {
     contributionData,
     allocatedContributions,
@@ -22,7 +23,6 @@
     adventurePrice = 0,
     founderPrice = 0;
 
-    
   let savePlan = "save",
     advPlan = "adv",
     foundPlan = "found";
@@ -37,7 +37,7 @@
     $allocatedContributions.adventure -
     $allocatedContributions.founder;
 
-    let current =  savePlan;
+  let current = savePlan;
 
   beforeUpdate(() => {
     safePrice =
@@ -47,29 +47,17 @@
       100;
     founderPrice =
       ($allocatedContributions.founder * $contributionData.monthlyValue) / 100;
-
-    // set allow point to dropdown
-    switch ($sortPersantageVariable) {
-      case "all":
-        savePercentages = [...planData];
-        break;
-      case "fourth":
-        savePercentages = planData.map((n) =>
-          n.sortName === "third" ? { ...n, visibility: !n.visibility } : n
-        );
-        break;
-      case "third":
-        savePercentages = planData.map((n) =>
-          n.sortName === "fourth" ? { ...n, visibility: !n.visibility } : n
-        );
-        break;
+    if ($disableAllDropdown === true) {
+      activeDropdownSave = false;
+      activeDropdownAdv = false;
+      activeDropdownFound = false;
     }
   });
   afterUpdate(() => {});
 
-
   function setPercentage(item, plan) {
-    $sortPersantageVariable = item.sortName;
+    if($disableAllDropdown === false ){
+      $sortPersantageVariable = item.sortName;
     $subscribeAllState = false;
     switch (plan) {
       case "save":
@@ -87,6 +75,8 @@
       default:
         console.log("Error");
     }
+    }
+    
   }
 
   function showModal(plan) {
@@ -120,12 +110,16 @@
     }
     $plansModalState = true;
   }
-  function setFirstClikedItem(name) {}
+  function checkDropdownState(e) {}
 </script>
 
 <div class="plans__items">
   <div class="plans__item save" class:active={current === savePlan}>
-    <div class="item__head" on:click="{() => current === savePlan ? current = '' : current = savePlan}">
+    <div
+      class="item__head"
+      on:click={() =>
+        current === savePlan ? (current = "") : (current = savePlan)}
+    >
       <div class="column">
         <img
           class="plan__icon"
@@ -184,10 +178,8 @@
       <div>
         <div class="item__top">
           <div class="item__top__head">You contribute to Green Safe</div>
-          <div
-            class="dropdown__wrapper"
-            on:click={() => setFirstClikedItem(savePlan)}
-          >
+          <div class="dropdown__wrapper"
+          class:disabled={$disableAllDropdown === true}>
             <div
               class="dropdown"
               class:activeDropdownSave
@@ -262,7 +254,11 @@
     </div>
   </div>
   <div class="plans__item adventure" class:active={current === advPlan}>
-    <div class="item__head" on:click="{() =>  current === advPlan ? current = '' : current = advPlan}">
+    <div
+      class="item__head"
+      on:click={() =>
+        current === advPlan ? (current = "") : (current = advPlan)}
+    >
       <div class="column">
         <img
           src="https://uploads-ssl.webflow.com/627ca4b5fcfd5674acf264e6/627e4bde122aa36a24438411_tab-icon-02.svg"
@@ -320,7 +316,8 @@
       <div>
         <div class="item__top">
           <div class="item__top__head">You contribute to Green Safe</div>
-          <div class="dropdown__wrapper">
+          <div class="dropdown__wrapper"
+          class:disabled={$disableAllDropdown === true}>
             <div
               class="dropdown"
               class:activeDropdownAdv
@@ -394,7 +391,11 @@
     </div>
   </div>
   <div class="plans__item founder" class:active={current === foundPlan}>
-    <div class="item__head" on:click="{() =>  current === foundPlan ? current = '' : current = foundPlan}">
+    <div
+      class="item__head"
+      on:click={() =>
+        current === foundPlan ? (current = "") : (current = foundPlan)}
+    >
       <div class="column">
         <img
           src="https://uploads-ssl.webflow.com/627ca4b5fcfd5674acf264e6/627e4be882a78868831022d1_founder.svg"
@@ -404,9 +405,6 @@
         <div class="item__head__name">Green Founder</div>
       </div>
       <div class="column">
-        <!-- <div class="current__value">
-          {$contributionData.currencySymbol + founderPrice}
-        </div> -->
         <div class="item__head__checkbox">
           <svg
             class:visible={$allocatedContributions.founder != 0}
@@ -455,7 +453,10 @@
       <div>
         <div class="item__top">
           <div class="item__top__head">You contribute to Green Safe</div>
-          <div class="dropdown__wrapper">
+          <div
+            class="dropdown__wrapper"
+            class:disabled={$disableAllDropdown === true}
+          >
             <div
               class="dropdown"
               class:activeDropdownFound
@@ -708,6 +709,13 @@
     font-size: 16px;
     line-height: 24px;
   }
+  .dropdown__wrapper.disabled,
+  .dropdown__wrapper.disabled * {
+    opacity: 0.7;
+    pointer-events: none;
+    user-select: none;
+  }
+
   .dropdown {
     position: absolute;
     width: 100%;
@@ -825,7 +833,6 @@
     .plans__item {
       max-width: 100%;
       border-radius: 0;
-      
     }
     .mob__arrow {
       display: flex;
@@ -845,13 +852,13 @@
       transform: rotate(180deg);
     }
     /* accordion logic style */
-    .plans__item .item__body{
+    .plans__item .item__body {
       padding: 0;
       max-height: 0rem;
       overflow: hidden;
-      transition: all ease .4s;
+      transition: all ease 0.4s;
     }
-    .plans__item.active .item__body{
+    .plans__item.active .item__body {
       padding-bottom: 36px;
       max-height: 45rem;
     }

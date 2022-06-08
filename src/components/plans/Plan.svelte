@@ -6,6 +6,7 @@
     plansModalState,
     subscribeAllState,
   } from "../../stores/store";
+  import { disableAllDropdown } from "../../stores/plansStore";
   import { allocatedContributions } from "../../stores/contributionsStore";
   import PlanHead from "./PlanHead.svelte";
   import ButtonLeft from "../buttons/ButtonLeft.svelte";
@@ -19,16 +20,33 @@
     decrementStep();
   };
   let nextStep = () => {
-    $headSteps.thirdStep = true;
-    if (changeCounter === 0) {
-      incrementStep();
-      changeCounter += 1;
+    if (validate()) {
+      $headSteps.thirdStep = true;
+      if (changeCounter === 0) {
+        incrementStep();
+        changeCounter += 1;
+      }
+    } else {
+      alert("Chouse all 100% of your money");
     }
   };
-  let validate = () => {};
+  let validate = () => {
+    let sumOfPlans =
+      $allocatedContributions.safe +
+      $allocatedContributions.adventure +
+      $allocatedContributions.founder;
+    console.log(sumOfPlans);
+    if (sumOfPlans > 99 && sumOfPlans <= 100) {
+      return true;
+    } else {
+      return false;
+    }
+  };
 
   function subscribeAllPlans() {
     if (!$subscribeAllState) {
+      $disableAllDropdown = true;
+
       $allocatedContributions.safe = 33.33;
       $allocatedContributions.safeName = "1/3 of Total Contribution";
 
@@ -39,6 +57,8 @@
       $allocatedContributions.founderName = "1/3 of Total Contribution";
       $subscribeAllState = true;
     } else {
+      $disableAllDropdown = false;
+
       $allocatedContributions.safe = 0;
       $allocatedContributions.safeName = "0 of Total Contribution";
 
@@ -55,15 +75,15 @@
 
 <div class="plans__main">
   <div class="plans__main__wrapper">
-      <h2>
-    Plans <span class="green">Selector</span> and
-    <span class="green">Distributor</span>
-  </h2>
-  <div class="main__mob_h2">
-    Choose any <span class="green">plan</span> and allocate you
-    <span class="green">contribution</span>
-  </div>
-  <PlanHead />
+    <h2>
+      Plans <span class="green">Selector</span> and
+      <span class="green">Distributor</span>
+    </h2>
+    <div class="main__mob_h2">
+      Choose any <span class="green">plan</span> and allocate you
+      <span class="green">contribution</span>
+    </div>
+    <PlanHead />
   </div>
 
   <div class="plans__wrapper">
@@ -159,8 +179,6 @@
     align-items: center;
   }
   .plans__wrapper__head h2 .green {
-    font-size: 24px;
-    line-height: 36px;
   }
 
   .plans__main {
@@ -191,18 +209,19 @@
       line-height: 18px;
       color: #032b01;
     }
-    .mob__plan__h2{
+    .mob__plan__h2 {
       font-size: 16px;
-    line-height: 24px;
+      line-height: 24px;
     }
     .main__mob_h2 span {
       font-size: 12px;
       line-height: 18px;
     }
-    .plans__wrapper{
+    .plans__wrapper {
       margin-top: 20px;
     }
-    .plans__main__wrapper,  .plans__wrapper__head {
+    .plans__main__wrapper,
+    .plans__wrapper__head {
       padding: 0 16px;
     }
   }

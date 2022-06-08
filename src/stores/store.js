@@ -38,57 +38,7 @@ export const plansModalData = writable({
     lottie: "https://uploads-ssl.webflow.com/627ca4b5fcfd5674acf264e6/6281f1b9694dfd538fae0ee3_Safe.json"
 })
 
-export let planData = [
-    {
-      sortName: "all",
-      persentage: 0,
-      value: "0 of Total Contribution",
-      visibility: true,
-    },
-    {
-      sortName: "fourth",
-      persentage: 25,
-      value: "1/4 of Total Contribution",
-      visibility: true,
-    },
-    {
-      sortName: "fourth",
-      persentage: 50,
-      value: "2/4 of Total Contribution",
-      visibility: true,
-    },
-    {
-      sortName: "fourth",
-      persentage: 75,
-      value: "3/4 of Total Contribution",
-      visibility: true,
-    },
-    {
-      sortName: "fourth",
-      persentage: 100,
-      value: "4/4 of Total Contribution",
-      visibility: true,
-    },
-    {
-      sortName: "third",
-      persentage: 33.33,
-      value: "1/3 of Total Contribution",
-      visibility: true,
-    },
-    {
-      sortName: "third",
-      persentage: 66.67,
 
-      value: "2/3 of Total Contribution",
-      visibility: true,
-    },
-    {
-      sortName: "third",
-      persentage: 100,
-      value: "3/3 of Total Contribution",
-      visibility: true,
-    },
-  ];
 
 
 
