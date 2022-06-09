@@ -23,7 +23,7 @@
     adventurePrice = 0,
     founderPrice = 0;
 
-  let savePlan = "save",
+  let savePlan = "safe",
     advPlan = "adv",
     foundPlan = "found";
 
@@ -60,7 +60,7 @@
       $sortPersantageVariable = item.sortName;
     $subscribeAllState = false;
     switch (plan) {
-      case "save":
+      case "safe":
         $allocatedContributions.safe = item.persentage;
         $allocatedContributions.safeName = item.value;
         break;
@@ -81,8 +81,8 @@
 
   function showModal(plan) {
     switch (plan) {
-      case "save":
-        $plansModalData.class = "save";
+      case "safe":
+        $plansModalData.class = "safe";
         $plansModalData.name = "Green Safe";
         $plansModalData.desc =
           "Safe as a bank account. This fund invests exclusively in green bonds and is the perfect option for Green Savers who want to be sure their funds are secure. The Green Safe plan involves a commitment to institutional and governmental bonds and enables subscribers to have a global, national, and local impact.";
@@ -110,7 +110,6 @@
     }
     $plansModalState = true;
   }
-  function checkDropdownState(e) {}
 </script>
 
 <div class="plans__items">
@@ -198,7 +197,7 @@
                 />
               </svg>
               <div class="dropdown__item--current">
-                {$allocatedContributions.safeName}
+                {$allocatedContributions.safe}% Total Contribution
               </div>
               <div class="dropdown__items">
                 {#each savePercentages as item}
@@ -210,14 +209,13 @@
                           item.persentage)}
                     on:click={() => setPercentage(item, savePlan)}
                   >
-                    {item.value}
+                    {item.persentage}%
                   </div>
                 {/each}
               </div>
             </div>
           </div>
           <div class="item__current__money safe">
-            <div class="percents">{$allocatedContributions.safe}%</div>
             <div class="money">
               {$contributionData.currencySymbol + Math.round(safePrice)}
             </div>
@@ -336,7 +334,7 @@
                 />
               </svg>
               <div class="dropdown__item--current">
-                {$allocatedContributions.adventureName}
+                {$allocatedContributions.adventure}% Total Contribution
               </div>
               <div class="dropdown__items">
                 {#each savePercentages as item}
@@ -348,14 +346,14 @@
                           item.persentage)}
                     on:click={() => setPercentage(item, advPlan)}
                   >
-                    {item.value}
+                    {item.persentage}%
                   </div>
                 {/each}
               </div>
             </div>
           </div>
           <div class="item__current__money adventure">
-            <div class="percents">{$allocatedContributions.adventure}%</div>
+  
             <div class="money">
               {$contributionData.currencySymbol + Math.round(adventurePrice)}
             </div>
@@ -475,7 +473,7 @@
                 />
               </svg>
               <div class="dropdown__item--current">
-                {$allocatedContributions.founderName}
+                {$allocatedContributions.founder}% Total Contribution
               </div>
               <div class="dropdown__items">
                 {#each savePercentages as item}
@@ -489,14 +487,14 @@
                       setPercentage(item, foundPlan);
                     }}
                   >
-                    {item.value}
+                    {item.persentage}%
                   </div>
                 {/each}
               </div>
             </div>
           </div>
           <div class="item__current__money founder">
-            <div class="percents">{$allocatedContributions.founder}%</div>
+            
             <div class="money">
               {$contributionData.currencySymbol + Math.round(founderPrice)}
             </div>
@@ -638,16 +636,13 @@
     padding: 23px 30px;
     margin-top: 10px;
     display: flex;
-    justify-content: space-between;
+    justify-content:center;
     align-items: center;
   }
-  .item__current__money .percents {
-    color: #ffffff;
-  }
   .item__current__money .money {
-    font-weight: 600;
-    font-size: 20px;
-    line-height: 30px;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 36px;
     color: #ffffff;
   }
   .item__current__money.safe {

@@ -1,12 +1,13 @@
 <script>
   import { contributionData } from "../../stores/contributionsStore";
   import { afterUpdate } from "svelte";
+  import NextPaymentDay from "./NextPaymentDate.svelte";
+
   let activePeriod = false;
   let activeCurrency = false;
   let periods = ["Monthly", "Bi-Monthly"];
   let currencys = ["USD", "EUR", "CAD", "CHF", "GBP", "JPY"];
 
- 
   const months = [
     "January",
     "February",
@@ -26,7 +27,6 @@
   let paymentMounthIndex = currentMonthIndex + 1;
 
   $: $contributionData.nextPaymentMonth = months[paymentMounthIndex];
-  
 
   let currencySymbols = {
     USD: "$",
@@ -146,15 +146,11 @@
         onKeyPress="if(this.value.length==4) return false;"
       />
     </div>
-    <div class="next__payment">
-      *The next payment will be on the <span class="payment__day"
-        >{$contributionData.nextPaymentDay}st</span
-      >
-      of the <span>{$contributionData.nextPaymentMonth}</span>
-    </div>
+
+    <NextPaymentDay />
   </form>
   <div class="contribution__help--text">
-    *Min. $20 and $9,999 Total contribution
+    *Min. <span>$20</span> and <span> $9,999</span> Total contribution
   </div>
 </div>
 
@@ -206,20 +202,11 @@
     color: #053900;
     margin-top: 24px;
   }
-  .next__payment {
-    max-width: 266px;
-    margin: 0 0 10px 47px;
-    font-weight: 400;
-    font-size: 16px;
-    line-height: 24px;
-    color: #053900;
+
+  .contribution__help--text span {
+    font-weight: 700;
   }
-  .next__payment span {
-    font-weight: 500;
-  }
-  .payment__day {
-    font-size: 20px;
-  }
+
   .dropdown__wrapper {
     position: relative;
     width: 180px;
@@ -305,7 +292,7 @@
     .dropdown {
       padding: 16px;
     }
-    .dropdown svg{
+    .dropdown svg {
       top: 15px;
     }
     .amount input {

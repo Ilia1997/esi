@@ -26,7 +26,7 @@
   let nextStep = () => {
     let state = Object.values($checkboxStates).every((value) => value === true);
     if (state) {
-      $headSteps.fifthStep = true;
+      $headSteps.fourthStep = true;
       if (changeCounter === 0) {
         incrementStep();
         changeCounter += 1;

@@ -1,8 +1,8 @@
 <script>
-  import { plansModalState, plansModalData } from "../../stores/store";
+  import { plansModalState, plansModalData } from "../../stores/plansStore"
 
   let lottieWidth = 450;
-  if ($plansModalData.class === "save") {
+  if ($plansModalData.class === "safe") {
     lottieWidth = 370;
   }
   import { LottiePlayer } from "@lottiefiles/svelte-lottie-player";
@@ -65,7 +65,7 @@
   .close__icon:hover {
     opacity: 0.5;
   }
-  .pop_up.save {
+  .pop_up.safe {
     background: #006eff;
   }
   .pop_up.adventure {

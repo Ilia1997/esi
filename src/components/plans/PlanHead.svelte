@@ -80,7 +80,7 @@
     line-height: 21px;
   }
   .green {
-    color: #6cc800;
+    color: #6DB94F;
   }
   @media only screen and (max-width: 768px) {
     .plans__head .line,

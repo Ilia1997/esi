@@ -3,10 +3,9 @@
     headSteps,
     incrementStep,
     decrementStep,
-    plansModalState,
     subscribeAllState,
   } from "../../stores/store";
-  import { disableAllDropdown } from "../../stores/plansStore";
+  import { disableAllDropdown, plansModalState } from "../../stores/plansStore";
   import { allocatedContributions } from "../../stores/contributionsStore";
   import PlanHead from "./PlanHead.svelte";
   import ButtonLeft from "../buttons/ButtonLeft.svelte";
@@ -140,7 +139,7 @@
 
 <style>
   .green {
-    color: #359fa1;
+    color: #6DB94F;
   }
   .subscribe__all {
     display: flex;
@@ -177,8 +176,6 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-  }
-  .plans__wrapper__head h2 .green {
   }
 
   .plans__main {

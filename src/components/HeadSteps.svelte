@@ -65,27 +65,6 @@
   >
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width="20"
-      height="20"
-      viewBox="0 0 20 20"
-      fill="none"
-      class="svg__icon"
-    >
-      <path
-        d="M10 0C4.48 0 0 4.48 0 10C0 15.52 4.48 20 10 20C15.52 20 20 15.52 20 10C20 4.48 15.52 0 10 0ZM11 15H9V9H11V15ZM11 7H9V5H11V7Z"
-        fill="white"
-      />
-    </svg>
-    <span>Information</span>
-  </div>
-  <div
-    class="head__step"
-    class:visited={$headSteps.fourthStep}
-    class:current={$stepCounter === 4}
-    data-step="4"
-  >
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
       width="24"
       height="24"
       viewBox="0 0 24 24"
@@ -98,6 +77,27 @@
       />
     </svg>
     <span>Legal</span>
+  </div>
+  <div
+    class="head__step"
+    class:visited={$headSteps.fourthStep}
+    class:current={$stepCounter === 4}
+    data-step="4"
+  >
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="20"
+      height="20"
+      viewBox="0 0 20 20"
+      fill="none"
+      class="svg__icon"
+    >
+      <path
+        d="M10 0C4.48 0 0 4.48 0 10C0 15.52 4.48 20 10 20C15.52 20 20 15.52 20 10C20 4.48 15.52 0 10 0ZM11 15H9V9H11V15ZM11 7H9V5H11V7Z"
+        fill="white"
+      />
+    </svg>
+    <span>Information</span>
   </div>
   <div
     class="head__step"
@@ -199,56 +199,55 @@
       display: flex;
     }
     .head__step:nth-child(1) {
-    clip-path: polygon(0% 0%, 97% 0, 100% 50%, 97% 100%, 0% 100%);
-  }
-  .head__step:nth-child(2),
-  .head__step:nth-child(3),
-  .head__step:nth-child(4) {
-    margin-left: -0.7%;
-    clip-path: polygon(97% 0, 100% 50%, 97% 100%, 0% 100%, 3% 50%, 0% 0%);
-  }
-  .head__step:last-child {
-    margin-left: -0.7%;
-    clip-path: polygon(100% 0, 100% 50%, 100% 100%, 0% 100%, 3% 50%, 0% 0%);
-  }
-  
+      clip-path: polygon(0% 0%, 97% 0, 100% 50%, 97% 100%, 0% 100%);
+    }
+    .head__step:nth-child(2),
+    .head__step:nth-child(3),
+    .head__step:nth-child(4) {
+      margin-left: -0.7%;
+      clip-path: polygon(97% 0, 100% 50%, 97% 100%, 0% 100%, 3% 50%, 0% 0%);
+    }
+    .head__step:last-child {
+      margin-left: -0.7%;
+      clip-path: polygon(100% 0, 100% 50%, 100% 100%, 0% 100%, 3% 50%, 0% 0%);
+    }
   }
   @media only screen and (max-width: 768px) {
-    .head__step span{
+    .head__step span {
       font-size: 13px;
       line-height: 18px;
     }
     .head__step:nth-child(1) {
-    clip-path: polygon(0% 0%, 95% 0, 100% 50%, 95% 100%, 0% 100%);
-  }
-  .head__step:nth-child(2),
-  .head__step:nth-child(3),
-  .head__step:nth-child(4) {
-    margin-left: -1%;
-    clip-path: polygon(95% 0, 100% 50%, 95% 100%, 0% 100%, 5% 50%, 0% 0%);
-  }
-  .head__step:last-child {
-    margin-left: -1%;
-    clip-path: polygon(100% 0, 100% 50%, 100% 100%, 0% 100%, 5% 50%, 0% 0%);
-  }
+      clip-path: polygon(0% 0%, 95% 0, 100% 50%, 95% 100%, 0% 100%);
+    }
+    .head__step:nth-child(2),
+    .head__step:nth-child(3),
+    .head__step:nth-child(4) {
+      margin-left: -1%;
+      clip-path: polygon(95% 0, 100% 50%, 95% 100%, 0% 100%, 5% 50%, 0% 0%);
+    }
+    .head__step:last-child {
+      margin-left: -1%;
+      clip-path: polygon(100% 0, 100% 50%, 100% 100%, 0% 100%, 5% 50%, 0% 0%);
+    }
   }
   @media only screen and (max-width: 500px) {
-    .head__step span{
+    .head__step span {
       font-size: 13px;
       line-height: 18px;
     }
     .head__step:nth-child(1) {
-    clip-path: polygon(0% 0%, 93% 0, 100% 50%, 93% 100%, 0% 100%);
-  }
-  .head__step:nth-child(2),
-  .head__step:nth-child(3),
-  .head__step:nth-child(4) {
-    margin-left: -2%;
-    clip-path: polygon(93% 0, 100% 50%, 93% 100%, 0% 100%, 7% 50%, 0% 0%);
-  }
-  .head__step:last-child {
-    margin-left: -2%;
-    clip-path: polygon(100% 0, 100% 50%, 100% 100%, 0% 100%, 7% 50%, 0% 0%);
-  }
+      clip-path: polygon(0% 0%, 93% 0, 100% 50%, 93% 100%, 0% 100%);
+    }
+    .head__step:nth-child(2),
+    .head__step:nth-child(3),
+    .head__step:nth-child(4) {
+      margin-left: -2%;
+      clip-path: polygon(93% 0, 100% 50%, 93% 100%, 0% 100%, 7% 50%, 0% 0%);
+    }
+    .head__step:last-child {
+      margin-left: -2%;
+      clip-path: polygon(100% 0, 100% 50%, 100% 100%, 0% 100%, 7% 50%, 0% 0%);
+    }
   }
 </style>

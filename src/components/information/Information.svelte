@@ -55,7 +55,7 @@
     decrementStep()
   }
   let nextStep = () => {
-    $headSteps.fourthStep = true;
+    $headSteps.fifthStep = true;
       if (changeCounter === 0) {
         incrementStep();
         changeCounter += 1;

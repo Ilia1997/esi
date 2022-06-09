@@ -24,9 +24,9 @@
       {:else if stepCountValue === 2}
         <Plan />
       {:else if stepCountValue === 3}
-        <Information />
+       <Legal />
       {:else if stepCountValue === 4}
-        <Legal />
+        <Information />
       {/if}
      
     </div>
