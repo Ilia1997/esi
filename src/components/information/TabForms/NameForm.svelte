@@ -6,7 +6,7 @@
     <div class="tab__form__fields">
       <input type="text" class="input" placeholder="First Name" autocomplete/>
       <input type="text" class="input" placeholder="Last Name" autocomplete/>
-      <input type="text" class="input" placeholder="Username" autocomplete/>
+      
     </div>
   </div>
   

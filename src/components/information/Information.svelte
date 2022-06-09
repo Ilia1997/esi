@@ -6,13 +6,13 @@
   import AddressForm from "./TabForms/AddressForm.svelte";
   import PasswordForm from "./TabForms/PasswordForm.svelte";
   import { allowItemIndex } from "../../stores/infoStore";
-  import {headSteps, decrementStep, incrementStep} from '../../stores/store'
-  import ButtonLeft from '../buttons/ButtonLeft.svelte'
-  import ButtonRight from '../buttons/ButtonRight.svelte'
+  import { headSteps, decrementStep, incrementStep } from "../../stores/store";
+  import ButtonLeft from "../buttons/ButtonLeft.svelte";
+  import ButtonRight from "../buttons/ButtonRight.svelte";
   let tabItems = [
-    { name: "Name", component: NameForm },
+    // { name: "Name", component: NameForm },
     { name: "Contacts", component: ContactForm },
-    { name: "Address", component: AddressForm },
+    // { name: "Address", component: AddressForm },
     { name: "Password", component: PasswordForm },
   ];
 
@@ -24,18 +24,21 @@
   $: formButtonText, nextButtonState;
 
   function nextTab() {
-    if ($allowItemIndex < 5) {
+    if ($allowItemIndex < 3) {
       let index = tabItems.findIndex((object) => {
         return object.name === activeItem.name;
       });
-      if (index + 1 != tabItems.length) {
-        activeItem = tabItems[index + 1];
-        $allowItemIndex = $allowItemIndex + 1;
-        if (index + 1 === 3) {
+      console.log("index", index);
+      console.log("tabItems.length", tabItems.length);
+      if (index === 0) {
+        if (validateContact()) {
+          activeItem = tabItems[index + 1];
+          $allowItemIndex = $allowItemIndex + 1;
           formButtonText = "Save";
+        }
+      } else if (index === 1) {
+        if (validatePassword()) {
           nextButtonState = true;
-        } else {
-          formButtonText = "Next";
         }
       }
     }
@@ -48,20 +51,27 @@
       if (index != 0) {
         activeItem = tabItems[index - 1];
         $allowItemIndex = $allowItemIndex - 1;
+        formButtonText = "Next";
+        nextButtonState = false;
       }
     }
   }
-  let prevStep = ()=>{
-    decrementStep()
-  }
+  let validateContact = () => {
+    return true
+  };
+  let validatePassword = () => {
+    return true
+  };
+  let prevStep = () => {
+    decrementStep();
+  };
   let nextStep = () => {
     $headSteps.fifthStep = true;
-      if (changeCounter === 0) {
-        incrementStep();
-        changeCounter += 1;
-      }
-
-  }
+    if (changeCounter === 0) {
+      incrementStep();
+      changeCounter += 1;
+    }
+  };
 </script>
 
 <div class="main__wrapper">
@@ -72,8 +82,9 @@
     <div class="main__tabs">
       <form>
         <Tabs {tabItems} />
-        <svelte:component this={activeItem.component}/>
+        <svelte:component this={activeItem.component} />
       </form>
+      <div class="error__message">Incorrect E-mail format</div>
     </div>
     <div class="buttons__wrapper">
       {#if $allowItemIndex > 1}
@@ -96,12 +107,16 @@
     </div>
   </div>
   <div class="bottom__btns">
-    <ButtonLeft on:click={prevStep}/>
-    <ButtonRight on:click={nextStep} buttonState={nextButtonState}/>
+    <ButtonLeft on:click={prevStep} />
+    <ButtonRight on:click={nextStep} buttonState={nextButtonState} />
   </div>
 </div>
 
 <style>
+  .main__head{
+    text-align: center;
+  }
+
   :global(.tab__wrapper) {
     text-align: center;
     margin-bottom: 24px;
@@ -130,7 +145,6 @@
   :global(.tab__form__fields .input:last-child) {
     margin-bottom: 0px;
   }
- 
 
   .buttons__wrapper {
     display: flex;
@@ -181,8 +195,8 @@
     justify-content: space-between;
   }
   .green {
-  color: #359fa1;
-}
+    color:  #5B9C42;
+  }
   .info__main {
     max-width: 528px;
     width: 100%;

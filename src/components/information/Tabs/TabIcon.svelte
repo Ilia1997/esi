@@ -7,22 +7,11 @@
     classNameAddress = "",
     classNamePass = "";
   beforeUpdate(() => {
-    if ($allowItemIndex >= 4) {
-      classNamePass = "active";
-    } 
-    if ($allowItemIndex === 3) {
-      classNameAddress = "active";
-      classNameContact = "active";
-      classNamePass = "";
-    } 
-  
     if ($allowItemIndex === 2) {
       classNameContact = "active";
-      classNameAddress = "";
-      classNamePass = "";
+      classNamePass = "active";
     } else if($allowItemIndex === 1){
-      classNameContact = "";
-      classNameAddress = "";
+      classNameContact = "active";
       classNamePass = "";
     }
   });
