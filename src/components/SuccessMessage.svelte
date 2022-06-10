@@ -119,7 +119,7 @@
     transition: all 300ms ease;
   }
   @media only screen and (max-width: 768px) {
-   .like_h2 {
+    .like_h2 {
       font-size: 20px;
       line-height: 28px;
     }
