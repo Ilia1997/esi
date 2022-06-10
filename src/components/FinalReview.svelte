@@ -1,6 +1,14 @@
 <script>
-  let userName = 'Ron'
-  import {contributionData} from '../stores/contributionsStore'
+  import {
+    contributionData,
+    allocatedContributions,
+  } from "../stores/contributionsStore";
+  import { infoFormData } from "../stores//infoStore";
+  import { confirmPopUpState } from "../stores/infoStore";
+  import { headSteps, incrementStep } from "../stores/store";
+  import { beforeUpdate } from "svelte";
+
+  let changeCounter = 0;
 
   let currentDate = new Date();
   let currentYear = currentDate.getFullYear();
@@ -8,23 +16,46 @@
 
   $: currentYear;
 
-  if( $contributionData.nextPaymentMonth === "January"){
-    if($contributionData.period === 'Monthly' ){
-      currentYear = currentYear + 1
-    }else if($contributionData.period === "Bi-Monthly" && currentDay >= 15 ){
-      currentYear = currentYear + 1
+  if ($contributionData.nextPaymentMonth === "January") {
+    if ($contributionData.period === "Monthly") {
+      currentYear = currentYear + 1;
+    } else if ($contributionData.period === "Bi-Monthly" && currentDay >= 15) {
+      currentYear = currentYear + 1;
     }
-}
+  }
+  let confirmAllData = () => {
+    $confirmPopUpState = false;
+    $headSteps.fifthStep = true;
+    if (changeCounter === 0) {
+      incrementStep();
+      changeCounter += 1;
+    }
+  };
+  let closePopUp = () => {
+    $confirmPopUpState = false;
+  };
+  let safePrice = 0,
+    adventurePrice = 0,
+    founderPrice = 0;
 
+  beforeUpdate(() => {
+    safePrice =
+      ($allocatedContributions.safe * $contributionData.monthlyValue) / 100;
+    adventurePrice =
+      ($allocatedContributions.adventure * $contributionData.monthlyValue) /
+      100;
+    founderPrice =
+      ($allocatedContributions.founder * $contributionData.monthlyValue) / 100;
+  });
 </script>
 
 <div class="pop__up">
   <div class="pop__up__wrapper">
     <div class="pop__up__head">
       <div class="pop__up_head__text">
-        {userName} LET'S MAKE SURE WE'VE GOT EVERYTHING RIGHT!
+        {$infoFormData.userName} LET'S MAKE SURE WE'VE GOT EVERYTHING RIGHT!
       </div>
-      <div class="pop__up__close"><span /></div>
+      <div class="pop__up__close" on:click={closePopUp}><span /></div>
     </div>
     <div class="pop__up__body">
       <h3>Final Review</h3>
@@ -52,7 +83,11 @@
             <div class="change__btn">Change</div>
           </div>
           <div class="item__body">
-            <div class="text">{$contributionData.currencySymbol}{$contributionData.monthlyValue} USD per Month Starting {$contributionData.nextPaymentDay}th {$contributionData.nextPaymentMonth} {currentYear}</div>
+            <div class="text">
+              {$contributionData.currencySymbol}{$contributionData.monthlyValue}
+              USD per Month Starting {$contributionData.nextPaymentDay}th {$contributionData.nextPaymentMonth}
+              {currentYear}
+            </div>
           </div>
         </div>
         <div class="pop__up__item">
@@ -80,48 +115,25 @@
           <div class="item__body">
             <div class="item__plan save">
               <div class="name">Safe</div>
-              <div class="persentage">33%</div>
-              <div class="money">$200</div>
+              <div class="persentage">{$allocatedContributions.safe}%</div>
+              <div class="money">
+                {$contributionData.currencySymbol}{Math.round(safePrice)}
+              </div>
             </div>
             <div class="item__plan adventure">
               <div class="name">Adventure</div>
-              <div class="persentage">33%</div>
-              <div class="money">$200</div>
+              <div class="persentage">{$allocatedContributions.adventure}%</div>
+              <div class="money">
+                {$contributionData.currencySymbol}{Math.round(adventurePrice)}
+              </div>
             </div>
             <div class="item__plan founder">
               <div class="name">Founder</div>
-              <div class="persentage">33%</div>
-              <div class="money">$200</div>
-            </div>
-          </div>
-        </div>
-        <div class="pop__up__item">
-          <div class="item__head">
-            <div class="step">
-              <div class="step__icon">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="20"
-                  height="20"
-                  viewBox="0 0 20 20"
-                  fill="none"
-                  class="svg__icon"
-                >
-                  <path
-                    d="M10 0C4.48 0 0 4.48 0 10C0 15.52 4.48 20 10 20C15.52 20 20 15.52 20 10C20 4.48 15.52 0 10 0ZM11 15H9V9H11V15ZM11 7H9V5H11V7Z"
-                    fill="#3E6B2C"
-                  />
-                </svg>
+              <div class="persentage">{$allocatedContributions.founder}%</div>
+              <div class="money">
+                {$contributionData.currencySymbol}{Math.round(founderPrice)}
               </div>
-              <div class="step__name">Information</div>
             </div>
-            <div class="change__btn">Change</div>
-          </div>
-          <div class="item__body">
-            <div class="text">N: Anton Rob Lavergne</div>
-            <div class="text">P: +63 955 246 0099</div>
-            <div class="text">E: alkhjdaslkhjdas@whatever.com</div>
-            <div class="text">A: 1310 Leprigde LA California 1115 USA</div>
           </div>
         </div>
         <div class="pop__up__item">
@@ -144,6 +156,7 @@
               </div>
               <div class="step__name">Legal</div>
             </div>
+            <div class="change__btn">Change</div>
           </div>
           <div class="item__body">
             <div class="legal__item">
@@ -189,8 +202,36 @@
             </div>
           </div>
         </div>
+        <div class="pop__up__item">
+          <div class="item__head">
+            <div class="step">
+              <div class="step__icon">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="20"
+                  height="20"
+                  viewBox="0 0 20 20"
+                  fill="none"
+                  class="svg__icon"
+                >
+                  <path
+                    d="M10 0C4.48 0 0 4.48 0 10C0 15.52 4.48 20 10 20C15.52 20 20 15.52 20 10C20 4.48 15.52 0 10 0ZM11 15H9V9H11V15ZM11 7H9V5H11V7Z"
+                    fill="#3E6B2C"
+                  />
+                </svg>
+              </div>
+              <div class="step__name">Information</div>
+            </div>
+            <div class="change__btn">Change</div>
+          </div>
+          <div class="item__body">
+            <div class="text">N: {$infoFormData.userName}</div>
+            <div class="text">P: {$infoFormData.phone}</div>
+            <div class="text">E: {$infoFormData.email}</div>
+          </div>
+        </div>
       </div>
-      <button class="submt__btn"
+      <button class="submt__btn" on:click={confirmAllData}
         ><span>Open Account</span><svg
           xmlns="http://www.w3.org/2000/svg"
           width="15"
@@ -216,7 +257,7 @@
     width: 100%;
     height: auto;
     padding: 0;
-    background-color: rgba(0, 0, 0, 0.50);
+    background-color: rgba(0, 0, 0, 0.5);
   }
   .pop__up__wrapper {
     border-radius: 10px;
@@ -298,7 +339,7 @@
     overflow: hidden;
     margin-bottom: 24px;
   }
-  .pop__up__item:last-child{
+  .pop__up__item:last-child {
     margin-bottom: 34px;
   }
   .item__head {
@@ -396,13 +437,29 @@
     align-items: center;
     cursor: pointer;
   }
-  .submt__btn:hover{
+  .submt__btn:hover {
     background: #006effd8;
   }
-  .submt__btn:active{
+  .submt__btn:active {
     background: #006eff;
   }
-  .submt__btn svg{
+  .submt__btn svg {
     margin-left: 10px;
+  }
+  @media only screen and (max-width: 768px) {
+    .pop__up__wrapper {
+      margin: 0;
+      border-radius: 0;
+    }
+    .pop__up__head {
+      border-radius: 0;
+    }
+    .pop__up__close {
+      width: 24px;
+      height: 24px;
+      position: absolute;
+      right: 15px;
+      top: 15px;
+    }
   }
 </style>

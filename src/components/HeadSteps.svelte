@@ -118,7 +118,7 @@
         fill="white"
       />
     </svg>
-    <span>Payment</span>
+    <span>Billing Information</span>
   </div>
 </div>
 

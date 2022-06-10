@@ -34,7 +34,8 @@
   }
   .contribution__right__head {
     padding-left: 32px;
-    max-width: 918px;
+    max-width: 1000px;
+    padding-right: 52px;
   }
   .contribution__right__head p {
     margin-top: 14px;

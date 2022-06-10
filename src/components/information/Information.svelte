@@ -3,9 +3,16 @@
   import NameForm from "./TabForms/NameForm.svelte";
   import ContactForm from "./TabForms/ContactForm.svelte";
   import Tabs from "./Tabs/Tabs.svelte";
-  import AddressForm from "./TabForms/AddressForm.svelte";
+  import AddressForm from "../billing/TabForms/AddressForm.svelte";
   import PasswordForm from "./TabForms/PasswordForm.svelte";
-  import { allowItemIndex } from "../../stores/infoStore";
+  import {
+    allowItemIndex,
+    infoFormErrorMessage,
+    infoFormErrorState,
+    infoFormData,
+    infoFormErrorStates,
+    confirmPopUpState,
+  } from "../../stores/infoStore";
   import { headSteps, decrementStep, incrementStep } from "../../stores/store";
   import ButtonLeft from "../buttons/ButtonLeft.svelte";
   import ButtonRight from "../buttons/ButtonRight.svelte";
@@ -28,16 +35,17 @@
       let index = tabItems.findIndex((object) => {
         return object.name === activeItem.name;
       });
-      console.log("index", index);
-      console.log("tabItems.length", tabItems.length);
       if (index === 0) {
-        if (validateContact()) {
+        validateContact();
+        if ($infoFormErrorState === false) {
           activeItem = tabItems[index + 1];
           $allowItemIndex = $allowItemIndex + 1;
           formButtonText = "Save";
         }
       } else if (index === 1) {
-        if (validatePassword()) {
+        validatePassword();
+        if ($infoFormErrorState === false) {
+          console.log("here");
           nextButtonState = true;
         }
       }
@@ -57,20 +65,92 @@
     }
   }
   let validateContact = () => {
-    return true
+    let email = $infoFormData.email;
+    let userName = $infoFormData.userName;
+    let phone = $infoFormData.phone;
+    // email validation
+    validateEmail(email);
+    validateUserName(userName);
+    checkFieldLenght(phone, "Phone", "phone", 8, 12);
+
+    checkValidFieldStatus();
   };
+  function checkValidFieldStatus() {
+    if (
+      $infoFormErrorStates.email === false &&
+      $infoFormErrorStates.phone === false &&
+      $infoFormErrorStates.userName === false
+    ) {
+      $infoFormErrorState = false;
+    } else {
+      $infoFormErrorState = true;
+    }
+  }
+
   let validatePassword = () => {
-    return true
+    let pass = $infoFormData.password;
+    let confirmPass = $infoFormData.confirmPassword;
+    console.log(pass)
+    if (pass !== confirmPass) {
+      showError("password", "Passwords do not match");
+      console.log( "Passwords do not match")
+      checkPassValidFieldStatus();
+      return false;
+    }
+
+    checkFieldLenght(pass, "Password", "password", 6, 32);
+    checkFieldLenght(confirmPass, "Confirm Password", "confirmPassword", 6, 32);
+    checkPassValidFieldStatus();
   };
+
+  function checkPassValidFieldStatus() {
+    if (
+      $infoFormErrorStates.password === false &&
+      $infoFormErrorStates.confirmPassword === false
+    ) {
+      $infoFormErrorState = false;
+    } else {
+      $infoFormErrorState = true;
+    }
+  }
+  let validateEmail = (email) => {
+    const re =
+      /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    if (!re.test(email.trim())) {
+      showError("email", "Email is not invalid");
+      return false;
+    } else {
+      showSucces("email");
+    }
+  };
+
+  let validateUserName = (userName) => {
+    checkFieldLenght(userName, "User Name", "userName", 3, 32);
+  };
+
+  let checkFieldLenght = (field, fieldName, fieldType, min, max) => {
+    if (field.length < min) {
+      showError(fieldType, `${fieldName} must be at least ${min} characters`);
+    } else if (field.length > max) {
+      showError(fieldType, `${fieldName} must be les than ${max} characters`);
+    } else {
+      showSucces(fieldType);
+    }
+  };
+  //Show input error messages
+  function showError(type, message) {
+    $infoFormErrorMessage[type] = message;
+    $infoFormErrorStates[type] = true;
+  }
+  function showSucces(type) {
+    $infoFormErrorStates[type] = false;
+  }
+
   let prevStep = () => {
     decrementStep();
   };
   let nextStep = () => {
-    $headSteps.fifthStep = true;
-    if (changeCounter === 0) {
-      incrementStep();
-      changeCounter += 1;
-    }
+    $confirmPopUpState = true;
   };
 </script>
 
@@ -83,8 +163,24 @@
       <form>
         <Tabs {tabItems} />
         <svelte:component this={activeItem.component} />
+        {#if $infoFormErrorState}
+          {#if $infoFormErrorStates.userName === true}
+            <div class="error__message">{$infoFormErrorMessage.userName}</div>
+          {/if}
+          {#if $infoFormErrorStates.email === true}
+            <div class="error__message">{$infoFormErrorMessage.email}</div>
+          {/if}
+          {#if $infoFormErrorStates.phone === true}
+            <div class="error__message">{$infoFormErrorMessage.phone}</div>
+          {/if}
+          {#if $infoFormErrorStates.password === true}
+            <div class="error__message">{$infoFormErrorMessage.password}</div>
+          {/if}
+          {#if $infoFormErrorStates.password === true}
+            <div class="error__message">{$infoFormErrorMessage.confirmPassword}</div>
+          {/if}
+        {/if}
       </form>
-      <div class="error__message">Incorrect E-mail format</div>
     </div>
     <div class="buttons__wrapper">
       {#if $allowItemIndex > 1}
@@ -106,6 +202,7 @@
       <button class="btn next" on:click={nextTab}>{formButtonText}</button>
     </div>
   </div>
+
   <div class="bottom__btns">
     <ButtonLeft on:click={prevStep} />
     <ButtonRight on:click={nextStep} buttonState={nextButtonState} />
@@ -113,13 +210,18 @@
 </div>
 
 <style>
-  .main__head{
+  .main__head {
     text-align: center;
+  }
+  .error__message {
+    font-size: 12px;
+    line-height: 24px;
+    color: #ff2e00;
   }
 
   :global(.tab__wrapper) {
     text-align: center;
-    margin-bottom: 24px;
+    margin-bottom: 8px;
   }
   :global(.tab__head) {
     font-weight: 600;
@@ -195,7 +297,7 @@
     justify-content: space-between;
   }
   .green {
-    color:  #5B9C42;
+    color: #5b9c42;
   }
   .info__main {
     max-width: 528px;
@@ -205,5 +307,8 @@
   }
   .main__tabs {
     margin-top: 14px;
+  }
+  .main__tabs form {
+    margin-bottom: 16px;
   }
 </style>

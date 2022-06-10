@@ -1,6 +1,20 @@
 <script>
+  import { infoFormData, infoFormErrorStates,infoFormErrorMessage } from "../../../stores/infoStore";
   let passwordType = "password";
   let confirnPasswordType = "password";
+
+  let valuePass = "";
+  let valueConfirmPass = "";
+
+  let onInputConfirmPass = (event) => {
+    $infoFormData.password = event.target.value;
+    console.log($infoFormData.password)
+  };
+  let onInputPass = (event) => {
+    $infoFormData.confirmPassword = event.target.value;
+    console.log( $infoFormData.confirmPassword )
+  };
+
   function validatePasswordType() {
     if (passwordType === "password") {
       passwordType = "text";
@@ -14,6 +28,11 @@
     } else {
       confirnPasswordType = "password";
     }
+  }
+
+  function disableErrorState (type){
+    $infoFormErrorStates[type] = false
+    $infoFormErrorMessage[type] = ''
   }
   $: passwordType, confirnPasswordType;
 </script>
@@ -39,7 +58,15 @@
           fill="#053900"
         />
       </svg>
-      <input type={passwordType} class="input" placeholder="Password" autocomplete/>
+      <input
+        type={passwordType}
+        class="input"
+        placeholder="Password"
+        autocomplete
+        class:error ={$infoFormErrorStates.password} 
+        on:focus={()=>{ disableErrorState( 'password') }}
+        on:input={onInputPass}
+      />
     </div>
     <div class="input__wrapper">
       <svg
@@ -63,12 +90,23 @@
         class="input"
         placeholder="Confirm Password"
         autocomplete
+        class:error = {$infoFormErrorStates.confirmPassword} 
+        on:focus={()=>{ disableErrorState( 'confirmPassword') }}
+        on:input={onInputConfirmPass}
       />
     </div>
   </div>
 </div>
 
 <style>
+
+input.error{
+    border: 1px solid #FF2E00;
+    color: #FF2E00;
+  }
+  input.error::placeholder{
+    color: #FF2E00;
+  }
   .input__wrapper {
     position: relative;
   }
@@ -82,12 +120,12 @@
     right: 20px;
     z-index: 2;
     cursor: pointer;
-    transition: all ease .3s;
+    transition: all ease 0.3s;
   }
-  .eye__icon:hover{
+  .eye__icon:hover {
     transform: scale(1.05);
   }
-  .eye__icon:active{
+  .eye__icon:active {
     transform: scale(1.02);
   }
 </style>

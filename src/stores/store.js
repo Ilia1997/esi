@@ -17,26 +17,12 @@ export function decrementStep() {
         stepCounter.update(n => n - 1 )
     }
 }
-
-export const firstClickedDropdown = writable({
-    safe: false,
-    adventure: false,
-    founder: false,
-})
-
-export let sortPersantageVariable = writable ("all")
-
-export const plansModalState = writable(false)
+export const successMessageState = writable(false)
 
 export let subscribeAllState = writable(false)
 
 
-export const plansModalData = writable({
-    class: 'save',
-    name: 'Green Safe',
-    desc: 'Safe as a bank account. This fund invests exclusively in green bonds and is the perfect option for Green Savers who want to be sure their funds are secure. The Green Safe plan involves a commitment to institutional and governmental bonds and enables subscribers to have a global, national, and local impact.',
-    lottie: "https://uploads-ssl.webflow.com/627ca4b5fcfd5674acf264e6/6281f1b9694dfd538fae0ee3_Safe.json"
-})
+
 
 
 

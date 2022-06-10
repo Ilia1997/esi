@@ -3,10 +3,13 @@
   import { onDestroy } from "svelte";
   import HeadSteps from "./components/HeadSteps.svelte";
   import Plan from "./components/plans/Plan.svelte";
-  import FinalReview from './components/FinalReview.svelte'
-  import { stepCounter } from "./stores/store";
+  import FinalReview from "./components/FinalReview.svelte";
+  import { stepCounter, successMessageState } from "./stores/store";
   import Legal from "./components/legal/Legal.svelte";
   import Information from "./components/information/Information.svelte";
+  import Billing from "./components/billing/Billing.svelte";
+  import { confirmPopUpState } from "./stores/infoStore";
+  import SuccessMessage from "./components/SuccessMessage.svelte";
   let stepCountValue;
   const unsubscribe = stepCounter.subscribe((value) => {
     stepCountValue = value;
@@ -16,24 +19,34 @@
 
 <main>
   <div class="container__form">
-    <HeadSteps />
-
-    <div class="step__content">
-      <!-- {#if stepCountValue === 1}
-        <Contribution />
-      {:else if stepCountValue === 2}
-        <Plan />
-      {:else if stepCountValue === 3}
-       <Legal />
-      {:else if stepCountValue === 4} -->
-        <Information />
-      <!-- {/if} -->
-     <!-- some -->
+   {#if $successMessageState === false}
+      <div class="wrapper">
+      <HeadSteps />
+      <div class="step__content">
+        {#if stepCountValue === 1}
+          <Contribution />
+        {:else if stepCountValue === 2}
+          <Plan />
+        {:else if stepCountValue === 3}
+          <Legal />
+        {:else if stepCountValue === 4}
+          <Information />
+        {:else if stepCountValue === 5}
+          <Billing />
+        {/if}
+      </div>
     </div>
-  </div>
+    {:else if $successMessageState === true}
+     <SuccessMessage />
+   {/if}
+   
 
+   
+  </div>
 </main>
-<!-- <FinalReview /> -->
+{#if $confirmPopUpState === true}
+  <FinalReview />
+{/if}
 
 <style>
   main {
