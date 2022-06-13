@@ -17,8 +17,6 @@
   onDestroy(unsubscribe);
 </script>
 
-<!-- max dev test -->
-
 <main>
   <div class="container__form">
    {#if $successMessageState === false}
