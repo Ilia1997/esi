@@ -13,6 +13,7 @@
     allocatedContributions,
   } from "../../stores/contributionsStore";
   import PlanBtn from "./PlanBtn.svelte";
+import PlanItem from "./PlanItem.svelte";
 
   let savePercentages;
   $: savePercentages;
@@ -531,6 +532,13 @@
     </div>
   </div>
 </div>
+
+<PlanItem currentPlan = {savePlan}
+className = 'save'
+allowPercentageVal = {allowPercentageVal}
+savePercentages = {savePercentages}
+currentPrice = {safePrice}
+active = {activeDropdownSave} />
 
 <style>
   .mob__plan__info {
