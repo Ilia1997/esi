@@ -10,6 +10,7 @@
   import Billing from "./components/billing/Billing.svelte";
   import { confirmPopUpState } from "./stores/infoStore";
   import SuccessMessage from "./components/SuccessMessage.svelte";
+  import {fade} from 'svelte/transition'
   let stepCountValue;
   const unsubscribe = stepCounter.subscribe((value) => {
     stepCountValue = value;

@@ -12,6 +12,7 @@
   import ButtonRight from "../buttons/ButtonRight.svelte";
   import PlanItems from "./PlanItems.svelte";
   import PlanModal from "./PlanModal.svelte";
+  import {fade} from 'svelte/transition'
 
   let changeCounter = 0;
 
@@ -128,7 +129,10 @@
     <PlanItems />
   </div>
   {#if $plansModalState}
-    <PlanModal />
+  <div transition:fade>
+      <PlanModal />
+  </div>
+  
   {/if}
 
   <div class="bottom__btns">
@@ -180,6 +184,7 @@
 
   .plans__main {
     width: 100%;
+    position: relative;
   }
   .mob__plan__h2,
   .main__mob_h2 {

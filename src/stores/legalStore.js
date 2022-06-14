@@ -28,3 +28,5 @@ export const checkboxStates = writable({
   b:false,
   c:false
 })
+
+export const allSelected = writable (false)
