@@ -10,7 +10,7 @@
   import Billing from "./components/billing/Billing.svelte";
   import { confirmPopUpState } from "./stores/infoStore";
   import SuccessMessage from "./components/SuccessMessage.svelte";
-  import {fade} from 'svelte/transition'
+  import { fade } from "svelte/transition";
   let stepCountValue;
   const unsubscribe = stepCounter.subscribe((value) => {
     stepCountValue = value;
@@ -20,29 +20,36 @@
 
 <main>
   <div class="container__form">
-   {#if $successMessageState === false}
+    {#if $successMessageState === false}
       <div class="wrapper">
-      <HeadSteps />
-      <div class="step__content">
-        {#if stepCountValue === 1}
-          <Contribution />
-        {:else if stepCountValue === 2}
-          <Plan />
-        {:else if stepCountValue === 3}
-          <Legal />
-        {:else if stepCountValue === 4}
-          <Information />
-        {:else if stepCountValue === 5}
-          <Billing />
-        {/if}
+        <HeadSteps />
+        <div class="step__content">
+          {#if stepCountValue === 1}
+            <div class="component__wrapper" in:fade={{ duration: 500 }}>
+              <Contribution />
+            </div>
+          {:else if stepCountValue === 2}
+            <div class="component__wrapper" in:fade={{ duration: 500 }}>
+              <Plan />
+            </div>
+          {:else if stepCountValue === 3}
+            <div class="component__wrapper" in:fade={{ duration: 500 }}>
+              <Legal />
+            </div>
+          {:else if stepCountValue === 4}
+            <div class="component__wrapper" in:fade={{ duration: 500 }}>
+              <Information />
+            </div>
+          {:else if stepCountValue === 5}
+            <div class="component__wrapper" in:fade={{ duration: 500 }}>
+              <Billing />
+            </div>
+          {/if}
+        </div>
       </div>
-    </div>
     {:else if $successMessageState === true}
-     <SuccessMessage />
-   {/if}
-   
-
-   
+      <SuccessMessage />
+    {/if}
   </div>
 </main>
 {#if $confirmPopUpState === true}
@@ -50,6 +57,9 @@
 {/if}
 
 <style>
+  .component__wrapper {
+    width: 100%;
+  }
   main {
     padding: 50px 0 150px 0;
   }

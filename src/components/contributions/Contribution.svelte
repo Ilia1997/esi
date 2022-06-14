@@ -3,6 +3,7 @@
   import { incrementStep, headSteps } from "../../stores/store";
   import { contributionData } from "../../stores/contributionsStore";
   import { beforeUpdate, onDestroy } from "svelte";
+  import {scrollToTop} from '../../functions/scrollToTop'
   import Rules from "./Rules.svelte";
   import ButtonRight from "../buttons/ButtonRight.svelte";
   let changeCounter = 0;
@@ -13,6 +14,7 @@
       $headSteps.secondStep = true;
       if (changeCounter === 0) {
         incrementStep();
+        scrollToTop()
         changeCounter += 1;
       }
     }

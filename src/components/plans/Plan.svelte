@@ -13,11 +13,13 @@
   import PlanItems from "./PlanItems.svelte";
   import PlanModal from "./PlanModal.svelte";
   import {fade} from 'svelte/transition'
+  import {scrollToTop} from '../../functions/scrollToTop'
 
   let changeCounter = 0;
 
   let prevStep = () => {
     decrementStep();
+    scrollToTop()
   };
   let nextStep = () => {
     if (validate()) {
@@ -25,6 +27,7 @@
       if (changeCounter === 0) {
         incrementStep();
         changeCounter += 1;
+        scrollToTop()
       }
     } else {
       alert("Chouse all 100% of your money");
@@ -35,7 +38,6 @@
       $allocatedContributions.safe +
       $allocatedContributions.adventure +
       $allocatedContributions.founder;
-    console.log(sumOfPlans);
     if (sumOfPlans > 99 && sumOfPlans <= 100) {
       return true;
     } else {
