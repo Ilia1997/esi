@@ -90,7 +90,6 @@
   let validatePassword = () => {
     let pass = $infoFormData.password;
     let confirmPass = $infoFormData.confirmPassword;
-    console.log(pass)
     if (pass !== confirmPass) {
       showError("password", "Passwords do not match");
       console.log( "Passwords do not match")
@@ -295,6 +294,7 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    height: 100%;
   }
   .green {
     color: #5b9c42;

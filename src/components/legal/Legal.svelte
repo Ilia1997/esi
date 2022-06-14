@@ -7,6 +7,7 @@ import { afterUpdate } from "svelte";
   import { headSteps, incrementStep, decrementStep } from "../../stores/store";
   import ButtonLeft from "../buttons/ButtonLeft.svelte";
   import ButtonRight from "../buttons/ButtonRight.svelte";
+  import {scrollToTop} from '../../functions/scrollToTop'
   let changeCounter = 0;
 
 
@@ -36,6 +37,7 @@ afterUpdate(()=>{
 
   let prevStep = () => {
     decrementStep();
+    scrollToTop()
   };
 
   let nextStep = () => {
@@ -45,6 +47,7 @@ afterUpdate(()=>{
       if (changeCounter === 0) {
         incrementStep();
         changeCounter += 1;
+        scrollToTop()
       }
     } else {
       alert("fill all checkbox");
@@ -120,6 +123,7 @@ afterUpdate(()=>{
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    height: 100%;
   }
 
   :global(.accordion) {
