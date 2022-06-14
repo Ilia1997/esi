@@ -7,14 +7,28 @@
     plansModalData,
     sortPersantageVariable,
     disableAllDropdown,
+    planModalData,
+    portfolioItems
   } from "../../stores/plansStore";
   import {
     contributionData,
     allocatedContributions,
   } from "../../stores/contributionsStore";
   import PlanBtn from "./PlanBtn.svelte";
+import Portfolio from "./Portfolio.svelte";
 
+  export let current,
+  currentPlan,
+  className = '',
+  allowPercentageVal,
+  savePercentages,
+  currentPrice,
+  activeClass,
+  activeState = false,
+  btnText,
+  btnClass;
 
+  let modalData = planModalData[0]
   function setPercentage(item, plan) {
     if($disableAllDropdown === false ){
       $sortPersantageVariable = item.sortName;
@@ -24,11 +38,11 @@
         $allocatedContributions.safe = item.persentage;
         $allocatedContributions.safeName = item.value;
         break;
-      case "adv":
+      case "adventure":
         $allocatedContributions.adventure = item.persentage;
         $allocatedContributions.adventureName = item.value;
         break;
-      case "found":
+      case "founder":
         $allocatedContributions.founder = item.persentage;
         $allocatedContributions.founderName = item.value;
         break;
@@ -38,46 +52,28 @@
     }
     
   }
+  let svgIcons = {
+    safe: 'https://uploads-ssl.webflow.com/627ca4b5fcfd5674acf264e6/627e4841370604453befc5d7_green.svg',
+    adventure: 'https://uploads-ssl.webflow.com/627ca4b5fcfd5674acf264e6/627e4bde122aa36a24438411_tab-icon-02.svg',
+    founder: 'https://uploads-ssl.webflow.com/627ca4b5fcfd5674acf264e6/627e4be882a78868831022d1_founder.svg',
+  }
+
+  let currentSvgIcon = svgIcons[className]
+
+
+
 
   function showModal(plan) {
-    switch (plan) {
-      case "safe":
-        $plansModalData.class = "safe";
-        $plansModalData.name = "Green Safe";
-        $plansModalData.desc =
-          "Safe as a bank account. This fund invests exclusively in green bonds and is the perfect option for Green Savers who want to be sure their funds are secure. The Green Safe plan involves a commitment to institutional and governmental bonds and enables subscribers to have a global, national, and local impact.";
-        $plansModalData.lottie =
-          "https://uploads-ssl.webflow.com/627ca4b5fcfd5674acf264e6/6281f1b9694dfd538fae0ee3_Safe.json";
-        break;
-      case "adv":
-        $plansModalData.class = "adventure";
-        $plansModalData.name = "Green Adventure";
-        $plansModalData.desc =
-          "A growth fund with more risks and more rewards. The Green Adventure plan is for Green Savers who want to put their funds toward ventures that have a significantly more direct impact on mitigating climate change and are devoted to creating and developing green businesses around the world. The plan also includes investments in green equities to reward companies that already make a difference and an activism investment fund for pressuring companies to become green.";
-        $plansModalData.lottie =
-          "https://uploads-ssl.webflow.com/627ca4b5fcfd5674acf264e6/628203b9fca88d2dde5b697f_Adventure.json";
-        break;
-      case "found":
-        $plansModalData.class = "founder";
-        $plansModalData.name = "Green Change";
-        $plansModalData.desc =
-          "The ESi future is green, and we want YOU to be part of it. Becoming a founder Green Saver involves owning part of ESi. This option is limited to a predetermined target, and you will own a portion of ESi based on your contribution up to a collective 35% of ESi capital. Our vision is to create a sustainable green finance ecosystem making ethical green investing accessible. Collectively, we plan to become the most prominent green investor and green financial product provider.";
-        $plansModalData.lottie =
-          "https://uploads-ssl.webflow.com/627ca4b5fcfd5674acf264e6/628203e11d51fd22eede66f3_Founder.json";
-        break;
-      default:
-        console.log("Error");
-    }
+
+        $plansModalData.class = modalData[plan].class;
+        $plansModalData.name = modalData[plan].head;
+        $plansModalData.desc = modalData[plan].desc;
+        $plansModalData.lottie = modalData[plan].lottie;
+
     $plansModalState = true;
   }
 
-  export let current,
-  currentPlan,
-  className = '',
-  allowPercentageVal,
-  savePercentages,
-  currentPrice,
-  active;
+
 
 </script>
 
@@ -90,16 +86,16 @@
       <div class="column">
         <img
           class="plan__icon"
-          src="https://uploads-ssl.webflow.com/627ca4b5fcfd5674acf264e6/627e4841370604453befc5d7_green.svg"
+          src= {currentSvgIcon}
           alt=""
         />
 
-        <div class="item__head__name">Select GREEN SAFE</div>
+        <div class="item__head__name">Select GREEN {className}</div>
       </div>
       <div class="column">
         <div class="item__head__checkbox">
           <svg
-            class:visible={$allocatedContributions.safe != 0}
+            class:visible={$allocatedContributions[className] != 0}
             xmlns="http://www.w3.org/2000/svg"
             width="20"
             height="20"
@@ -148,9 +144,8 @@
           <div class="dropdown__wrapper"
           class:disabled={$disableAllDropdown === true}>
             <div
-              class="dropdown"
-              class:active 
-              on:click={() => (active = !active)}
+              class="dropdown {activeState?activeClass: ''}"
+              on:click={() => (activeState = !activeState)}
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -165,7 +160,7 @@
                 />
               </svg>
               <div class="dropdown__item--current">
-                {$allocatedContributions.safe}% Total Contribution
+                {$allocatedContributions[className]}% Total Contribution
               </div>
               <div class="dropdown__items">
                 {#each savePercentages as item}
@@ -173,7 +168,7 @@
                     class="dropdown__item"
                     class:disabled={!item.visibility ||
                       (item.persentage > allowPercentageVal &&
-                        allowPercentageVal + $allocatedContributions.safe <
+                        allowPercentageVal + $allocatedContributions[className] <
                           item.persentage)}
                     on:click={() => setPercentage(item, currentPlan)}
                   >
@@ -183,7 +178,7 @@
               </div>
             </div>
           </div>
-          <div class="item__current__money safe">
+          <div class="item__current__money {className}">
             <div class="money">
               {$contributionData.currencySymbol + Math.round(currentPrice)}
             </div>
@@ -191,29 +186,14 @@
         </div>
 
         <div class="mob__plan__info">
-          <div class="plan__info__head">Green Safe</div>
-          <div class="plan__info__text">
-            Safe as a bank account. This fund invests exclusively in green bonds
-            and is the perfect option for Green Savers who want to be sure their
-            funds are secure. The Green Safe plan involves a commitment to
-            institutional and governmental bonds and enables subscribers to have
-            a global, national, and local impact.
+          <div class="plan__info__head">{modalData[className].head}</div>
+          <div class="plan__info__text">{modalData[className].desc}
           </div>
         </div>
-        <div class="portfolio">
-          <div class="portfolio__head">Portfolio</div>
-          <ul>
-            <li>50% international green bonds</li>
-            <li>25% national green bonds</li>
-            <li>25% municipal or provincial green bonds*</li>
-          </ul>
-          <div class="portfolio__heler">
-            *depending on availability and contribution size
-          </div>
-        </div>
+       <Portfolio name={className} />
         <PlanBtn
-          content={"Green Safe info"}
-          className={"blue"}
+          content={btnText}
+          className={btnClass}
           on:click={() => showModal(currentPlan)}
         />
       </div>
@@ -245,7 +225,7 @@
       justify-content: space-between;
       padding: 11px 34px 11px 24px;
     }
-    .plans__item.save .item__head {
+    .plans__item.safe .item__head {
       background: #338df3;
     }
     .plans__item.adventure .item__head {
@@ -254,7 +234,7 @@
     .plans__item.founder .item__head {
       background: #8336e4;
     }
-    .plans__item.save .item__body {
+    .plans__item.safe .item__body {
       background: linear-gradient(
         90deg,
         rgba(168, 224, 255, 0.56) 0.14%,
@@ -352,7 +332,7 @@
       border: 2px solid rgba(0, 110, 255, 0.7);
       color: #fff;
     }
-    .plans__item.save .portfolio {
+    .plans__item.safe .portfolio {
       background: rgba(0, 110, 255, 0.25);
       border: 2px solid rgba(0, 110, 255, 0.7);
     }
@@ -433,19 +413,27 @@
     .plans__item.adventure {
       margin: 0 20px;
     }
-    .dropdown.active {
-      background-color: #fff;
-      padding: 11px 0;
-    }
-    .dropdown.active svg{
-      transform: rotate(180deg);
-    }
-    .dropdown.active .dropdown__item--current {
-      display: none;
-    }
-    .dropdown.active .dropdown__items {
-      display: block;
-    }
+  .dropdown.activeDropdownSave,
+  .dropdown.activeDropdownAdv,
+  .dropdown.activeDropdownFound {
+    background-color: #fff;
+    padding: 11px 0;
+  }
+  .dropdown.activeDropdownSave svg,
+  .dropdown.activeDropdownAdv svg,
+  .dropdown.activeDropdownFound svg {
+    transform: rotate(180deg);
+  }
+  .dropdown.activeDropdownSave .dropdown__item--current,
+  .dropdown.activeDropdownAdv .dropdown__item--current,
+  .dropdown.activeDropdownFound .dropdown__item--current {
+    display: none;
+  }
+  .dropdown.activeDropdownSave .dropdown__items,
+  .dropdown.activeDropdownAdv .dropdown__items,
+  .dropdown.activeDropdownFound .dropdown__items {
+    display: block;
+  }
   
     @media only screen and (max-width: 1280px) {
       .item__top {
