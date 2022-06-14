@@ -1,21 +1,36 @@
 <script>
+import { afterUpdate } from "svelte";
+
   import { Accordion, AccordionItem } from "svelte-collapsible";
   let openedKey = "a";
-  import { checkboxStates, legalItems } from "./legalStore";
+  import { checkboxStates, legalItems, allSelected } from "../../stores/legalStore";
   import { headSteps, incrementStep, decrementStep } from "../../stores/store";
   import ButtonLeft from "../buttons/ButtonLeft.svelte";
   import ButtonRight from "../buttons/ButtonRight.svelte";
   let changeCounter = 0;
+
+
+afterUpdate(()=>{
+  if ( $checkboxStates.a &&
+      $checkboxStates.b  &&
+      $checkboxStates.c ){
+        $allSelected = true
+      }else {
+        $allSelected = false
+      }
+})
 
   function agreeAllTerms(e) {
     if (e.target.checked) {
       $checkboxStates.a = true;
       $checkboxStates.b = true;
       $checkboxStates.c = true;
+      $allSelected = true
     } else {
       $checkboxStates.a = false;
       $checkboxStates.b = false;
       $checkboxStates.c = false;
+      $allSelected = false
     }
   }
 
@@ -84,6 +99,7 @@
         on:change={(e) => {
           agreeAllTerms(e);
         }}
+        checked={$allSelected}
       />
       <p>
         I agree to all Terms & Conditions, Contract Agreement, Privacy & Cookie

@@ -1,14 +1,19 @@
 <script>
   import { plansModalState, plansModalData } from "../../stores/plansStore"
+	import {clickOutside} from '../../functions/clickOutside'
+  import { LottiePlayer } from "@lottiefiles/svelte-lottie-player";
 
   let lottieWidth = 450;
   if ($plansModalData.class === "safe") {
     lottieWidth = 370;
   }
-  import { LottiePlayer } from "@lottiefiles/svelte-lottie-player";
+  function handleClickOutside(event) {
+		$plansModalState = false
+	}
+
 </script>
 
-<div class="pop_up {$plansModalData.class}">
+<div class="pop_up {$plansModalData.class}" use:clickOutside on:click_outside={handleClickOutside}>
   <div class="column">
     <div class="content">
       <div class="content__head">{$plansModalData.name}</div>
@@ -47,12 +52,17 @@
 
 <style>
   .pop_up {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: auto;
+    z-index: 10;
     margin-top: 16px;
     padding: 64px;
     display: flex;
     width: 100%;
     box-shadow: 0px 25px 35px rgba(0, 0, 0, 0.15);
-    position: relative;
+    background-color: white;
   }
   .close__icon {
     position: absolute;
