@@ -1,10 +1,6 @@
 <script>
-
     import TabIcon from './TabIcon.svelte'
     export let tabItems;
-
-    
-
 </script>
 
 <div class="tabs">
@@ -33,5 +29,4 @@
         color: #555;
 
     }
-
 </style>

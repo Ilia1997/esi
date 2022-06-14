@@ -85,3 +85,23 @@ width: 100%;
 
 }
 
+/* ESI global styles */
+.btn:hover svg path{
+  fill: #fff
+}
+.dropdown svg {
+  position: absolute;
+  right: 15px;
+  z-index: 3;
+  top: 25px;
+}
+.dropdown.activePeriod svg,
+.dropdown.activeCurrency svg {
+  transform: rotate(180deg);
+}
+
+@media only screen and (max-width: 768px) {
+  .dropdown svg {
+    top: 15px;
+  }
+}
