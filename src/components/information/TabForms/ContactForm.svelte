@@ -3,6 +3,7 @@
 
   import intlTelInput from "intl-tel-input";
   import { afterUpdate } from "svelte";
+  import {fade} from 'svelte/transition'
   import {infoFormData,infoFormErrorStates, infoFormErrorMessage} from '../../../stores/infoStore'
 
   let input;
@@ -40,7 +41,7 @@
   }
 </script>
 
-<div class="tab__wrapper">
+<div class="tab__wrapper" in:fade>
   <div class="tab__head">Contact</div>
   <div class="tab__subhead">Please put your legal Phone and Email</div>
   <div class="tab__form__fields">

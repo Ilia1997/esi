@@ -1,10 +1,8 @@
 <script>
-  import { writable } from "svelte/store";
-  import NameForm from "./TabForms/NameForm.svelte";
   import ContactForm from "./TabForms/ContactForm.svelte";
   import Tabs from "./Tabs/Tabs.svelte";
-  import AddressForm from "../billing/TabForms/AddressForm.svelte";
   import PasswordForm from "./TabForms/PasswordForm.svelte";
+  import {fade} from 'svelte/transition'
   import {
     allowItemIndex,
     infoFormErrorMessage,
@@ -13,7 +11,7 @@
     infoFormErrorStates,
     confirmPopUpState,
   } from "../../stores/infoStore";
-  import { headSteps, decrementStep, incrementStep } from "../../stores/store";
+  import { headSteps, decrementStep} from "../../stores/store";
   import ButtonLeft from "../buttons/ButtonLeft.svelte";
   import ButtonRight from "../buttons/ButtonRight.svelte";
   let tabItems = [
@@ -25,7 +23,6 @@
 
   let formButtonText = "Next";
   let activeItem = tabItems[0];
-  let changeCounter = 0;
   let nextButtonState = false;
 
   $: formButtonText, nextButtonState;
@@ -161,7 +158,8 @@
     <div class="main__tabs">
       <form>
         <Tabs {tabItems} />
-        <svelte:component this={activeItem.component} />
+        <div in:fade>  <svelte:component this={activeItem.component}  /></div>
+      
         {#if $infoFormErrorState}
           {#if $infoFormErrorStates.userName === true}
             <div class="error__message">{$infoFormErrorMessage.userName}</div>

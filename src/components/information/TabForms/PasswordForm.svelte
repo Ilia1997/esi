@@ -2,6 +2,7 @@
   import { infoFormData, infoFormErrorStates,infoFormErrorMessage } from "../../../stores/infoStore";
   let passwordType = "password";
   let confirnPasswordType = "password";
+  import {fade} from 'svelte/transition'
 
   let valuePass = "";
   let valueConfirmPass = "";
@@ -37,7 +38,7 @@
   $: passwordType, confirnPasswordType;
 </script>
 
-<div class="tab__wrapper">
+<div class="tab__wrapper"  in:fade>
   <div class="tab__head">Password</div>
   <div class="tab__subhead">Please put your Password</div>
   <div class="tab__form__fields">

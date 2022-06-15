@@ -7,6 +7,7 @@
   import { confirmPopUpState } from "../stores/infoStore";
   import { headSteps, incrementStep } from "../stores/store";
   import { beforeUpdate } from "svelte";
+  import {fade} from 'svelte/transition'
 
   let changeCounter = 0;
 
@@ -49,7 +50,7 @@
   });
 </script>
 
-<div class="pop__up">
+<div class="pop__up" in:fade>
   <div class="pop__up__wrapper">
     <div class="pop__up__head">
       <div class="pop__up_head__text">
