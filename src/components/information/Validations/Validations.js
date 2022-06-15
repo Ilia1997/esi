@@ -91,11 +91,14 @@
       item[type] = message
       return item
     })
+    console.log( '1', get(infoFormErrorStates))
     infoFormErrorStates.update(item=>{
-      console.log(item[type])
-      item[type] = true
+      console.log("item", item)
+      console.log("type", type)
+      item.email = true
       return item
     })
+    console.log(get(infoFormErrorStates))
   }
   function showSucces(type) {
 
@@ -105,3 +108,5 @@
       return item[type] = false
     })
   }
+
+  

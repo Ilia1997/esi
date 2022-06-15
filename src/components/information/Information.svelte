@@ -11,7 +11,6 @@
     infoFormErrorStates,
     confirmPopUpState,
   } from "../../stores/infoStore";
-  import { validateContact, validatePassword  } from './Validations/Validations'
   import { headSteps, decrementStep} from "../../stores/store";
   import ButtonLeft from "../buttons/ButtonLeft.svelte";
   import ButtonRight from "../buttons/ButtonRight.svelte";
@@ -62,7 +61,80 @@
       }
     }
   }
- 
+  let validateContact = () => {
+    let email = $infoFormData.email;
+    let userName = $infoFormData.userName;
+    let phone = $infoFormData.phone;
+    // email validation
+    validateEmail(email);
+    validateUserName(userName);
+    checkFieldLenght(phone, "Phone", "phone", 8, 12);
+    checkValidFieldStatus();
+  };
+  function checkValidFieldStatus() {
+    if (
+      $infoFormErrorStates.email === false &&
+      $infoFormErrorStates.phone === false &&
+      $infoFormErrorStates.userName === false
+    ) {
+      $infoFormErrorState = false;
+    } else {
+      $infoFormErrorState = true;
+    }
+  }
+  let validatePassword = () => {
+    let pass = $infoFormData.password;
+    let confirmPass = $infoFormData.confirmPassword;
+    if (pass !== confirmPass) {
+      showError("password", "Passwords do not match");
+      console.log( "Passwords do not match")
+      checkPassValidFieldStatus();
+      return false;
+    }
+    checkFieldLenght(pass, "Password", "password", 6, 32);
+    checkFieldLenght(confirmPass, "Confirm Password", "confirmPassword", 6, 32);
+    checkPassValidFieldStatus();
+  };
+  function checkPassValidFieldStatus() {
+    if (
+      $infoFormErrorStates.password === false &&
+      $infoFormErrorStates.confirmPassword === false
+    ) {
+      $infoFormErrorState = false;
+    } else {
+      $infoFormErrorState = true;
+    }
+  }
+  let validateEmail = (email) => {
+    const re =
+      /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    if (!re.test(email.trim())) {
+      showError("email", "Email is not invalid");
+      return false;
+    } else {
+      showSucces("email");
+    }
+  };
+  let validateUserName = (userName) => {
+    checkFieldLenght(userName, "User Name", "userName", 3, 32);
+  };
+  let checkFieldLenght = (field, fieldName, fieldType, min, max) => {
+    if (field.length < min) {
+      showError(fieldType, `${fieldName} must be at least ${min} characters`);
+    } else if (field.length > max) {
+      showError(fieldType, `${fieldName} must be les than ${max} characters`);
+    } else {
+      showSucces(fieldType);
+    }
+  };
+  //Show input error messages
+  function showError(type, message) {
+    $infoFormErrorMessage[type] = message;
+    $infoFormErrorStates[type] = true;
+  }
+  function showSucces(type) {
+    $infoFormErrorStates[type] = false;
+  }
 
   let prevStep = () => {
     decrementStep();
