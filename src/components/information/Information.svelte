@@ -69,7 +69,6 @@
     validateEmail(email);
     validateUserName(userName);
     checkFieldLenght(phone, "Phone", "phone", 8, 12);
-
     checkValidFieldStatus();
   };
   function checkValidFieldStatus() {
@@ -83,7 +82,6 @@
       $infoFormErrorState = true;
     }
   }
-
   let validatePassword = () => {
     let pass = $infoFormData.password;
     let confirmPass = $infoFormData.confirmPassword;
@@ -93,12 +91,10 @@
       checkPassValidFieldStatus();
       return false;
     }
-
     checkFieldLenght(pass, "Password", "password", 6, 32);
     checkFieldLenght(confirmPass, "Confirm Password", "confirmPassword", 6, 32);
     checkPassValidFieldStatus();
   };
-
   function checkPassValidFieldStatus() {
     if (
       $infoFormErrorStates.password === false &&
@@ -119,11 +115,9 @@
       showSucces("email");
     }
   };
-
   let validateUserName = (userName) => {
     checkFieldLenght(userName, "User Name", "userName", 3, 32);
   };
-
   let checkFieldLenght = (field, fieldName, fieldType, min, max) => {
     if (field.length < min) {
       showError(fieldType, `${fieldName} must be at least ${min} characters`);
