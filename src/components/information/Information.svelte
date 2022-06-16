@@ -14,6 +14,10 @@
   } from "../../stores/infoStore";
   import { headSteps, decrementStep } from "../../stores/store";
   import ButtonLeft from "../buttons/ButtonLeft.svelte";
+  import {
+    checkIfEmailExistInDB,
+    checkIfUserNameExistInDB,
+  } from "./Validations/Validations";
   import ButtonRight from "../buttons/ButtonRight.svelte";
   let tabItems = [
     // { name: "Name", component: NameForm },
@@ -28,13 +32,14 @@
 
   $: formButtonText, nextButtonState;
 
-  function nextTab() {
+  async function nextTab() {
     if ($allowItemIndex < 3) {
       let index = tabItems.findIndex((object) => {
         return object.name === activeItem.name;
       });
       if (index === 0) {
-        validateContact();
+        // validateContact();
+        await doLoginData();
         if ($infoFormErrorState === false) {
           activeItem = tabItems[index + 1];
           $allowItemIndex = $allowItemIndex + 1;
@@ -63,82 +68,7 @@
       }
     }
   }
-  let validateContact = () => {
-    let email = $infoFormData.email;
-    let userName = $infoFormData.userName;
-    let phone = $infoFormData.phone;
-    // email validation
-    validateEmail(email);
-    validateUserName(userName);
-    checkFieldLenght(phone, "Phone", "phone", 8, 12);
-    checkValidFieldStatus();
-  };
-  function checkValidFieldStatus() {
-    if (
-      $infoFormErrorStates.email === false &&
-      $infoFormErrorStates.phone === false &&
-      $infoFormErrorStates.userName === false
-    ) {
-      $infoFormErrorState = false;
-    } else {
-      $infoFormErrorState = true;
-    }
-  }
-  let validatePassword = () => {
-    let pass = $infoFormData.password;
-    let confirmPass = $infoFormData.confirmPassword;
-    if (pass !== confirmPass) {
-      showError("password", "Passwords do not match");
-      console.log("Passwords do not match");
-      checkPassValidFieldStatus();
-      return false;
-    }
-    checkFieldLenght(pass, "Password", "password", 6, 32);
-    checkFieldLenght(confirmPass, "Confirm Password", "confirmPassword", 6, 32);
-    checkPassValidFieldStatus();
-  };
-  function checkPassValidFieldStatus() {
-    if (
-      $infoFormErrorStates.password === false &&
-      $infoFormErrorStates.confirmPassword === false
-    ) {
-      $infoFormErrorState = false;
-    } else {
-      $infoFormErrorState = true;
-    }
-  }
-  let validateEmail = (email) => {
-    const re =
-      /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    if (!re.test(email.trim())) {
-      showError("email", "Email is not invalid");
-      return false;
-    } else {
-      showSucces("email");
-    }
-  };
-  let validateUserName = (userName) => {
-    checkFieldLenght(userName, "User Name", "userName", 3, 32);
-  };
-  let checkFieldLenght = (field, fieldName, fieldType, min, max) => {
-    if (field.length < min) {
-      showError(fieldType, `${fieldName} must be at least ${min} characters`);
-    } else if (field.length > max) {
-      showError(fieldType, `${fieldName} must be les than ${max} characters`);
-    } else {
-      showSucces(fieldType);
-    }
-  };
 
-  //Show input error messages
-  function showError(type, message) {
-    $infoFormErrorMessage[type] = message;
-    $infoFormErrorStates[type] = true;
-  }
-
-  function showSucces(type) {
-    $infoFormErrorStates[type] = false;
-  }
   const loginData = aoviSvelte({
     userName: "",
     email: "",
@@ -153,21 +83,44 @@
   const confirm_match = passwordData.checker("confirm", (aovi) =>
     aovi.is($passwordData.password === $passwordData.confirm)
   );
+
+  const validateEmailExistingInDB = async () => {
+    let emailExistinDB = await checkIfEmailExistInDB($loginData.email);
+    return !emailExistinDB
+  }
+  const validateUserNamelExistingInDB = async () => {
+    let userNameExistinDB = await checkIfUserNameExistInDB(
+        $loginData.userName
+      );
+    return !userNameExistinDB
+  }
+  
+
   const emailrRegEx =
-  /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
-  function doLoginData() {
+    /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+  async function doLoginData() {
     loginData.aovi // use Aovi validators
       .check("userName")
       .required()
-      .minLength(2, "Password should be at least 2 symbols length")
-      .check('email')
+      .minLength(2, "User Name should be at least 2 symbols length")
+      .is(
+        await validateUserNamelExistingInDB(),
+        `User with user name ${$loginData.userName} exist in database`
+      )
+      .check("email")
       .required()
-      .match( emailrRegEx,'Email not valid')
+      .match(emailrRegEx, "Email not valid")
+      .is( await validateEmailExistingInDB(), "Email exist in database")
       .check("phone")
       .required()
-      .minLength(7, "Phone should be at least 7 symbols length").end; // you must finish validation with '.end' operator
+      .minLength(7, "Phone should be at least 7 symbols length").end;
+    // you must finish validation with '.end' operator
 
-    if ($loginData.valid) console.log("Succeess password "); // if validation success, do something
+    if ($loginData.valid) {
+      $infoFormErrorState = false;
+    } else {
+      $infoFormErrorState = true;
+    }
   }
 
   function doSignup() {
@@ -179,7 +132,7 @@
       .required()
       .is($confirm_match, "Confirmation doesn't match password").end; // you must finish validation with '.end' operator
 
-    if ($passwordData.valid) console.log("Succeess password "); // if validation success, do something
+    if ($passwordData.valid) console.log("Succeess password"); // if validation success, do something
   }
 
   let prevStep = () => {
@@ -201,28 +154,17 @@
         <Tabs {tabItems} />
         <div in:fade>
           {#if activeItem.name === "Contacts"}
-            <ContactForm  { loginData} />
+            <ContactForm {loginData} />
           {:else if activeItem.name === "Password"}
-            <PasswordForm {passwordData} />
+            <PasswordForm {passwordData} {confirm_match} />
           {/if}
-
         </div>
-
-        {#if $infoFormErrorState}
-          {#if $infoFormErrorStates.userName === true}
-            <div class="error__message">{$infoFormErrorMessage.userName}</div>
-          {/if}
-          {#if $infoFormErrorStates.email === true}
-            <div class="error__message">{$infoFormErrorMessage.email}</div>
-          {/if}
-          {#if $infoFormErrorStates.phone === true}
-            <div class="error__message">{$infoFormErrorMessage.phone}</div>
-          {/if}
-         
-        {/if}
+        {#each $loginData.err.toArray() as error}
+          <p class="error__message">- {error}</p>
+        {/each}
         {#each $passwordData.err.toArray() as error}
-        <p class="error__message">- {error}</p>
-      {/each}
+          <p class="error__message">- {error}</p>
+        {/each}
       </form>
     </div>
     <div class="buttons__wrapper">
