@@ -99,6 +99,23 @@ width: 100%;
 .dropdown.activeCurrency svg {
   transform: rotate(180deg);
 }
+svg.active path {
+  fill: #5b9c42;
+}
+.eye__icon {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 2;
+  cursor: pointer;
+  transition: all ease 0.3s;
+}
+.eye__icon:hover {
+  transform: scale(1.05);
+}
+.eye__icon:active {
+  transform: scale(1.02);
+}
 
 @media only screen and (max-width: 768px) {
   .dropdown svg {
