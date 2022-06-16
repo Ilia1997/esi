@@ -5,6 +5,7 @@
   import { afterUpdate } from "svelte";
   import {fade} from 'svelte/transition'
   import {infoFormData,infoFormErrorStates, infoFormErrorMessage} from '../../../stores/infoStore'
+  export let  loginData;
 
   let input;
   let iti;
@@ -27,9 +28,9 @@
       initCounter = 1;
       }
       if(phoneData.length != 0){
-        $infoFormData.phone = phoneData 
+        $loginData.phone = phoneData 
       }
-      iti.setNumber($infoFormData.phone);  
+      iti.setNumber($loginData.phone);  
 
     }
 
@@ -45,8 +46,8 @@
   <div class="tab__head">Contact</div>
   <div class="tab__subhead">Please put your legal Phone and Email</div>
   <div class="tab__form__fields">
-    <input type="text" class="input" placeholder="Username" autocomplete bind:value={$infoFormData.userName} class:error ={$infoFormErrorStates.userName} on:focus={()=>{ disableErrorState( 'userName') }}/>
-    <input type="email" class="input" placeholder="Email" autocomplete bind:value={$infoFormData.email} class:error ={$infoFormErrorStates.email}  on:focus={()=>{disableErrorState( 'email')}}/>
+    <input type="text" class="input" placeholder="Username" autocomplete bind:value={$loginData.userName} class:error ={$infoFormErrorStates.userName} on:focus={()=>{ disableErrorState( 'userName') }}/>
+    <input type="email" class="input" placeholder="Email" autocomplete bind:value={$loginData.email} class:error ={$infoFormErrorStates.email}  on:focus={()=>{disableErrorState( 'email')}}/>
     <input type="tel" class="input" bind:this={input} autocomplete bind:value={phoneData} class:error ={$infoFormErrorStates.phone} on:focus={()=>{disableErrorState( 'phone')}}/>
   </div>
 </div>

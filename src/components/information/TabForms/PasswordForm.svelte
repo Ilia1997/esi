@@ -2,14 +2,16 @@
   import { infoFormData, infoFormErrorStates,infoFormErrorMessage } from "../../../stores/infoStore";
   import EyePW_ico from "../../../../public/images/EyePW_ico.svelte";
   import {fade} from 'svelte/transition'
+  export let passwordData;
+
 
   let onInputConfirmPass = (event) => {
-    $infoFormData.password = event.target.value;
-    console.log($infoFormData.password)
+    $passwordData.password = event.target.value;
+    console.log($passwordData.password)
   };
   let onInputPass = (event) => {
-    $infoFormData.confirmPassword = event.target.value;
-    console.log( $infoFormData.confirmPassword )
+    $passwordData.confirm = event.target.value;
+    console.log(   $passwordData.confirm )
   };
 
   export const validatePasswordType = (event) => {

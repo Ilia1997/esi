@@ -2,7 +2,8 @@
   import ContactForm from "./TabForms/ContactForm.svelte";
   import Tabs from "./Tabs/Tabs.svelte";
   import PasswordForm from "./TabForms/PasswordForm.svelte";
-  import {fade} from 'svelte/transition'
+  import { fade } from "svelte/transition";
+  import { aoviSvelte } from "aovi-svelte";
   import {
     allowItemIndex,
     infoFormErrorMessage,
@@ -11,7 +12,7 @@
     infoFormErrorStates,
     confirmPopUpState,
   } from "../../stores/infoStore";
-  import { headSteps, decrementStep} from "../../stores/store";
+  import { headSteps, decrementStep } from "../../stores/store";
   import ButtonLeft from "../buttons/ButtonLeft.svelte";
   import ButtonRight from "../buttons/ButtonRight.svelte";
   let tabItems = [
@@ -40,7 +41,8 @@
           formButtonText = "Save";
         }
       } else if (index === 1) {
-        validatePassword();
+        // validatePassword();
+        doSignup();
         if ($infoFormErrorState === false) {
           console.log("here");
           nextButtonState = true;
@@ -87,7 +89,7 @@
     let confirmPass = $infoFormData.confirmPassword;
     if (pass !== confirmPass) {
       showError("password", "Passwords do not match");
-      console.log( "Passwords do not match")
+      console.log("Passwords do not match");
       checkPassValidFieldStatus();
       return false;
     }
@@ -127,18 +129,63 @@
       showSucces(fieldType);
     }
   };
+
   //Show input error messages
   function showError(type, message) {
     $infoFormErrorMessage[type] = message;
     $infoFormErrorStates[type] = true;
   }
+
   function showSucces(type) {
     $infoFormErrorStates[type] = false;
+  }
+  const loginData = aoviSvelte({
+    userName: "",
+    email: "",
+    phone: "",
+  });
+
+  const passwordData = aoviSvelte({
+    password: "",
+    confirm: "",
+  });
+  // Init "checker". Will be true when confirm and password are equal, and false in other case
+  const confirm_match = passwordData.checker("confirm", (aovi) =>
+    aovi.is($passwordData.password === $passwordData.confirm)
+  );
+  const emailrRegEx =
+  /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+  function doLoginData() {
+    loginData.aovi // use Aovi validators
+      .check("userName")
+      .required()
+      .minLength(2, "Password should be at least 2 symbols length")
+      .check('email')
+      .required()
+      .match( emailrRegEx,'Email not valid')
+      .check("phone")
+      .required()
+      .minLength(7, "Phone should be at least 7 symbols length").end; // you must finish validation with '.end' operator
+
+    if ($loginData.valid) console.log("Succeess password "); // if validation success, do something
+  }
+
+  function doSignup() {
+    passwordData.aovi // use Aovi validators
+      .check("password")
+      .required()
+      .minLength(8, "Password should be at least 8 symbols length")
+      .check("confirm")
+      .required()
+      .is($confirm_match, "Confirmation doesn't match password").end; // you must finish validation with '.end' operator
+
+    if ($passwordData.valid) console.log("Succeess password "); // if validation success, do something
   }
 
   let prevStep = () => {
     decrementStep();
   };
+
   let nextStep = () => {
     $confirmPopUpState = true;
   };
@@ -152,8 +199,15 @@
     <div class="main__tabs">
       <form>
         <Tabs {tabItems} />
-        <div in:fade>  <svelte:component this={activeItem.component}  /></div>
-      
+        <div in:fade>
+          {#if activeItem.name === "Contacts"}
+            <ContactForm  { loginData} />
+          {:else if activeItem.name === "Password"}
+            <PasswordForm {passwordData} />
+          {/if}
+
+        </div>
+
         {#if $infoFormErrorState}
           {#if $infoFormErrorStates.userName === true}
             <div class="error__message">{$infoFormErrorMessage.userName}</div>
@@ -164,13 +218,11 @@
           {#if $infoFormErrorStates.phone === true}
             <div class="error__message">{$infoFormErrorMessage.phone}</div>
           {/if}
-          {#if $infoFormErrorStates.password === true}
-            <div class="error__message">{$infoFormErrorMessage.password}</div>
-          {/if}
-          {#if $infoFormErrorStates.password === true}
-            <div class="error__message">{$infoFormErrorMessage.confirmPassword}</div>
-          {/if}
+         
         {/if}
+        {#each $passwordData.err.toArray() as error}
+        <p class="error__message">- {error}</p>
+      {/each}
       </form>
     </div>
     <div class="buttons__wrapper">
