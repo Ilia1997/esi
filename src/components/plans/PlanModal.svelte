@@ -117,6 +117,7 @@
     }
     .content{
       margin: 0 0 40px 0;
+      max-width: 100%;
     }
   }
 </style>

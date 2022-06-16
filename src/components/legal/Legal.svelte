@@ -1,43 +1,48 @@
 <script>
-import { afterUpdate } from "svelte";
+  import { afterUpdate } from "svelte";
 
   import { Accordion, AccordionItem } from "svelte-collapsible";
   let openedKey = "a";
-  import { checkboxStates, legalItems, allSelected } from "../../stores/legalStore";
+  import {
+    checkboxStates,
+    legalItems,
+    allSelected,
+  } from "../../stores/legalStore";
   import { headSteps, incrementStep, decrementStep } from "../../stores/store";
   import ButtonLeft from "../buttons/ButtonLeft.svelte";
   import ButtonRight from "../buttons/ButtonRight.svelte";
-  import {scrollToTop} from '../../functions/scrollToTop'
+  import { scrollToTop } from "../../functions/scrollToTop";
+  import ErrorMessage from "../ErrorMessage.svelte";
   let changeCounter = 0;
+  let errorMessageState = false;
+  let errorMessage;
 
-
-afterUpdate(()=>{
-  if ( $checkboxStates.a &&
-      $checkboxStates.b  &&
-      $checkboxStates.c ){
-        $allSelected = true
-      }else {
-        $allSelected = false
-      }
-})
+  afterUpdate(() => {
+    if ($checkboxStates.a && $checkboxStates.b && $checkboxStates.c) {
+      $allSelected = true;
+      errorMessageState = false
+    } else {
+      $allSelected = false;
+    }
+  });
 
   function agreeAllTerms(e) {
     if (e.target.checked) {
       $checkboxStates.a = true;
       $checkboxStates.b = true;
       $checkboxStates.c = true;
-      $allSelected = true
+      $allSelected = true;
     } else {
       $checkboxStates.a = false;
       $checkboxStates.b = false;
       $checkboxStates.c = false;
-      $allSelected = false
+      $allSelected = false;
     }
   }
 
   let prevStep = () => {
     decrementStep();
-    scrollToTop()
+    scrollToTop();
   };
 
   let nextStep = () => {
@@ -47,10 +52,11 @@ afterUpdate(()=>{
       if (changeCounter === 0) {
         incrementStep();
         changeCounter += 1;
-        scrollToTop()
+        scrollToTop();
       }
     } else {
-      alert("fill all checkbox");
+      errorMessageState = true;
+      errorMessage = "Confirm all legal agreements";
     }
   };
 </script>
@@ -109,16 +115,21 @@ afterUpdate(()=>{
       </p>
     </div>
   </div>
-
-  <div class="bottom__btns">
-    <ButtonLeft on:click={prevStep} />
-    <ButtonRight on:click={nextStep} />
+  <div class="relative__wrapper">
+    {#if errorMessageState}
+      <ErrorMessage {errorMessage} />
+    {/if}
+    <div class="bottom__btns">
+      <ButtonLeft on:click={prevStep} />
+      <ButtonRight on:click={nextStep} />
+    </div>
   </div>
 </div>
 
-
-
 <style>
+  .relative__wrapper {
+    position: relative;
+  }
   .legal__wrapper {
     display: flex;
     flex-direction: column;

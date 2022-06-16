@@ -18,7 +18,6 @@
     class="head__step"
     class:visited={$headSteps.firstStep}
     class:current={$stepCounter === 1}
-    on:click={setStep}
     data-step="1"
   >
     <svg
@@ -38,7 +37,6 @@
   <div
     class="head__step"
     class:visited={$headSteps.secondStep}
-    on:click={setStep}
     class:current={$stepCounter === 2}
     data-step="2"
   >
@@ -167,7 +165,6 @@
     font-weight: 500;
     font-size: 14px;
     line-height: 21px;
-    cursor: pointer;
   }
   .head__step:nth-child(1) {
     max-width: 260px;

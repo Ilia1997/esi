@@ -7,14 +7,17 @@
   import EyePW_ico from "../../../../public/images/EyePW_ico.svelte";
   import { fade } from "svelte/transition";
   export let passwordData, confirm_match;
+  
+  let confirmPassValue = $infoFormData.confirm
+  let passValue = $infoFormData.password
 
   let onInputConfirmPass = (event) => {
     $passwordData.password = event.target.value;
-    console.log($passwordData.password);
+ //   console.log($passwordData.password);
   };
   let onInputPass = (event) => {
     $passwordData.confirm = event.target.value;
-    console.log($passwordData.confirm);
+//    console.log($passwordData.confirm);
   };
 
   export const validatePasswordType = (event) => {
@@ -44,6 +47,7 @@
         class="input"
         placeholder="Password"
         autocomplete
+        value={passValue}
         class:error={$passwordData.err.password}
         class:success={$confirm_match}
         on:focus={passwordData.clear}
@@ -60,6 +64,7 @@
         class="input"
         placeholder="Confirm Password"
         autocomplete
+        value={confirmPassValue}
         class:error={$passwordData.err.password}
         class:success={$confirm_match}
         on:focus={passwordData.clear}

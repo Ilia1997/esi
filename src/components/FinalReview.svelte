@@ -5,7 +5,7 @@
   } from "../stores/contributionsStore";
   import { infoFormData } from "../stores//infoStore";
   import { confirmPopUpState } from "../stores/infoStore";
-  import { headSteps, incrementStep } from "../stores/store";
+  import { headSteps, incrementStep, stepCounter } from "../stores/store";
   import { beforeUpdate } from "svelte";
   import {fade} from 'svelte/transition'
 
@@ -35,6 +35,11 @@
   let closePopUp = () => {
     $confirmPopUpState = false;
   };
+
+   let changeStep = (stepNum) => {
+    $confirmPopUpState = false;
+    $stepCounter = stepNum
+   } 
   let safePrice = 0,
     adventurePrice = 0,
     founderPrice = 0;
@@ -81,7 +86,7 @@
               </div>
               <div class="step__name">Contribution</div>
             </div>
-            <div class="change__btn">Change</div>
+            <div class="change__btn"on:click={()=>{changeStep(1)}}>Change</div>
           </div>
           <div class="item__body">
             <div class="text">
@@ -111,7 +116,7 @@
               </div>
               <div class="step__name">Plan</div>
             </div>
-            <div class="change__btn">Change</div>
+            <div class="change__btn"on:click={()=>{changeStep(2)}}>Change</div>
           </div>
           <div class="item__body">
             <div class="item__plan save">
@@ -157,7 +162,7 @@
               </div>
               <div class="step__name">Legal</div>
             </div>
-            <div class="change__btn">Change</div>
+           
           </div>
           <div class="item__body">
             <div class="legal__item">
@@ -223,7 +228,7 @@
               </div>
               <div class="step__name">Information</div>
             </div>
-            <div class="change__btn">Change</div>
+            <div class="change__btn" on:click={()=>{changeStep(4)}}>Change</div>
           </div>
           <div class="item__body">
             <div class="text">N: {$infoFormData.userName}</div>

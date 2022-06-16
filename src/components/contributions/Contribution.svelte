@@ -2,10 +2,11 @@
   import Form from "./Form.svelte";
   import { incrementStep, headSteps } from "../../stores/store";
   import { contributionData } from "../../stores/contributionsStore";
-  import { beforeUpdate, onDestroy } from "svelte";
-  import {scrollToTop} from '../../functions/scrollToTop'
+  import { afterUpdate, beforeUpdate, onDestroy } from "svelte";
+  import { scrollToTop } from "../../functions/scrollToTop";
   import Rules from "./Rules.svelte";
   import ButtonRight from "../buttons/ButtonRight.svelte";
+  import ErrorMessage from "../ErrorMessage.svelte";
   let changeCounter = 0;
   let amountErrorMessage = "Error message",
     amountErrorMessageState = false;
@@ -14,7 +15,7 @@
       $headSteps.secondStep = true;
       if (changeCounter === 0) {
         incrementStep();
-        scrollToTop()
+        scrollToTop();
         changeCounter += 1;
       }
     }
@@ -50,6 +51,11 @@
     yrVal = moVal * 12;
     fiveYrVal = yrVal * 5;
   });
+  afterUpdate(()=>{
+    if(data.amount>20 && data.amount<9999){
+      amountErrorMessageState = false
+    }
+  })
 
   onDestroy(unsubscribe);
 </script>
@@ -102,23 +108,22 @@
 
         <Rules />
       </div>
-      <div class="step__footer">
+      <div class="relative__wrapper">
         {#if amountErrorMessageState}
-          <div class="error__message">{amountErrorMessage}</div>
+          <ErrorMessage errorMessage={amountErrorMessage} />
         {/if}
-
-        <ButtonRight on:click={changeStep} />
+        <div class="step__footer">
+          <ButtonRight on:click={changeStep} />
+        </div>
       </div>
     </div>
   </div>
 </div>
 
 <style>
-  .error__message {
-    position: absolute;
-    right: 200px;
-    top: 50px;
-    color: red;
+  .relative__wrapper {
+    position: relative;
+    margin: 56px 0 0 0;
   }
   .green {
     color: #78c759;
@@ -201,7 +206,6 @@
   }
 
   .step__footer {
-    margin: 56px 0 0 0;
     display: flex;
     justify-content: flex-end;
     position: relative;
@@ -256,13 +260,13 @@
       font-size: 10px;
       line-height: 15px;
     }
-    .rules_text.contr{
+    .rules_text.contr {
       width: 74px;
     }
-    .rules_text.conver{
+    .rules_text.conver {
       width: 75px;
     }
-    .rules_text.project{
+    .rules_text.project {
       width: 72px;
     }
     .rules__head {
@@ -283,14 +287,12 @@
     .rules__item:first-child {
       padding: 10px 10px 10px 0;
     }
-    .contribution__head{
+    .contribution__head {
       padding: 0 21px;
     }
     .step__footer {
       padding: 0 16px;
     }
-    
-
   }
   @media only screen and (max-width: 768px) and (min-width: 375px) {
     h2 {

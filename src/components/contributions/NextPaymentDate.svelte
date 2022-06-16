@@ -38,4 +38,9 @@
   .payment__day {
     font-size: 20px;
   }
+  @media only screen and (max-width: 991px) {
+    .next__payment{
+      display: none;
+    }
+  }
 </style>

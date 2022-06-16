@@ -1,4 +1,7 @@
-<svg
+<script>
+  export let className
+</script>
+<svg class={className}
     xmlns="http://www.w3.org/2000/svg"
     width="14"
     height="14"
@@ -10,3 +13,8 @@
       fill="#0084FF"
     />
 </svg>
+<style>
+  svg.disabled path{
+    fill: #6a6a6a;
+  }
+</style>
