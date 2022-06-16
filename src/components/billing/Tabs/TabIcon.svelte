@@ -39,8 +39,6 @@
     align-items: center;
     justify-content: flex-start;
   }
-  .icon__wrapper.active {
-  }
   .icon__line {
     margin-top: 6px;
     width: 24px;
@@ -50,8 +48,5 @@
   }
   .icon__line.active {
     background: #5b9c42;
-  }
-  svg.active path {
-    fill: #5b9c42;
   }
 </style>
