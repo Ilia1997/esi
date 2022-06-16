@@ -4,7 +4,7 @@
 </script>
 
 <button class="btn" on:click disabled={!buttonState}>
-  <Button_right_ico />
+  <Button_right_ico className={!buttonState? 'disabled': ''}/>
 </button>
 
 <style>
@@ -13,9 +13,7 @@
     border: 1px solid #6a6a6a;
     pointer-events: none;
   }
-  button:disabled svg path {
-    fill: #6a6a6a;
-  }
+
   .btn {
     width: 142px;
     height: 66px;

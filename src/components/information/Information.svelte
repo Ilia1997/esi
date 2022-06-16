@@ -19,6 +19,7 @@
     checkIfUserNameExistInDB,
   } from "./Validations/Validations";
   import ButtonRight from "../buttons/ButtonRight.svelte";
+import { afterUpdate, onDestroy } from "svelte";
   let tabItems = [
     // { name: "Name", component: NameForm },
     { name: "Contacts", component: ContactForm },
@@ -38,7 +39,7 @@
         return object.name === activeItem.name;
       });
       if (index === 0) {
-        // validateContact();
+        // Validate Contact 
         await doLoginData();
         if ($infoFormErrorState === false) {
           activeItem = tabItems[index + 1];
@@ -46,10 +47,11 @@
           formButtonText = "Save";
         }
       } else if (index === 1) {
-        // validatePassword();
+        console.log('Validate Password')
+        // Validate Password
         doSignup();
         if ($infoFormErrorState === false) {
-          console.log("here");
+          
           nextButtonState = true;
         }
       }
@@ -70,15 +72,17 @@
   }
 
   const loginData = aoviSvelte({
-    userName: "",
-    email: "",
-    phone: "",
+    userName: $infoFormData.userName,
+    email:  $infoFormData.email,
+    phone: $infoFormData.phone,
   });
 
   const passwordData = aoviSvelte({
-    password: "",
-    confirm: "",
+    password:  $infoFormData.password,
+    confirm: $infoFormData.confirm,
   });
+
+
   // Init "checker". Will be true when confirm and password are equal, and false in other case
   const confirm_match = passwordData.checker("confirm", (aovi) =>
     aovi.is($passwordData.password === $passwordData.confirm)
@@ -122,12 +126,13 @@
       $infoFormErrorState = true;
     }
   }
-
+const passwordRegEx = /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
   function doSignup() {
     passwordData.aovi // use Aovi validators
       .check("password")
       .required()
       .minLength(8, "Password should be at least 8 symbols length")
+      .match(passwordRegEx, "Password should have at least 1 capital letter, 1 number, 1 special symbol")
       .check("confirm")
       .required()
       .is($confirm_match, "Confirmation doesn't match password").end; // you must finish validation with '.end' operator
@@ -142,8 +147,18 @@
   let nextStep = () => {
     $confirmPopUpState = true;
   };
-</script>
 
+  afterUpdate(()=>{
+    $infoFormData.email = $loginData.email
+    $infoFormData.userName = $loginData.userName
+    $infoFormData.phone = $loginData.phone
+    $infoFormData.password = $passwordData.password
+    $infoFormData.confirm = $passwordData.confirm
+  })
+onDestroy(()=>{
+  $allowItemIndex = 1;
+})
+</script>
 <div class="main__wrapper">
   <div class="info__main">
     <h2 class="main__head">

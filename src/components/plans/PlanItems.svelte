@@ -98,14 +98,14 @@
     display: flex;
     align-items: flex-start;
   }
-
-  @media only screen and (max-width: 991px) {
+  @media only screen and (max-width: 1100px) {
     .plans__items {
       flex-wrap: wrap;
       justify-content: center;
       gap: 40px;
     }
   }
+
   @media only screen and (max-width: 768px) {
     .plans__items {
       margin-top: 20px;

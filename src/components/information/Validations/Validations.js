@@ -15,6 +15,7 @@ export async function checkIfEmailExistInDB(email) {
       });
   } catch (error) {
     alert(error);
+    status = true;
   }
   return status;
 }
@@ -36,6 +37,7 @@ export async function checkIfUserNameExistInDB(userName) {
       });
   } catch (error) {
     alert(error);
+    status = true;
   }
   return status;
 }

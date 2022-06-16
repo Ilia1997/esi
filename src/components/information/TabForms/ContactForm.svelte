@@ -5,9 +5,7 @@
   import { afterUpdate } from "svelte";
   import { fade } from "svelte/transition";
   import {
-    infoFormData,
-    infoFormErrorStates,
-    infoFormErrorMessage,
+    infoFormData
   } from "../../../stores/infoStore";
   export let loginData;
 
@@ -37,10 +35,7 @@
     }
   });
 
-  function disableErrorState(type) {
-    $infoFormErrorStates[type] = false;
-    infoFormErrorMessage[type] = "";
-  }
+
 </script>
 
 <div class="tab__wrapper" in:fade>

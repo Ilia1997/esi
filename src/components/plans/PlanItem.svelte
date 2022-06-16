@@ -359,16 +359,11 @@ function handleClickOutside(event) {
     line-height: 27px;
   }
   
-  .portfolio__heler {
-    font-weight: 400;
-    font-size: 13px;
-    line-height: 20px;
-  }
+
 
   .dropdown__wrapper {
     position: relative;
     width: 100%;
-    max-width: 301px;
     height: 70px;
     font-size: 16px;
     line-height: 24px;
@@ -523,18 +518,9 @@ function handleClickOutside(event) {
     }
     .plans__item.active .item__body {
       padding-bottom: 36px;
-      max-height: 45rem;
+      max-height: 55rem;
     }
   }
   @media only screen and (max-width: 568px) {
-    .portfolio ul li {
-      font-weight: 400;
-      font-size: 12px;
-      line-height: 36px;
-    }
-    .portfolio__heler {
-      font-size: 10px;
-      line-height: 15px;
-    }
   }
 </style>
