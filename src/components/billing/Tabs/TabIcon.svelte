@@ -2,11 +2,11 @@
   import { beforeUpdate } from "svelte";
   import Address_ico from "../../../../public/images/Address_ico.svelte";
   import Payment_ico from "../../../../public/images/Payment_ico.svelte";
-
-  export let categoryName;
   import { allowItemIndexBilling } from "../../../stores/billingStore";
-  export let classNamePayment = "",
-    classNameAddress = "";
+  
+  export let categoryName;
+  export let classNamePayment = "";
+  export let classNameAddress = "";
    
   beforeUpdate(() => {
     if ($allowItemIndexBilling === 2) {

@@ -4,7 +4,6 @@
     height="14"
     viewBox="0 0 14 14"
     fill="none"
-    class={$$props.class}
 >
     <g clip-path="url(#clip0_3547_4001)">
     <path

@@ -20,6 +20,7 @@
   } from "./Validations/Validations";
   import ButtonRight from "../buttons/ButtonRight.svelte";
 import { afterUpdate, onDestroy } from "svelte";
+import Arrow_left_ico from "../../../public/images/Arrow_left_ico.svelte";
   let tabItems = [
     // { name: "Name", component: NameForm },
     { name: "Contacts", component: ContactForm },
@@ -105,18 +106,18 @@ import { afterUpdate, onDestroy } from "svelte";
   async function doLoginData() {
     loginData.aovi // use Aovi validators
       .check("userName")
-      .required()
+      .required("Please put your username")
       .minLength(2, "User Name should be at least 2 symbols length")
       .is(
         await validateUserNamelExistingInDB(),
         `User with user name ${$loginData.userName} exist in database`
       )
       .check("email")
-      .required()
-      .match(emailrRegEx, "Email not valid")
+      .required("Please put your email")
+      .match(emailrRegEx, "Incorrect E-mail format")
       .is( await validateEmailExistingInDB(), "Email exist in database")
       .check("phone")
-      .required()
+      .required("Please put your phone")
       .minLength(7, "Phone should be at least 7 symbols length").end;
     // you must finish validation with '.end' operator
 
@@ -130,11 +131,11 @@ const passwordRegEx = /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
   function doSignup() {
     passwordData.aovi // use Aovi validators
       .check("password")
-      .required()
+      .required("Please put your password")
       .minLength(8, "Password should be at least 8 symbols length")
       .match(passwordRegEx, "Password should have at least 1 capital letter, 1 number, 1 special symbol")
       .check("confirm")
-      .required()
+      .required("Please confirm your password")
       .is($confirm_match, "Confirmation doesn't match password").end; // you must finish validation with '.end' operator
 
     if ($passwordData.valid) console.log("Succeess password"); // if validation success, do something
@@ -174,30 +175,22 @@ onDestroy(()=>{
             <PasswordForm {passwordData} {confirm_match} />
           {/if}
         </div>
-        {#each $loginData.err.toArray() as error}
-          <p class="error__message">- {error}</p>
-        {/each}
-        {#each $passwordData.err.toArray() as error}
-          <p class="error__message">- {error}</p>
-        {/each}
+        <div class="error__wrapper">
+          {#each $loginData.err.toArray() as error}
+            <p class="error__message">{error}</p>
+          {/each}
+          {#each $passwordData.err.toArray() as error}
+            <p class="error__message">{error}</p>
+          {/each}
+        </div>
       </form>
     </div>
     <div class="buttons__wrapper">
       {#if $allowItemIndex > 1}
-        <button class="btn prev" on:click={prevTab}
-          ><svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="14"
-            height="14"
-            viewBox="0 0 14 14"
-            fill="none"
-          >
-            <path
-              d="M9.36881 12.568C9.53285 12.4039 9.625 12.1814 9.625 11.9494C9.625 11.7174 9.53285 11.4949 9.36881 11.3308L5.03756 6.99953L9.36881 2.66828C9.5282 2.50325 9.61639 2.28223 9.6144 2.0528C9.61241 1.82338 9.52038 1.60392 9.35815 1.44169C9.19592 1.27946 8.97646 1.18743 8.74704 1.18544C8.51761 1.18345 8.29659 1.27164 8.13156 1.43103L3.18169 6.38091C3.01765 6.54499 2.9255 6.76751 2.9255 6.99953C2.9255 7.23155 3.01765 7.45407 3.18169 7.61816L8.13156 12.568C8.29565 12.7321 8.51817 12.8242 8.75019 12.8242C8.98221 12.8242 9.20473 12.7321 9.36881 12.568Z"
-              fill="#CFCFCF"
-            />
-          </svg>Back</button
-        >
+        <button class="btn prev" on:click={prevTab}>
+          <Arrow_left_ico />
+          Back
+        </button>
       {/if}
       <button class="btn next" on:click={nextTab}>{formButtonText}</button>
     </div>
@@ -265,9 +258,10 @@ onDestroy(()=>{
     color: #cfcfcf;
     border: none;
     background: transparent;
+    font-weight: 400;
   }
-  .btn.prev svg {
-    margin-right: 10px;
+  .btn.prev:hover {
+    filter: invert(1);
   }
   .btn.next {
     width: 182px;
