@@ -2,6 +2,7 @@
   import { plansModalState, plansModalData } from "../../stores/plansStore"
 	import {clickOutside} from '../../functions/clickOutside'
   import { LottiePlayer } from "@lottiefiles/svelte-lottie-player";
+  import Close_ico from "../../../public/images/Close_ico.svelte";
 
   let lottieWidth = 450;
   if ($plansModalData.class === "safe") {
@@ -33,20 +34,7 @@
     </div>
   </div>
   <div class="close__icon" on:click={() => ($plansModalState = false)}>
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-    >
-      <path
-        fill-rule="evenodd"
-        clip-rule="evenodd"
-        d="M10.6739 11.9999L3.83691 18.8369L5.16291 20.1629L11.9999 13.3259L18.8369 20.1629L20.1629 18.8369L13.3259 11.9999L20.1629 5.16291L18.8369 3.83691L11.9999 10.6739L5.16291 3.83691L3.83691 5.16291L10.6739 11.9999Z"
-        fill="white"
-      />
-    </svg>
+    <Close_ico />
   </div>
 </div>
 
