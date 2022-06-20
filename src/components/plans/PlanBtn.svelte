@@ -19,7 +19,7 @@
     align-items: center;
     padding: 22px 0 29px 0;
   }
-  button {
+  button, .btn-sv {
     position: relative;
     padding: 12px 24px;
     border: 1px solid #ffffff;
@@ -33,31 +33,31 @@
     cursor: pointer;
     transition: all ease-in .15s;
   }
-  button.blue{
+  button.blue, .btn-sv.blue {
     background:#8dc5f6;
   }
-  button.green{
+  button.green, .btn-sv.green {
     background: #91C65D;
   }
-  button.violet{
+  button.violet, .btn-sv.violet{
     background: #C198E3;
   }
-  button.blue:hover{
+  button.blue:hover, .btn-sv.blue:hover {
     background: #006EFF;
   }
-  button.blue:active{
+  button.blue:active, .btn-sv.blue:active {
     background:#217df7;
   }
-  button.green:hover{
+  button.green:hover, .btn-sv.green:hover {
     background: #0FAA3A;
   }
-  button.green:active{
+  button.green:active, .btn-sv.green:active{
     background:#2cbc55;
   }
-  button.violet:hover{
+  button.violet:hover, .btn-sv.violet:hover {
     background: #5E0BC9;
   }
-  button.violet:active{
+  button.violet:active, .btn-sv.violet:active {
     background:#7d39d6;
   }
   @media only screen and (max-width: 768px) {
