@@ -72,6 +72,7 @@
             <div class="column">
               <input
                 type="checkbox"
+                class="input-ch-sv"
                 on:click={(e) => {
                   e.stopPropagation();
                   console.log("clicked");
@@ -82,7 +83,7 @@
             </div>
             <Toggle_ico />
           </div>
-          <div slot="body" class="body">
+          <div slot="body" class="body body-sv">
             <h3 class="body__head">{item.title}</h3>
             <p>
               {item.text}
@@ -93,6 +94,7 @@
     </Accordion>
     <div class="agree__all">
       <input
+        class="input-ch-sv"
         type="checkbox"
         on:change={(e) => {
           agreeAllTerms(e);
@@ -150,8 +152,8 @@
     display: flex;
     align-items: center;
   }
-  .header input,
-  input[type="checkbox"] {
+  .header .input-ch-sv,
+  .input-ch-sv[type="checkbox"] {
     width: 24px;
     height: 24px;
     min-width: 24px;
@@ -163,8 +165,8 @@
     appearance: none;
     cursor: pointer;
   }
-  .header input:checked,
-  input[type="checkbox"]:checked {
+  .header .input-ch-sv:checked,
+  .input-ch-sv[type="checkbox"]:checked {
     background-image: url("https://uploads-ssl.webflow.com/627ca4b5fcfd5674acf264e6/6298c07528d25ce00212030f_svgexport-6.svg");
     background-position: center;
   }

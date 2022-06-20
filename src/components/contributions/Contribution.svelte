@@ -64,7 +64,7 @@
   <div class="column-left">
     <div>
       <div class="contribution__head">
-        <h2>Choose your <span class="green">Contribution</span></h2>
+        <h2 class="h2-sv">Choose your <span class="green">Contribution</span></h2>
         <Form />
       </div>
       <div class="rules">
@@ -295,7 +295,7 @@
     }
   }
   @media only screen and (max-width: 768px) and (min-width: 375px) {
-    h2 {
+    .h2-sv {
       white-space: nowrap;
     }
   }

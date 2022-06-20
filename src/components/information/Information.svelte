@@ -193,15 +193,15 @@ onDestroy(()=>{
     </div>
     <div class="buttons__wrapper">
       {#if $allowItemIndex > 1}
-        <button class="btn prev" on:click={prevTab}>
+        <button class="btn-sv prev" on:click={prevTab}>
           <Arrow_left_ico />
           Back
         </button>
       {/if}
       {#if $passwordData.valid && formButtonText === 'Save' && !$confirm_match || formButtonText === 'Save' && $savedPassword}
-        <button class='btn next' disabled on:click={nextTab}>{formButtonText}</button>
+        <button class='btn-sv next' disabled on:click={nextTab}>{formButtonText}</button>
         {:else}
-        <button class='btn next' on:click={nextTab}>{formButtonText}</button>
+        <button class='btn-sv next' on:click={nextTab}>{formButtonText}</button>
       {/if}
     </div>
   </div>
@@ -241,13 +241,13 @@ onDestroy(()=>{
     position: relative;
     z-index: 3;
   }
-  :global(.tab__form__fields .input::placeholder) {
+  :global(.tab__form__fields .input-sv::placeholder) {
     color: #000000;
   }
-  :global(.tab__form__fields .input) {
+  :global(.tab__form__fields .input-sv) {
     margin-bottom: 8px;
   }
-  :global(.tab__form__fields .input:last-child) {
+  :global(.tab__form__fields .input-sv:last-child) {
     margin-bottom: 0px;
   }
 
@@ -257,7 +257,7 @@ onDestroy(()=>{
     justify-content: flex-end;
     position: relative;
   }
-  .btn.prev {
+  .btn-sv.prev {
     position: absolute;
     top: 0px;
     left: -5px;
@@ -270,10 +270,10 @@ onDestroy(()=>{
     background: transparent;
     font-weight: 400;
   }
-  .btn.prev:hover {
+  .btn-sv.prev:hover {
     filter: invert(1);
   }
-  .btn.next {
+  .btn-sv.next {
     width: 182px;
     height: 66px;
     border-radius: 10px;
@@ -285,15 +285,15 @@ onDestroy(()=>{
     display: flex;
     justify-content: center;
   }
-  .btn.next:not(:disabled) {
+  .btn-sv.next:not(:disabled) {
     background: #0085ff;
     border: 1px solid #006eff;
     color: #ffffff;
   }
-  .btn.next:not(:disabled):hover {
+  .btn-sv.next:not(:disabled):hover {
     background: #3c90fe;
   }
-  .btn.next:not(:disabled):active {
+  .btn-sv.next:not(:disabled):active {
     background: #0160dd;
   }
   .main__wrapper {

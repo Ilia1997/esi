@@ -47,7 +47,7 @@
       <EyePW_ico on:click={validatePasswordType} />
       <input
         type="password"
-        class="input"
+        class="input-sv"
         placeholder="Password"
         autocomplete
         value={passValue}
@@ -64,7 +64,7 @@
       <EyePW_ico on:click={validatePasswordType} />
       <input
         type="password"
-        class="input"
+        class="input-sv"
         placeholder="Confirm Password"
         autocomplete
         value={confirmPassValue}
@@ -78,11 +78,11 @@
 </div>
 
 <style>
-  input.error {
+  .input-sv.error {
     border: 1px solid #ff2e00;
     color: #ff2e00;
   }
-  input.success {
+  .input-sv.success {
     border: 1px solid #5b9c42;
     box-shadow: -2px 1px 20px #5b9c422b;
   }
@@ -94,7 +94,7 @@
     padding-left: 30px;
     text-align: left;
   }
-  input.error::placeholder {
+  .input-sv.error::placeholder {
     color: #ff2e00;
   }
   .input__wrapper {

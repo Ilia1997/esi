@@ -88,7 +88,7 @@
 
 <div class="plans__main">
   <div class="plans__main__wrapper">
-    <h2>
+    <h2 class="h2-sv">
       Plans <span class="green">Selector</span> and
       <span class="green">Distributor</span>
     </h2>
@@ -101,7 +101,7 @@
 
   <div class="plans__wrapper">
     <div class="plans__wrapper__head">
-      <h2>
+      <h2 class="h2-sv">
         Please allocate you <span class="green">contribution</span> between our
         <span class="green">plans</span>
       </h2>
@@ -188,7 +188,7 @@
       line-height: 32px;
       color: #032b01;
     }
-    .plans__wrapper__head h2 {
+    .plans__wrapper__head .h2-sv {
       display: none;
     }
   }
