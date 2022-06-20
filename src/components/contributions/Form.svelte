@@ -62,6 +62,7 @@ import { clickOutside } from "../../functions/clickOutside";
     $contributionData.currency = value;
     $contributionData.currencySymbol = currencySymbols[value];
   }
+  // click outside dropdown 
   function handleClickOutside(item) {
 		if(item === 'activePeriod'){
       activePeriod = false
@@ -238,9 +239,9 @@ import { clickOutside } from "../../functions/clickOutside";
   }
 
   @media only screen and (max-width: 991px) {
-    .next__payment {
+    /* .next__payment {
       display: none;
-    }
+    } */
     .contribution__form form {
       flex-wrap: wrap;
     }

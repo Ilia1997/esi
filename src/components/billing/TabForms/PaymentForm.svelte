@@ -4,6 +4,7 @@
   import PayPal_ico from "../../../../public/images/PayPal_ico.svelte";
   import USbank_ico from "../../../../public/images/USbank_ico.svelte";
   import Cvc_ico from "../../../../public/images/Cvc_ico.svelte";
+import CardPayment from "./CardPayment.svelte";
 </script>
 
 <div class="tab__wrapper">
@@ -12,52 +13,18 @@
       <Card_ico />
       <div class="text">Card</div>
     </div>
-    <div class="paypal">
+    <!-- <div class="paypal">
       <PayPal_ico />
       <div class="text">Paypal</div>
-    </div>
+    </div> -->
     <div class="us__bank">
       <USbank_ico />
       <div class="text">US Bank</div>
     </div>
-    <div class="more__payment"><span>...</span></div>
+    <!-- <div class="more__payment"><span>...</span></div> -->
   </div>
   <div class="tab__payment__fields">
-    <label for="country">Card number</label>
-    <div class="input__card">
-      <input
-        type="text"
-        class="input"
-        placeholder="1234 1234 1234 1234"
-        autocomplete
-      />
-      <div class="icon__wrpper"><CardsIcons /></div>
-    </div>
-    <div class="two__colums">
-      <div class="column">
-        <label for="input">Expiration</label>
-        <input
-          type="text"
-          class="input "
-          placeholder="MM / YY"
-          autocomplete
-        />
-      </div>
-      <div class="column right">
-        <label for="input ">CVC</label>
-        <div class="cvc__wrapp">
-          <input
-            type="password"
-            class="input "
-            placeholder="CVC"
-            autocomplete
-          />
-          <div class="cvc__icon">
-            <Cvc_ico />
-          </div>
-        </div>
-      </div>
-    </div>
+ <CardPayment />
   </div>
 </div>
 
@@ -68,14 +35,11 @@
     margin-top: 30px;
     margin-bottom: 24px;
   }
-  .two__colums {
-    display: flex;
-    width: 100%;
-  }
+
 
   .tab__head__items {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
   }
   .tab__head__items > div {
     background: #ffffff;
@@ -127,47 +91,6 @@
     margin-right: 0px;
   }
 
-  input::placeholder {
-    font-weight: 400;
-    font-size: 16px;
-    line-height: 24px;
-    color: #b9b9b9;
-    text-transform: uppercase;
-  }
-  label {
-    margin-bottom: 10px;
-    text-align: left;
-    color: #000;
-  }
-  .input__card {
-    position: relative;
-  }
-  .icon__wrpper {
-    position: absolute;
-    top: 25px;
-    right: 30px;
-  }
-  .two__colums {
-    margin-top: 12px;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-column-gap: 22px;
-  }
-  .two__colums .column {
-    display: flex;
-    flex-direction: column;
-  }
-  .column.right label{
-    padding-left: 15px;
-}
-.cvc__wrapp{
-  position: relative;
-}
-.cvc__icon{
-  position: absolute;
-  top: 27px;
-  right: 30px;
-}
 
 
 </style>
