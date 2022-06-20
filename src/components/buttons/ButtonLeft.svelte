@@ -15,6 +15,7 @@
     display: flex;
     justify-content: center;
   }
+  
   .btn-sv:hover {
     background: #5e0bc9;
     color: #fff;

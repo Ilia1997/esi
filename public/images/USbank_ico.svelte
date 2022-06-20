@@ -11,3 +11,8 @@
     <path d="M20 10H17V17H20V10Z" fill="#E4E4E4" />
     <path d="M12 1L2 6V8H22V6L12 1Z" fill="#E4E4E4" />
 </svg>
+<style>
+    svg {
+        margin-bottom: 5px;
+    }
+</style>

@@ -138,9 +138,6 @@
     border: none;
     background: transparent;
   }
-  .btn-sv.prev svg {
-    margin-right: 10px;
-  }
   .btn-sv.next {
     width: 182px;
     height: 66px;

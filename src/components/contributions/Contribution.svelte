@@ -269,8 +269,6 @@
     .rules_text.project {
       width: 72px;
     }
-    /* .rules__head {
-    } */
     .rules__val__wrapper {
       height: 26px;
       width: 72px;
