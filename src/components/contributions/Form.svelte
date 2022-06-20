@@ -3,6 +3,7 @@
   import { afterUpdate } from "svelte";
   import NextPaymentDay from "./NextPaymentDate.svelte";
   import Dropdown_ico from "../../../public/images/Dropdown_ico.svelte";
+import { clickOutside } from "../../functions/clickOutside";
 
   let activePeriod = false;
   let activeCurrency = false;
@@ -61,6 +62,13 @@
     $contributionData.currency = value;
     $contributionData.currencySymbol = currencySymbols[value];
   }
+  function handleClickOutside(item) {
+		if(item === 'activePeriod'){
+      activePeriod = false
+    }else if (item === 'activeCurrency'){
+      activeCurrency = false
+    }
+	}
 </script>
 
 <div class="contribution__form">
@@ -72,6 +80,7 @@
           class="dropdown"
           class:activePeriod
           on:click={() => (activePeriod = !activePeriod)}
+          use:clickOutside on:click_outside={()=>handleClickOutside('activePeriod')}
         >
           <Dropdown_ico />
           <div class="dropdown__item--current">{$contributionData.period}</div>
@@ -92,6 +101,7 @@
           class="dropdown"
           class:activeCurrency
           on:click={() => (activeCurrency = !activeCurrency)}
+          use:clickOutside on:click_outside={()=>handleClickOutside('activeCurrency')}
         >
           <Dropdown_ico />
           <div class="dropdown__item--current">
