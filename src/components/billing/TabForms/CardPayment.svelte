@@ -65,7 +65,7 @@ function blurInput() {
   <div class="input__card">
     <input
       type="text"
-      class="input"
+      class="input-sv"
       placeholder="1234 1234 1234 1234"
       autocomplete
       bind:value={cardNumber} on:focus={focusInput} on:blur={blurInput} 
@@ -75,12 +75,12 @@ function blurInput() {
   <div class="two__colums">
     <div class="column">
       <label for="input">Expiration</label>
-      <input type="text" class="input " placeholder="MM / YY" autocomplete />
+      <input type="text" class="input-sv " placeholder="MM / YY" autocomplete />
     </div>
     <div class="column right">
       <label for="input ">CVC</label>
       <div class="cvc__wrapp">
-        <input type="password" class="input " placeholder="CVC" autocomplete />
+        <input type="password" class="input-sv " placeholder="CVC" autocomplete />
         <div class="cvc__icon">
           <Cvc_ico />
         </div>
@@ -95,7 +95,7 @@ function blurInput() {
     width: 100%;
   }
 
-  input::placeholder {
+  .input-sv::placeholder {
     font-weight: 400;
     font-size: 16px;
     line-height: 24px;

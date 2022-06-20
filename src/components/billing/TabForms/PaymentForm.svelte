@@ -24,7 +24,7 @@ import CardPayment from "./CardPayment.svelte";
     <!-- <div class="more__payment"><span>...</span></div> -->
   </div>
   <div class="tab__payment__fields">
- <CardPayment />
+    <CardPayment />
   </div>
 </div>
 
@@ -80,7 +80,7 @@ import CardPayment from "./CardPayment.svelte";
     padding-left: 19px;
     margin-right: 0px;
   }
-  input::placeholder {
+  .input-sv::placeholder {
     font-weight: 400;
     font-size: 16px;
     line-height: 24px;
