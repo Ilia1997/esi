@@ -55,7 +55,7 @@
 
 <div class="main__wrapper">
   <div class="info__main">
-    <h2 class="main__head">
+    <h2 class="h2-sv main__head">
         Payment/Withdrawal <span class="green">Methode</span>
     </h2>
     <div class="main__tabs">
@@ -65,12 +65,12 @@
       </form>
       <div class="buttons__wrapper">
         {#if $allowItemIndexBilling> 1}
-          <button class="btn prev" on:click={prevTab}>
+          <button class="btn-sv prev" on:click={prevTab}>
             <Button_back_ico />
             Back
           </button>
         {/if}
-        <button class="btn next" on:click={nextTab}>{formButtonText}</button>
+        <button class="btn-sv next" on:click={nextTab}>{formButtonText}</button>
       </div>
     </div>
     
@@ -82,7 +82,7 @@
 </div>
 
 <style>
-  .main__head {
+  .h2-sv.main__head {
     text-align: center;
   }
   .error__message {
@@ -110,13 +110,13 @@
     position: relative;
     z-index: 3;
   }
-  :global(.tab__form__fields .input::placeholder) {
+  :global(.tab__form__fields .input-sv::placeholder) {
     color: #000000;
   }
-  :global(.tab__form__fields .input) {
+  :global(.tab__form__fields .input-sv) {
     margin-bottom: 8px;
   }
-  :global(.tab__form__fields .input:last-child) {
+  :global(.tab__form__fields .input-sv:last-child) {
     margin-bottom: 0px;
   }
 
@@ -126,7 +126,7 @@
     justify-content: flex-end;
     position: relative;
   }
-  .btn.prev {
+  .btn-sv.prev {
     position: absolute;
     top: 0px;
     left: -5px;
@@ -138,10 +138,7 @@
     border: none;
     background: transparent;
   }
-  .btn.prev svg {
-    margin-right: 10px;
-  }
-  .btn.next {
+  .btn-sv.next {
     width: 182px;
     height: 66px;
     background: #0085ff;
@@ -156,10 +153,10 @@
     display: flex;
     justify-content: center;
   }
-  .btn.next:hover {
+  .btn-sv.next:hover {
     background: #3c90fe;
   }
-  .btn.next:active {
+  .btn-sv.next:active {
     background: #0160dd;
   }
   .main__wrapper {

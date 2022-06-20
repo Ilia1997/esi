@@ -24,7 +24,7 @@ import CardPayment from "./CardPayment.svelte";
     <!-- <div class="more__payment"><span>...</span></div> -->
   </div>
   <div class="tab__payment__fields">
- <CardPayment />
+    <CardPayment />
   </div>
 </div>
 
@@ -61,17 +61,11 @@ import CardPayment from "./CardPayment.svelte";
     color: #0085ff;
     margin-right: 8px;
   }
-  .card svg {
-    margin-bottom: 5px;
-  }
 
   .paypal {
     width: 138px;
     padding-left: 30px;
     margin-right: 8px;
-  }
-  .paypal svg {
-    margin-bottom: 5px;
   }
   .us__bank {
     width: 138px;
@@ -81,16 +75,52 @@ import CardPayment from "./CardPayment.svelte";
   .us__bank .text {
     color: #e4e4e4;
   }
-  .us__bank svg {
-    margin-bottom: 5px;
-  }
-
   .more__payment {
     width: 56px;
     padding-left: 19px;
     margin-right: 0px;
   }
-
+  .input-sv::placeholder {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    color: #b9b9b9;
+    text-transform: uppercase;
+  }
+  label {
+    margin-bottom: 10px;
+    text-align: left;
+    color: #000;
+  }
+  .input__card {
+    position: relative;
+  }
+  .icon__wrpper {
+    position: absolute;
+    top: 25px;
+    right: 30px;
+  }
+  .two__colums {
+    margin-top: 12px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-column-gap: 22px;
+  }
+  .two__colums .column {
+    display: flex;
+    flex-direction: column;
+  }
+  .column.right label{
+    padding-left: 15px;
+}
+.cvc__wrapp{
+  position: relative;
+}
+.cvc__icon{
+  position: absolute;
+  top: 27px;
+  right: 30px;
+}
 
 
 </style>

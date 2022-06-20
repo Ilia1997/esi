@@ -10,3 +10,8 @@
         fill="#5E0BC9"
     />
 </svg>
+<style>
+    svg {
+        margin-right: 10px;
+    }
+</style>

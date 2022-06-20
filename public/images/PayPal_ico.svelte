@@ -27,3 +27,8 @@
         />
     </defs>
 </svg>
+<style>
+    svg {
+        margin-bottom: 5px;
+    }
+</style>

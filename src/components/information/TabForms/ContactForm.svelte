@@ -44,7 +44,7 @@
   <div class="tab__form__fields">
     <input
       type="text"
-      class="input"
+      class="input-sv"
       placeholder="Username"
       autocomplete
       bind:value={$loginData.userName}
@@ -53,7 +53,7 @@
     />
     <input
       type="email"
-      class="input"
+      class="input-sv"
       placeholder="Email"
       autocomplete
       bind:value={$loginData.email}
@@ -62,7 +62,7 @@
     />
     <input
       type="tel"
-      class="input"
+      class="input-sv"
       bind:this={input}
       autocomplete
       bind:value={phoneData}
@@ -73,11 +73,11 @@
 </div>
 
 <style>
-  input.error {
+  .input-sv.error {
     border: 1px solid #ff2e00;
     color: #ff2e00;
   }
-  input.error::placeholder {
+  .input-sv.error::placeholder {
     color: #ff2e00;
   }
 </style>

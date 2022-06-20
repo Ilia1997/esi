@@ -126,6 +126,7 @@ import { clickOutside } from "../../functions/clickOutside";
       <label class="label__text" for="amount">Amount*</label>
       <input
         type="number"
+        class="input-sv"
         bind:value={$contributionData.amount}
         on:mousewheel={(e) => {
           e.target.blur();
@@ -164,7 +165,7 @@ import { clickOutside } from "../../functions/clickOutside";
     display: flex;
     flex-direction: column;
   }
-  .amount input {
+  .amount .input-sv {
     appearance: none;
     width: 180px;
     height: 70px;
@@ -174,14 +175,14 @@ import { clickOutside } from "../../functions/clickOutside";
     padding: 12px 30px;
   }
   /* Chrome, Safari, Edge, Opera */
-  .amount input::-webkit-outer-spin-button,
-  .amount input::-webkit-inner-spin-button {
+  .amount .input-sv::-webkit-outer-spin-button,
+  .amount .input-sv::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0;
   }
 
   /* Firefox */
-  .amount input[type="number"] {
+  .amount .input-sv[type="number"] {
     -moz-appearance: textfield;
   }
 
@@ -260,7 +261,7 @@ import { clickOutside } from "../../functions/clickOutside";
       margin-top: 8px;
     }
     .amount,
-    .amount input {
+    .amount .input-sv {
       width: 100%;
     }
     .contribution__help--text {
@@ -274,7 +275,7 @@ import { clickOutside } from "../../functions/clickOutside";
     .dropdown {
       padding: 16px;
     }
-    .amount input {
+    .amount .input-sv {
       height: 50px;
       padding: 12px 15px;
     }

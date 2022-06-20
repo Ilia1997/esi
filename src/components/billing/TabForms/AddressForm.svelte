@@ -7,34 +7,34 @@
     <div class="two__colums names">
       <input
         type="text"
-        class="input small"
+        class="input-sv small"
         placeholder="First Name*"
         autocomplete
       />
       <input
         type="text"
-        class="input small"
+        class="input-sv small"
         placeholder="Last Name*"
         autocomplete
       />
     </div>
     <input
       type="text"
-      class="input"
+      class="input-sv"
       placeholder="Street Number & Street*"
       autocomplete
     />
-    <input type="text" class="input" placeholder="City *" autocomplete />
+    <input type="text" class="input-sv" placeholder="City *" autocomplete />
     <div class="two__colums">
       <input
         type="text"
-        class="input small"
+        class="input-sv small"
         placeholder="Country"
         autocomplete
       />
       <input
         type="text"
-        class="input small"
+        class="input-sv small"
         placeholder="Postal / Zip Code"
         autocomplete
       />
@@ -50,11 +50,11 @@
   .two__colums.names {
     margin-bottom: 8px;
   }
-  .input.small {
+  .input-sv.small {
     margin-bottom: 0;
     width: 50%;
   }
-  .input.small:first-child {
+  .input-sv.small:first-child {
     margin-right: 6px;
   }
 </style>
