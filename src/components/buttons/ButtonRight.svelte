@@ -8,7 +8,7 @@
 </button>
 
 <style>
-  button:disabled {
+  :global(button:disabled) {
     background: rgba(182, 182, 182, 0.2);
     border: 1px solid #6a6a6a;
     pointer-events: none;

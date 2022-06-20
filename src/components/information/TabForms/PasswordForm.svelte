@@ -3,6 +3,7 @@
     infoFormData,
     infoFormErrorStates,
     infoFormErrorMessage,
+    savedPassword,
   } from "../../../stores/infoStore";
   import EyePW_ico from "../../../../public/images/EyePW_ico.svelte";
   import { fade } from "svelte/transition";
@@ -13,10 +14,12 @@
 
   let onInputConfirmPass = (event) => {
     $passwordData.password = event.target.value;
+    $savedPassword = false;
  //   console.log($passwordData.password);
   };
   let onInputPass = (event) => {
     $passwordData.confirm = event.target.value;
+    $savedPassword = false;
 //    console.log($passwordData.confirm);
   };
 
