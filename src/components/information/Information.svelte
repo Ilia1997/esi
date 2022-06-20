@@ -11,6 +11,7 @@
     infoFormData,
     infoFormErrorStates,
     confirmPopUpState,
+    savedPassword,
   } from "../../stores/infoStore";
   import { headSteps, decrementStep } from "../../stores/store";
   import ButtonLeft from "../buttons/ButtonLeft.svelte";
@@ -52,7 +53,7 @@ import Arrow_left_ico from "../../../public/images/Arrow_left_ico.svelte";
         // Validate Password
         doSignup();
         if ($infoFormErrorState === false) {
-          
+          $savedPassword = true
           nextButtonState = true;
         }
       }
@@ -138,7 +139,12 @@ const passwordRegEx = /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
       .required("Please confirm your password")
       .is($confirm_match, "Confirmation doesn't match password").end; // you must finish validation with '.end' operator
 
-    if ($passwordData.valid) console.log("Succeess password"); // if validation success, do something
+    if ($passwordData.valid) { // if validation success, do something
+      $savedPassword = true;
+    }
+    else {
+      $savedPassword = false;
+    } 
   }
 
   let prevStep = () => {
@@ -192,7 +198,11 @@ onDestroy(()=>{
           Back
         </button>
       {/if}
-      <button class="btn next" on:click={nextTab}>{formButtonText}</button>
+      {#if $passwordData.valid && formButtonText === 'Save' && !$confirm_match || $savedPassword}
+        <button class='btn next' disabled on:click={nextTab}>{formButtonText}</button>
+        {:else}
+        <button class='btn next' on:click={nextTab}>{formButtonText}</button>
+      {/if}
     </div>
   </div>
 
@@ -266,22 +276,24 @@ onDestroy(()=>{
   .btn.next {
     width: 182px;
     height: 66px;
-    background: #0085ff;
-    border: 1px solid #006eff;
     border-radius: 10px;
     font-weight: 700;
     font-size: 16px;
     line-height: 24px;
-    color: #ffffff;
     text-align: center;
     transition: all ease 0.3s;
     display: flex;
     justify-content: center;
   }
-  .btn.next:hover {
+  .btn.next:not(:disabled) {
+    background: #0085ff;
+    border: 1px solid #006eff;
+    color: #ffffff;
+  }
+  .btn.next:not(:disabled):hover {
     background: #3c90fe;
   }
-  .btn.next:active {
+  .btn.next:not(:disabled):active {
     background: #0160dd;
   }
   .main__wrapper {

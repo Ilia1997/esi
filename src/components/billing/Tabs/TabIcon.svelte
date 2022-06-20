@@ -5,8 +5,8 @@
   import { allowItemIndexBilling } from "../../../stores/billingStore";
   
   export let categoryName;
-  export let classNamePayment = "";
-  export let classNameAddress = "";
+  let classNamePayment = "";
+  let classNameAddress = "";
    
   beforeUpdate(() => {
     if ($allowItemIndexBilling === 2) {

@@ -5,6 +5,8 @@ export const allowItemIndex = writable(1);
 export const confirmPopUpState = writable(false);
 // export const confirmPopUpSubmited = writable(false)
 
+export const savedPassword = writable(false)
+
 export const infoFormErrorMessage = writable({
   userName: "",
   email: "",
