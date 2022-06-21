@@ -4,6 +4,7 @@
     height="24"
     viewBox="0 0 24 24"
     fill="none"
+    class={$$props.class}
     >
     <path d="M7 10H4V17H7V10Z" fill="#E4E4E4" />
     <path d="M13.5 10H10.5V17H13.5V10Z" fill="#E4E4E4" />
@@ -14,5 +15,8 @@
 <style>
     svg {
         margin-bottom: 5px;
+    }
+    svg.active path{
+        fill:#0085FF;
     }
 </style>

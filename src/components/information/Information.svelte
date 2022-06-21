@@ -161,6 +161,8 @@ const passwordRegEx = /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
     $infoFormData.phone = $loginData.phone
     $infoFormData.password = $passwordData.password
     $infoFormData.confirm = $passwordData.confirm
+
+
   })
 onDestroy(()=>{
   $allowItemIndex = 1;
@@ -216,11 +218,7 @@ onDestroy(()=>{
   .h2-sv.main__head {
     text-align: center;
   }
-  .error__message {
-    font-size: 12px;
-    line-height: 24px;
-    color: #ff2e00;
-  }
+
 
   :global(.tab__wrapper) {
     text-align: center;

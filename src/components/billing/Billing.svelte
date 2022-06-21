@@ -1,18 +1,22 @@
 <script>
   import Tabs from "./Tabs/Tabs.svelte";
-  import AddressForm from './TabForms/AddressForm.svelte'
-  import PaymentForm from './TabForms/PaymentForm.svelte'
-  import { allowItemIndexBilling } from "../../stores/billingStore";
-  import {successMessageState, decrementStep} from '../../stores/store'
-  import ButtonLeft from '../buttons/ButtonLeft.svelte'
-  import ButtonRight from '../buttons/ButtonRight.svelte'
+  import AddressForm from "./TabForms/AddressForm.svelte";
+  import PaymentForm from "./TabForms/PaymentForm.svelte";
+  import {
+    allowItemIndexBilling,
+    addressFormStatus,
+  } from "../../stores/billingStore";
+  import { successMessageState } from "../../stores/store";
+  import ButtonRight from "../buttons/ButtonRight.svelte";
   import Button_back_ico from "../../../public/images/Button_back_ico.svelte";
+  import { aoviSvelte } from "aovi-svelte";
+
   let tabItems = [
     { name: "Address", component: AddressForm },
     { name: "Payment", component: PaymentForm },
   ];
   let activeItem = tabItems[0];
-  let formButtonText = 'Next';
+  let formButtonText = "Next";
   let nextButtonState = false;
 
   function nextTab() {
@@ -21,14 +25,15 @@
         return object.name === activeItem.name;
       });
       if (index === 0) {
+        checkRequiredAddressFields();
+        if ($addressFormStatus) {
           activeItem = tabItems[index + 1];
-          $allowItemIndexBilling= $allowItemIndexBilling + 1;
+          $allowItemIndexBilling = $allowItemIndexBilling + 1;
           formButtonText = "Confirm";
         }
-      } else if (index === 1) {
-
-          nextButtonState = true;
-        
+      }
+    } else if (index === 1) {
+      nextButtonState = true;
     }
   }
   function prevTab() {
@@ -45,9 +50,36 @@
     }
   }
 
-  let prevStep = () => {
-    decrementStep();
-  };
+  const addressData = aoviSvelte({
+    firstName: "",
+    lastName: "",
+    streetNumber: "",
+    city: "",
+    country: "",
+    postal: "",
+  });
+
+  function checkRequiredAddressFields() {
+    addressData.aovi // use Aovi validators
+      .check("firstName")
+      .required("First Name is required")
+      .check("lastName")
+      .required("Last Name is required")
+      .check("streetNumber")
+      .required("Street is required")
+      .check("city")
+      .required()
+      .check("country")
+      .required()
+      .check("postal")
+      .required()
+      .match(/^\d+$/, "Postal should contain only numbers").end; // you must finish validation with '.end' operator
+
+    if ($addressData.valid) {
+      $addressFormStatus = true;
+    }
+  }
+
   let nextStep = () => {
     $successMessageState = true;
   };
@@ -56,15 +88,15 @@
 <div class="main__wrapper">
   <div class="info__main">
     <h2 class="h2-sv main__head">
-        Payment/Withdrawal <span class="green">Methode</span>
+      Payment/Withdrawal <span class="green">Methode</span>
     </h2>
     <div class="main__tabs">
-      <form>
+      <form on:submit|preventDefault>
         <Tabs {tabItems} />
-        <svelte:component this={activeItem.component} />
+        <svelte:component this={activeItem.component} {addressData} />
       </form>
       <div class="buttons__wrapper">
-        {#if $allowItemIndexBilling> 1}
+        {#if $allowItemIndexBilling > 1}
           <button class="btn-sv prev" on:click={prevTab}>
             <Button_back_ico />
             Back
@@ -73,24 +105,30 @@
         <button class="btn-sv next" on:click={nextTab}>{formButtonText}</button>
       </div>
     </div>
-    
   </div>
-  <div class="bottom__btns">
-    <ButtonLeft on:click={prevStep} />
+  <div class="bottom__btns billing">
     <ButtonRight on:click={nextStep} />
   </div>
 </div>
 
 <style>
+  :global(.success__text) {
+    color: rgb(4, 149, 4);
+    padding: 40px;
+    border: 1px solid;
+    border-radius: 10px;
+  }
   .h2-sv.main__head {
     text-align: center;
   }
-  .error__message {
+  /* .error__message {
     font-size: 12px;
     line-height: 24px;
     color: #ff2e00;
+  } */
+  .bottom__btns.billing {
+    justify-content: flex-end;
   }
-
   :global(.tab__wrapper) {
     text-align: center;
     margin-bottom: 8px;
@@ -118,6 +156,19 @@
   }
   :global(.tab__form__fields .input-sv:last-child) {
     margin-bottom: 0px;
+  }
+  :global(.select-sv) {
+    font-size: 17px;
+    padding: 0 30px;
+    font-weight: 400;
+    height: 70px;
+    -webkit-appearance: none;
+    background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAeCAYAAABuUU38AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAUxJREFUeNrM1sEJwkAQBdCsngXPHsQO9O5FS7AAMVYgdqAd2IGCDWgFnryLFQiCZ8EGnJUNimiyM/tnk4HNEAg/8y6ZmMRVqz9eUJvRaSbvutCZ347bXVJy/ZnvTmdJ862Me+hAbZCTs6GHpyUi1tTSvPnqTpoWZPUa7W7ncT3vK4h4zVejy8QzM3WhVUO8ykI6jOxoGA4ig3BLHcNFSCGqGAkig2yqgpEiMsjSfY9LxYQg7L6r0X6wS29YJiYQYecemY+wHrXD1+bklGhpAhBDeu/JfIVGxaAQ9sb8CI+CQSJ+QmJg0Ii/EE2MBiIXooHRQhRCkBhNhBcEhLkwf05ZCG8ICCOpk0MULmvDSY2M8UawIRExLIQIEgHDRoghihgRIgiigBEjgiFATBACAgFgghEwSAAGgoBCBBgYAg5hYKAIFYgHBo6w9RRgAFfy160QuV8NAAAAAElFTkSuQmCC");
+    background-size: 12px;
+    background-position: 90% center;
+    background-repeat: no-repeat;
+    padding-right: 30px;
+    color: #6c6c6c;
   }
 
   .buttons__wrapper {
@@ -169,7 +220,7 @@
     color: #5b9c42;
   }
   .info__main {
-  padding-top: 64px;
+    padding-top: 64px;
     margin: 0 auto;
   }
   .main__tabs {
