@@ -208,7 +208,7 @@ onDestroy(()=>{
 
   <div class="bottom__btns">
     <ButtonLeft on:click={prevStep} />
-    <ButtonRight on:click={nextStep} buttonState={nextButtonState} />
+    <ButtonRight on:click={nextStep} buttonState={nextButtonState || $savedPassword} />
   </div>
 </div>
 
