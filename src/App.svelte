@@ -24,7 +24,7 @@
       <div class="wrapper">
         <HeadSteps />
         <div class="step__content">
-          {#if stepCountValue === 1}
+          <!-- {#if stepCountValue === 1}
             <div class="component__wrapper" in:fade={{ duration: 500 }}>
               <Contribution />
             </div>
@@ -41,10 +41,10 @@
               <Information />
             </div>
           {:else if stepCountValue === 5}
-            <div class="component__wrapper" in:fade={{ duration: 500 }}>
+            <div class="component__wrapper" in:fade={{ duration: 500 }}> -->
               <Billing />
-            </div>
-          {/if}
+            <!-- </div>
+          {/if} -->
         </div>
       </div>
     {:else if $successMessageState === true}
@@ -61,6 +61,10 @@
     width: 100%;
   }
   :global(.input-sv.error) {
+    border: 1px solid #ff2e00;
+    color: #ff2e00;
+  }
+  :global(.select-sv.error) {
     border: 1px solid #ff2e00;
     color: #ff2e00;
   }

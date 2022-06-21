@@ -2,11 +2,15 @@
   import Tabs from "./Tabs/Tabs.svelte";
   import AddressForm from "./TabForms/AddressForm.svelte";
   import PaymentForm from "./TabForms/PaymentForm.svelte";
-  import { allowItemIndexBilling } from "../../stores/billingStore";
-  import { successMessageState, decrementStep } from "../../stores/store";
-  import ButtonLeft from "../buttons/ButtonLeft.svelte";
+  import {
+    allowItemIndexBilling,
+    addressFormStatus,
+  } from "../../stores/billingStore";
+  import { successMessageState } from "../../stores/store";
   import ButtonRight from "../buttons/ButtonRight.svelte";
   import Button_back_ico from "../../../public/images/Button_back_ico.svelte";
+  import { aoviSvelte } from "aovi-svelte";
+
   let tabItems = [
     { name: "Address", component: AddressForm },
     { name: "Payment", component: PaymentForm },
@@ -21,9 +25,12 @@
         return object.name === activeItem.name;
       });
       if (index === 0) {
-        activeItem = tabItems[index + 1];
-        $allowItemIndexBilling = $allowItemIndexBilling + 1;
-        formButtonText = "Confirm";
+        checkRequiredAddressFields();
+        if ($addressFormStatus) {
+          activeItem = tabItems[index + 1];
+          $allowItemIndexBilling = $allowItemIndexBilling + 1;
+          formButtonText = "Confirm";
+        }
       }
     } else if (index === 1) {
       nextButtonState = true;
@@ -43,6 +50,36 @@
     }
   }
 
+  const addressData = aoviSvelte({
+    firstName: "",
+    lastName: "",
+    streetNumber: "",
+    city: "",
+    country: "",
+    postal: "",
+  });
+
+  function checkRequiredAddressFields() {
+    addressData.aovi // use Aovi validators
+      .check("firstName")
+      .required("First Name is required")
+      .check("lastName")
+      .required("Last Name is required")
+      .check("streetNumber")
+      .required("Street is required")
+      .check("city")
+      .required()
+      .check("country")
+      .required()
+      .check("postal")
+      .required()
+      .match(/^\d+$/, "Postal should contain only numbers").end; // you must finish validation with '.end' operator
+
+    if ($addressData.valid) {
+      $addressFormStatus = true;
+    }
+  }
+
   let nextStep = () => {
     $successMessageState = true;
   };
@@ -56,7 +93,7 @@
     <div class="main__tabs">
       <form on:submit|preventDefault>
         <Tabs {tabItems} />
-        <svelte:component this={activeItem.component} />
+        <svelte:component this={activeItem.component} {addressData} />
       </form>
       <div class="buttons__wrapper">
         {#if $allowItemIndexBilling > 1}
@@ -75,6 +112,12 @@
 </div>
 
 <style>
+  :global(.success__text) {
+    color: rgb(4, 149, 4);
+    padding: 40px;
+    border: 1px solid;
+    border-radius: 10px;
+  }
   .h2-sv.main__head {
     text-align: center;
   }

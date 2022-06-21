@@ -69,17 +69,18 @@
     $cardData.expirationYear = cardYear;
     $cardData.cvc = cardCvv;
   });
-  //   /^\d+$/;
+
   function checkRequiredCardFields() {
     cardData.aovi // use Aovi validators
       .check("card")
+      .minLength(15,'Card should be at least 15 symbols length')
       .required()
       .check("holders")
       .required()
       .check("expirationMonth")
-      .required()
+      .required('Expiration Month is required')
       .check("expirationYear")
-      .required()
+      .required('Expiration Year is required')
       .check("cvc")
       .required()
       .match(/^\d+$/, "CVC should contain only numbers").end; // you must finish validation with '.end' operator
@@ -182,12 +183,15 @@
     >
   </div>
 {:else}
-  <div class="success__text">Card added succesfully</div>
+  <div in:fade class="success__text">Card added succesfully</div>
 {/if}
 
 <style>
   .success__text {
     color: rgb(4, 149, 4);
+    padding: 40px;
+    border: 1px solid;
+    border-radius: 10px;
   }
   .add__payment {
     width: 100%;
