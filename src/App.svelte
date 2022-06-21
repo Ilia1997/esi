@@ -60,6 +60,18 @@
   .component__wrapper {
     width: 100%;
   }
+  :global(.input-sv.error) {
+    border: 1px solid #ff2e00;
+    color: #ff2e00;
+  }
+  :global(.input-sv.error::placeholder) {
+    color: #ff2e00;
+  }
+  :global( .error__message ){
+    font-size: 12px;
+    line-height: 24px;
+    color: #ff2e00;
+  }
   main {
     padding: 50px 0 150px 0;
   }
