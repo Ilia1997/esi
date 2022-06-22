@@ -53,6 +53,7 @@
         value={passValue}
         class:error={$passwordData.err.password}
         class:success={$confirm_match}
+        class:disabled={$savedPassword}
         on:focus={passwordData.clear}
         on:input={onInputPass}
       />
@@ -70,6 +71,7 @@
         value={confirmPassValue}
         class:error={$passwordData.err.password}
         class:success={$confirm_match}
+        class:disabled={$savedPassword}
         on:focus={passwordData.clear}
         on:input={onInputConfirmPass}
       />
@@ -85,6 +87,11 @@
   .input-sv.success {
     border: 1px solid #5b9c42;
     box-shadow: -2px 1px 20px #5b9c422b;
+  }
+  .input-sv.success.disabled {
+    pointer-events: none;
+    filter: grayscale(1);
+    opacity: 0.25;
   }
   .info__password__message {
     font-size: 12px;
