@@ -35,16 +35,6 @@
       iti.setNumber($loginData.phone);
     }
   });
-
-  const checkValueOnChange = (e) => {
-    e.target.value = e.target.value.replace(/[^\d]/g,'')
-  }
-
-  function checkValueOnBlur() {
-    if (this.value == '' || /[0-9]/.test(this.value) === false) {
-      phoneData = " ";
-    }
-  }
 </script>
 
 <div class="tab__wrapper" in:fade>
@@ -77,8 +67,7 @@
       bind:value={phoneData}
       class:error={$loginData.err.phone} 
       on:focus={loginData.clear}
-      on:input={(e) => checkValueOnChange(e)}
-      on:blur={checkValueOnBlur}
+      oninput = "this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"
     />
   </div>
 </div>
