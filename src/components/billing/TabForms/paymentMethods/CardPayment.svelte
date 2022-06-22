@@ -4,7 +4,11 @@
   import { fade } from "svelte/transition";
   import { aoviSvelte } from "aovi-svelte";
   import { afterUpdate } from "svelte";
-  import {cardFormStatus} from '../../../../stores/billingStore'
+  import {
+    cardFormStatus,
+    cardAddedStatus,
+    billingeErrorMessage,
+  } from "../../../../stores/billingStore";
   let cardName = "";
   let cardNumber = "";
   let cardMonth = "";
@@ -17,7 +21,6 @@
   let focusElementStyle = null;
   let isInputFocused = false;
   let cardNumberMask;
- 
 
   $: cardMonth = cardMonth < minCardMonth ? "" : cardMonth;
   $: minCardMonth = cardYear === minCardYear ? new Date().getMonth() + 1 : 1;
@@ -73,21 +76,27 @@
   function checkRequiredCardFields() {
     cardData.aovi // use Aovi validators
       .check("card")
-      .minLength(15,'Card should be at least 15 symbols length')
+      .minLength(15, "Card should be at least 15 symbols length")
       .required()
       .check("holders")
       .required()
       .check("expirationMonth")
-      .required('Expiration Month is required')
+      .required("Expiration Month is required")
       .check("expirationYear")
-      .required('Expiration Year is required')
+      .required("Expiration Year is required")
       .check("cvc")
       .required()
       .match(/^\d+$/, "CVC should contain only numbers").end; // you must finish validation with '.end' operator
 
     if ($cardData.valid) {
       $cardFormStatus = true;
+      $cardAddedStatus = true;
     }
+  }
+
+  function clearErrorForms() {
+    cardData.clear();
+    $billingeErrorMessage.status = false;
   }
 </script>
 
@@ -102,7 +111,7 @@
         autocomplete
         bind:value={cardNumber}
         class:error={$cardData.err.card}
-        on:focus={cardData.clear}
+        on:focus={clearErrorForms}
       />
       <div class="icon__wrpper"><CardsIcons /></div>
     </div>
@@ -116,7 +125,7 @@
         autocomplete
         bind:value={cardName}
         class:error={$cardData.err.holders}
-        on:focus={cardData.clear}
+        on:focus={clearErrorForms}
       />
     </div>
     <div class="three__colums">
@@ -128,7 +137,7 @@
             id="cardMonth"
             bind:value={cardMonth}
             class:error={$cardData.err.expirationMonth}
-            on:focus={cardData.clear}
+            on:focus={clearErrorForms}
           >
             <option value="" disabled selected>Month</option>
             {#each Array(12) as _, n}
@@ -145,7 +154,7 @@
             id="cardYear"
             bind:value={cardYear}
             class:error={$cardData.err.expirationYear}
-            on:focus={cardData.clear}
+            on:focus={clearErrorForms}
           >
             <option value="" disabled selected>Year</option>
             {#each Array(12) as _, n}
@@ -163,7 +172,7 @@
             type="password"
             bind:value={cardCvv}
             class:error={$cardData.err.cvc}
-            on:focus={cardData.clear}
+            on:focus={clearErrorForms}
             class="input-sv"
             placeholder="CVC"
             autocomplete
@@ -187,11 +196,8 @@
 {/if}
 
 <style>
-  .success__text {
-    color: rgb(4, 149, 4);
-    padding: 40px;
-    border: 1px solid;
-    border-radius: 10px;
+  select option:disabled {
+    color: #dddddd;
   }
   .add__payment {
     width: 100%;

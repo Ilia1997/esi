@@ -1,49 +1,60 @@
 <script>
   import { fade } from "svelte/transition";
-  import {IBANFormStatus} from '../../../../stores/billingStore'
-  let iban = '';
+  import {
+    IBANFormStatus,
+    iBANAddedStatus,
+    billingeErrorMessage
+  } from "../../../../stores/billingStore";
+  let iban = "";
   $: iban;
-  let ibanErrorState= false;
+  let ibanErrorState = false;
 
-  function checkIban(){
+  function checkIban() {
     let validIbanStatus = IBAN.isValid(iban);
-    if(validIbanStatus){
-     ibanErrorState = false
-     $IBANFormStatus = true
-    }else{
-        ibanErrorState = true;
+    if (validIbanStatus) {
+      ibanErrorState = false;
+      $IBANFormStatus = true;
+      $iBANAddedStatus = true;
+    } else {
+      ibanErrorState = true;
     }
   }
-  
- 
+  function clearErrorForms(){
+    ibanErrorState = false
+    $billingeErrorMessage.status = false;
+   }
 </script>
-{#if !$IBANFormStatus}
-    <div class="iban_wrapper" in:fade>
-  <label for="iban">IBAN</label>
-  <div class="input__card">
-    <input
-      type="text"
-      id="iban"
-      bind:value={iban}
-      class="input-sv"
-      placeholder="BA1234 1234 1234 1234"
-      autocomplete
-    />
-  </div>
-  {#if ibanErrorState}
-     <div class="error__message">IBAN is incorrect</div>
-  {/if}
- 
-  <button class="btn-sv add__payment" on:click={checkIban}>ADD</button>
-</div>
 
+{#if !$IBANFormStatus}
+  <div class="iban_wrapper" in:fade>
+    <label for="iban">IBAN</label>
+    <div class="input__card">
+      <input
+        type="text"
+        id="iban"
+        bind:value={iban}
+        class:error={ibanErrorState}
+        on:focus={clearErrorForms}
+        class="input-sv"
+        placeholder="BA1234 1234 1234 1234"
+        autocomplete
+      />
+    </div>
+    {#if ibanErrorState}
+      <div class="error__message iban__error">IBAN is incorrect</div>
+    {/if}
+
+    <button class="btn-sv add__payment" on:click={checkIban}>ADD</button>
+  </div>
 {:else if $IBANFormStatus}
- <div in:fade class="success__text">IBAN added succesfully</div>
+  <div in:fade class="success__text ">IBAN added succesfully</div>
 {/if}
 
-
-
 <style>
+  .iban__error {
+    text-align: left;
+    padding: 5px;
+  }
   .add__payment {
     width: 100%;
     justify-content: center;

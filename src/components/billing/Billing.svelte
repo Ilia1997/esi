@@ -2,9 +2,13 @@
   import Tabs from "./Tabs/Tabs.svelte";
   import AddressForm from "./TabForms/AddressForm.svelte";
   import PaymentForm from "./TabForms/PaymentForm.svelte";
+  import {fade} from 'svelte/transition'
   import {
     allowItemIndexBilling,
     addressFormStatus,
+    iBANAddedStatus,
+    cardAddedStatus,
+    billingeErrorMessage
   } from "../../stores/billingStore";
   import { successMessageState } from "../../stores/store";
   import ButtonRight from "../buttons/ButtonRight.svelte";
@@ -19,6 +23,9 @@
   let formButtonText = "Next";
   let nextButtonState = false;
 
+
+  $: nextButtonState;
+
   function nextTab() {
     if ($allowItemIndexBilling < 3) {
       let index = tabItems.findIndex((object) => {
@@ -31,9 +38,13 @@
           $allowItemIndexBilling = $allowItemIndexBilling + 1;
           formButtonText = "Confirm";
         }
+      } else if (index === 1) {
+        if ($iBANAddedStatus || $cardAddedStatus) {
+          nextButtonState = true;
+        } else {
+          $billingeErrorMessage.status = true;
+        }
       }
-    } else if (index === 1) {
-      nextButtonState = true;
     }
   }
   function prevTab() {
@@ -95,6 +106,9 @@
         <Tabs {tabItems} />
         <svelte:component this={activeItem.component} {addressData} />
       </form>
+    {#if $billingeErrorMessage.status}
+      <div in:fade class="error__message">{$billingeErrorMessage.text}</div>
+    {/if}
       <div class="buttons__wrapper">
         {#if $allowItemIndexBilling > 1}
           <button class="btn-sv prev" on:click={prevTab}>
@@ -107,7 +121,8 @@
     </div>
   </div>
   <div class="bottom__btns billing">
-    <ButtonRight on:click={nextStep} />
+    <!-- //nextButtonState -->
+    <ButtonRight on:click={nextStep} buttonState={nextButtonState} />
   </div>
 </div>
 

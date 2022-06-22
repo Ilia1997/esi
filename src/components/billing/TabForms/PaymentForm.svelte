@@ -1,43 +1,52 @@
 <script>
-//  import CardsIcons from ".../CardsIcons.svelte";
+  //  import CardsIcons from ".../CardsIcons.svelte";
   import Card_ico from "../../../../../esi/public/images/Card_ico.svelte";
   //import PayPal_ico from "../../../../../../public/images/PayPal_ico.svelte";
   import USbank_ico from "../../../../../esi/public/images/USbank_ico.svelte";
-// import Cvc_ico from "../../../../../../public/images/Cvc_ico.svelte";
+  // import Cvc_ico from "../../../../../../public/images/Cvc_ico.svelte";
   import CardPayment from "../TabForms/paymentMethods/CardPayment.svelte";
-import IbanPaymen from "./paymentMethods/IBANPaymen.svelte";
+  import IbanPaymen from "./paymentMethods/IBANPaymen.svelte";
   let currentBillingMethod = 0;
   $: currentBillingMethod;
+  
 </script>
 
 <div class="tab__wrapper">
   <div class="tab__head__items">
-    <div class="card" on:click={()=>currentBillingMethod = 0} class:active={currentBillingMethod ===0}>
-      <Card_ico class={currentBillingMethod ===0 ? 'active':''}/>
+    <div
+      class="card"
+      on:click={() => (currentBillingMethod = 0)}
+      class:active={currentBillingMethod === 0}
+    >
+      <Card_ico class={currentBillingMethod === 0 ? "active" : ""} />
       <div class="text">Card</div>
     </div>
     <!-- <div class="paypal">
       <PayPal_ico />
       <div class="text">Paypal</div>
     </div> -->
-    <div class="us__bank" on:click={()=>currentBillingMethod = 1} class:active={currentBillingMethod ===1}>
-      <USbank_ico class={currentBillingMethod === 1 ? 'active':''}/>
+    <div
+      class="us__bank"
+      on:click={() => (currentBillingMethod = 1)}
+      class:active={currentBillingMethod === 1}
+    >
+      <USbank_ico class={currentBillingMethod === 1 ? "active" : ""} />
       <div class="text">Bank Account</div>
     </div>
     <!-- <div class="more__payment"><span>...</span></div> -->
   </div>
   <div class="tab__payment__fields">
     {#if currentBillingMethod === 0}
-    <CardPayment />
-      {:else if currentBillingMethod ===1}
+      <CardPayment />
+    {:else if currentBillingMethod === 1}
       <IbanPaymen />
     {/if}
   </div>
 </div>
 
 <style>
-    :global(label) {
-    display:inline-block;
+  :global(label) {
+    display: inline-block;
     width: 100%;
     margin-bottom: 10px;
     text-align: left;
@@ -70,16 +79,16 @@ import IbanPaymen from "./paymentMethods/IBANPaymen.svelte";
   }
   .card {
     width: 132px;
-    border: 1px solid #e4e4e4;;
+    border: 1px solid #e4e4e4;
     padding-left: 30px;
-    color: #e4e4e4;;
+    color: #e4e4e4;
     margin-right: 8px;
     cursor: pointer;
-    transition: all ease .2s;
+    transition: all ease 0.2s;
   }
-  .card.active{
-    border-color: #0085FF;
-    color: #0085FF;
+  .card.active {
+    border-color: #0085ff;
+    color: #0085ff;
   }
   /* .card svg {
     margin-bottom: 5px;
@@ -93,11 +102,12 @@ import IbanPaymen from "./paymentMethods/IBANPaymen.svelte";
   .paypal svg {
     margin-bottom: 5px;
   } */
-  .card:hover, .us__bank:hover{
+  .card:hover,
+  .us__bank:hover {
     box-shadow: 0px 1px 15px -8px rgb(14 45 255 / 70%);
   }
   .us__bank {
-    transition: all ease .2s;
+    transition: all ease 0.2s;
     cursor: pointer;
     width: 170px;
     padding-left: 30px;
@@ -106,12 +116,12 @@ import IbanPaymen from "./paymentMethods/IBANPaymen.svelte";
   .us__bank .text {
     color: #e4e4e4;
   }
-  .us__bank.active{
-    border-color: #0085FF;
-    color: #0085FF;
+  .us__bank.active {
+    border-color: #0085ff;
+    color: #0085ff;
   }
-  .us__bank.active .text{
-    color: #0085FF;
+  .us__bank.active .text {
+    color: #0085ff;
   }
   /* .us__bank svg {
     margin-bottom: 5px;

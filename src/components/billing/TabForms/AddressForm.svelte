@@ -1,18 +1,18 @@
 <script>
+  import { onMount } from "svelte";
   import { fade } from "svelte/transition";
-  let countries = [
-    "USA",
-    "Germany",
-    "France",
-    "Scandinavian",
-    "Norway",
-    "Sweden",
-    "Denmark",
-    "Finland",
-  ];
-export let addressData;
+  import { getCountriesFromDB } from "../getListCountries";
+  
+  export let addressData;
 
+  let countries = [];
 
+  onMount(async () => {
+    let data = await getCountriesFromDB();
+    data.forEach((item) => {
+      countries = [...countries, item.Name];
+    });
+  });
 </script>
 
 <div class="tab__wrapper" in:fade>
@@ -50,10 +50,14 @@ export let addressData;
       class:error={$addressData.err.streetNumber}
       on:focus={addressData.clear}
     />
-    <input type="text" class="input-sv" placeholder="City *" autocomplete 
-    bind:value={$addressData.city}
-    class:error={$addressData.err.city}
-    on:focus={addressData.clear}
+    <input
+      type="text"
+      class="input-sv"
+      placeholder="City *"
+      autocomplete
+      bind:value={$addressData.city}
+      class:error={$addressData.err.city}
+      on:focus={addressData.clear}
     />
     <div class="two__colums">
       <select
@@ -87,7 +91,7 @@ export let addressData;
 {/each}
 
 <style>
-   .select-sv.error {
+  .select-sv.error {
     border: 1px solid #ff2e00;
     color: #ff2e00;
   }

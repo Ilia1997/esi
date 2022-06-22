@@ -7,7 +7,7 @@
       </span>
       <div>Welcome to ESi <span class="green">green saver!</span></div>
     </div>
-    <p class="success__text">Share with your friends</p>
+    <p class="success__content">Share with your friends</p>
     <div class="success__icons">
       <a href="#" class="success__icon w-inline-block"
         ><img
@@ -81,7 +81,7 @@
   .green {
     color: #6cc800;
   }
-  .success__text {
+  .success__content {
     margin-top: 32px;
     margin-bottom: 24px;
   }

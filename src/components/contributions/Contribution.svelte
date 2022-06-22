@@ -153,8 +153,8 @@
     justify-content: space-between;
     width: 100%;
     max-width: 653px;
-    margin-top: 28px;
-    padding: 0 32px;
+    padding: 0;
+    margin: 28px 32px 0 32px;
   }
   .rules__item {
     padding: 16px 50px 26px 50px;
@@ -164,7 +164,7 @@
     border-right: 1px solid #032b01;
   }
   .rules_text {
-    max-width: 134px;
+    max-width: 145px;
     font-weight: 500;
     font-size: 18px;
     line-height: 27px;
