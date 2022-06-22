@@ -24,7 +24,8 @@
           separateDialCode: true,
           utilsScript:
             "https://intl-tel-input.com/node_modules/intl-tel-input/build/js/utils.js",
-          autoPlaceholder: "",
+          onlyCountries: ["us", "de", "fr", "no", "se", "dk", "fi"],
+          autoPlaceholder: " ",
         });
         initCounter = 1;
       }
@@ -35,7 +36,15 @@
     }
   });
 
+  const checkValueOnChange = (e) => {
+    e.target.value = e.target.value.replace(/[^\d]/g,'')
+  }
 
+  function checkValueOnBlur() {
+    if (this.value == '' || /[0-9]/.test(this.value) === false) {
+      phoneData = " ";
+    }
+  }
 </script>
 
 <div class="tab__wrapper" in:fade>
@@ -68,7 +77,8 @@
       bind:value={phoneData}
       class:error={$loginData.err.phone} 
       on:focus={loginData.clear}
-      onkeyup="this.value = this.value.replace(/[^\d]/g,'');"
+      on:input={(e) => checkValueOnChange(e)}
+      on:blur={checkValueOnBlur}
     />
   </div>
 </div>

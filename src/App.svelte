@@ -47,7 +47,6 @@
               <Billing />
             </div>
           {/if}
-
         </div>
       </div>
     {:else if $successMessageState === true}
