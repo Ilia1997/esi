@@ -24,7 +24,8 @@
           separateDialCode: true,
           utilsScript:
             "https://intl-tel-input.com/node_modules/intl-tel-input/build/js/utils.js",
-          autoPlaceholder: "",
+          onlyCountries: ["us", "de", "fr", "no", "se", "dk", "fi"],
+          autoPlaceholder: " ",
         });
         initCounter = 1;
       }
@@ -34,8 +35,6 @@
       iti.setNumber($loginData.phone);
     }
   });
-
-
 </script>
 
 <div class="tab__wrapper" in:fade>
@@ -68,7 +67,7 @@
       bind:value={phoneData}
       class:error={$loginData.err.phone} 
       on:focus={loginData.clear}
-      onkeyup="this.value = this.value.replace(/[^\d]/g,'');"
+      oninput = "this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"
     />
   </div>
 </div>
