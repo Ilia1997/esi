@@ -65,7 +65,7 @@
         id="cardMonth"
         bind:value={$addressData.country}
         class:error={$addressData.err.country}
-        on:select={addressData.clear}
+        on:focus={addressData.clear}
       >
         <option value="" disabled selected>Country*</option>
         {#each countries as country}
