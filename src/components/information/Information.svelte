@@ -202,7 +202,7 @@ onDestroy(()=>{
       {/if}
       {#if $passwordData.valid && formButtonText === 'Save' && !$confirm_match || formButtonText === 'Save' && $savedPassword}
         <button class='btn-sv next' disabled on:click={nextTab}>{formButtonText}</button>
-        {:else}
+        {:else if !$savedPassword}
         <button class='btn-sv next' on:click={nextTab}>{formButtonText}</button>
       {/if}
     </div>
