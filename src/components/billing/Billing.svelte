@@ -204,6 +204,9 @@
     border: none;
     background: transparent;
   }
+  .btn-sv.prev:hover {
+    filter: invert(1);
+  }
   .btn-sv.next {
     width: 182px;
     height: 66px;

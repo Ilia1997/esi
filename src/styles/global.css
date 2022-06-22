@@ -89,8 +89,8 @@ html,
 }
 
 /* ESI global styles */
-.btn-sv:hover svg.ico path {
-  fill: #fff;
+.btn-sv:not(.prev):hover svg path{
+  fill: #fff
 }
 .dropdown svg {
   position: absolute;
