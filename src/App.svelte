@@ -36,14 +36,14 @@
             <div class="component__wrapper" in:fade={{ duration: 500 }}>
               <Legal />
             </div>
-          {:else if stepCountValue === 4}
+          {:else if stepCountValue === 4} -->
             <div class="component__wrapper" in:fade={{ duration: 500 }}>
               <Information />
             </div>
-          {:else if stepCountValue === 5}
-            <div class="component__wrapper" in:fade={{ duration: 500 }}> -->
+          <!-- {:else if stepCountValue === 5}
+            <div class="component__wrapper" in:fade={{ duration: 500 }}>
               <Billing />
-            <!-- </div>
+            </div>
           {/if} -->
         </div>
       </div>

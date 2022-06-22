@@ -68,6 +68,7 @@
       bind:value={phoneData}
       class:error={$loginData.err.phone} 
       on:focus={loginData.clear}
+      onkeyup="this.value = this.value.replace(/[^\d]/g,'');"
     />
   </div>
 </div>
