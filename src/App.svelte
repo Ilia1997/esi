@@ -45,7 +45,6 @@
               <Billing />
             </div>
           {/if}
-          <!-- test -->
 
         </div>
       </div>
