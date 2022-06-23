@@ -43,11 +43,11 @@
             </div>
 
           {:else if stepCountValue === 5}
-            <div class="component__wrapper" in:fade={{ duration: 500 }}> -->
+            <div class="component__wrapper" in:fade={{ duration: 500 }}> 
               <Billing />
             </div>
 
-          <!-- {:else if stepCountValue === 5}
+          {:else if stepCountValue === 5}
             <div class="component__wrapper" in:fade={{ duration: 500 }}>
               <Billing />
             </div>
