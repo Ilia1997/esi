@@ -4,16 +4,13 @@
   import intlTelInput from "intl-tel-input";
   import { afterUpdate } from "svelte";
   import { fade } from "svelte/transition";
-  import {
-    infoFormData
-  } from "../../../stores/infoStore";
+  import { infoFormData } from "../../../stores/infoStore";
   export let loginData;
 
   let input;
   let iti;
   let initCounter = 0;
   let number;
-
   let phoneData = "";
   $: number, phoneData;
 
@@ -47,31 +44,53 @@
       placeholder="Username"
       autocomplete
       bind:value={$loginData.userName}
-      class:error={$loginData.err.userName} 
+      class:error={$loginData.err.userName}
       on:focus={loginData.clear}
     />
+
+    {#if $loginData.err.userName}
+      <p class="error__message">{$loginData.err.userName}</p>
+    {/if}
+
     <input
       type="email"
       class="input-sv"
       placeholder="Email"
       autocomplete
       bind:value={$loginData.email}
-      class:error={$loginData.err.email} 
+      class:error={$loginData.err.email}
       on:focus={loginData.clear}
     />
+    {#if $loginData.err.email}
+      <p class="error__message">{$loginData.err.email}</p>
+    {/if}
     <input
       type="tel"
       class="input-sv"
       bind:this={input}
       autocomplete
       bind:value={phoneData}
-      class:error={$loginData.err.phone} 
+      class:error={$loginData.err.phone}
       on:focus={loginData.clear}
-      oninput = "this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"
+      oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"
     />
+    {#if $loginData.err.phone}
+      <p class="error__message last">{$loginData.err.phone}</p>
+    {/if}
   </div>
 </div>
 
 <style>
+  .input-sv.error::placeholder {
+    color: #ff2e00;
+  }
+  .error__message {
+    margin-bottom: 8px;
+    text-align: left;
+  }
+  .error__message.last {
+    margin-bottom: 8px;
+    margin-top: 8px;
 
+  }
 </style>
