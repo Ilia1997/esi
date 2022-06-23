@@ -40,7 +40,7 @@ import Arrow_left_ico from "../../../public/images/Arrow_left_ico.svelte";
       let index = tabItems.findIndex((object) => {
         return object.name === activeItem.name;
       });
-      if (index === 0) {
+      if (index === 0 && $loginData.valid) {
         // Validate Contact 
         await doLoginData();
         if ($infoFormErrorState === false) {
@@ -49,11 +49,9 @@ import Arrow_left_ico from "../../../public/images/Arrow_left_ico.svelte";
           formButtonText = "Save";
         }
       } else if (index === 1) {
-        console.log('Validate Password')
         // Validate Password
         doSignup();
         if ($infoFormErrorState === false) {
-          $savedPassword = true
           nextButtonState = true;
         }
       }
@@ -184,12 +182,8 @@ onDestroy(()=>{
           {/if}
         </div>
         <div class="error__wrapper">
-          {#each $loginData.err.toArray() as error}
-            <p class="error__message">{error}</p>
-          {/each}
-          {#each $passwordData.err.toArray() as error}
-            <p class="error__message">{error}</p>
-          {/each}
+
+         
         </div>
       </form>
     </div>
@@ -200,9 +194,9 @@ onDestroy(()=>{
           Back
         </button>
       {/if}
-      {#if $passwordData.valid && formButtonText === 'Save' && !$confirm_match || formButtonText === 'Save' && $savedPassword}
+      {#if $savedPassword && formButtonText === 'Save'}
         <button class='btn-sv next' disabled on:click={nextTab}>{formButtonText}</button>
-        {:else if !$savedPassword}
+        {:else}
         <button class='btn-sv next' on:click={nextTab}>{formButtonText}</button>
       {/if}
     </div>
@@ -239,6 +233,7 @@ onDestroy(()=>{
     position: relative;
     z-index: 3;
   }
+
   :global(.tab__form__fields .input-sv) {
     margin-bottom: 8px;
   }

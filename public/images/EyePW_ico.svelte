@@ -4,7 +4,7 @@
     height="24"
     viewBox="0 0 24 24"
     fill="none"
-    class="eye__icon"
+    class="eye__icon {$$props.class}"
     on:click
     >
     <path
@@ -12,3 +12,8 @@
         fill="#053900"
     />
 </svg>
+<style>
+    .eye__icon.error path{
+        fill: #ff2e00;
+    }
+</style>
