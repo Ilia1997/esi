@@ -133,11 +133,11 @@ const passwordRegEx = /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
     passwordData.aovi // use Aovi validators
       .check("password")
       .required("Please put your password")
-      .minLength(8, "Password should be at least 8 symbols length")
       .match(passwordRegEx, "Password should have at least 1 capital letter, 1 number, 1 special symbol")
+      .is($confirm_match, "Confirmation doesn't match password")
       .check("confirm")
       .required("Please confirm your password")
-      .is($confirm_match, "Confirmation doesn't match password").end; // you must finish validation with '.end' operator
+      .minLength(8, "Password should be at least 8 symbols length").end; // you must finish validation with '.end' operator
 
     if ($passwordData.valid) { // if validation success, do something
       $savedPassword = true;
@@ -238,9 +238,6 @@ onDestroy(()=>{
     margin-top: 24px;
     position: relative;
     z-index: 3;
-  }
-  :global(.tab__form__fields .input-sv::placeholder) {
-    color: #000000;
   }
   :global(.tab__form__fields .input-sv) {
     margin-bottom: 8px;

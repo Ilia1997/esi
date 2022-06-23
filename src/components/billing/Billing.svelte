@@ -164,13 +164,10 @@
     position: relative;
     z-index: 3;
   }
-  :global(.tab__form__fields .input-sv::placeholder) {
-    color: #000000;
-  }
-  :global(.tab__form__fields .input-sv) {
+  :global(.input-sv) {
     margin-bottom: 8px;
   }
-  :global(.tab__form__fields .input-sv:last-child) {
+  :global(.input-sv:last-child) {
     margin-bottom: 0px;
   }
   :global(.select-sv) {

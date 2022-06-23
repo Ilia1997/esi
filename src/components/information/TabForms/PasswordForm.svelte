@@ -101,9 +101,6 @@
     padding-left: 30px;
     text-align: left;
   }
-  .input-sv.error::placeholder {
-    color: #ff2e00;
-  }
   .input__wrapper {
     position: relative;
   }
