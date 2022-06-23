@@ -316,4 +316,13 @@ onDestroy(()=>{
   .main__tabs form {
     margin-bottom: 16px;
   }
+
+  @media only screen and (max-width: 767px) {
+    .info__main {
+      padding: 40px 20px 0 20px;
+    }
+    .btn-sv.prev {
+      padding-left: 0;
+    }
+  }
 </style>

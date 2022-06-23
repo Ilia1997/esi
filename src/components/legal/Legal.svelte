@@ -73,13 +73,13 @@
               <input
                 type="checkbox"
                 class="input-ch-sv"
+                id={item.name}
                 on:click={(e) => {
                   e.stopPropagation();
-                  console.log("clicked");
                 }}
                 bind:checked={$checkboxStates[item.key]}
               />
-              <p>I agree to {item.name}</p>
+              <p class="label-sv">I agree to {item.name}</p>
             </div>
             <Toggle_ico />
           </div>
@@ -96,14 +96,15 @@
       <input
         class="input-ch-sv"
         type="checkbox"
+        id="agree__all"
         on:change={(e) => {
           agreeAllTerms(e);
         }}
         checked={$allSelected}
       />
-      <p>
+      <label class="label-sv" for="agree__all">
         I agree to all Terms & Conditions, Contract Agreement, Privacy & Cookie
-      </p>
+      </label>
     </div>
   </div>
   <div class="relative__wrapper">
@@ -126,6 +127,11 @@
     flex-direction: column;
     justify-content: space-between;
     height: 100%;
+  }
+
+  :global(.label-sv) {
+    margin: 0;
+    cursor: pointer;
   }
 
   :global(.accordion) {
@@ -183,7 +189,7 @@
     color: #032b01;
     margin-bottom: 10px;
   }
-  .header p {
+  .header .label-sv {
     text-transform: uppercase;
     color: #ffffff;
   }
@@ -230,7 +236,7 @@
     margin: 16px 0 32px 0;
   }
 
-  @media only screen and (max-width: 768px) {
+  @media only screen and (max-width: 767px) {
     .legal__wrapper h2,
     .agree__all {
       padding: 0 16px;
@@ -240,7 +246,7 @@
     }
     .header {
       border-radius: 0;
-      border: 1px solid #113535;
+      border-bottom: 1px solid #113535;
     }
     .body {
       padding: 0 17px;

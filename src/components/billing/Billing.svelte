@@ -240,6 +240,7 @@
   .info__main {
     padding-top: 64px;
     margin: 0 auto;
+    max-width: 100%;
   }
   .main__tabs {
     margin-top: 14px;
@@ -249,5 +250,11 @@
   }
   .main__tabs form {
     margin-bottom: 16px;
+  }
+
+  @media only screen and (max-width: 767px) {
+    .info__main {
+      padding-top: 40px;
+    }
   }
 </style>

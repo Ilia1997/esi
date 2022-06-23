@@ -203,6 +203,7 @@
 
   .column-left {
     width: 100%;
+    overflow: hidden;
   }
 
   .step__footer {
@@ -235,6 +236,13 @@
       max-width: 450px;
       justify-content: flex-start;
     }
+    .rules__item {
+      display: flex;
+      flex-wrap: wrap;
+    }
+    .rules__val__wrapper {
+      margin-top: auto;
+    }
     .rules__item,
     .rules__item:last-child {
       padding: 25px;
@@ -254,7 +262,7 @@
       padding: 24px 57px 13px 21px;
     }
   }
-  @media only screen and (max-width: 768px) {
+  @media only screen and (max-width: 767px) {
     .rules_text,
     .rules_text span {
       font-size: 10px;
@@ -291,8 +299,14 @@
     .step__footer {
       padding: 0 16px;
     }
+    .rules__items {
+      margin: 28px 0 0 0;
+    }
+    .relative__wrapper {
+      margin-top: 40px;
+    }
   }
-  @media only screen and (max-width: 768px) and (min-width: 375px) {
+  @media only screen and (max-width: 767px) and (min-width: 375px) {
     .h2-sv {
       white-space: nowrap;
     }

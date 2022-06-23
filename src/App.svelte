@@ -25,7 +25,7 @@
       <div class="wrapper">
         <HeadSteps />
         <div class="step__content">
-          {#if stepCountValue === 1}
+          <!-- {#if stepCountValue === 1}
             <div class="component__wrapper" in:fade={{ duration: 500 }}>
               <Contribution />
             </div>
@@ -41,11 +41,11 @@
             <div class="component__wrapper" in:fade={{ duration: 500 }}>
               <Information />
             </div>
-          {:else if stepCountValue === 5}
+          {:else if stepCountValue === 5} -->
             <div class="component__wrapper" in:fade={{ duration: 500 }}>
               <Billing />
             </div>
-          {/if}
+          <!-- {/if} -->
         </div>
       </div>
     {:else if $successMessageState === true}
