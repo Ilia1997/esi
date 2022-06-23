@@ -103,10 +103,10 @@
       Payment/Withdrawal <span class="green">Methode</span>
     </h2>
     <div class="main__tabs">
-      <form on:submit|preventDefault>
+      
         <Tabs {tabItems} />
         <svelte:component this={activeItem.component} {addressData} />
-      </form>
+      
     {#if $billingeErrorMessage.status}
       <div in:fade class="error__message">{$billingeErrorMessage.text}</div>
     {/if}
