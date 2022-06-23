@@ -26,6 +26,8 @@
 
   $: nextButtonState;
 
+  const apiKey = 'process.env.api_key'
+
   function nextTab() {
     if ($allowItemIndexBilling < 3) {
       let index = tabItems.findIndex((object) => {
@@ -95,17 +97,16 @@
     $successMessageState = true;
   };
 </script>
-
 <div class="main__wrapper">
   <div class="info__main">
     <h2 class="h2-sv main__head">
       Payment/Withdrawal <span class="green">Methode</span>
     </h2>
     <div class="main__tabs">
-      <form on:submit|preventDefault>
+      
         <Tabs {tabItems} />
         <svelte:component this={activeItem.component} {addressData} />
-      </form>
+      
     {#if $billingeErrorMessage.status}
       <div in:fade class="error__message">{$billingeErrorMessage.text}</div>
     {/if}

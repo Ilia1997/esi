@@ -4,6 +4,8 @@ import resolve from '@rollup/plugin-node-resolve';
 import livereload from 'rollup-plugin-livereload';
 import { terser } from 'rollup-plugin-terser';
 import css from 'rollup-plugin-css-only';
+import {config} from 'dotenv';
+import replace from '@rollup/plugin-replace';
 
 const production = !process.env.ROLLUP_WATCH;
 
@@ -57,6 +59,7 @@ export default {
 			dedupe: ['svelte']
 		}),
 		commonjs(),
+	
 
 		// In dev mode, call `npm run start` once
 		// the bundle has been generated
@@ -68,7 +71,14 @@ export default {
 
 		// If we're building for production (npm run build
 		// instead of npm run dev), minify
-		production && terser()
+		production && terser(),
+		replace({
+			// stringify the object       
+			'process.env.isProd': production,
+			'process.env.stripe_secret_key': process.env.STRIPE_SECRET_KEY,
+			'process.env.vite_stripe_public_key': process.env.VITE_STRIPE_PUBLIC_KEY,
+		  }),
+		
 	],
 	watch: {
 		clearScreen: false

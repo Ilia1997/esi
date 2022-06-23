@@ -10,16 +10,21 @@
   "devDependencies": {
     "@rollup/plugin-commonjs": "^17.0.0",
     "@rollup/plugin-node-resolve": "^11.0.0",
+    "@rollup/plugin-replace": "^4.0.0",
+    "@stripe/stripe-js": "^1.32.0",
     "rollup": "^2.3.4",
     "rollup-plugin-css-only": "^3.1.0",
     "rollup-plugin-livereload": "^2.0.0",
     "rollup-plugin-svelte": "^7.0.0",
     "rollup-plugin-terser": "^7.0.0",
-    "svelte": "^3.0.0"
+    "stripe": "^9.9.0",
+    "svelte": "^3.0.0",
+    "svelte-stripe": "^0.0.17"
   },
   "dependencies": {
     "@lottiefiles/svelte-lottie-player": "^0.2.0",
     "aovi-svelte": "^0.2.5",
+    "dotenv": "^16.0.1",
     "intl-tel-input": "^17.0.16",
     "sirv-cli": "^2.0.0",
     "svelte-collapsible": "^0.2.1"

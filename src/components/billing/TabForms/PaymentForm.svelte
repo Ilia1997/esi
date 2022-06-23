@@ -6,11 +6,144 @@
   // import Cvc_ico from "../../../../../../public/images/Cvc_ico.svelte";
   import CardPayment from "../TabForms/paymentMethods/CardPayment.svelte";
   import IbanPaymen from "./paymentMethods/IBANPaymen.svelte";
+
+  import { onMount } from "svelte";
   let currentBillingMethod = 0;
-  $: currentBillingMethod;
-  
+   $: currentBillingMethod;
+
+  // let stripeReady = false;
+  // let mounted = false;
+
+  // onMount(async () => {
+  //   mounted = true;
+  //   if (stripeReady) {
+  //     console.log("strype is ready");
+  //     loadStripeElements();
+  //   }
+  // });
+
+  // function stripeLoaded() {
+  //   stripeReady = true;
+  //   if (mounted) {
+  //     loadStripeElements();
+  //   }
+  // }
+
+  // const options = {
+  //   clientSecret: '{{CLIENT_SECRET}}',
+  //   // Fully customizable with appearance API.
+  //   appearance: {
+  //     /*...*/
+  //   },
+  // };
+
+  // function loadStripeElements() {
+  //   // await sleep(500);
+  //   // Create a Stripe client.
+  //   // Note: this merchant has been set up for demo purposes.
+  //   const stripe = Stripe("process.env.vite_stripe_public_key");
+
+  //   // Create an instance of Elements.
+  //   var elements = stripe.elements({clientSecret: "{{CLIENT_SECRET}}"});
+
+  //   // Custom styling can be passed to options when creating an Element.
+  //   // (Note that this demo uses a wider set of styles than the guide below.)
+  //   // var style = {
+  //   //   base: {
+  //   //     padding: "10px 12px",
+  //   //     color: "#32325d",
+  //   //     fontFamily:
+  //   //       '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
+  //   //     fontSmoothing: "antialiased",
+  //   //     fontSize: "16px",
+  //   //     "::placeholder": {
+  //   //       color: "#aab7c4",
+  //   //     },
+  //   //   },
+  //   //   invalid: {
+  //   //     color: "#fa755a",
+  //   //   },
+  //   // };
+
+  //   // Create an instance of the idealBank Element.
+  //   var paymentForm = elements.create("payment");
+
+  //   // Add an instance of the idealBank Element into the `ideal-bank-element` <div>.
+  //   paymentForm.mount("#payment-element");
+
+  //   var errorMessage = document.getElementById("error-message");
+
+  //   // Handle form submission.
+
+  //   const form = document.getElementById("payment-form");
+
+  //   form.addEventListener("submit", async (event) => {
+  //     event.preventDefault();
+
+  //     const { error } = await stripe.confirmSetup({
+  //       //`Elements` instance that was used to create the Payment Element
+  //       elements,
+  //       confirmParams: {
+  //         return_url: "https://example.com/account/payments/setup-complete",
+  //       },
+  //     });
+
+  //     if (error) {
+  //       // This point will only be reached if there is an immediate error when
+  //       // confirming the payment. Show error to your customer (for example, payment
+  //       // details incomplete)
+  //       const messageContainer = document.querySelector("#error-message");
+  //       messageContainer.textContent = error.message;
+  //     } else {
+  //       // Your customer will be redirected to your `return_url`. For some payment
+  //       // methods like iDEAL, your customer will be redirected to an intermediate
+  //       // site first to authorize the payment, then redirected to the `return_url`.
+  //     }
+  //   });
+  //   const clientSecret = new URLSearchParams(window.location.search).get(
+  //     "setup_intent_client_secret"
+  //   );
+
+  //   // Retrieve the SetupIntent
+  //   stripe.retrieveSetupIntent(clientSecret).then(({ setupIntent }) => {
+  //     const message = document.querySelector("#message");
+
+  //     // Inspect the SetupIntent `status` to indicate the status of the payment
+  //     // to your customer.
+  //     //
+  //     // Some payment methods will [immediately succeed or fail][0] upon
+  //     // confirmation, while others will first enter a `processing` state.
+  //     //
+  //     // [0]: https://stripe.com/docs/payments/payment-methods#payment-notification
+  //     switch (setupIntent.status) {
+  //       case "succeeded": {
+  //         message.innerText = "Success! Your payment method has been saved.";
+  //         break;
+  //       }
+
+  //       case "processing": {
+  //         message.innerText =
+  //           "Processing payment details. We'll update you when processing is complete.";
+  //         break;
+  //       }
+
+  //       case "requires_payment_method": {
+  //         message.innerText =
+  //           "Failed to process payment details. Please try another payment method.";
+
+  //         // Redirect your user back to your payment page to attempt collecting
+  //         // payment again
+
+  //         break;
+  //       }
+  //     }
+  //   });
+  // }
 </script>
 
+<!-- <svelte:head>
+  <script src="https://js.stripe.com/v3/" on:load={stripeLoaded}></script>
+</svelte:head> -->
 <div class="tab__wrapper">
   <div class="tab__head__items">
     <div
@@ -21,10 +154,7 @@
       <Card_ico class={currentBillingMethod === 0 ? "active" : ""} />
       <div class="text">Card</div>
     </div>
-    <!-- <div class="paypal">
-      <PayPal_ico />
-      <div class="text">Paypal</div>
-    </div> -->
+
     <div
       class="us__bank"
       on:click={() => (currentBillingMethod = 1)}
@@ -33,7 +163,6 @@
       <USbank_ico class={currentBillingMethod === 1 ? "active" : ""} />
       <div class="text">Bank Account</div>
     </div>
-    <!-- <div class="more__payment"><span>...</span></div> -->
   </div>
   <div class="tab__payment__fields">
     {#if currentBillingMethod === 0}
@@ -42,6 +171,17 @@
       <IbanPaymen />
     {/if}
   </div>
+
+  <!-- this is where your Stripe components go -->
+  <!-- <form on:submit|preventDefault id="payment-form">
+    <div id="payment-element"> -->
+<!-- Elements will create form elements here -->
+    <!-- </div>
+    <button id="submit">Submit</button>
+    <div id="error-message"> -->
+      <!-- Display error message to your customers here -->
+    <!-- </div>
+  </form> -->
 </div>
 
 <style>
