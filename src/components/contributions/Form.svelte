@@ -83,7 +83,7 @@ import { clickOutside } from "../../functions/clickOutside";
           on:click={() => (activePeriod = !activePeriod)}
           use:clickOutside on:click_outside={()=>handleClickOutside('activePeriod')}
         >
-          <Dropdown_ico />
+          <Dropdown_ico class="contribution"/>
           <div class="dropdown__item--current">{$contributionData.period}</div>
           <div class="dropdown__items">
             {#each periods as period}
@@ -104,7 +104,7 @@ import { clickOutside } from "../../functions/clickOutside";
           on:click={() => (activeCurrency = !activeCurrency)}
           use:clickOutside on:click_outside={()=>handleClickOutside('activeCurrency')}
         >
-          <Dropdown_ico />
+          <Dropdown_ico class="contribution" />
           <div class="dropdown__item--current">
             {$contributionData.currency}
           </div>

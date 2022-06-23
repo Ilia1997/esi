@@ -148,7 +148,7 @@
     align-items: center;
     justify-content: flex-end;
     cursor: pointer;
-    min-width: 200px;
+    min-width: 180px;
   }
   .subscribe__checkbox {
     width: 24px;
@@ -192,7 +192,7 @@
       display: none;
     }
   }
-  @media only screen and (max-width: 768px) {
+  @media only screen and (max-width: 767px) {
     .main__mob_h2 {
       margin-top: 8px;
       display: block;

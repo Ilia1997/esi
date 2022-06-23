@@ -177,7 +177,7 @@ function handleClickOutside(event) {
   .plans__item .item__head {
     display: flex;
     justify-content: space-between;
-    padding: 11px 34px 11px 24px;
+    padding: 11px 24px 11px 24px;
   }
   .plans__item.safe .item__head {
     background: #338df3;
@@ -223,7 +223,7 @@ function handleClickOutside(event) {
     transition: all ease 0.2s;
   }
   .item__head__checkbox.visible{
-    opacity: 1;
+    opacity: 0.7;
   }
   :global(.item__head__checkbox svg){
     width: 100%;

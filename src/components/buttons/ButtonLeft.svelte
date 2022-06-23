@@ -24,4 +24,10 @@
   .btn-sv:active {
     background: #5d0bc987;
   }
+
+  @media only screen and (max-width: 767px) {
+    .btn-sv {
+        width: auto;
+    }
+  }
 </style>

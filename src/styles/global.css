@@ -121,8 +121,3 @@ svg.active path {
   transform: scale(1.02);
 }
 
-@media only screen and (max-width: 768px) {
-  .dropdown svg {
-    top: 15px;
-  }
-}
