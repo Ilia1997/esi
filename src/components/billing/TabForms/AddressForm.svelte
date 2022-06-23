@@ -122,6 +122,7 @@
     border: 1px solid #ff2e00;
     color: #ff2e00;
   }
+
   .input-sv.error::placeholder {
     color: #ff2e00;
   }
