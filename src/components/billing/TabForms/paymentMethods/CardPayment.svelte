@@ -231,9 +231,6 @@
     line-height: 24px;
     color: #b9b9b9;
   }
-  .input-sv.error::placeholder {
-    color: #ff2e00;
-  }
 
   .input__card {
     position: relative;
