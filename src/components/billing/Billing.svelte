@@ -26,6 +26,8 @@
 
   $: nextButtonState;
 
+  const apiKey = 'process.env.api_key'
+
   function nextTab() {
     if ($allowItemIndexBilling < 3) {
       let index = tabItems.findIndex((object) => {
@@ -95,7 +97,6 @@
     $successMessageState = true;
   };
 </script>
-
 <div class="main__wrapper">
   <div class="info__main">
     <h2 class="h2-sv main__head">

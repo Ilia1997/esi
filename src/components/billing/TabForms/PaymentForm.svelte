@@ -6,13 +6,23 @@
   // import Cvc_ico from "../../../../../../public/images/Cvc_ico.svelte";
   import CardPayment from "../TabForms/paymentMethods/CardPayment.svelte";
   import IbanPaymen from "./paymentMethods/IBANPaymen.svelte";
-  let currentBillingMethod = 0;
-  $: currentBillingMethod;
+  import { loadStripe } from '@stripe/stripe-js'
+  import { Container } from  'svelte-stripe'
+  import { onMount } from 'svelte';
+  // let currentBillingMethod = 0;
+  // $: currentBillingMethod;
   
+  let stripe = null
+
+  onMount(async () => {
+    stripe = await loadStripe(import.meta.env.VITE_STRIPE_PUBLIC_KEY)
+  })
+
+
 </script>
 
 <div class="tab__wrapper">
-  <div class="tab__head__items">
+  <!-- <div class="tab__head__items">
     <div
       class="card"
       on:click={() => (currentBillingMethod = 0)}
@@ -21,10 +31,7 @@
       <Card_ico class={currentBillingMethod === 0 ? "active" : ""} />
       <div class="text">Card</div>
     </div>
-    <!-- <div class="paypal">
-      <PayPal_ico />
-      <div class="text">Paypal</div>
-    </div> -->
+
     <div
       class="us__bank"
       on:click={() => (currentBillingMethod = 1)}
@@ -33,7 +40,6 @@
       <USbank_ico class={currentBillingMethod === 1 ? "active" : ""} />
       <div class="text">Bank Account</div>
     </div>
-    <!-- <div class="more__payment"><span>...</span></div> -->
   </div>
   <div class="tab__payment__fields">
     {#if currentBillingMethod === 0}
@@ -41,7 +47,12 @@
     {:else if currentBillingMethod === 1}
       <IbanPaymen />
     {/if}
-  </div>
+  </div> -->
+  {#if stripe}
+  <Container {stripe}>
+    <!-- this is where your Stripe components go -->
+  </Container>
+{/if}
 </div>
 
 <style>
