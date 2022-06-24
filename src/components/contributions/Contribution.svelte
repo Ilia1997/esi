@@ -1,16 +1,16 @@
 <script>
   import Form from "./Form.svelte";
   import { incrementStep, headSteps } from "../../stores/store";
-  import { contributionData } from "../../stores/contributionsStore";
+  import { contributionData, amountErrorMessageState } from "../../stores/contributionsStore";
   import { afterUpdate, beforeUpdate, onDestroy } from "svelte";
   import { scrollToTop } from "../../functions/scrollToTop";
   import { priceConvertation } from "../../functions/priceConvertation";
+  import * as animateScroll from "svelte-scrollto";
   import Rules from "./Rules.svelte";
   import ButtonRight from "../buttons/ButtonRight.svelte";
   import ErrorMessage from "../ErrorMessage.svelte";
   let changeCounter = 0;
-  let amountErrorMessage = "Error message",
-    amountErrorMessageState = false;
+  let amountErrorMessage = "Error message";
   function changeStep() {
     if (validateAmount()) {
       $headSteps.secondStep = true;
@@ -23,13 +23,15 @@
   }
 
   let data;
+  let input;
   const unsubscribe = contributionData.subscribe((value) => {
     data = value;
   });
   function validateAmount() {
     if (data.amount < 20) {
       amountErrorMessage = "Amount value shoud be more than 20";
-      amountErrorMessageState = true;
+      $amountErrorMessageState = true;
+      animateScroll.scrollTo({element: input})
     } else {
       return true;
     }
@@ -54,7 +56,7 @@
   });
   afterUpdate(()=>{
     if(data.amount>20 && data.amount<9999){
-      amountErrorMessageState = false
+      $amountErrorMessageState = false
     }
   })
 
@@ -66,7 +68,7 @@
     <div>
       <div class="contribution__head">
         <h2 class="h2-sv">Choose your <span class="green">Contribution</span></h2>
-        <Form />
+        <Form bind:input/>
       </div>
       <div class="rules">
         <div class="rules__top">
@@ -110,7 +112,7 @@
         <Rules />
       </div>
       <div class="relative__wrapper">
-        {#if amountErrorMessageState}
+        {#if $amountErrorMessageState}
           <ErrorMessage errorMessage={amountErrorMessage} />
         {/if}
         <div class="step__footer">

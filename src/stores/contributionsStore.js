@@ -14,6 +14,9 @@ const months = [
     "November",
     "December",
   ];
+
+export const amountErrorMessageState = writable(false)
+  
 let currentDate = new Date();
   let currentMonthIndex = currentDate.getMonth();
   let paymentMounthIndex = currentMonthIndex + 1;
