@@ -14,6 +14,8 @@
   import ButtonRight from "../buttons/ButtonRight.svelte";
   import Button_back_ico from "../../../public/images/Button_back_ico.svelte";
   import { aoviSvelte } from "aovi-svelte";
+  import * as animateScroll from "svelte-scrollto";
+
 
   let tabItems = [
     { name: "Address", component: AddressForm },
@@ -22,11 +24,18 @@
   let activeItem = tabItems[0];
   let formButtonText = "Next";
   let nextButtonState = false;
+  let windowWidth, formWrapper;
 
 
-  $: nextButtonState;
+  $: nextButtonState, windowWidth;
 
   const apiKey = 'process.env.api_key'
+  
+  function scrollToTopInMobile(){
+    if(windowWidth < 991){
+      animateScroll.scrollTo({element: formWrapper})
+    }
+  }
 
   function nextTab() {
     if ($allowItemIndexBilling < 3) {
@@ -90,6 +99,8 @@
 
     if ($addressData.valid) {
       $addressFormStatus = true;
+    }else {
+      scrollToTopInMobile()
     }
   }
 
@@ -97,15 +108,19 @@
     $successMessageState = true;
   };
 </script>
+<svelte:window bind:innerWidth={windowWidth}/>
 <div class="main__wrapper">
   <div class="info__main">
     <h2 class="h2-sv main__head">
       Payment/Withdrawal <span class="green">Methode</span>
     </h2>
-    <div class="main__tabs">
+    <div class="main__tabs" >
       
         <Tabs {tabItems} />
-        <svelte:component this={activeItem.component} {addressData} />
+        <div bind:this={formWrapper}>
+           <svelte:component this={activeItem.component} {addressData} />
+        </div>
+       
       
     {#if $billingeErrorMessage.status}
       <div transition:slide|local class="error__message">{$billingeErrorMessage.text}</div>
@@ -241,9 +256,7 @@
     width: 100%;
     padding: 0px 20px 0 20px;
   }
-  .main__tabs form {
-    margin-bottom: 16px;
-  }
+
 
   @media only screen and (max-width: 767px) {
     .info__main {
