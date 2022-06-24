@@ -36,6 +36,7 @@
     padding-left: 32px;
     max-width: 1000px;
     padding-right: 52px;
+    margin-top: 13px;
   }
   .contribution__right__head p {
     margin-top: 14px;

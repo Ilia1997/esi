@@ -91,7 +91,7 @@
     color: #000000;
   }
   main {
-    padding: 50px 0 150px 0;
+    padding: 36px 0 150px 0;
   }
   .container__form {
     max-width: 1360px;

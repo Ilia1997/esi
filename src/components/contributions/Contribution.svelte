@@ -4,6 +4,7 @@
   import { contributionData } from "../../stores/contributionsStore";
   import { afterUpdate, beforeUpdate, onDestroy } from "svelte";
   import { scrollToTop } from "../../functions/scrollToTop";
+  import { priceConvertation } from "../../functions/priceConvertation";
   import Rules from "./Rules.svelte";
   import ButtonRight from "../buttons/ButtonRight.svelte";
   import ErrorMessage from "../ErrorMessage.svelte";
@@ -78,7 +79,7 @@
               </div>
               <div class="rules__val__wrapper">
                 <div class="rules__val">
-                  {data.currencySymbol}{moVal ? moVal : 0}<span>/mo</span>
+                  {data.currencySymbol}{moVal ? priceConvertation(moVal) : 0}<span>/mo</span>
                 </div>
               </div>
             </div>
@@ -88,7 +89,7 @@
               </div>
               <div class="rules__val__wrapper">
                 <div class="rules__val">
-                  {data.currencySymbol}{yrVal}<span>/yr</span>
+                  {data.currencySymbol}{priceConvertation(yrVal)}<span>/yr</span>
                 </div>
               </div>
             </div>
@@ -99,7 +100,7 @@
               </div>
               <div class="rules__val__wrapper">
                 <div class="rules__val">
-                  {data.currencySymbol}{fiveYrVal}<span>/5yrs</span>
+                  {data.currencySymbol}{priceConvertation(fiveYrVal)}<span>/5yrs</span>
                 </div>
               </div>
             </div>
