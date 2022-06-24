@@ -1,5 +1,5 @@
 export async function checkIfEmailExistInDB(email) {
-  const url = `http://195.211.240.82:9998/esi_public/esi_public/backend/checkemail?email=${email}`;
+  const url = `http://195.211.240.82:9998/esi_public/esi_public/backend/checkEmail?email=${email}`;
   let status;
   try {
     await fetch(url)
@@ -21,7 +21,7 @@ export async function checkIfEmailExistInDB(email) {
 }
 
 export async function checkIfUserNameExistInDB(userName) {
-  const url = `http://195.211.240.82:9998/esi_public/esi_public/backend/checklogin?login=${userName}`;
+  const url = `http://195.211.240.82:9998/esi_public/esi_public/backend/checkUsername?username=${userName}`;
   let status;
   try {
     await fetch(url)
@@ -30,8 +30,10 @@ export async function checkIfUserNameExistInDB(userName) {
       })
       .then((data) => {
         if (data.valid === "1") {
+          console.log('1')
           status = false;
         } else if (data.valid === "0") {
+          console.log('0')
           status = true;
         }
       });
