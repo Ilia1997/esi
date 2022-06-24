@@ -8,11 +8,12 @@
   import Dropdown_ico from "../../../public/images/Dropdown_ico.svelte";
   import { clickOutside } from "../../functions/clickOutside";
   import { onMount, text } from "svelte/internal";
+  import {getPeriodsFromDB,getCurrenciesFromDB} from './getDataFromDB'
 
   let activePeriod = false;
   let activeCurrency = false;
-  let periods = ["Monthly", "Bi-Monthly"];
-  let currencys = ["USD", "EUR", "CAD", "CHF", "GBP", "JPY"];
+  let periods = [];
+  let currencies = [];
 
   const months = [
     "January",
@@ -59,10 +60,18 @@
       $contributionData.nextPaymentDay = 1;
     }
   });
-  onMount(() => {
+  onMount(async() => {
     if (inputNumber) {
       input = inputNumber;
     }
+    let periodData = await getPeriodsFromDB()
+    periodData.forEach((item) => {
+      periods = [...periods, item.name]
+    })
+    let currenciesData = await getCurrenciesFromDB()
+    currenciesData.forEach((item)=>{
+      currencies = [...currencies, item]
+    })
   });
 
   function setPeriod(value) {
@@ -71,8 +80,8 @@
   }
   function showCurrency(value) {
     // set data to our store
-    $contributionData.currency = value;
-    $contributionData.currencySymbol = currencySymbols[value];
+    $contributionData.currency = value.code;
+    $contributionData.currencySymbol = value.symbol;
   }
   // click outside dropdown
   function handleClickOutside(item) {
@@ -132,12 +141,12 @@
             {$contributionData.currency}
           </div>
           <div class="dropdown__items">
-            {#each currencys as currency}
+            {#each currencies as currency}
               <div
                 class="dropdown__item"
                 on:click={() => showCurrency(currency)}
               >
-                {currency}
+                {currency.code}
               </div>
             {/each}
           </div>
