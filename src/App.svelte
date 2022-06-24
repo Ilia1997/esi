@@ -18,14 +18,13 @@
   onDestroy(unsubscribe);
 </script>
 
-
 <main>
   <div class="container__form">
     {#if $successMessageState === false}
       <div class="wrapper">
         <HeadSteps />
         <div class="step__content">
-           {#if stepCountValue === 1}
+          {#if stepCountValue === 1}
             <div class="component__wrapper" in:fade={{ duration: 500 }}>
               <Contribution />
             </div>
@@ -41,17 +40,10 @@
             <div class="component__wrapper" in:fade={{ duration: 500 }}>
               <Information />
             </div>
-
-          {:else if stepCountValue === 5}
-            <div class="component__wrapper" in:fade={{ duration: 500 }}> 
-              <Billing />
-            </div>
-
           {:else if stepCountValue === 5}
             <div class="component__wrapper" in:fade={{ duration: 500 }}>
               <Billing />
             </div>
-
           {/if}
         </div>
       </div>
@@ -82,7 +74,7 @@
   :global(.input-sv.error::placeholder) {
     color: #ff2e00;
   }
-  :global( .error__message ){
+  :global(.error__message) {
     font-size: 12px;
     line-height: 24px;
     color: #ff2e00;

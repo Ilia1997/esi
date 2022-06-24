@@ -96,6 +96,7 @@ import Arrow_left_ico from "../../../public/images/Arrow_left_ico.svelte";
     let userNameExistinDB = await checkIfUserNameExistInDB(
         $loginData.userName
       );
+      console.log('!userNameExistinDB',!userNameExistinDB)
     return !userNameExistinDB
   }
   
