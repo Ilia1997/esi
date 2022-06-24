@@ -7,6 +7,7 @@
   import {
     allowItemIndex,
     infoFormErrorMessage,
+    clickOnPrevBtn,
     infoFormErrorState,
     infoFormData,
     infoFormErrorStates,
@@ -20,8 +21,8 @@
     checkIfUserNameExistInDB,
   } from "./Validations/Validations";
   import ButtonRight from "../buttons/ButtonRight.svelte";
-import { afterUpdate, onDestroy } from "svelte";
-import Arrow_left_ico from "../../../public/images/Arrow_left_ico.svelte";
+  import { afterUpdate, onDestroy } from "svelte";
+  import Arrow_left_ico from "../../../public/images/Arrow_left_ico.svelte";
   let tabItems = [
     // { name: "Name", component: NameForm },
     { name: "Contacts", component: ContactForm },
@@ -32,8 +33,9 @@ import Arrow_left_ico from "../../../public/images/Arrow_left_ico.svelte";
   let formButtonText = "Next";
   let activeItem = tabItems[0];
   let nextButtonState = false;
+  let prevBtn;
 
-  $: formButtonText, nextButtonState;
+  $: formButtonText, nextButtonState, activeItem;
 
   async function nextTab() {
     if ($allowItemIndex < 3) {
@@ -41,7 +43,7 @@ import Arrow_left_ico from "../../../public/images/Arrow_left_ico.svelte";
         return object.name === activeItem.name;
       });
       if (index === 0 && $loginData.valid) {
-        // Validate Contact 
+        // Validate Contact
         await doLoginData();
         if ($infoFormErrorState === false) {
           activeItem = tabItems[index + 1];
@@ -73,15 +75,14 @@ import Arrow_left_ico from "../../../public/images/Arrow_left_ico.svelte";
 
   const loginData = aoviSvelte({
     userName: $infoFormData.userName,
-    email:  $infoFormData.email,
+    email: $infoFormData.email,
     phone: $infoFormData.phone,
   });
 
   const passwordData = aoviSvelte({
-    password:  $infoFormData.password,
+    password: $infoFormData.password,
     confirm: $infoFormData.confirm,
   });
-
 
   // Init "checker". Will be true when confirm and password are equal, and false in other case
   const confirm_match = passwordData.checker("confirm", (aovi) =>
@@ -90,16 +91,13 @@ import Arrow_left_ico from "../../../public/images/Arrow_left_ico.svelte";
 
   const validateEmailExistingInDB = async () => {
     let emailExistinDB = await checkIfEmailExistInDB($loginData.email);
-    return !emailExistinDB
-  }
+    return !emailExistinDB;
+  };
   const validateUserNamelExistingInDB = async () => {
-    let userNameExistinDB = await checkIfUserNameExistInDB(
-        $loginData.userName
-      );
-      console.log('!userNameExistinDB',!userNameExistinDB)
-    return !userNameExistinDB
-  }
-  
+    let userNameExistinDB = await checkIfUserNameExistInDB($loginData.userName);
+    console.log("!userNameExistinDB", !userNameExistinDB);
+    return !userNameExistinDB;
+  };
 
   const emailrRegEx =
     /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
@@ -115,7 +113,7 @@ import Arrow_left_ico from "../../../public/images/Arrow_left_ico.svelte";
       .check("email")
       .required("Please put your email")
       .match(emailrRegEx, "Incorrect E-mail format")
-      .is( await validateEmailExistingInDB(), "Email exist in database")
+      .is(await validateEmailExistingInDB(), "Email exist in database")
       .check("phone")
       .required("Please put your phone")
       .minLength(7, "Phone should be at least 7 symbols length").end;
@@ -127,23 +125,26 @@ import Arrow_left_ico from "../../../public/images/Arrow_left_ico.svelte";
       $infoFormErrorState = true;
     }
   }
-const passwordRegEx = /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
+  const passwordRegEx = /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
   function doSignup() {
     passwordData.aovi // use Aovi validators
       .check("password")
       .required("Please put your password")
-      .match(passwordRegEx, "Password should have at least 1 capital letter, 1 number, 1 special symbol")
+      .match(
+        passwordRegEx,
+        "Password should have at least 1 capital letter, 1 number, 1 special symbol"
+      )
       .is($confirm_match, "Confirmation doesn't match password")
       .check("confirm")
       .required("Please confirm your password")
       .minLength(8, "Password should be at least 8 symbols length").end; // you must finish validation with '.end' operator
 
-    if ($passwordData.valid) { // if validation success, do something
+    if ($passwordData.valid) {
+      // if validation success, do something
       $savedPassword = true;
-    }
-    else {
+    } else {
       $savedPassword = false;
-    } 
+    }
   }
 
   let prevStep = () => {
@@ -154,19 +155,24 @@ const passwordRegEx = /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
     $confirmPopUpState = true;
   };
 
-  afterUpdate(()=>{
-    $infoFormData.email = $loginData.email
-    $infoFormData.userName = $loginData.userName
-    $infoFormData.phone = $loginData.phone
-    $infoFormData.password = $passwordData.password
-    $infoFormData.confirm = $passwordData.confirm
-
-
-  })
-onDestroy(()=>{
-  $allowItemIndex = 1;
-})
+  afterUpdate(() => {
+    $infoFormData.email = $loginData.email;
+    $infoFormData.userName = $loginData.userName;
+    $infoFormData.phone = $loginData.phone;
+    $infoFormData.password = $passwordData.password;
+    $infoFormData.confirm = $passwordData.confirm;
+    if ($clickOnPrevBtn) {
+      activeItem = tabItems[0];
+      $allowItemIndex = 1;
+      formButtonText = "Next"
+      $clickOnPrevBtn = false;
+    }
+  });
+  onDestroy(() => {
+    $allowItemIndex = 1;
+  });
 </script>
+
 <div class="main__wrapper">
   <div class="info__main">
     <h2 class="h2-sv main__head">
@@ -191,17 +197,22 @@ onDestroy(()=>{
           Back
         </button>
       {/if}
-      {#if $savedPassword && formButtonText === 'Save'}
-        <button class='btn-sv next' disabled on:click={nextTab}>{formButtonText}</button>
-        {:else}
-        <button class='btn-sv next' on:click={nextTab}>{formButtonText}</button>
+      {#if $savedPassword && formButtonText === "Save"}
+        <button class="btn-sv next" disabled on:click={nextTab}
+          >{formButtonText}</button
+        >
+      {:else}
+        <button class="btn-sv next" on:click={nextTab}>{formButtonText}</button>
       {/if}
     </div>
   </div>
 
   <div class="bottom__btns">
-    <ButtonLeft on:click={prevStep} />
-    <ButtonRight on:click={nextStep} buttonState={nextButtonState || $savedPassword} />
+    <ButtonLeft on:click={prevStep} bind:this={prevBtn}/>
+    <ButtonRight
+      on:click={nextStep}
+      buttonState={nextButtonState || $savedPassword}
+    />
   </div>
 </div>
 
@@ -209,7 +220,6 @@ onDestroy(()=>{
   .h2-sv.main__head {
     text-align: center;
   }
-
 
   :global(.tab__wrapper) {
     text-align: center;
