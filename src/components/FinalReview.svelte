@@ -4,10 +4,10 @@
     allocatedContributions,
   } from "../stores/contributionsStore";
   import { infoFormData } from "../stores//infoStore";
-  import { confirmPopUpState } from "../stores/infoStore";
+  import { confirmPopUpState, clickOnPrevBtn } from "../stores/infoStore";
   import { headSteps, incrementStep, stepCounter } from "../stores/store";
   import { beforeUpdate } from "svelte";
-  import {fade} from 'svelte/transition'
+  import { fade } from "svelte/transition";
   import StepContribution_ico from "../../public/images/StepContribution_ico.svelte";
   import StepPlan_ico from "../../public/images/StepPlan_ico.svelte";
   import StepLegal_ico from "../../public/images/StepLegal_ico.svelte";
@@ -43,10 +43,13 @@
     $confirmPopUpState = false;
   };
 
-   let changeStep = (stepNum) => {
+  let changeStep = (stepNum) => {
     $confirmPopUpState = false;
-    $stepCounter = stepNum
-   } 
+    $stepCounter = stepNum;
+    if (stepNum === 4) {
+      $clickOnPrevBtn = true;
+    }
+  };
   let safePrice = 0,
     adventurePrice = 0,
     founderPrice = 0;
@@ -81,11 +84,20 @@
               </div>
               <div class="step__name">Contribution</div>
             </div>
-            <div class="change__btn"on:click={()=>{changeStep(1)}}>Change</div>
+            <div
+              class="change__btn"
+              on:click={() => {
+                changeStep(1);
+              }}
+            >
+              Change
+            </div>
           </div>
           <div class="item__body">
             <div class="text">
-              {$contributionData.currencySymbol}{priceConvertation($contributionData.monthlyValue)}
+              {$contributionData.currencySymbol}{priceConvertation(
+                $contributionData.monthlyValue
+              )}
               USD per Month Starting {$contributionData.nextPaymentDay}th {$contributionData.nextPaymentMonth}
               {currentYear}
             </div>
@@ -99,28 +111,41 @@
               </div>
               <div class="step__name">Plan</div>
             </div>
-            <div class="change__btn"on:click={()=>{changeStep(2)}}>Change</div>
+            <div
+              class="change__btn"
+              on:click={() => {
+                changeStep(2);
+              }}
+            >
+              Change
+            </div>
           </div>
           <div class="item__body">
             <div class="item__plan save">
               <div class="name">Safe</div>
               <div class="persentage">{$allocatedContributions.safe}%</div>
               <div class="money">
-                {$contributionData.currencySymbol}{priceConvertation(Math.round(safePrice))}
+                {$contributionData.currencySymbol}{priceConvertation(
+                  Math.round(safePrice)
+                )}
               </div>
             </div>
             <div class="item__plan adventure">
               <div class="name">Adventure</div>
               <div class="persentage">{$allocatedContributions.adventure}%</div>
               <div class="money">
-                {$contributionData.currencySymbol}{priceConvertation(Math.round(adventurePrice))}
+                {$contributionData.currencySymbol}{priceConvertation(
+                  Math.round(adventurePrice)
+                )}
               </div>
             </div>
             <div class="item__plan founder">
               <div class="name">Founder</div>
               <div class="persentage">{$allocatedContributions.founder}%</div>
               <div class="money">
-                {$contributionData.currencySymbol}{priceConvertation(Math.round(founderPrice))}
+                {$contributionData.currencySymbol}{priceConvertation(
+                  Math.round(founderPrice)
+                )}
               </div>
             </div>
           </div>
@@ -129,10 +154,10 @@
           <div class="item__head">
             <div class="step">
               <div class="step__icon">
-                <StepLegal_ico />       
+                <StepLegal_ico />
               </div>
               <div class="step__name">Legal</div>
-            </div>      
+            </div>
           </div>
           <div class="item__body">
             <div class="legal__item">
@@ -152,7 +177,14 @@
               </div>
               <div class="step__name">Information</div>
             </div>
-            <div class="change__btn" on:click={()=>{changeStep(4)}}>Change</div>
+            <div
+              class="change__btn"
+              on:click={() => {
+                changeStep(4);
+              }}
+            >
+              Change
+            </div>
           </div>
           <div class="item__body">
             <div class="text">N: {$infoFormData.userName}</div>
@@ -161,7 +193,9 @@
           </div>
         </div>
       </div>
-      <button class="submt__btn" on:click={confirmAllData}><span>Open Account</span><OpenAcount_ico /></button>
+      <button class="submt__btn" on:click={confirmAllData}
+        ><span>Open Account</span><OpenAcount_ico /></button
+      >
     </div>
   </div>
 </div>
