@@ -16,6 +16,7 @@
     @media only screen and (max-width: 767px) {
         svg.contribution {
             top: 15px;
+            right: 15px;
         }
     }
 </style>

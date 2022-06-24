@@ -23,7 +23,7 @@ export const contributionData = writable({
 	period: 'Monthly',
 	currency: 'USD',
     currencySymbol: '$',
-    amount: 0,
+    amount: '',
     monthlyValue: 0,
     nextPaymentDay: 1,
     nextPaymentMonth: months[paymentMounthIndex]
