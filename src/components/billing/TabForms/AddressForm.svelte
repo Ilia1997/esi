@@ -123,37 +123,21 @@
   .input-sv__wrapper:first-child {
     margin-right: 6px;
   }
-  .select-sv.error {
-    border: 1px solid #ff2e00;
-    color: #ff2e00;
-  }
-  .input-sv.error::placeholder {
-    color: #ff2e00;
-  }
   .error__message {
     margin-bottom: 8px;
     margin-top: 0px;
     text-align: left;
   }
   .address-sel {
-    color: black;
-    font-weight: 400;
-    font-size: 16px;
-    line-height: 24px;
+    color: var(--black-color);
+    line-height: var(--text-normal-height);
   }
   .two__colums {
     display: flex;
     width: 100%;
   }
-
   .input-sv.small {
     margin-bottom: 8px;
     width: 100%;
-  }
-
-  .input-sv::placeholder {
-    font-weight: 400;
-    font-size: 16px;
-    line-height: 24px;
   }
 </style>

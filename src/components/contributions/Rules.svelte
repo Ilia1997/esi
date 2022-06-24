@@ -42,15 +42,15 @@
     margin-top: 14px;
     font-weight: 400;
     font-size: 14px;
-    line-height: 24px;
-    color: #032b01;
+    line-height: var(--text-normal-height);
+    color: var(--main-text-color);
   }
   .contribution__right ol, .rules__list__head {
     padding-left: 20px;
     font-weight: 400;
     font-size: 14px;
     line-height: 30px;
-    color: #ffffff;
+    color: var(--white-color);
     max-width: 840px;
   }
   .rules__list__head {
@@ -62,14 +62,14 @@
   .rules__list {
     margin: 24px 132px 27px 0;
     padding: 21px 0 26px 32px;
-    background: #6db94f;
-    border: 1px solid #032b01;
+    background: var(--color-dark-st2);
+    border: 1px solid var(--main-text-color);
     border-top-right-radius: 10px;
     border-bottom-right-radius: 10px;
   }
   @media only screen and (max-width: 991px) {
     .contribution__right__head .h2-sv2 {
-      font-size: 24px;
+      font-size: var(--h3-size);
       line-height: 36px;
     }
     .rules__list {
@@ -86,7 +86,7 @@
       padding: 11px 25.17px 24px 21px;
     }
     .contribution__right ul {
-      color: #032b01;
+      color: var(--main-text-color);
       font-size: 12px;
       line-height: 16px;
     }
@@ -98,7 +98,6 @@
   }
   @media only screen and (max-width: 768px) {
     .contribution__right__head .h2-sv {
-      font-size: 16px;
       line-height: 26px;
     }
     .contribution__right__head p {

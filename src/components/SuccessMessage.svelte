@@ -59,8 +59,8 @@
     width: 100%;
     padding-top: 13.5px;
     padding-bottom: 13.5px;
-    background-color: #6cc800;
-    color: #fff;
+    background-color: var(--success-color);
+    color: var(--white-color);
     font-size: 14px;
     line-height: 21px;
     text-align: center;
@@ -75,11 +75,11 @@
   }
   .like_h2 {
     font-weight: 500;
-    font-size: 36px;
-    line-height: 54px;
+    font-size: var(--h2-size);
+    line-height: var(--h2-line-height);
   }
   .green {
-    color: #6cc800;
+    color: var(--success-color);
   }
   .success__content {
     margin-top: 32px;

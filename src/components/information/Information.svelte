@@ -220,34 +220,6 @@
   .h2-sv.main__head {
     text-align: center;
   }
-
-  :global(.tab__wrapper) {
-    text-align: center;
-    margin-bottom: 8px;
-  }
-  :global(.tab__head) {
-    font-weight: 600;
-    font-size: 24px;
-    line-height: 36px;
-    color: #053900;
-  }
-  :global(.tab__subhead) {
-    color: #053900;
-    margin-top: 10px;
-  }
-  :global(.tab__form__fields) {
-    margin-top: 24px;
-    position: relative;
-    z-index: 3;
-  }
-
-  :global(.tab__form__fields .input-sv) {
-    margin-bottom: 8px;
-  }
-  :global(.tab__form__fields .input-sv:last-child) {
-    margin-bottom: 0px;
-  }
-
   .buttons__wrapper {
     display: flex;
     align-items: center;
@@ -262,7 +234,7 @@
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    color: #cfcfcf;
+    color: var(--grey-color);
     border: none;
     background: transparent;
     font-weight: 400;
@@ -275,23 +247,22 @@
     height: 66px;
     border-radius: 10px;
     font-weight: 700;
-    font-size: 16px;
-    line-height: 24px;
+    line-height: var(--text-normal-height);
     text-align: center;
     transition: all ease 0.3s;
     display: flex;
     justify-content: center;
   }
   .btn-sv.next:not(:disabled) {
-    background: #0085ff;
-    border: 1px solid #006eff;
-    color: #ffffff;
+    background: var(--btn-color);
+    border: 1px solid var(--btn-color);
+    color: var(--white-color);
   }
   .btn-sv.next:not(:disabled):hover {
-    background: #3c90fe;
+    background: var(--btn-color-hover);
   }
   .btn-sv.next:not(:disabled):active {
-    background: #0160dd;
+    background: var(--btn-color-active);
   }
   .main__wrapper {
     width: 100%;
@@ -301,7 +272,7 @@
     height: 100%;
   }
   .green {
-    color: #5b9c42;
+    color: var(--color-dark-st3);
   }
   .info__main {
     max-width: 528px;

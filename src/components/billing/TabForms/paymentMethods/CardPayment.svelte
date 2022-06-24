@@ -197,19 +197,19 @@
 
 <style>
   select option:disabled {
-    color: #dddddd;
+    color: var(--border-color);
   }
   .add__payment {
     width: 100%;
     justify-content: center;
     margin: 10px 0;
     background: rgba(0, 110, 255, 0.1);
-    border: 1px solid #006eff;
-    color: #0085ff;
+    border: 1px solid var(--btn-color);
+    color: var(--btn-color);
   }
   .btn-sv:hover {
-    background: #006eff;
-    color: #fff;
+    background: var(--btn-color-hover);
+    color: var(--white-color);
   }
   #cardMonth {
     margin-right: 6px;
@@ -226,10 +226,7 @@
   }
 
   .input-sv::placeholder {
-    font-weight: 400;
-    font-size: 16px;
-    line-height: 24px;
-    color: #b9b9b9;
+    color: var(--grey-color_3);
   }
 
   .input__card {

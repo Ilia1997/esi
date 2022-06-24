@@ -141,7 +141,7 @@
     position: relative;
   }
   .green {
-    color: #6db94f;
+    color: var(--color-dark-st2);
   }
   .subscribe__all {
     display: flex;
@@ -154,14 +154,14 @@
     width: 24px;
     height: 24px;
     position: relative;
-    background: #ffffff;
-    border: 1px solid #dddddd;
+    background: var(--white-color);
+    border: 1px solid var(--border-color);
     border-radius: 3px;
   }
 
   .subscribe__text {
     margin-left: 8px;
-    color: #3E6B2C;
+    color: var(--color-dark-st5);
   }
   .plans__wrapper {
     margin-top: 32px;
@@ -184,9 +184,9 @@
     .mob__plan__h2 {
       display: block;
       font-weight: 500;
-      font-size: 24px;
+      font-size: var(--h3-size);
       line-height: 32px;
-      color: #032b01;
+      color: var(--main-text-color);
     }
     .h3-sv {
       display: none;
@@ -199,11 +199,10 @@
       font-weight: 500;
       font-size: 12px;
       line-height: 18px;
-      color: #032b01;
+      color: var(--main-text-color);
     }
     .mob__plan__h2 {
-      font-size: 16px;
-      line-height: 24px;
+      line-height: var(--text-normal-height);
       white-space: nowrap;
     }
     .main__mob_h2 span {

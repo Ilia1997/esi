@@ -129,7 +129,7 @@
     margin: 56px 0 0 0;
   }
   .green {
-    color: #78c759;
+    color: var(--color-dark-st1);
   }
 
   .contribution__main {
@@ -138,17 +138,17 @@
   }
 
   .rules {
-    background: #91ea6d;
+    background: var(--color-light);
     border-radius: 10px;
     margin-top: 36px;
     overflow: hidden;
   }
   .rules__head {
     font-weight: 500;
-    font-size: 24px;
+    font-size: var(--h3-size);
     line-height: 36px;
-    color: #fff;
-    background: #6db94f;
+    color: var(--white-color);
+    background: var(--color-dark-st2);
     padding: 23px 32px;
   }
   .rules__items {
@@ -163,8 +163,8 @@
     padding: 16px 50px 26px 50px;
   }
   .rules__item.center {
-    border-left: 1px solid #032b01;
-    border-right: 1px solid #032b01;
+    border-left: 1px solid var(--main-text-color);
+    border-right: 1px solid var(--main-text-color);
   }
   .rules_text {
     max-width: 145px;
@@ -172,7 +172,7 @@
     font-size: 18px;
     line-height: 27px;
     text-transform: uppercase;
-    color: #032b01;
+    color: var(--main-text-color);
   }
   .rules__item:first-child {
     padding: 16px 50px 26px 0px;
@@ -181,7 +181,7 @@
     padding: 16px 0px 26px 50px;
   }
   .rules_text span {
-    color: #fff;
+    color: var(--white-color);
     font-size: 18px;
     line-height: 27px;
   }
@@ -196,9 +196,9 @@
     top: 0;
     left: 0;
     font-weight: 500;
-    font-size: 36px;
-    line-height: 54px;
-    color: #032b01;
+    font-size: var(--h2-size);
+    line-height: var(--h2-line-height);
+    color: var(--main-text-color);
   }
   .rules__val span {
     font-size: 14px;
@@ -218,20 +218,19 @@
 
   @media only screen and (max-width: 991px) {
     .rules {
-      border: 2px solid #032b01;
+      border: 2px solid var(--main-text-color);
       border-radius: 20px;
-      background: #6db94f;
+      background: var(--color-dark-st2);
     }
     .rules_text,
     .rules_text span {
-      font-size: 16px;
       line-height: 26px;
     }
     .rules__val__wrapper {
       height: 32px;
     }
     .rules__val {
-      font-size: 24px;
+      font-size: var(--h3-size);
       line-height: 32px;
     }
     .rules__items {
@@ -257,12 +256,12 @@
 
     .rules__head {
       background: transparent;
-      color: #032b01;
+      color: var(--main-text-color);
       padding: 0;
     }
     .rules__top {
-      background: #78c759;
-      border-bottom: 2px solid #032b01;
+      background: var(--color-dark-st1);
+      border-bottom: 2px solid var(--main-text-color);
       padding: 24px 57px 13px 21px;
     }
   }
@@ -287,7 +286,6 @@
     }
     .rules__val,
     .rules__head {
-      font-size: 16px;
       line-height: 26px;
     }
     .rules__item,

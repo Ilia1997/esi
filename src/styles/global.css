@@ -1,21 +1,85 @@
+:root {
+  /* main colors */
+  --main-text-color: #032b01;
+  --color-light: #91ea6d;
+  --color-dark: #049504;
+  --color-dark-st1: #78c759;
+  --color-dark-st2: #6db94f;
+  --color-dark-st3: #5B9C42;
+  --color-dark-st4: #4E8538;
+  --color-dark-st5: #3E6B2C;
+  --color-darkest: #053900;
+  --black-color: #000;
+  --white-color: #fff;
+  --error-color: #ff2e00;
+  --success-color: #6cc800;
+  
+  /* gradients */
+  --color-grad-light: #17cc49;
+  --color-grad-dark: #0c9532;
 
+  /* grayscales */
+  --grey-color: #cfcfcf;
+  --grey-color_2: #e4e4e4;
+  --grey-color_3: #b9b9b9;
+  --grey-color-dark: #6c6c6c;
+  --grey-color-darkest: #5a5a5a;
+  --grey-color-light: #e2e6df;
+  --grey-color-lighter: #d9d9d9;
+  --grey-color-lightest: #f5f5f5;
 
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0px;
+  /* borders */
+  --border-color: #ddd;
+  --border-color-legal: #113535;
+
+  /* buttons */
+  --btn-color: #0085ff;
+  --btn-color-hover: #3c90fe;
+  --btn-color-active: #0160dd;
+  --btn-color-prev: #5e0bc9;
+  --btn-color-prev-hover: #5d0bc987;
+  --btn-color-prev-active: #5d0bc987;
+
+  /* custom scroll */
+  --custor-scroll-track: #daedc4;
+  --custor-scroll-tumb: #6cc800;
+
+  /* plan items */
+  --plan-safe-bg: #338df3;
+  --plan-safe-portfolio-bg: rgba(0, 110, 255, 0.25);
+  --plan-safe-portfolio-border: rgba(0, 110, 255, 0.7);
+  --plan-safe-popup-bg: #006eff;
+
+  --plan-adventure-bg: #6cc800;
+  --plan-adventure-portfolio-bg: rgba(89, 165, 0, 0.25);
+  --plan-adventure-portfolio-border: rgba(89, 165, 0, 0.7);
+  --plan-adventure-popup-bg: #6db94f;
+
+  --plan-founder-bg: #8336e4;
+  --plan-founder-portfolio-bg: rgba(94, 11, 201, 0.25);
+  --plan-founder-portfolio-border: rgba(94, 11, 201, 0.7);
+  --plan-founder-popup-bg: #5e0bc9;
+
+  /* fonts */
+  --h2-size: 36px;
+  --h2-line-height: 54px;
+  --h3-size: 24px;
+  --h3-line-height: 36px;
+  --text-size-normal: 16px;
+  --text-normal-height: 24px;
+  --text-size-small: 14px;
+  --text-size-smaller: 12px;
 }
+
 html,
 .body-sv {
   position: relative;
   width: 100%;
   height: 100%;
-  font-size: 16px;
-  line-height: 24px;
 }
 
 .body-sv {
-  color: #032b01;
+  color: var(--main-text-color);
   margin: 0;
   padding: 0px;
   font-family: "Poppins", sans-serif;
@@ -23,19 +87,19 @@ html,
 .h2-sv,
 .h2-sv .green {
   font-weight: 500;
-  font-size: 36px;
-  line-height: 54px;
-  color: #032b01;
+  font-size: var(--h2-size);
+  line-height: var(--h2-line-height);
+  color: var(--main-text-color);
 }
 .h3-sv {
-  font-size: 24px;
+  font-size: var(--h3-size);
   line-height: 36px;
   font-weight: 500;
 }
 .body-sv p {
   font-weight: 400;
   font-size: 14px;
-  line-height: 24px;
+  line-height: var(--text-normal-height);
   margin: 0;
 }
 .btn-sv {
@@ -47,20 +111,14 @@ html,
   transition: all ease 0.3s;
   cursor: pointer;
   font-weight: 700;
-  font-size: 16px;
-  line-height: 24px;
 }
 .input-sv {
-  background: #ffffff;
-  border: 1px solid #dddddd;
+  background: var(--white-color);
+  border: 1px solid var(--border-color);
   border-radius: 10px;
   padding: 22px 30px;
   width: 100%;
-  height: 70px;
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 24px;
-  
+  height: 70px; 
 }
 .iti {
   width: 100%;
@@ -95,7 +153,7 @@ html,
 
 /* ESI global styles */
 .btn-sv:not(.prev):hover svg path{
-  fill: #fff
+  fill: var(--white-color);
 }
 .dropdown svg {
   position: absolute;
@@ -107,7 +165,7 @@ html,
   transform: rotate(180deg);
 }
 svg.active path {
-  fill: #5b9c42;
+  fill: var(--color-dark-st3);
 }
 .eye__icon {
   position: absolute;
