@@ -9,7 +9,7 @@ export async function getCountriesFromDB() {
 			throw new Error(json);
 		}
     } catch (error) {
-      alert(error);
+      console.log(error.message);
     }
   }
   

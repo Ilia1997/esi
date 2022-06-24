@@ -3,7 +3,7 @@
   import { afterUpdate } from "svelte";
   import NextPaymentDay from "./NextPaymentDate.svelte";
   import Dropdown_ico from "../../../public/images/Dropdown_ico.svelte";
-import { clickOutside } from "../../functions/clickOutside";
+  import { clickOutside } from "../../functions/clickOutside";
 
   let activePeriod = false;
   let activeCurrency = false;
@@ -70,6 +70,13 @@ import { clickOutside } from "../../functions/clickOutside";
       activeCurrency = false
     }
 	}
+  
+  // check max value in amount field
+  function checkMaxValue() {
+    if (this.value.length > this.maxLength){
+      this.value = this.value.slice(0, this.maxLength);
+    }
+  }
 </script>
 
 <div class="contribution__form">
@@ -126,15 +133,16 @@ import { clickOutside } from "../../functions/clickOutside";
       <label class="label__text" for="amount">Amount*</label>
       <input
         type="number"
-        class="input-sv"
-        bind:value={$contributionData.amount}
+        class="input-sv"   
         on:mousewheel={(e) => {
           e.target.blur();
         }}
+        on:focus={(e) => e.target.select()}
         min="20"
         max="9999"
         maxlength="4"
-        onKeyPress="if(this.value.length==4) return false;"
+        on:input={checkMaxValue}
+        bind:value={$contributionData.amount}
       />
     </div>
 
