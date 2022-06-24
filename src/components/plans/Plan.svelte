@@ -188,7 +188,7 @@
       line-height: 32px;
       color: #032b01;
     }
-    .plans__wrapper__head .h2-sv {
+    .h3-sv {
       display: none;
     }
   }
@@ -204,6 +204,7 @@
     .mob__plan__h2 {
       font-size: 16px;
       line-height: 24px;
+      white-space: nowrap;
     }
     .main__mob_h2 span {
       font-size: 12px;
