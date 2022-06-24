@@ -26,7 +26,7 @@
 <style>
   .next__payment {
     max-width: 266px;
-    margin: 0 0 10px 47px;
+    margin: 0 0 12px 47px;
     font-weight: 400;
     font-size: 16px;
     line-height: 24px;

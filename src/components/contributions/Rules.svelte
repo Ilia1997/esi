@@ -51,7 +51,7 @@
     font-size: 14px;
     line-height: 30px;
     color: #ffffff;
-    max-width: 948px;
+    max-width: 840px;
   }
   .rules__list__head {
     font-weight: 500;

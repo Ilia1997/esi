@@ -182,10 +182,6 @@ onDestroy(()=>{
             <PasswordForm {passwordData} {confirm_match} />
           {/if}
         </div>
-        <div class="error__wrapper">
-
-         
-        </div>
       </form>
     </div>
     <div class="buttons__wrapper">

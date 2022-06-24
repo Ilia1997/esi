@@ -2,7 +2,7 @@
   import Tabs from "./Tabs/Tabs.svelte";
   import AddressForm from "./TabForms/AddressForm.svelte";
   import PaymentForm from "./TabForms/PaymentForm.svelte";
-  import {fade} from 'svelte/transition'
+  import { fade, slide } from 'svelte/transition'
   import {
     allowItemIndexBilling,
     addressFormStatus,
@@ -108,7 +108,7 @@
         <svelte:component this={activeItem.component} {addressData} />
       
     {#if $billingeErrorMessage.status}
-      <div in:fade class="error__message">{$billingeErrorMessage.text}</div>
+      <div transition:slide|local class="error__message">{$billingeErrorMessage.text}</div>
     {/if}
       <div class="buttons__wrapper">
         {#if $allowItemIndexBilling > 1}
@@ -137,11 +137,6 @@
   .h2-sv.main__head {
     text-align: center;
   }
-  /* .error__message {
-    font-size: 12px;
-    line-height: 24px;
-    color: #ff2e00;
-  } */
   .bottom__btns.billing {
     justify-content: flex-end;
   }

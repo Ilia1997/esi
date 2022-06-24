@@ -2,6 +2,7 @@
   import { beforeUpdate, afterUpdate } from "svelte";
   import { subscribeAllState } from "../../stores/store";
   import {clickOutside} from '../../functions/clickOutside';
+  import { priceConvertation } from "../../functions/priceConvertation";
   import {
     planData,
     plansModalState,
@@ -136,7 +137,7 @@ function handleClickOutside(event) {
         </div>
         <div class="item__current__money {className}">
           <div class="money">
-            {$contributionData.currencySymbol + Math.round(currentPrice)}
+            {$contributionData.currencySymbol + priceConvertation(Math.round(currentPrice))}
           </div>
         </div>
       </div>

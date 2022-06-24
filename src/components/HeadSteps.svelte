@@ -110,17 +110,17 @@
   }
   .head__step:nth-child(1) {
     max-width: 260px;
-    clip-path: polygon(0% 0%, 95% 0, 100% 50%, 95% 100%, 0% 100%);
+    clip-path: polygon(0% 0%, 94% 0, 100% 50%, 94% 100%, 0% 100%);
   }
   .head__step:nth-child(2),
   .head__step:nth-child(3),
   .head__step:nth-child(4) {
     margin-left: -0.7%;
-    clip-path: polygon(95% 0, 100% 50%, 95% 100%, 0% 100%, 5% 50%, 0% 0%);
+    clip-path: polygon(94% 0, 100% 50%, 94% 100%, 0% 100%, 6% 50%, 0% 0%);
   }
   .head__step:last-child {
     margin-left: -0.7%;
-    clip-path: polygon(100% 0, 100% 50%, 100% 100%, 0% 100%, 5% 50%, 0% 0%);
+    clip-path: polygon(100% 0, 100% 50%, 100% 100%, 0% 100%, 6% 50%, 0% 0%);
   }
 
   @media only screen and (max-width: 991px) {
