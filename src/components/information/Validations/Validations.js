@@ -1,6 +1,7 @@
 export async function checkIfEmailExistInDB(email) {
   const url = `http://195.211.240.82:9998/esi_public/esi_public/backend/checkEmail?email=${email}`;
   let status;
+  
   try {
     await fetch(url)
       .then((response) => {

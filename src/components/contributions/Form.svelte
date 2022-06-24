@@ -1,10 +1,13 @@
 <script>
-  import { contributionData } from "../../stores/contributionsStore";
+  import {
+    contributionData,
+    amountErrorMessageState,
+  } from "../../stores/contributionsStore";
   import { afterUpdate } from "svelte";
   import NextPaymentDay from "./NextPaymentDate.svelte";
   import Dropdown_ico from "../../../public/images/Dropdown_ico.svelte";
   import { clickOutside } from "../../functions/clickOutside";
-import { text } from "svelte/internal";
+  import { onMount, text } from "svelte/internal";
 
   let activePeriod = false;
   let activeCurrency = false;
@@ -25,6 +28,8 @@ import { text } from "svelte/internal";
     "November",
     "December",
   ];
+  let inputNumber;
+  export let input;
   let currentMonthIndex = new Date().getMonth();
   let currentDay = new Date().getDate();
   let paymentMounthIndex = currentMonthIndex + 1;
@@ -54,6 +59,12 @@ import { text } from "svelte/internal";
       $contributionData.nextPaymentDay = 1;
     }
   });
+  onMount(() => {
+    if (inputNumber) {
+      input = inputNumber;
+    }
+  });
+
   function setPeriod(value) {
     // set data to our store
     $contributionData.period = value;
@@ -63,21 +74,21 @@ import { text } from "svelte/internal";
     $contributionData.currency = value;
     $contributionData.currencySymbol = currencySymbols[value];
   }
-  // click outside dropdown 
+  // click outside dropdown
   function handleClickOutside(item) {
-		if(item === 'activePeriod'){
-      activePeriod = false
-    }else if (item === 'activeCurrency'){
-      activeCurrency = false
+    if (item === "activePeriod") {
+      activePeriod = false;
+    } else if (item === "activeCurrency") {
+      activeCurrency = false;
     }
-	}
-  
+  }
+
   // check only numbers (without "comma", "point" etc)
   // check max value in amount field
   function checkValue() {
-    this.value = this.value.replace(/[^0-9]/g, '')
+    this.value = this.value.replace(/[^0-9]/g, "");
     if (this.value.length > this.maxLength) {
-      this.value = this.value.slice(0, this.maxLength)
+      this.value = this.value.slice(0, this.maxLength);
     }
   }
 </script>
@@ -91,9 +102,10 @@ import { text } from "svelte/internal";
           class="dropdown"
           class:activePeriod
           on:click={() => (activePeriod = !activePeriod)}
-          use:clickOutside on:click_outside={()=>handleClickOutside('activePeriod')}
+          use:clickOutside
+          on:click_outside={() => handleClickOutside("activePeriod")}
         >
-          <Dropdown_ico class="contribution"/>
+          <Dropdown_ico class="contribution" />
           <div class="dropdown__item--current">{$contributionData.period}</div>
           <div class="dropdown__items">
             {#each periods as period}
@@ -112,7 +124,8 @@ import { text } from "svelte/internal";
           class="dropdown"
           class:activeCurrency
           on:click={() => (activeCurrency = !activeCurrency)}
-          use:clickOutside on:click_outside={()=>handleClickOutside('activeCurrency')}
+          use:clickOutside
+          on:click_outside={() => handleClickOutside("activeCurrency")}
         >
           <Dropdown_ico class="contribution" />
           <div class="dropdown__item--current">
@@ -132,20 +145,23 @@ import { text } from "svelte/internal";
       </div>
     </div>
 
-    <div class="amount">
+    <div class="amount" bind:this={inputNumber}>
       <label class="label__text" for="amount">Amount*</label>
       <input
         type="number"
-        class="input-sv"   
+        class="input-sv"
         on:mousewheel={(e) => {
           e.target.blur();
         }}
         on:focus={(e) => e.target.select()}
         min="20"
         max="9999"
-        maxlength="4"  
+        maxlength="4"
         on:input={checkValue}
         bind:value={$contributionData.amount}
+        class:error={$amountErrorMessageState}
+        on:focus={() => ($amountErrorMessageState = false)}
+
       />
     </div>
 
@@ -186,6 +202,14 @@ import { text } from "svelte/internal";
     border-radius: 10px;
     padding: 12px 30px;
   }
+  .amount .input-sv.error {
+    border: 1px solid #ff2e00;
+    color: #ff2e00;
+  }
+
+  .amount .input-sv.error::placeholder {
+    color: #ff2e00;
+  }
   /* Chrome, Safari, Edge, Opera */
   .amount .input-sv::-webkit-outer-spin-button,
   .amount .input-sv::-webkit-inner-spin-button {
@@ -224,7 +248,7 @@ import { text } from "svelte/internal";
     border: 1px solid #dddddd;
     border-radius: 10px;
   }
-  
+
   .dropdown__items {
     display: none;
   }
@@ -241,7 +265,7 @@ import { text } from "svelte/internal";
     background-color: #fff;
     padding: 11px 0;
   }
-  
+
   .dropdown.activePeriod .dropdown__item--current,
   .dropdown.activeCurrency .dropdown__item--current {
     display: none;
