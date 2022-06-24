@@ -64,7 +64,7 @@
 
 <div class="legal__wrapper">
   <div>
-    <h2 class="heading">Legal <span class="green">Agreement</span></h2>
+    <h2 class="h2-sv">Legal <span class="green">Agreement</span></h2>
     <Accordion bind:key={openedKey}>
       {#each legalItems as item}
         <AccordionItem key={item.key}>
@@ -151,7 +151,7 @@
     align-items: center;
     justify-content: space-between;
     padding: 18px 24px 18px 40px;
-    background: #4e8538;
+    background: #5B9C42;
     border-radius: 10px;
   }
   .header .column {
@@ -176,11 +176,11 @@
     background-image: url("https://uploads-ssl.webflow.com/627ca4b5fcfd5674acf264e6/6298c07528d25ce00212030f_svgexport-6.svg");
     background-position: center;
   }
-  h2.heading {
+  h2.h2-sv {
     margin-bottom: 16px;
   }
   .green {
-    color: #4e8538;
+    color: #5B9C42;
   }
   h3.body__head {
     font-weight: 500;

@@ -3,7 +3,7 @@
 
   import intlTelInput from "intl-tel-input";
   import { afterUpdate } from "svelte";
-  import { fade } from "svelte/transition";
+  import { fade, slide } from "svelte/transition";
   import { infoFormData } from "../../../stores/infoStore";
   export let loginData;
 
@@ -49,7 +49,10 @@
     />
 
     {#if $loginData.err.userName}
-      <p class="error__message">{$loginData.err.userName}</p>
+      <p 
+        transition:slide|local
+        class="error__message"
+      >{$loginData.err.userName}</p>
     {/if}
 
     <input
@@ -62,7 +65,10 @@
       on:focus={loginData.clear}
     />
     {#if $loginData.err.email}
-      <p class="error__message">{$loginData.err.email}</p>
+      <p
+        transition:slide|local
+        class="error__message"
+      >{$loginData.err.email}</p>
     {/if}
     <input
       type="tel"
@@ -75,7 +81,10 @@
       oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"
     />
     {#if $loginData.err.phone}
-      <p class="error__message last">{$loginData.err.phone}</p>
+      <p 
+        transition:slide|local
+        class="error__message last"
+      >{$loginData.err.phone}</p>
     {/if}
   </div>
 </div>

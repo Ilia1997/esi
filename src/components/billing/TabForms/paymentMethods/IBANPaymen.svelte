@@ -1,5 +1,5 @@
 <script>
-  import { fade } from "svelte/transition";
+  import { fade, slide } from "svelte/transition";
   import {
     IBANFormStatus,
     iBANAddedStatus,
@@ -41,7 +41,7 @@
       />
     </div>
     {#if ibanErrorState}
-      <div class="error__message iban__error">IBAN is incorrect</div>
+      <div transition:slide|local class="error__message iban__error">IBAN is incorrect</div>
     {/if}
 
     <button class="btn-sv add__payment" on:click={checkIban}>ADD</button>

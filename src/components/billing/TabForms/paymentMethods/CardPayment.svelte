@@ -1,7 +1,7 @@
 <script>
   import CardsIcons from "../CardsIcons.svelte";
   import Cvc_ico from "../../../../../public/images/Cvc_ico.svelte";
-  import { fade } from "svelte/transition";
+  import { fade, slide } from "svelte/transition";
   import { aoviSvelte } from "aovi-svelte";
   import { afterUpdate } from "svelte";
   import {
@@ -185,7 +185,7 @@
       </div>
     </div>
     {#each $cardData.err.toArray() as error}
-      <p class="error__message">{error}</p>
+      <p transition:slide|local class="error__message">{error}</p>
     {/each}
     <button class="btn-sv add__payment" on:click={checkRequiredCardFields}
       >ADD</button

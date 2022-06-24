@@ -28,7 +28,7 @@
   });
   function validateAmount() {
     if (data.amount < 20) {
-      amountErrorMessage = "Value shoud be more than 20";
+      amountErrorMessage = "Amount value shoud be more than 20";
       amountErrorMessageState = true;
     } else {
       return true;
@@ -187,6 +187,7 @@
     height: 54px;
     width: 135px;
     position: relative;
+    margin-top: 10px;
   }
   .rules__val {
     position: absolute;

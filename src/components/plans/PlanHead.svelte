@@ -1,6 +1,7 @@
 <script>
   import { contributionData } from "../../stores/contributionsStore";
   import { onDestroy } from "svelte";
+  import { priceConvertation } from "../../functions/priceConvertation";
   let data;
   const unsubscribe = contributionData.subscribe((value) => {
     data = value;
@@ -17,7 +18,7 @@
         Contribution
       </div>
       <div class="plans__val">
-        {data.currencySymbol}{moVal ? moVal : 0}<span>/mo</span>
+        {data.currencySymbol}{moVal ? priceConvertation(moVal) : 0}<span>/mo</span>
       </div>
     </div>
 
@@ -70,10 +71,12 @@
   .plans__head .text {
     font-size: 18px;
     line-height: 27px;
+    text-transform: uppercase;
   }
   .plans__val {
     font-size: 36px;
     line-height: 54px;
+    margin-top: 10px;
   }
   .plans__val span {
     font-size: 14px;

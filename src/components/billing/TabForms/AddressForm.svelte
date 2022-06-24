@@ -1,6 +1,6 @@
 <script>
   import { onMount } from "svelte";
-  import { fade } from "svelte/transition";
+  import { fade, slide } from "svelte/transition";
   import { getCountriesFromDB } from "../getListCountries";
 
   export let addressData;
@@ -33,7 +33,7 @@
           on:focus={addressData.clear}
         />
         {#if $addressData.err.firstName}
-          <p class="error__message ">{$addressData.err.firstName}</p>
+          <p transition:slide|local class="error__message ">{$addressData.err.firstName}</p>
         {/if}
       </div>
 
@@ -48,7 +48,7 @@
           on:focus={addressData.clear}
         />
         {#if $addressData.err.lastName}
-          <p class="error__message ">{$addressData.err.lastName}</p>
+          <p transition:slide|local class="error__message ">{$addressData.err.lastName}</p>
         {/if}
       </div>
     </div>
@@ -63,7 +63,7 @@
       on:focus={addressData.clear}
     />
     {#if $addressData.err.streetNumber}
-      <p class="error__message ">{$addressData.err.streetNumber}</p>
+      <p transition:slide|local class="error__message ">{$addressData.err.streetNumber}</p>
     {/if}
     <input
       type="text"
@@ -75,7 +75,7 @@
       on:focus={addressData.clear}
     />
     {#if $addressData.err.city}
-      <p class="error__message ">{$addressData.err.city}</p>
+      <p transition:slide|local class="error__message ">{$addressData.err.city}</p>
     {/if}
     <div class="two__colums">
       <div class="input-sv__wrapper">
@@ -94,7 +94,7 @@
           {/each}
         </select>
         {#if $addressData.err.country}
-          <p class="error__message ">{$addressData.err.country}</p>
+          <p transition:slide|local class="error__message ">{$addressData.err.country}</p>
         {/if}
       </div>
 
@@ -109,7 +109,7 @@
           on:focus={addressData.clear}
         />
         {#if $addressData.err.postal}
-          <p class="error__message ">{$addressData.err.postal}</p>
+          <p transition:slide|local class="error__message ">{$addressData.err.postal}</p>
         {/if}
       </div>
     </div>

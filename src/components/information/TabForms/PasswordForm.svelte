@@ -6,7 +6,7 @@
     savedPassword,
   } from "../../../stores/infoStore";
   import EyePW_ico from "../../../../public/images/EyePW_ico.svelte";
-  import { fade } from "svelte/transition";
+  import { fade, slide } from "svelte/transition";
   export let passwordData, confirm_match;
 
   let confirmPassValue = $infoFormData.confirm;
@@ -59,7 +59,7 @@
       />
     </div>
     {#if $passwordData.err.password}
-      <p class="error__message">{$passwordData.err.password}</p>
+      <p transition:slide|local class="error__message">{$passwordData.err.password}</p>
     {:else}<div class="info__password__message">
         At a least 8 characters, 1 capital letter, 1 number, 1 special symbol
       </div>
@@ -81,7 +81,7 @@
       />
     </div>
     {#if $passwordData.err.confirm}
-      <p class="error__message last">{$passwordData.err.confirm}</p>
+      <p transition:slide|local class="error__message last">{$passwordData.err.confirm}</p>
     {/if}
   </div>
 </div>

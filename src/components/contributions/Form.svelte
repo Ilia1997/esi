@@ -4,6 +4,7 @@
   import NextPaymentDay from "./NextPaymentDate.svelte";
   import Dropdown_ico from "../../../public/images/Dropdown_ico.svelte";
   import { clickOutside } from "../../functions/clickOutside";
+import { text } from "svelte/internal";
 
   let activePeriod = false;
   let activeCurrency = false;
@@ -71,10 +72,12 @@
     }
 	}
   
+  // check only numbers (without "comma", "point" etc)
   // check max value in amount field
-  function checkMaxValue() {
-    if (this.value.length > this.maxLength){
-      this.value = this.value.slice(0, this.maxLength);
+  function checkValue() {
+    this.value = this.value.replace(/[^0-9]/g, '')
+    if (this.value.length > this.maxLength) {
+      this.value = this.value.slice(0, this.maxLength)
     }
   }
 </script>
@@ -140,8 +143,8 @@
         on:focus={(e) => e.target.select()}
         min="20"
         max="9999"
-        maxlength="4"
-        on:input={checkMaxValue}
+        maxlength="4"  
+        on:input={checkValue}
         bind:value={$contributionData.amount}
       />
     </div>
@@ -168,6 +171,7 @@
     font-size: 16px;
     line-height: 24px;
     color: #000000;
+    margin: 0;
   }
   .amount {
     display: flex;

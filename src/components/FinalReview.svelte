@@ -14,6 +14,7 @@
   import LegalCheckbox_ico from "../../public/images/LegalCheckbox_ico.svelte";
   import StepInformation_ico from "../../public/images/StepInformation_ico.svelte";
   import OpenAcount_ico from "../../public/images/OpenAcount_ico.svelte";
+  import { priceConvertation } from "../../src/functions/priceConvertation";
 
   let changeCounter = 0;
 
@@ -84,7 +85,7 @@
           </div>
           <div class="item__body">
             <div class="text">
-              {$contributionData.currencySymbol}{$contributionData.monthlyValue}
+              {$contributionData.currencySymbol}{priceConvertation($contributionData.monthlyValue)}
               USD per Month Starting {$contributionData.nextPaymentDay}th {$contributionData.nextPaymentMonth}
               {currentYear}
             </div>
@@ -105,21 +106,21 @@
               <div class="name">Safe</div>
               <div class="persentage">{$allocatedContributions.safe}%</div>
               <div class="money">
-                {$contributionData.currencySymbol}{Math.round(safePrice)}
+                {$contributionData.currencySymbol}{priceConvertation(Math.round(safePrice))}
               </div>
             </div>
             <div class="item__plan adventure">
               <div class="name">Adventure</div>
               <div class="persentage">{$allocatedContributions.adventure}%</div>
               <div class="money">
-                {$contributionData.currencySymbol}{Math.round(adventurePrice)}
+                {$contributionData.currencySymbol}{priceConvertation(Math.round(adventurePrice))}
               </div>
             </div>
             <div class="item__plan founder">
               <div class="name">Founder</div>
               <div class="persentage">{$allocatedContributions.founder}%</div>
               <div class="money">
-                {$contributionData.currencySymbol}{Math.round(founderPrice)}
+                {$contributionData.currencySymbol}{priceConvertation(Math.round(founderPrice))}
               </div>
             </div>
           </div>

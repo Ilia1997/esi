@@ -41,7 +41,7 @@
               <Information />
             </div>
           {:else if stepCountValue === 5}
-            <div class="component__wrapper" in:fade={{ duration: 500 }}>
+            <div class="component__wrapper" in:fade={{ duration: 500 }}> 
               <Billing />
             </div>
           {/if}
@@ -57,6 +57,7 @@
 {/if}
 
 <style>
+  @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap");
   .component__wrapper {
     width: 100%;
   }

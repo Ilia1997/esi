@@ -101,10 +101,10 @@
 
   <div class="plans__wrapper">
     <div class="plans__wrapper__head">
-      <h2 class="h2-sv">
+      <h3 class="h3-sv">
         Please allocate you <span class="green">contribution</span> between our
         <span class="green">plans</span>
-      </h2>
+      </h3>
       <div class="mob__plan__h2">Select plans</div>
       <div class="subscribe__all" on:click={subscribeAllPlans}>
         <div class="subscribe__checkbox">
@@ -161,7 +161,7 @@
 
   .subscribe__text {
     margin-left: 8px;
-    color: #0085ff;
+    color: #3E6B2C;
   }
   .plans__wrapper {
     margin-top: 32px;
