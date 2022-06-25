@@ -59,9 +59,9 @@
     width: 100%;
     padding-top: 13.5px;
     padding-bottom: 13.5px;
-    background-color: #6cc800;
-    color: #fff;
-    font-size: 14px;
+    background-color: var(--success-color);
+    color: var(--white-color);
+    font-size: var(--text-size-small);
     line-height: 21px;
     text-align: center;
   }
@@ -74,12 +74,12 @@
     margin-left: auto;
   }
   .like_h2 {
-    font-weight: 500;
-    font-size: 36px;
-    line-height: 54px;
+    font-weight: var(--font-weight-medium);
+    font-size: var(--h2-size);
+    line-height: var(--h2-line-height);
   }
   .green {
-    color: #6cc800;
+    color: var(--success-color);
   }
   .success__content {
     margin-top: 32px;

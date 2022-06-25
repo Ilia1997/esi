@@ -102,7 +102,7 @@
 
 {#if !$cardFormStatus}
   <div class="cart__payment" in:fade>
-    <label for="country">Card number</label>
+    <label class="label-sv-uniq" for="country">Card number</label>
     <div class="input__card">
       <input
         type="text"
@@ -115,7 +115,7 @@
       />
       <div class="icon__wrpper"><CardsIcons /></div>
     </div>
-    <label for="full_name">Card Holders</label>
+    <label class="label-sv-uniq" for="full_name">Card Holders</label>
     <div class="input__card">
       <input
         type="text"
@@ -130,7 +130,7 @@
     </div>
     <div class="three__colums">
       <div class="column">
-        <label for="cardMonth" class="card-input__label">Expiration</label>
+        <label class="label-sv-uniq" for="cardMonth">Expiration</label>
         <div class="card-form__group">
           <select
             class="input-sv select-sv"
@@ -166,7 +166,7 @@
         </div>
       </div>
       <div class="column right">
-        <label for="input ">CVC</label>
+        <label class="label-sv-uniq" for="input ">CVC</label>
         <div class="cvc__wrapp">
           <input
             type="password"
@@ -197,19 +197,19 @@
 
 <style>
   select option:disabled {
-    color: #dddddd;
+    color: var(--border-color);
   }
   .add__payment {
     width: 100%;
     justify-content: center;
     margin: 10px 0;
     background: rgba(0, 110, 255, 0.1);
-    border: 1px solid #006eff;
-    color: #0085ff;
+    border: 1px solid var(--btn-color);
+    color: var(--btn-color);
   }
   .btn-sv:hover {
-    background: #006eff;
-    color: #fff;
+    background: var(--btn-color-hover);
+    color: var(--white-color);
   }
   #cardMonth {
     margin-right: 6px;
@@ -226,10 +226,7 @@
   }
 
   .input-sv::placeholder {
-    font-weight: 400;
-    font-size: 16px;
-    line-height: 24px;
-    color: #b9b9b9;
+    color: var(--grey-color_3);
   }
 
   .input__card {
@@ -251,7 +248,7 @@
     display: flex;
     flex-direction: column;
   }
-  .column.right label {
+  .column.right label, .label-sv-uniq {
     padding-left: 15px;
   }
   .cvc__wrapp {

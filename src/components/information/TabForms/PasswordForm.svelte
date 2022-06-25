@@ -87,14 +87,6 @@
 </div>
 
 <style>
-  .input-sv.error {
-    border: 1px solid #ff2e00;
-    color: #ff2e00;
-  }
-  .input-sv.success {
-    border: 1px solid #5b9c42;
-    box-shadow: -2px 1px 20px #5b9c422b;
-  }
   .input-sv.success.disabled {
     pointer-events: none;
     filter: grayscale(1);
@@ -110,9 +102,8 @@
 
   }
   .info__password__message {
-    font-size: 12px;
-    line-height: 24px;
-    color: #5b9c42;
+    font-size: var(--text-size-smaller);
+    color: var(--color-dark-st3);
     margin-bottom: 10px;
     padding-left: 30px;
     text-align: left;
@@ -123,7 +114,6 @@
   .input__wrapper:first-child {
     margin-bottom: 10px;
   }
-
   @media only screen and (max-width: 767px) {
     .info__password__message {
       padding-left: 0;

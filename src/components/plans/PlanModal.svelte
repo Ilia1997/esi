@@ -50,7 +50,7 @@
     display: flex;
     width: 100%;
     box-shadow: 0px 25px 35px rgba(0, 0, 0, 0.15);
-    background-color: white;
+    background-color: var(--white-color);
   }
   .close__icon {
     position: absolute;
@@ -64,35 +64,32 @@
     opacity: 0.5;
   }
   .pop_up.safe {
-    background: #006eff;
+    background: var(--plan-safe-popup-bg);
   }
   .pop_up.adventure {
-    background: #6db94f;
+    background: var(--plan-adventure-popup-bg);
   }
   .pop_up.founder {
-    background: #5e0bc9;
+    background: var(--plan-founder-popup-bg);
   }
 
   .content {
-    color: #ffffff;
+    color: var(--white-color);
     max-width: 417px;
     margin-right: 74px;
   }
   .content__head {
-    font-weight: 600;
-    font-size: 36px;
-    line-height: 54px;
+    font-weight: var(--font-weight-bold);
+    font-size: var(--h2-size);
+    line-height: var(--h2-line-height);
   }
   .content__text {
     margin-top: 16px;
-    font-weight: 400;
-    font-size: 16px;
-    line-height: 24px;
   }
   .littie__wrapper {
     width: 450px;
     height: 650px;
-    background: white;
+    background: var(--white-color);
     box-shadow: 0px 25px 35px rgba(0, 0, 0, 0.15);
     border-radius: 20px;
     overflow: hidden;

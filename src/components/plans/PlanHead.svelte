@@ -52,10 +52,7 @@
     padding-left: 50px;
   }
   .column__item.rigth p {
-    font-weight: 400;
-    font-size: 16px;
-    line-height: 24px;
-    color: #053900;
+    color: var(--color-darkest);
   }
   .plans__head .column {
     position: relative;
@@ -63,7 +60,7 @@
   .plans__head .line {
     height: 100%;
     width: 1px;
-    background-color: #032b01;
+    background-color: var(--main-text-color);
     position: absolute;
     top: 0;
     right: 0;
@@ -74,16 +71,16 @@
     text-transform: uppercase;
   }
   .plans__val {
-    font-size: 36px;
-    line-height: 54px;
+    font-size: var(--h2-size);
+    line-height: var(--h2-line-height);
     margin-top: 10px;
   }
   .plans__val span {
-    font-size: 14px;
+    font-size: var(--text-size-small);
     line-height: 21px;
   }
   .green {
-    color: #6DB94F;
+    color: var(--color-dark-st2);
   }
   @media only screen and (max-width: 768px) {
     .plans__head .line,
@@ -96,13 +93,12 @@
     }
     .plans__head .text,
     .plans__head span {
-      font-size: 14px;
+      font-size: var(--text-size-small);
       line-height: 21px;
-     
     }
     .plans__val {
-      font-size: 24px;
-      line-height: 36px;
+      font-size: var(--h3-size);
+      line-height: var(--h3-line-height);
     }
     .plans__val span {
       font-size: 10px;

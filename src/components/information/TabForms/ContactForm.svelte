@@ -91,7 +91,7 @@
 
 <style>
   .input-sv.error::placeholder {
-    color: #ff2e00;
+    color: var(--error-color);
   }
   .error__message {
     margin-bottom: 8px;

@@ -71,41 +71,31 @@
     align-items: center;
     pointer-events: none;
   }
-  :global(.head__step svg.svg__icon) {
-    padding-right: 6px;
-  }
-  :global(.head__step:not(.current) svg.svg__icon path) {
-    fill: #5a5a5a;
-  }
-  :global(.head__step.visited svg.svg__icon path) {
-    fill: #fff;
-  }
   .head__step.visited {
     pointer-events: auto;
-    color: white;
+    color: var(--white-color);
   }
   .head__step:nth-child(1).visited {
-    background: #78c759;
+    background: var(--color-dark-st1);
   }
   .head__step:nth-child(2).visited {
-    background: #6db94f;
+    background: var(--color-dark-st2);
   }
   .head__step:nth-child(3).visited {
-    background: #5b9c42;
+    background: var(--color-dark-st3);
   }
   .head__step:nth-child(4).visited {
-    background: #4e8538;
+    background: var(--color-dark-st4);
   }
   .head__step:nth-child(5).visited {
-    background: #3e6b2c;
+    background: var(--color-dark-st5);
   }
-
   .head__step {
     width: 100%;
-    background: #e2e6df;
+    background: var(--grey-color-light);
     padding: 13.5px 30px;
-    font-weight: 500;
-    font-size: 14px;
+    font-weight: var(--font-weight-medium);
+    font-size: var(--text-size-small);
     line-height: 21px;
   }
   .head__step:nth-child(1) {

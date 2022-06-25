@@ -40,37 +40,33 @@
   }
   .contribution__right__head p {
     margin-top: 14px;
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 24px;
-    color: #032b01;
   }
   .contribution__right ol, .rules__list__head {
     padding-left: 20px;
-    font-weight: 400;
-    font-size: 14px;
+    font-size: var(--text-size-small); 
+    color: var(--white-color);
     line-height: 30px;
-    color: #ffffff;
     max-width: 840px;
   }
+  .contribution__right ol li {
+    line-height: 30px;
+  }
   .rules__list__head {
-    font-weight: 500;
+    font-weight: var(--font-weight-medium);
     padding: 0;
   }
-  
-
   .rules__list {
     margin: 24px 132px 27px 0;
     padding: 21px 0 26px 32px;
-    background: #6db94f;
-    border: 1px solid #032b01;
+    background: var(--color-dark-st2);
+    border: 1px solid var(--main-text-color);
     border-top-right-radius: 10px;
     border-bottom-right-radius: 10px;
   }
   @media only screen and (max-width: 991px) {
-    .contribution__right__head .h2-sv2 {
-      font-size: 24px;
-      line-height: 36px;
+    .contribution__right__head .h2-sv {
+      font-size: var(--h3-size);
+      line-height: var(--h3-line-height);
     }
     .rules__list {
       background: transparent;
@@ -86,23 +82,22 @@
       padding: 11px 25.17px 24px 21px;
     }
     .contribution__right ul {
-      color: #032b01;
-      font-size: 12px;
+      color: var(--main-text-color);
+      font-size: var(--text-size-smaller);
       line-height: 16px;
     }
     .contribution__right ul li {
-      font-size: 12px;
+      font-size: var(--text-size-smaller);
       line-height: 16px;
       margin-bottom: 16px;
     }
   }
   @media only screen and (max-width: 768px) {
     .contribution__right__head .h2-sv {
-      font-size: 16px;
       line-height: 26px;
     }
     .contribution__right__head p {
-      font-size: 12px;
+      font-size: var(--text-size-smaller);
       line-height: 16px;
       margin-top: 10px;
     }

@@ -43,10 +43,10 @@
     margin-top: 6px;
     width: 24px;
     height: 2px;
-    background: #d9d9d9;
+    background: var(--grey-color-lighter);
     border-radius: 20px;
   }
   .icon__line.active {
-    background: #5b9c42;
+    background: var(--color-dark-st3);
   }
 </style>

@@ -185,14 +185,6 @@
 </div>
 
 <style>
-  :global(label) {
-    display: inline-block;
-    width: 100%;
-    margin-bottom: 10px;
-    text-align: left;
-    color: #000;
-  }
-
   .tab__payment__fields {
     display: flex;
     flex-direction: column;
@@ -205,13 +197,11 @@
     justify-content: center;
   }
   .tab__head__items > div {
-    background: #ffffff;
-    border: 1px solid #dddddd;
+    background: var(--white-color);
+    border: 1px solid var(--border-color);
     border-radius: 10px;
     height: 86px;
-    font-weight: 600;
-    font-size: 16px;
-    line-height: 24px;
+    font-weight: var(--font-weight-bold);
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -219,16 +209,16 @@
   }
   .card {
     width: 132px;
-    border: 1px solid #e4e4e4;
+    border: 1px solid var(--grey-color_2);
     padding-left: 30px;
-    color: #e4e4e4;
+    color: var(--grey-color_2);
     margin-right: 8px;
     cursor: pointer;
     transition: all ease 0.2s;
   }
   .card.active {
-    border-color: #0085ff;
-    color: #0085ff;
+    border-color: var(--btn-color);
+    color: var(--btn-color);
   }
   /* .card svg {
     margin-bottom: 5px;
@@ -254,14 +244,14 @@
     margin-right: 8px;
   }
   .us__bank .text {
-    color: #e4e4e4;
+    color: var(--grey-color_2);
   }
   .us__bank.active {
-    border-color: #0085ff;
-    color: #0085ff;
+    border-color: var(--btn-color);
+    color: var(--btn-color);
   }
   .us__bank.active .text {
-    color: #0085ff;
+    color: var(--btn-color);
   }
   /* .us__bank svg {
     margin-bottom: 5px;

@@ -181,13 +181,13 @@ function handleClickOutside(event) {
     padding: 11px 24px 11px 24px;
   }
   .plans__item.safe .item__head {
-    background: #338df3;
+    background: var(--plan-safe-bg);
   }
   .plans__item.adventure .item__head {
-    background: #6cc800;
+    background: var(--plan-adventure-bg);
   }
   .plans__item.founder .item__head {
-    background: #8336e4;
+    background: var(--plan-founder-bg);
   }
   .plans__item.safe .item__body {
     background: linear-gradient(
@@ -215,8 +215,8 @@ function handleClickOutside(event) {
     width: 24px;
     height: 24px;
     position: relative;
-    background: #ffffff;
-    border: 1px solid #dddddd;
+    background: var(--white-color);
+    border: 1px solid var(--border-color);
     border-radius: 3px;
   }
   .item__head__checkbox{
@@ -226,22 +226,9 @@ function handleClickOutside(event) {
   .item__head__checkbox.visible{
     opacity: 0.7;
   }
-  :global(.item__head__checkbox svg){
-    width: 100%;
-    height: 100%;
-  }
-  :global(.subscribe__checkbox svg) {
-    opacity: 0;
-    width: 100%;
-    height: 100%;
-    transition: all ease 0.2s;
-  }
-  :global(.item__head__checkbox svg.visible),
-  :global(.subscribe__checkbox svg.visible) {
-    opacity: 1;
-  }
+  
   .item__head__name {
-    color: white;
+    color: var(--white-color);
     text-transform: uppercase;
     margin-left: 8px;
   }
@@ -258,14 +245,14 @@ function handleClickOutside(event) {
     padding: 32px 43px 24px 43px;
   }
   .item__top__head {
-    color: #000;
+    color: var(--black-color);
     padding: 10px;
   }
   .item__current__money {
     border-radius: 10px;
     width: 100%;
     height: 70px;
-    color: #000;
+    color: var(--black-color);
     padding: 23px 30px;
     margin-top: 10px;
     display: flex;
@@ -273,42 +260,42 @@ function handleClickOutside(event) {
     align-items: center;
   }
   .item__current__money .money {
-    font-weight: 700;
-    font-size: 24px;
-    line-height: 36px;
-    color: #ffffff;
+    font-weight: var(--font-weight-bolder);
+    font-size: var(--h3-size);
+    line-height: var(--h3-line-height);
+    color: var(--white-color);
   }
   .item__current__money.safe {
-    background: #338df3;
+    background: var(--plan-safe-bg);
   }
   .item__current__money.adventure {
-    background: #6cc800;
+    background: var(--plan-adventure-bg);
   }
   .item__current__money.founder {
-    background: #8336e4;
+    background: var(--plan-founder-bg);
   }
   .portfolio {
     padding: 32px 20px 40px 43px;
     width: 100%;
     min-height: 257px;
-    background: rgba(0, 110, 255, 0.25);
-    border: 2px solid rgba(0, 110, 255, 0.7);
-    color: #fff;
+    background: var(--plan-safe-portfolio-bg);
+    border: 2px solid var(--plan-safe-portfolio-border);
+    color: var(--white-color);
   }
   .plans__item.safe .portfolio {
-    background: rgba(0, 110, 255, 0.25);
-    border: 2px solid rgba(0, 110, 255, 0.7);
+    background: var(--plan-safe-portfolio-bg);
+    border: 2px solid var(--plan-safe-portfolio-border);
   }
   .plans__item.adventure .portfolio {
-    background: rgba(89, 165, 0, 0.25);
-    border: 2px solid rgba(89, 165, 0, 0.7);
+    background: var(--plan-adventure-portfolio-bg);
+    border: 2px solid var(--plan-adventure-portfolio-border);
   }
   .plans__item.founder .portfolio {
-    background: rgba(94, 11, 201, 0.25);
-    border: 2px solid rgba(94, 11, 201, 0.7);
+    background: var(--plan-founder-portfolio-bg);
+    border: 2px solid var(--plan-founder-portfolio-border);
   }
   .portfolio__head {
-    font-weight: 600;
+    font-weight: var(--font-weight-bold);
     font-size: 18px;
     line-height: 27px;
   }
@@ -316,8 +303,6 @@ function handleClickOutside(event) {
     position: relative;
     width: 100%;
     height: 70px;
-    font-size: 16px;
-    line-height: 24px;
   }
   .dropdown__wrapper.disabled,
   .dropdown__wrapper.disabled * {
@@ -330,8 +315,8 @@ function handleClickOutside(event) {
     width: 100%;
     padding: 23px 30px;
     cursor: pointer;
-    background-color: #fff;
-    border: 1px solid #dddddd;
+    background-color: var(--white-color);
+    border: 1px solid var(--border-color);
     border-radius: 10px;
   }
   .dropdown__items {
@@ -346,7 +331,7 @@ function handleClickOutside(event) {
     opacity: 0.5;
   }
   .dropdown__item:hover {
-    background-color: #f5f5f5;
+    background-color: var(--grey-color-lightest);
   }
   .plans__item.adventure {
     margin: 0 20px;
@@ -354,13 +339,8 @@ function handleClickOutside(event) {
   .dropdown.activeDropdownSave,
   .dropdown.activeDropdownAdv,
   .dropdown.activeDropdownFound {
-    background-color: #fff;
+    background-color: var(--white-color);
     padding: 11px 0;
-  }
-  :global(.dropdown.activeDropdownSave svg),
-  :global(.dropdown.activeDropdownAdv svg),
-  :global(.dropdown.activeDropdownFound svg) {
-    transform: rotate(180deg);
   }
   .dropdown.activeDropdownSave .dropdown__item--current,
   .dropdown.activeDropdownAdv .dropdown__item--current,
@@ -383,7 +363,7 @@ function handleClickOutside(event) {
     .dropdown__item--current,
     .dropdown__item,
     .item__head__name {
-      font-size: 14px;
+      font-size: var(--text-size-small);
     }
   }
   @media only screen and (max-width: 991px) {
@@ -400,9 +380,7 @@ function handleClickOutside(event) {
     }
     .dropdown__item--current,
     .dropdown__item {
-      font-size: 16px;
-      line-height: 24px;
-      color: #000000;
+      color: var(--black-color);
     }
   }
   @media only screen and (max-width: 768px) {
@@ -410,22 +388,17 @@ function handleClickOutside(event) {
       display: block;
       text-align: center;
       padding: 24px 21px;
-      color: #053900;
+      color: var(--color-darkest);
     }
     .plan__info__head {
-      font-weight: 600;
-      font-size: 24px;
-      line-height: 36px;
+      font-weight: var(--font-weight-bold);
+      font-size: var(--h3-size);
+      line-height: var(--h3-line-height);
     }
     .plan__info__text {
-      font-weight: 400;
-      font-size: 14px;
+      font-size: var(--text-size-small);
       line-height: 21px;
       margin-top: 16px;
-    }
-    .item__top__head {
-      font-size: 16px;
-      line-height: 24px;
     }
     .plans__items {
       margin-top: 20px;
@@ -438,7 +411,7 @@ function handleClickOutside(event) {
     .mob__arrow {
       display: flex;
       align-items: center;
-      color: white;
+      color: var(--white-color);
     }
     .dropdown__wrapper {
       max-width: none;

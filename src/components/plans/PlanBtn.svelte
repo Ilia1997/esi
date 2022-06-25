@@ -22,14 +22,11 @@
   button, .btn-sv {
     position: relative;
     padding: 12px 24px;
-    border: 1px solid #ffffff;
+    border: 1px solid var(--white-color);
     border-radius: 10px;
     display: flex;
     justify-content: space-between;
-    font-weight: 400;
-    font-size: 16px;
-    line-height: 24px;
-    color: #ffffff;
+    color: var(--white-color);
     cursor: pointer;
     transition: all ease-in .15s;
   }
@@ -43,10 +40,10 @@
     background: #C198E3;
   }
   button.blue:hover, .btn-sv.blue:hover {
-    background: #006EFF;
+    background: var(--btn-color-hover);
   }
   button.blue:active, .btn-sv.blue:active {
-    background:#217df7;
+    background:var(--btn-color-active);
   }
   button.green:hover, .btn-sv.green:hover {
     background: #0FAA3A;
@@ -55,10 +52,10 @@
     background:#2cbc55;
   }
   button.violet:hover, .btn-sv.violet:hover {
-    background: #5E0BC9;
+    background: var(--btn-color-prev-hover);
   }
   button.violet:active, .btn-sv.violet:active {
-    background:#7d39d6;
+    background:var(--btn-color-prev-active);
   }
   @media only screen and (max-width: 768px) {
   .wrapper {

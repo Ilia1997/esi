@@ -192,10 +192,7 @@
   }
   .label__text {
     padding: 10px;
-    font-weight: 400;
-    font-size: 16px;
-    line-height: 24px;
-    color: #000000;
+    color: var(--black-color);
     margin: 0;
   }
   .amount {
@@ -206,18 +203,18 @@
     appearance: none;
     width: 180px;
     height: 70px;
-    background: #ffffff;
-    border: 1px solid #dddddd;
+    background: var(--white-color);
+    border: 1px solid var(--border-color);
     border-radius: 10px;
     padding: 12px 30px;
   }
   .amount .input-sv.error {
-    border: 1px solid #ff2e00;
-    color: #ff2e00;
+    border: 1px solid var(--error-color);
+    color: var(--error-color);
   }
 
   .amount .input-sv.error::placeholder {
-    color: #ff2e00;
+    color: var(--error-color);
   }
   /* Chrome, Safari, Edge, Opera */
   .amount .input-sv::-webkit-outer-spin-button,
@@ -232,15 +229,13 @@
   }
 
   .contribution__help--text {
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 24px;
-    color: #053900;
+    font-size: var(--text-size-small);
+    color: var(--color-darkest);
     margin-top: 24px;
   }
 
   .contribution__help--text span {
-    font-weight: 700;
+    font-weight: var(--font-weight-bolder);
   }
 
   .dropdown__wrapper {
@@ -253,8 +248,8 @@
     width: 100%;
     padding: 23px 30px;
     cursor: pointer;
-    background-color: #f5f5f5;
-    border: 1px solid #dddddd;
+    background-color: var(--grey-color-lightest);
+    border: 1px solid var(--border-color);
     border-radius: 10px;
   }
 
@@ -266,12 +261,12 @@
     transition: all ease-in 0.3s;
   }
   .dropdown__item:hover {
-    background-color: #f5f5f5;
+    background-color: var(--grey-color-lightest);
   }
 
   .dropdown.activePeriod,
   .dropdown.activeCurrency {
-    background-color: #fff;
+    background-color: var(--white-color);
     padding: 11px 0;
   }
 
@@ -326,7 +321,6 @@
     }
     .contribution__help--text {
       font-size: 10px;
-      line-height: 24px;
     }
     .period,
     .currency {
