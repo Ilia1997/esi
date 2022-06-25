@@ -79,7 +79,7 @@
     margin-right: 74px;
   }
   .content__head {
-    font-weight: 600;
+    font-weight: var(--font-weight-bold);
     font-size: var(--h2-size);
     line-height: var(--h2-line-height);
   }

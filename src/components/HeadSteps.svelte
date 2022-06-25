@@ -71,15 +71,6 @@
     align-items: center;
     pointer-events: none;
   }
-  :global(.head__step svg.svg__icon) {
-    padding-right: 6px;
-  }
-  :global(.head__step:not(.current) svg.svg__icon path) {
-    fill: var(--grey-color-darkest);
-  }
-  :global(.head__step.visited svg.svg__icon path) {
-    fill: var(--white-color);
-  }
   .head__step.visited {
     pointer-events: auto;
     color: var(--white-color);
@@ -99,13 +90,12 @@
   .head__step:nth-child(5).visited {
     background: var(--color-dark-st5);
   }
-
   .head__step {
     width: 100%;
     background: var(--grey-color-light);
     padding: 13.5px 30px;
-    font-weight: 500;
-    font-size: 14px;
+    font-weight: var(--font-weight-medium);
+    font-size: var(--text-size-small);
     line-height: 21px;
   }
   .head__step:nth-child(1) {

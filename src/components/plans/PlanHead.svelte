@@ -52,7 +52,6 @@
     padding-left: 50px;
   }
   .column__item.rigth p {
-    line-height: var(--text-normal-height);
     color: var(--color-darkest);
   }
   .plans__head .column {
@@ -77,7 +76,7 @@
     margin-top: 10px;
   }
   .plans__val span {
-    font-size: 14px;
+    font-size: var(--text-size-small);
     line-height: 21px;
   }
   .green {
@@ -94,13 +93,12 @@
     }
     .plans__head .text,
     .plans__head span {
-      font-size: 14px;
+      font-size: var(--text-size-small);
       line-height: 21px;
-     
     }
     .plans__val {
       font-size: var(--h3-size);
-      line-height: 36px;
+      line-height: var(--h3-line-height);
     }
     .plans__val span {
       font-size: 10px;

@@ -26,8 +26,6 @@
     border-radius: 10px;
     display: flex;
     justify-content: space-between;
-    font-weight: 400;
-    line-height: var(--text-normal-height);
     color: var(--white-color);
     cursor: pointer;
     transition: all ease-in .15s;

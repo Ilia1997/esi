@@ -27,7 +27,7 @@
 
 {#if !$IBANFormStatus}
   <div class="iban_wrapper" in:fade>
-    <label for="iban">IBAN</label>
+    <label class="label-sv-uniq" for="iban">IBAN</label>
     <div class="input__card">
       <input
         type="text"

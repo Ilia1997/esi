@@ -226,20 +226,7 @@ function handleClickOutside(event) {
   .item__head__checkbox.visible{
     opacity: 0.7;
   }
-  :global(.item__head__checkbox svg){
-    width: 100%;
-    height: 100%;
-  }
-  :global(.subscribe__checkbox svg) {
-    opacity: 0;
-    width: 100%;
-    height: 100%;
-    transition: all ease 0.2s;
-  }
-  :global(.item__head__checkbox svg.visible),
-  :global(.subscribe__checkbox svg.visible) {
-    opacity: 1;
-  }
+  
   .item__head__name {
     color: var(--white-color);
     text-transform: uppercase;
@@ -273,9 +260,9 @@ function handleClickOutside(event) {
     align-items: center;
   }
   .item__current__money .money {
-    font-weight: 700;
+    font-weight: var(--font-weight-bolder);
     font-size: var(--h3-size);
-    line-height: 36px;
+    line-height: var(--h3-line-height);
     color: var(--white-color);
   }
   .item__current__money.safe {
@@ -308,7 +295,7 @@ function handleClickOutside(event) {
     border: 2px solid var(--plan-founder-portfolio-border);
   }
   .portfolio__head {
-    font-weight: 600;
+    font-weight: var(--font-weight-bold);
     font-size: 18px;
     line-height: 27px;
   }
@@ -316,7 +303,6 @@ function handleClickOutside(event) {
     position: relative;
     width: 100%;
     height: 70px;
-    line-height: var(--text-normal-height);
   }
   .dropdown__wrapper.disabled,
   .dropdown__wrapper.disabled * {
@@ -356,11 +342,6 @@ function handleClickOutside(event) {
     background-color: var(--white-color);
     padding: 11px 0;
   }
-  :global(.dropdown.activeDropdownSave svg),
-  :global(.dropdown.activeDropdownAdv svg),
-  :global(.dropdown.activeDropdownFound svg) {
-    transform: rotate(180deg);
-  }
   .dropdown.activeDropdownSave .dropdown__item--current,
   .dropdown.activeDropdownAdv .dropdown__item--current,
   .dropdown.activeDropdownFound .dropdown__item--current {
@@ -382,7 +363,7 @@ function handleClickOutside(event) {
     .dropdown__item--current,
     .dropdown__item,
     .item__head__name {
-      font-size: 14px;
+      font-size: var(--text-size-small);
     }
   }
   @media only screen and (max-width: 991px) {
@@ -410,13 +391,12 @@ function handleClickOutside(event) {
       color: var(--color-darkest);
     }
     .plan__info__head {
-      font-weight: 600;
+      font-weight: var(--font-weight-bold);
       font-size: var(--h3-size);
-      line-height: 36px;
+      line-height: var(--h3-line-height);
     }
     .plan__info__text {
-      font-weight: 400;
-      font-size: 14px;
+      font-size: var(--text-size-small);
       line-height: 21px;
       margin-top: 16px;
     }

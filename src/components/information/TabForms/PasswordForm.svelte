@@ -102,8 +102,7 @@
 
   }
   .info__password__message {
-    font-size: 12px;
-    line-height: 24px;
+    font-size: var(--text-size-smaller);
     color: var(--color-dark-st3);
     margin-bottom: 10px;
     padding-left: 30px;

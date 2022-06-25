@@ -183,7 +183,7 @@
   @media only screen and (max-width: 991px) {
     .mob__plan__h2 {
       display: block;
-      font-weight: 500;
+      font-weight: var(--font-weight-medium);
       font-size: var(--h3-size);
       line-height: 32px;
       color: var(--main-text-color);
@@ -196,17 +196,16 @@
     .main__mob_h2 {
       margin-top: 8px;
       display: block;
-      font-weight: 500;
-      font-size: 12px;
+      font-weight: var(--font-weight-medium);
+      font-size: var(--text-size-smaller);
       line-height: 18px;
       color: var(--main-text-color);
     }
     .mob__plan__h2 {
-      line-height: var(--text-normal-height);
       white-space: nowrap;
     }
     .main__mob_h2 span {
-      font-size: 12px;
+      font-size: var(--text-size-smaller);
       line-height: 18px;
     }
     .plans__wrapper {

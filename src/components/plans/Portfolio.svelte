@@ -42,7 +42,7 @@
   }
 
   .portfolio__head {
-    font-weight: 600;
+    font-weight: var(--font-weight-bold);
     font-size: 18px;
     line-height: 27px;
   }
@@ -55,7 +55,6 @@
     line-height: 30px;
   }
   .portfolio__heler {
-    font-weight: 400;
     font-size: 13px;
     line-height: 20px;
   }
@@ -73,9 +72,8 @@
   }
   @media only screen and (max-width: 568px) {
     .portfolio ul li {
-      font-weight: 400;
-      font-size: 12px;
-      line-height: 36px;
+      font-size: var(--text-size-smaller);
+      line-height: var(--h3-line-height);
     }
     .portfolio__heler {
       font-size: 10px;

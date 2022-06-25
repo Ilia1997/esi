@@ -218,7 +218,7 @@
     backdrop-filter: blur(5px);
     margin: 0 auto;
     max-width: 999px;
-    font-size: 14px;
+    font-size: var(--text-size-small);
     line-height: 21px;
     margin: 120px auto;
   }
@@ -232,7 +232,7 @@
     border-top-right-radius: 10px;
   }
   .pop__up_head__text {
-    font-weight: 500;
+    font-weight: var(--font-weight-medium);
     font-size: 20px;
     line-height: 30px;
     color: var(--white-color);
@@ -275,9 +275,9 @@
     margin: 0 auto;
   }
   h3 {
-    font-weight: 500;
+    font-weight: var(--font-weight-medium);
     font-size: var(--h3-size);
-    line-height: 36px;
+    line-height: var(--h3-line-height);
     text-align: center;
     margin-bottom: 34px;
   }
@@ -308,14 +308,13 @@
     height: 24px;
   }
   .step__name {
-    font-weight: 500;
-
+    font-weight: var(--font-weight-medium);
     color: var(--color-dark-st5);
   }
   .change__btn {
     width: 121px;
     height: 100%;
-    font-weight: 500;
+    font-weight: var(--font-weight-medium);
     color: var(--btn-color);
     text-align: center;
     cursor: pointer;
@@ -327,7 +326,6 @@
     padding: 14px 20px 24px 20px;
   }
   .text {
-    font-weight: 400;
     color: var(--black-color);
   }
   .item__plan {
@@ -368,8 +366,7 @@
     padding: 21px 32px;
     background: var(--btn-color);
     border-radius: 10px;
-    font-weight: 700;
-    line-height: var(--text-normal-height);
+    font-weight: var(--font-weight-bolder);
     text-align: center;
     color: var(--white-color);
     border: none;

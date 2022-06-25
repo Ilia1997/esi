@@ -176,7 +176,7 @@
     background: var(--btn-color);
     border: 1px solid var(--btn-color);
     border-radius: 10px;
-    font-weight: 700;
+    font-weight: var(--font-weight-bolder);
     color: var(--white-color);
     text-align: center;
     transition: all ease 0.3s;

@@ -61,7 +61,7 @@
     padding-bottom: 13.5px;
     background-color: var(--success-color);
     color: var(--white-color);
-    font-size: 14px;
+    font-size: var(--text-size-small);
     line-height: 21px;
     text-align: center;
   }
@@ -74,7 +74,7 @@
     margin-left: auto;
   }
   .like_h2 {
-    font-weight: 500;
+    font-weight: var(--font-weight-medium);
     font-size: var(--h2-size);
     line-height: var(--h2-line-height);
   }

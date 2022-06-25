@@ -185,14 +185,6 @@
 </div>
 
 <style>
-  :global(label) {
-    display: inline-block;
-    width: 100%;
-    margin-bottom: 10px;
-    text-align: left;
-    color: var(--black-color);
-  }
-
   .tab__payment__fields {
     display: flex;
     flex-direction: column;
@@ -209,7 +201,7 @@
     border: 1px solid var(--border-color);
     border-radius: 10px;
     height: 86px;
-    font-weight: 600;
+    font-weight: var(--font-weight-bold);
     display: flex;
     flex-direction: column;
     align-items: flex-start;

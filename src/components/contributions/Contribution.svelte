@@ -144,9 +144,9 @@
     overflow: hidden;
   }
   .rules__head {
-    font-weight: 500;
+    font-weight: var(--font-weight-medium);
     font-size: var(--h3-size);
-    line-height: 36px;
+    line-height: var(--h3-line-height);
     color: var(--white-color);
     background: var(--color-dark-st2);
     padding: 23px 32px;
@@ -168,7 +168,7 @@
   }
   .rules_text {
     max-width: 145px;
-    font-weight: 500;
+    font-weight: var(--font-weight-medium);
     font-size: 18px;
     line-height: 27px;
     text-transform: uppercase;
@@ -195,13 +195,13 @@
     position: absolute;
     top: 0;
     left: 0;
-    font-weight: 500;
+    font-weight: var(--font-weight-medium);
     font-size: var(--h2-size);
     line-height: var(--h2-line-height);
     color: var(--main-text-color);
   }
   .rules__val span {
-    font-size: 14px;
+    font-size: var(--text-size-small);
     line-height: 21px;
   }
 

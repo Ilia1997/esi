@@ -102,7 +102,7 @@
 
 {#if !$cardFormStatus}
   <div class="cart__payment" in:fade>
-    <label for="country">Card number</label>
+    <label class="label-sv-uniq" for="country">Card number</label>
     <div class="input__card">
       <input
         type="text"
@@ -115,7 +115,7 @@
       />
       <div class="icon__wrpper"><CardsIcons /></div>
     </div>
-    <label for="full_name">Card Holders</label>
+    <label class="label-sv-uniq" for="full_name">Card Holders</label>
     <div class="input__card">
       <input
         type="text"
@@ -130,7 +130,7 @@
     </div>
     <div class="three__colums">
       <div class="column">
-        <label for="cardMonth" class="card-input__label">Expiration</label>
+        <label class="label-sv-uniq" for="cardMonth">Expiration</label>
         <div class="card-form__group">
           <select
             class="input-sv select-sv"
@@ -166,7 +166,7 @@
         </div>
       </div>
       <div class="column right">
-        <label for="input ">CVC</label>
+        <label class="label-sv-uniq" for="input ">CVC</label>
         <div class="cvc__wrapp">
           <input
             type="password"
@@ -248,7 +248,7 @@
     display: flex;
     flex-direction: column;
   }
-  .column.right label {
+  .column.right label, .label-sv-uniq {
     padding-left: 15px;
   }
   .cvc__wrapp {

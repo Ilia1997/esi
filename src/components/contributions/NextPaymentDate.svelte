@@ -30,7 +30,7 @@
     color: var(--main-text-color);
   }
   .next__payment span {
-    font-weight: 700;
+    font-weight: var(--font-weight-bolder);
   }
   .payment__day {
     font-size: 20px;

@@ -8,14 +8,6 @@
 </button>
 
 <style>
-  :global(button:disabled),
-  :global(.btn-sv:disabled) {
-    background: rgba(182, 182, 182, 0.2) !important;
-    border: 1px solid #6a6a6a !important;
-    pointer-events: none !important;
-    opacity: 0.25;
-  }
-
   .btn-sv {
     width: 142px;
     height: 66px;

@@ -237,7 +237,6 @@
     color: var(--grey-color);
     border: none;
     background: transparent;
-    font-weight: 400;
   }
   .btn-sv.prev:hover {
     filter: invert(1);
@@ -246,8 +245,7 @@
     width: 182px;
     height: 66px;
     border-radius: 10px;
-    font-weight: 700;
-    line-height: var(--text-normal-height);
+    font-weight: var(--font-weight-bolder);
     text-align: center;
     transition: all ease 0.3s;
     display: flex;

@@ -229,15 +229,13 @@
   }
 
   .contribution__help--text {
-    font-weight: 400;
-    font-size: 14px;
-    line-height: var(--text-normal-height);
+    font-size: var(--text-size-small);
     color: var(--color-darkest);
     margin-top: 24px;
   }
 
   .contribution__help--text span {
-    font-weight: 700;
+    font-weight: var(--font-weight-bolder);
   }
 
   .dropdown__wrapper {
@@ -323,7 +321,6 @@
     }
     .contribution__help--text {
       font-size: 10px;
-      line-height: var(--text-normal-height);
     }
     .period,
     .currency {

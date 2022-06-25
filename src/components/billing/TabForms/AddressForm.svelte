@@ -130,7 +130,6 @@
   }
   .address-sel {
     color: var(--black-color);
-    line-height: var(--text-normal-height);
   }
   .two__colums {
     display: flex;
