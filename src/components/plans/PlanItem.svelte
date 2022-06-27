@@ -383,6 +383,16 @@ function handleClickOutside(event) {
       color: var(--black-color);
     }
   }
+
+  @media only screen and (max-width: 875px) and (min-width: 768px) {
+    .plans__item {
+      margin-bottom: 40px;
+      margin: 0 auto;
+    }
+    .plans__items {
+      display: block;
+    }
+  }
   @media only screen and (max-width: 768px) {
     .mob__plan__info {
       display: block;
@@ -435,6 +445,5 @@ function handleClickOutside(event) {
       max-height: 55rem;
     }
   }
-  @media only screen and (max-width: 568px) {
-  }
+  
 </style>
