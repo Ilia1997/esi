@@ -110,7 +110,8 @@
     loginData.aovi // use Aovi validators
       .check("userName")
       .required("Please put your username")
-      .minLength(2, "User Name should be at least 2 symbols length")
+      .minLength(3, "User Name should be at least 3 symbols length")
+      .maxLength(20, "User Name must be no more than 20 characters")
       .is(
         await validateUserNamelExistingInDB(),
         `User with user name ${$loginData.userName} exist in database`

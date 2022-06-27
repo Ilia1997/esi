@@ -85,8 +85,12 @@
     addressData.aovi // use Aovi validators
       .check("firstName")
       .required("First Name is required")
+      .minLength(3, "First Name should be at least 3 symbols length")
+      .maxLength(20, "First Name must be no more than 20 characters")
       .check("lastName")
       .required("Last Name is required")
+      .minLength(3, "Last Name should be at least 3 symbols length")
+      .maxLength(20, "Last Name must be no more than 20 characters")
       .check("streetNumber")
       .required("Street is required")
       .check("city")
@@ -95,6 +99,8 @@
       .required()
       .check("postal")
       .required()
+      .minLength(2, "Postcode should be at least 2 symbols length")
+      .maxLength(10, "Postcode must be no more than 10 characters")
       .match(/^\d+$/, "Postal should contain only numbers").end; // you must finish validation with '.end' operator
 
     if ($addressData.valid) {
