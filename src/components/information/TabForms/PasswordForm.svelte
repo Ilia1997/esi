@@ -13,7 +13,7 @@
   let passValue = $infoFormData.password;
 
   let onInputConfirmPass = (event) => {
-    $passwordData.confirm= event.target.value;
+    $passwordData.confirm = event.target.value;
     $savedPassword = false;
     //   console.log($passwordData.password);
   };
@@ -44,7 +44,10 @@
   <div class="tab__subhead">Please put your Password</div>
   <div class="tab__form__fields">
     <div class="input__wrapper">
-      <EyePW_ico on:click={validatePasswordType}  class={$passwordData.err.password ? 'error' :''}/>
+      <EyePW_ico
+        on:click={validatePasswordType}
+        class={$passwordData.err.password ? "error" : ""}
+      />
       <input
         type="password"
         class="input-sv"
@@ -59,14 +62,20 @@
       />
     </div>
     {#if $passwordData.err.password}
-      <p transition:slide|local class="error__message">{$passwordData.err.password}</p>
-    {:else}<div class="info__password__message">
+      <p transition:slide|local class="error__message">
+        {$passwordData.err.password}
+      </p>
+    {:else if $savedPassword === false}
+      <div class="info__password__message">
         At a least 8 characters, 1 capital letter, 1 number, 1 special symbol
       </div>
     {/if}
 
     <div class="input__wrapper">
-      <EyePW_ico on:click={validatePasswordType} class={$passwordData.err.confirm ? 'error' :''}/>
+      <EyePW_ico
+        on:click={validatePasswordType}
+        class={$passwordData.err.confirm ? "error" : ""}
+      />
       <input
         type="password"
         class="input-sv"
@@ -81,10 +90,17 @@
       />
     </div>
     {#if $passwordData.err.confirm}
-      <p transition:slide|local class="error__message last">{$passwordData.err.confirm}</p>
+      <p transition:slide|local class="error__message last">
+        {$passwordData.err.confirm}
+      </p>
     {/if}
   </div>
 </div>
+{#if $savedPassword}
+  <div transition:slide|local class="info__password__message">
+    Password successfully accepted
+  </div>
+{/if}
 
 <style>
   .input-sv.success.disabled {
@@ -99,7 +115,6 @@
   .error__message.last {
     margin-bottom: 8px;
     margin-top: 8px;
-
   }
   .info__password__message {
     font-size: var(--text-size-smaller);
