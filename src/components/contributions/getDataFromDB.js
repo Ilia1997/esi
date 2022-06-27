@@ -1,5 +1,5 @@
 export async function getPeriodsFromDB() {
-    const url = `http://195.211.240.82:9998/esi_public/esi_public/backend/getPeriods`;
+    const url = `https://be.esi.kdg.com.ua/esi_public/esi_public/backend/getPeriods`;
     try {
         const res = await fetch(url);
 		const json = await res.json();
@@ -14,7 +14,7 @@ export async function getPeriodsFromDB() {
   }
   
 export async function getCurrenciesFromDB() {
-    const url = `http://195.211.240.82:9998/esi_public/esi_public/backend/getCurrencies`;
+    const url = `https://be.esi.kdg.com.ua/esi_public/esi_public/backend/getCurrencies`;
     try {
         const res = await fetch(url);
 		const json = await res.json();
