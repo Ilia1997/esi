@@ -1,7 +1,6 @@
 <script>
-  import { plansModalState, plansModalData } from "../../stores/plansStore"
-	import {clickOutside} from '../../functions/clickOutside'
-  import { LottiePlayer } from "@lottiefiles/svelte-lottie-player";
+  import { plansModalState, plansModalData } from "../../stores/plansStore";
+  import { clickOutside } from "../../functions/clickOutside";
   import Close_ico from "../../../public/images/Close_ico.svelte";
 
   let lottieWidth = 450;
@@ -9,12 +8,19 @@
     lottieWidth = 370;
   }
   function handleClickOutside(event) {
-		$plansModalState = false
-	}
-
+    $plansModalState = false;
+  }
 </script>
 
-<div class="pop_up {$plansModalData.class}" use:clickOutside on:click_outside={handleClickOutside}>
+<svelte:head>
+  <script
+    src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+</svelte:head>
+<div
+  class="pop_up {$plansModalData.class}"
+  use:clickOutside
+  on:click_outside={handleClickOutside}
+>
   <div class="column">
     <div class="content">
       <div class="content__head">{$plansModalData.name}</div>
@@ -23,13 +29,13 @@
   </div>
   <div class="column">
     <div class="littie__wrapper">
-      <LottiePlayer
+      <lottie-player
         src={$plansModalData.lottie}
-        autoplay={true}
-        loop={true}
-        renderer="svg"
         background="transparent"
-        width={lottieWidth}
+        speed="1"
+        style="width:{lottieWidth}px;"
+        loop
+        autoplay
       />
     </div>
   </div>
@@ -100,7 +106,7 @@
     .pop_up {
       flex-direction: column;
     }
-    .content{
+    .content {
       margin: 0 0 40px 0;
       max-width: 100%;
     }
