@@ -129,6 +129,11 @@ html,
   width: 100%;
   height: 70px; 
 }
+input::-ms-reveal,
+input::-ms-clear {
+  display: none;
+}
+
 .iti {
   width: 100%;
   margin-bottom: 0px;
@@ -163,14 +168,8 @@ svg.active path {
   right: 20px;
   z-index: 2;
   cursor: pointer;
-  transition: all ease 0.3s;
 }
-.eye__icon:hover {
-  transform: scale(1.05);
-}
-.eye__icon:active {
-  transform: scale(1.02);
-}
+
 .input-sv {
   margin-bottom: 8px;
 }

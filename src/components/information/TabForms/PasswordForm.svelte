@@ -66,7 +66,7 @@
     {/if}
 
     <div class="input__wrapper">
-      <EyePW_ico on:click={validatePasswordType} class={$passwordData.err.password ? 'error' :''}/>
+      <EyePW_ico on:click={validatePasswordType} class={$passwordData.err.confirm ? 'error' :''}/>
       <input
         type="password"
         class="input-sv"
