@@ -15,7 +15,7 @@
     svg {
         margin-right: 10px;
     }
-    @media only screen and (max-width: 767px) {
+    @media only screen and (max-width: 768px) {
         svg {
             margin-right: 0;
         }

@@ -2,20 +2,33 @@
   import { plansModalState, plansModalData } from "../../stores/plansStore";
   import { clickOutside } from "../../functions/clickOutside";
   import Close_ico from "../../../public/images/Close_ico.svelte";
+  import { afterUpdate } from "svelte";
 
   let lottieWidth = 450;
+  let windowWidth;
+  $: windowWidth;
   if ($plansModalData.class === "safe") {
     lottieWidth = 370;
   }
   function handleClickOutside(event) {
     $plansModalState = false;
   }
+  afterUpdate(() => {
+    if (windowWidth < 1100) {
+      lottieWidth = 350;
+      if ($plansModalData.class === "safe") {
+        lottieWidth = 300;
+      }
+    }
+  });
 </script>
 
 <svelte:head>
   <script
     src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
 </svelte:head>
+<svelte:window bind:scrollY={windowWidth} />
+
 <div
   class="pop_up {$plansModalData.class}"
   use:clickOutside
@@ -102,13 +115,23 @@
     display: flex;
     justify-content: center;
   }
-  @media only screen and (max-width: 991px) {
-    .pop_up {
-      flex-direction: column;
+  @media only screen and (max-width: 1100px) {
+    .littie__wrapper {
+      width: 400px;
+      height: 600px;
     }
-    .content {
-      margin: 0 0 40px 0;
-      max-width: 100%;
+    .pop_up{
+      min-height: 800px;
+    }
+  }
+  @media only screen and (max-width: 1024px) {
+    .pop_up{
+      min-height: 840px;
+    }
+  }
+  @media only screen and (max-width: 991px) {
+    .pop_up{
+      display: none;
     }
   }
 </style>

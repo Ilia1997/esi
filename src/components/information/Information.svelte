@@ -292,7 +292,7 @@
     margin-bottom: 16px;
   }
 
-  @media only screen and (max-width: 767px) {
+  @media only screen and (max-width: 768px) {
     .info__main {
       padding: 40px 20px 0 20px;
     }

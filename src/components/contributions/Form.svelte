@@ -37,14 +37,7 @@
 
   $: $contributionData.nextPaymentMonth = months[paymentMounthIndex];
 
-  let currencySymbols = {
-    USD: "$",
-    EUR: "€",
-    CAD: "$",
-    CHF: "₣",
-    GBP: "£",
-    JPY: "¥",
-  };
+
   afterUpdate(() => {
     // if period bi-monthly set next payment day and payment mounth
     if ($contributionData.period === "Bi-Monthly") {
@@ -162,7 +155,7 @@
         on:mousewheel={(e) => {
           e.target.blur();
         }}
-        on:focus={(e) => e.target.select()}
+        
         min="20"
         max="9999"
         maxlength="4"
@@ -236,6 +229,7 @@
 
   .contribution__help--text span {
     font-weight: var(--font-weight-bolder);
+    font-size: inherit;
   }
 
   .dropdown__wrapper {

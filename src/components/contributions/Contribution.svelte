@@ -1,7 +1,10 @@
 <script>
   import Form from "./Form.svelte";
   import { incrementStep, headSteps } from "../../stores/store";
-  import { contributionData, amountErrorMessageState } from "../../stores/contributionsStore";
+  import {
+    contributionData,
+    amountErrorMessageState,
+  } from "../../stores/contributionsStore";
   import { afterUpdate, beforeUpdate, onDestroy } from "svelte";
   import { scrollToTop } from "../../functions/scrollToTop";
   import { priceConvertation } from "../../functions/priceConvertation";
@@ -31,7 +34,7 @@
     if (data.amount < 20) {
       amountErrorMessage = "Amount value shoud be more than 20";
       $amountErrorMessageState = true;
-      animateScroll.scrollTo({element: input})
+      animateScroll.scrollTo({ element: input });
     } else {
       return true;
     }
@@ -54,11 +57,11 @@
     yrVal = moVal * 12;
     fiveYrVal = yrVal * 5;
   });
-  afterUpdate(()=>{
-    if(data.amount>20 && data.amount<9999){
-      $amountErrorMessageState = false
+  afterUpdate(() => {
+    if (data.amount > 20 && data.amount < 9999) {
+      $amountErrorMessageState = false;
     }
-  })
+  });
 
   onDestroy(unsubscribe);
 </script>
@@ -67,8 +70,10 @@
   <div class="column-left">
     <div>
       <div class="contribution__head">
-        <h2 class="h2-sv">Choose your <span class="green">Contribution</span></h2>
-        <Form bind:input/>
+        <h2 class="h2-sv">
+          Choose your <span class="green">Contribution</span>
+        </h2>
+        <Form bind:input />
       </div>
       <div class="rules">
         <div class="rules__top">
@@ -81,7 +86,9 @@
               </div>
               <div class="rules__val__wrapper">
                 <div class="rules__val">
-                  {data.currencySymbol}{moVal ? priceConvertation(moVal) : 0}<span>/mo</span>
+                  {data.currencySymbol}{moVal
+                    ? priceConvertation(moVal)
+                    : 0}<span>/mo</span>
                 </div>
               </div>
             </div>
@@ -91,7 +98,8 @@
               </div>
               <div class="rules__val__wrapper">
                 <div class="rules__val">
-                  {data.currencySymbol}{priceConvertation(yrVal)}<span>/yr</span>
+                  {data.currencySymbol}{priceConvertation(yrVal)}<span>/yr</span
+                  >
                 </div>
               </div>
             </div>
@@ -102,7 +110,9 @@
               </div>
               <div class="rules__val__wrapper">
                 <div class="rules__val">
-                  {data.currencySymbol}{priceConvertation(fiveYrVal)}<span>/5yrs</span>
+                  {data.currencySymbol}{priceConvertation(fiveYrVal)}<span
+                    >/5yrs</span
+                  >
                 </div>
               </div>
             </div>
@@ -262,10 +272,10 @@
     .rules__top {
       background: var(--color-dark-st1);
       border-bottom: 2px solid var(--main-text-color);
-      padding: 24px 57px 13px 21px;
+      padding: 24px 30px 13px 21px;
     }
   }
-  @media only screen and (max-width: 767px) {
+  @media only screen and (max-width: 768px) {
     .rules_text,
     .rules_text span {
       font-size: 10px;
@@ -288,6 +298,10 @@
     .rules__head {
       line-height: 26px;
     }
+    .rules__val {
+      line-height: 24px;
+      font-size: 16px;
+    }
     .rules__item,
     .rules__item:last-child {
       padding: 10px;
@@ -308,7 +322,7 @@
       margin-top: 40px;
     }
   }
-  @media only screen and (max-width: 767px) and (min-width: 375px) {
+  @media only screen and (max-width: 768px) and (min-width: 375px) {
     .h2-sv {
       white-space: nowrap;
     }

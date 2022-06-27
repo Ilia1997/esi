@@ -97,9 +97,7 @@
       <span class="green">contribution</span>
     </div>
     <PlanHead />
-  </div>
-
-  <div class="plans__wrapper">
+      <div class="plans__wrapper">
     <div class="plans__wrapper__head">
       <h3 class="h3-sv">
         Please allocate you <span class="green">contribution</span> between our
@@ -117,6 +115,9 @@
 
     <PlanItems />
   </div>
+  </div>
+
+
   {#if $plansModalState}
     <div transition:fade>
       <PlanModal />
@@ -161,7 +162,7 @@
 
   .subscribe__text {
     margin-left: 8px;
-    font-weight: 600;
+    font-weight: 600git;
     color: var(--color-dark-st5);
   }
   .plans__wrapper {
@@ -175,6 +176,10 @@
 
   .plans__main {
     width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     position: relative;
   }
   .mob__plan__h2,
@@ -193,7 +198,7 @@
       display: none;
     }
   }
-  @media only screen and (max-width: 767px) {
+  @media only screen and (max-width: 768px) {
     .main__mob_h2 {
       margin-top: 8px;
       display: block;
