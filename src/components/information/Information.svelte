@@ -53,7 +53,7 @@
       } else if (index === 1) {
         // Validate Password
         doSignup();
-        if ($infoFormErrorState === false) {
+        if ($savedPassword === true) {
           nextButtonState = true;
         }
       }
