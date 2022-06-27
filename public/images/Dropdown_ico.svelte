@@ -13,7 +13,7 @@
 </svg>
 
 <style>
-    @media only screen and (max-width: 767px) {
+    @media only screen and (max-width: 768px) {
         svg.contribution {
             top: 15px;
             right: 15px;

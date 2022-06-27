@@ -114,7 +114,7 @@
   .input__wrapper:first-child {
     margin-bottom: 10px;
   }
-  @media only screen and (max-width: 767px) {
+  @media only screen and (max-width: 768px) {
     .info__password__message {
       padding-left: 0;
     }

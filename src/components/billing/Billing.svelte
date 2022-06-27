@@ -211,7 +211,7 @@
   }
 
 
-  @media only screen and (max-width: 767px) {
+  @media only screen and (max-width: 768px) {
     .info__main {
       padding-top: 40px;
     }

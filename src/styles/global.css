@@ -303,7 +303,7 @@ button:disabled,
     background-image: url("https://uploads-ssl.webflow.com/627ca4b5fcfd5674acf264e6/629773f0e6f94103f5901866_flags%402x.png") !important;
   }
 }
-@media only screen and (max-width: 767px) {
+@media only screen and (max-width: 768px) {
   .body-sv {
     font-size: var(--text-size-smaller);
     line-height: 18px;

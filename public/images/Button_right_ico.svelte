@@ -17,7 +17,7 @@
   svg.disabled path{
     fill: #6a6a6a;
   }
-  @media only screen and (max-width: 767px) {
+  @media only screen and (max-width: 768px) {
     svg {
         margin-right: 0;
     }

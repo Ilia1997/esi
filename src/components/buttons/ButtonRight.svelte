@@ -25,7 +25,7 @@
     background: rgba(0, 110, 255, 0.2);
   }
 
-  @media only screen and (max-width: 767px) {
+  @media only screen and (max-width: 768px) {
     .btn-sv {
         width: auto;
     }

@@ -161,7 +161,7 @@
 
   .subscribe__text {
     margin-left: 8px;
-    font-weight: 600;
+    font-weight: 600git;
     color: var(--color-dark-st5);
   }
   .plans__wrapper {
@@ -193,7 +193,7 @@
       display: none;
     }
   }
-  @media only screen and (max-width: 767px) {
+  @media only screen and (max-width: 768px) {
     .main__mob_h2 {
       margin-top: 8px;
       display: block;

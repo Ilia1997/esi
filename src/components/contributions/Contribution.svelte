@@ -265,7 +265,7 @@
       padding: 24px 57px 13px 21px;
     }
   }
-  @media only screen and (max-width: 767px) {
+  @media only screen and (max-width: 768px) {
     .rules_text,
     .rules_text span {
       font-size: 10px;
@@ -296,7 +296,7 @@
       padding: 10px 10px 10px 0;
     }
     .contribution__head {
-      padding: 0 21px;
+      padding: 0 21px ;
     }
     .step__footer {
       padding: 0 16px;
@@ -308,7 +308,7 @@
       margin-top: 40px;
     }
   }
-  @media only screen and (max-width: 767px) and (min-width: 375px) {
+  @media only screen and (max-width: 768px) and (min-width: 375px) {
     .h2-sv {
       white-space: nowrap;
     }
