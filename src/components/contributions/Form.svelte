@@ -229,6 +229,7 @@
 
   .contribution__help--text span {
     font-weight: var(--font-weight-bolder);
+    font-size: inherit;
   }
 
   .dropdown__wrapper {
