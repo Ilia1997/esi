@@ -98,7 +98,7 @@
               {$contributionData.currencySymbol}{priceConvertation(
                 $contributionData.monthlyValue
               )}
-              USD per Month Starting {$contributionData.nextPaymentDay}th {$contributionData.nextPaymentMonth}
+              {$contributionData.currency} per Month Starting {$contributionData.nextPaymentDay}th {$contributionData.nextPaymentMonth}
               {currentYear}
             </div>
           </div>
