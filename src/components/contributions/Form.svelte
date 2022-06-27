@@ -7,6 +7,7 @@
   import NextPaymentDay from "./NextPaymentDate.svelte";
   import Dropdown_ico from "../../../public/images/Dropdown_ico.svelte";
   import { clickOutside } from "../../functions/clickOutside";
+  import { checkInputValue } from "../../functions/checkInputValue";
   import { onMount, text } from "svelte/internal";
   import {getPeriodsFromDB,getCurrenciesFromDB} from './getDataFromDB'
 
@@ -84,15 +85,6 @@
       activeCurrency = false;
     }
   }
-
-  // check only numbers (without "comma", "point" etc)
-  // check max value in amount field
-  function checkValue() {
-    this.value = this.value.replace(/[^0-9]/g, "");
-    if (this.value.length > this.maxLength) {
-      this.value = this.value.slice(0, this.maxLength);
-    }
-  }
 </script>
 
 <div class="contribution__form">
@@ -159,7 +151,7 @@
         min="20"
         max="9999"
         maxlength="4"
-        on:input={checkValue}
+        on:input={checkInputValue}
         bind:value={$contributionData.amount}
         class:error={$amountErrorMessageState}
         on:focus={() => ($amountErrorMessageState = false)}

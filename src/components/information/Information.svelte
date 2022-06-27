@@ -78,6 +78,7 @@
     userName: $infoFormData.userName,
     email: $infoFormData.email,
     phone: $infoFormData.phone,
+    phoneCode: $infoFormData.phoneCode,
   });
 
   const passwordData = aoviSvelte({
@@ -99,9 +100,7 @@
     return !userNameExistinDB;
   };
   const validatePhoneExistingInDB = async () => {
-    // let phone = "%2B"+$loginData.phone
-    let phoneExistinDB = await checkIfPhoneExistInDB(phone);
-    console.log("phoneExistinDB", phoneExistinDB);
+    let phoneExistinDB = await checkIfPhoneExistInDB($loginData.phoneCode+$loginData.phone);
     return !phoneExistinDB;
   };
 
