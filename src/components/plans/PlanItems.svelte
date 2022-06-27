@@ -1,9 +1,6 @@
 <script>
   import { beforeUpdate, afterUpdate } from "svelte";
-  import {
-    planData,
-    disableAllDropdown,
-  } from "../../stores/plansStore";
+  import { planData, disableAllDropdown } from "../../stores/plansStore";
   import {
     contributionData,
     allocatedContributions,
@@ -50,7 +47,6 @@
     }
   });
   afterUpdate(() => {});
-
 </script>
 
 <div class="plans__items">
@@ -100,16 +96,15 @@
   }
   @media only screen and (max-width: 1100px) {
     .plans__items {
-      flex-wrap: wrap;
       justify-content: center;
-      gap: 40px;
     }
   }
 
-  @media only screen and (max-width: 768px) {
+
+  @media only screen and (max-width: 991px) {
     .plans__items {
       margin-top: 20px;
-      gap: 0;
+      display: block;
     }
   }
 </style>

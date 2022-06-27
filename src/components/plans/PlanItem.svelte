@@ -111,7 +111,7 @@ function handleClickOutside(event) {
           class:disabled={$disableAllDropdown === true}
         >
           <div
-            class="dropdown {activeState ? activeClass : ''}"
+            class="dropdown  {activeState ? activeClass : ''} plan__dropdown"
             on:click={() => (activeState = !activeState)}
             use:clickOutside on:click_outside={handleClickOutside}
           >
@@ -366,15 +366,10 @@ function handleClickOutside(event) {
       font-size: var(--text-size-small);
     }
   }
+
+
+
   @media only screen and (max-width: 991px) {
-    .plans__items {
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 40px;
-    }
-    .plans__item {
-      max-width: 340px;
-    }
     .plans__item.adventure {
       margin: 0;
     }
@@ -382,18 +377,6 @@ function handleClickOutside(event) {
     .dropdown__item {
       color: var(--black-color);
     }
-  }
-
-  @media only screen and (max-width: 875px) and (min-width: 768px) {
-    .plans__item {
-      margin-bottom: 40px;
-      margin: 0 auto;
-    }
-    .plans__items {
-      display: block;
-    }
-  }
-  @media only screen and (max-width: 768px) {
     .mob__plan__info {
       display: block;
       text-align: center;

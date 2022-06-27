@@ -25,7 +25,7 @@
     background: var(--btn-color-prev-active);
   }
 
-  @media only screen and (max-width: 767px) {
+  @media only screen and (max-width: 768px) {
     .btn-sv {
         width: auto;
     }

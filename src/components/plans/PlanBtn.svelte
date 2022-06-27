@@ -57,7 +57,7 @@
   button.violet:active, .btn-sv.violet:active {
     background:var(--btn-color-prev-active);
   }
-  @media only screen and (max-width: 768px) {
+  @media only screen and (max-width: 991px) {
   .wrapper {
       display: none;
     }

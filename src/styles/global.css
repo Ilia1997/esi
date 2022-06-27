@@ -298,6 +298,12 @@ button:disabled,
 .dropdown.activeDropdownFound svg {
   transform: rotate(180deg);
 }
+@media only screen and (max-width: 1100px) and (min-width: 991px) {
+  .dropdown.plan__dropdown svg {
+    right: 15px;
+    top: 25px;
+  }
+}
 @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
   .iti__flag {
     background-image: url("https://uploads-ssl.webflow.com/627ca4b5fcfd5674acf264e6/629773f0e6f94103f5901866_flags%402x.png") !important;
