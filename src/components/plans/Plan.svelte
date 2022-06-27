@@ -161,6 +161,7 @@
 
   .subscribe__text {
     margin-left: 8px;
+    font-weight: 600;
     color: var(--color-dark-st5);
   }
   .plans__wrapper {
