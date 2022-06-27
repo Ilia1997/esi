@@ -19,6 +19,7 @@
   import {
     checkIfEmailExistInDB,
     checkIfUserNameExistInDB,
+    checkIfPhoneExistInDB,
   } from "./Validations/Validations";
   import ButtonRight from "../buttons/ButtonRight.svelte";
   import { afterUpdate, onDestroy } from "svelte";
@@ -95,8 +96,13 @@
   };
   const validateUserNamelExistingInDB = async () => {
     let userNameExistinDB = await checkIfUserNameExistInDB($loginData.userName);
-    console.log("!userNameExistinDB", !userNameExistinDB);
     return !userNameExistinDB;
+  };
+  const validatePhoneExistingInDB = async () => {
+    // let phone = "%2B"+$loginData.phone
+    let phoneExistinDB = await checkIfPhoneExistInDB(phone);
+    console.log("phoneExistinDB", phoneExistinDB);
+    return !phoneExistinDB;
   };
 
   const emailrRegEx =
@@ -116,7 +122,8 @@
       .is(await validateEmailExistingInDB(), "Email exist in database")
       .check("phone")
       .required("Please put your phone")
-      .minLength(7, "Phone should be at least 7 symbols length").end;
+      .minLength(7, "Phone should be at least 7 symbols length")
+      .is(await validatePhoneExistingInDB(), "Phone exist in database").end;
     // you must finish validation with '.end' operator
 
     if ($loginData.valid) {
