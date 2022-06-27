@@ -1,6 +1,6 @@
 <div class="contribution__right">
   <div class="contribution__right__head">
-    <h2 class="h2-sv">Our House. Our Rules.</h2>
+    <h2 class="h2-sv">Our House. Our Goals.</h2>
     <p>
       We convert your money into green savings using a “long term” philosophy.
       This allows us to actively produce investment value, whilst simultaneously
