@@ -1,8 +1,4 @@
 <script>
-  import "intl-tel-input/build/css/intlTelInput.css";
-
-  import intlTelInput from "intl-tel-input";
-  import { afterUpdate, beforeUpdate } from "svelte";
   import { fade, slide } from "svelte/transition";
   import { checkInputValue } from "../../../functions/checkInputValue";
   export let loginData;
