@@ -2,40 +2,18 @@
   import "intl-tel-input/build/css/intlTelInput.css";
 
   import intlTelInput from "intl-tel-input";
-  import { afterUpdate } from "svelte";
+  import { afterUpdate, beforeUpdate } from "svelte";
   import { fade, slide } from "svelte/transition";
-  import { savedPassword } from "../../../stores/infoStore";
   import { checkInputValue } from "../../../functions/checkInputValue";
   export let loginData;
+  import { infoFormData, calcInputPhonePadding, selectedCountry} from "../../../stores/infoStore";
+import CountryDropdown from "./CountryDropdown.svelte";
 
-  let input;
-  let iti;
-  let initCounter = 0;
-  let number;
-  let phoneData = "";
-  $: number, phoneData;
 
-  afterUpdate(() => {
-    if (input) {
-      if (initCounter < 1) {
-        iti = intlTelInput(input, {
-          separateDialCode: true,
-          utilsScript:
-            "https://intl-tel-input.com/node_modules/intl-tel-input/build/js/utils.js",
-          onlyCountries: ["us", "de", "fr", "no", "se", "dk", "fi"],
-          autoPlaceholder: " ",
-        });
-        initCounter = 1
-      }
-      if (phoneData.length != 0) {
-        $loginData.phone = phoneData
-      }
+$:{
+  $loginData.phoneCode = "%2B"+$selectedCountry.phoneCode;
+}
 
-      iti.setNumber($loginData.phone)
-      
-      $loginData.phoneCode = "%2B"+iti.selectedCountryData.dialCode
-    }
-  });
 </script>
 
 <div class="tab__wrapper" in:fade>
@@ -53,10 +31,9 @@
     />
 
     {#if $loginData.err.userName}
-      <p 
-        transition:slide|local
-        class="error__message"
-      >{$loginData.err.userName}</p>
+      <p transition:slide|local class="error__message">
+        {$loginData.err.userName}
+      </p>
     {/if}
 
     <input
@@ -69,32 +46,44 @@
       on:focus={loginData.clear}
     />
     {#if $loginData.err.email}
-      <p
-        transition:slide|local
-        class="error__message"
-      >{$loginData.err.email}</p>
+      <p transition:slide|local class="error__message">
+        {$loginData.err.email}
+      </p>
     {/if}
-    <input
-      type="tel"
-      class="input-sv"
-      maxlength="20"
-      autocomplete
-      class:error={$loginData.err.phone}
+    <div class="tel-wrapper">
+         <CountryDropdown />
+
+      <input
+      style="padding-left: {$calcInputPhonePadding}px;"
+        type="tel"
+        class="input-sv second-tel"
+        maxlength="20"
+        autocomplete
+        class:error={$loginData.err.phone}
       on:focus={loginData.clear}
       on:input={checkInputValue}
-      bind:this={input}
-      bind:value={phoneData}
-    />
+      bind:value={$loginData.phone}
+      />
+    </div>
+
+  
     {#if $loginData.err.phone}
-      <p 
-        transition:slide|local
-        class="error__message last"
-      >{$loginData.err.phone}</p>
+      <p transition:slide|local class="error__message last">
+        {$loginData.err.phone}
+      </p>
     {/if}
   </div>
 </div>
 
 <style>
+  
+
+  .second-tel {
+
+  }
+  .tel-wrapper{
+    position: relative;
+  }
   .input-sv.error::placeholder {
     color: var(--error-color);
   }
@@ -105,6 +94,5 @@
   .error__message.last {
     margin-bottom: 8px;
     margin-top: 8px;
-
   }
 </style>

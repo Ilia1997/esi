@@ -134,19 +134,7 @@ input::-ms-clear {
   display: none;
 }
 
-.iti {
-  width: 100%;
-  margin-bottom: 0px;
-}
-.iti__selected-flag {
-  padding: 0 6px 0 30px !important;
-}
-.iti--separate-dial-code .iti__selected-flag {
-  background-color: transparent !important;
-}
-.iti__flag {
-  background-image: url("https://uploads-ssl.webflow.com/627ca4b5fcfd5674acf264e6/629773f0d92342ae2ee5804d_flags.png") !important;
-}
+
 .btn-sv:not(.prev):hover svg path{
   fill: var(--white-color);
 }
@@ -304,11 +292,7 @@ button:disabled,
     top: 25px;
   }
 }
-@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
-  .iti__flag {
-    background-image: url("https://uploads-ssl.webflow.com/627ca4b5fcfd5674acf264e6/629773f0e6f94103f5901866_flags%402x.png") !important;
-  }
-}
+
 @media only screen and (max-width: 768px) {
   .body-sv {
     font-size: var(--text-size-smaller);
