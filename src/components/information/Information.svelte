@@ -4,6 +4,7 @@
   import PasswordForm from "./TabForms/PasswordForm.svelte";
   import { fade } from "svelte/transition";
   import { aoviSvelte } from "aovi-svelte";
+  import {isNumeric} from '../../functions/isNumber'
   import {
     allowItemIndex,
     infoFormErrorMessage,
@@ -37,6 +38,7 @@
   let formButtonText = "Next";
   let activeItem = tabItems[0];
   let nextButtonState = false;
+  let userNameErrorMessage;
   let prevBtn;
 
   $: formButtonText, nextButtonState, activeItem;
@@ -59,7 +61,7 @@
         doSignup();
         if ($savedPassword === true) {
           nextButtonState = true;
-          hidePasswords()
+          hidePasswords();
         }
       }
     }
@@ -99,14 +101,25 @@
     let emailExistinDB = await checkIfEmailExistInDB($loginData.email);
     return !emailExistinDB;
   };
-  const validateUserNamelExistingInDB = async () => {
-    let userNameExistinDB = await checkIfUserNameExistInDB($loginData.userName);
+  const validateUserName = async () => {
+    let isNumber = isNumeric(`${$loginData.userName}`)
+    let userNameExistinDB;
+    if (isNumber){
+      userNameErrorMessage = `Username cannot be a number`
+      userNameExistinDB = true;
+    }else{
+      userNameErrorMessage = `User with user name ${$loginData.userName} exist in database`
+      userNameExistinDB = await checkIfUserNameExistInDB($loginData.userName);
+    }
     return !userNameExistinDB;
   };
   const validatePhoneExistingInDB = async () => {
-    let phoneExistinDB = await checkIfPhoneExistInDB($loginData.phoneCode+$loginData.phone);
+    let phoneExistinDB = await checkIfPhoneExistInDB(
+      $loginData.phoneCode + $loginData.phone
+    );
     return !phoneExistinDB;
   };
+
 
   const emailrRegEx =
     /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
@@ -117,8 +130,8 @@
       .minLength(3, "User Name should be at least 3 symbols length")
       .maxLength(20, "User Name must be no more than 20 characters")
       .is(
-        await validateUserNamelExistingInDB(),
-        `User with user name ${$loginData.userName} exist in database`
+        await validateUserName(),
+        userNameErrorMessage
       )
       .check("email")
       .required("Please put your email")
@@ -177,7 +190,7 @@
     if ($clickOnPrevBtn) {
       activeItem = tabItems[0];
       $allowItemIndex = 1;
-      formButtonText = "Next"
+      formButtonText = "Next";
       $clickOnPrevBtn = false;
     }
   });
@@ -221,7 +234,7 @@
   </div>
 
   <div class="bottom__btns">
-    <ButtonLeft on:click={prevStep} bind:this={prevBtn}/>
+    <ButtonLeft on:click={prevStep} bind:this={prevBtn} />
     <ButtonRight
       on:click={nextStep}
       buttonState={nextButtonState || $savedPassword}
