@@ -24,7 +24,7 @@
       <div class="wrapper">
         <HeadSteps />
         <div class="step__content">
-          <!-- {#if stepCountValue === 1}
+          {#if stepCountValue === 1}
             <div class="component__wrapper" in:fade={{ duration: 500 }}>
               <Contribution />
             </div>
@@ -36,15 +36,15 @@
             <div class="component__wrapper" in:fade={{ duration: 500 }}>
               <Legal />
             </div>
-          {:else if stepCountValue === 4} -->
+          {:else if stepCountValue === 4}
             <div class="component__wrapper" in:fade={{ duration: 500 }}>
               <Information />
             </div>
-          <!-- {:else if stepCountValue === 5}
+          {:else if stepCountValue === 5}
             <div class="component__wrapper" in:fade={{ duration: 500 }}> 
               <Billing />
             </div>
-          {/if} -->
+          {/if}
         </div>
       </div>
     {:else if $successMessageState === true}
@@ -60,6 +60,31 @@
   @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap");
   .component__wrapper {
     width: 100%;
+  }
+  :global(.input-sv:not(.error)::placeholder) {
+    color: #000000;
+  }
+  :global(.input-sv.error) {
+    border: 1px solid #ff2e00;
+    color: #ff2e00;
+  }
+  :global(.select-sv.error) {
+    border: 1px solid #ff2e00;
+    color: #ff2e00;
+  }
+  :global(.input-sv.error::placeholder) {
+    color: #ff2e00;
+  }
+  :global(.error__message) {
+    font-size: 12px;
+    line-height: 24px;
+    color: #ff2e00;
+  }
+  :global(.input-sv::placeholder) {
+    color: #000000;
+  }
+  main {
+    padding: 36px 0 150px 0;
   }
   .container__form {
     max-width: 1360px;
@@ -78,7 +103,12 @@
     border-radius: 0px 0px 10px 10px;
     padding: 40px;
   }
-  
+  :global(.bottom__btns) {
+    margin-top: 20px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+  }
   @media only screen and (max-width: 768px) {
     .container__form {
       padding: 0 6.5px;
@@ -86,6 +116,9 @@
     .step__content {
       padding: 20px 0;
       min-height: auto;
+    }
+    :global(.bottom__btns) {
+      padding: 0 16px;
     }
   }
 </style>

@@ -27,6 +27,7 @@ export const infoFormData = writable({
   userName: "",
   email: "",
   phone: "",
+  phoneCode: "",
   password: "",
   confirm: "",
 });

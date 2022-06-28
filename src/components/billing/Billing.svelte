@@ -15,6 +15,7 @@
   import Button_back_ico from "../../../public/images/Button_back_ico.svelte";
   import { aoviSvelte } from "aovi-svelte";
   import * as animateScroll from "svelte-scrollto";
+  import { scrollToTop } from "../../functions/scrollToTop";
 
 
   let tabItems = [
@@ -57,6 +58,7 @@
         }
       }
     }
+    scrollToTop()
   }
   function prevTab() {
     if ($allowItemIndexBilling > 1) {
@@ -70,6 +72,7 @@
         nextButtonState = false;
       }
     }
+    scrollToTop()
   }
 
   const addressData = aoviSvelte({
@@ -85,8 +88,12 @@
     addressData.aovi // use Aovi validators
       .check("firstName")
       .required("First Name is required")
+      .minLength(3, "First Name should be at least 3 symbols length")
+      .maxLength(20, "First Name must be no more than 20 characters")
       .check("lastName")
       .required("Last Name is required")
+      .minLength(3, "Last Name should be at least 3 symbols length")
+      .maxLength(20, "Last Name must be no more than 20 characters")
       .check("streetNumber")
       .required("Street is required")
       .check("city")
@@ -95,6 +102,8 @@
       .required()
       .check("postal")
       .required()
+      .minLength(2, "Postcode should be at least 2 symbols length")
+      .maxLength(10, "Postcode must be no more than 10 characters")
       .match(/^\d+$/, "Postal should contain only numbers").end; // you must finish validation with '.end' operator
 
     if ($addressData.valid) {

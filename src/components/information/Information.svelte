@@ -24,6 +24,9 @@
   import ButtonRight from "../buttons/ButtonRight.svelte";
   import { afterUpdate, onDestroy } from "svelte";
   import Arrow_left_ico from "../../../public/images/Arrow_left_ico.svelte";
+  import { hidePasswords } from "../../functions/hidePasswords";
+  import { scrollToTop } from "../../functions/scrollToTop";
+
   let tabItems = [
     // { name: "Name", component: NameForm },
     { name: "Contacts", component: ContactForm },
@@ -56,6 +59,7 @@
         doSignup();
         if ($savedPassword === true) {
           nextButtonState = true;
+          hidePasswords()
         }
       }
     }
@@ -78,6 +82,7 @@
     userName: $infoFormData.userName,
     email: $infoFormData.email,
     phone: $infoFormData.phone,
+    phoneCode: $infoFormData.phoneCode,
   });
 
   const passwordData = aoviSvelte({
@@ -99,9 +104,7 @@
     return !userNameExistinDB;
   };
   const validatePhoneExistingInDB = async () => {
-    // let phone = "%2B"+$loginData.phone
-    let phoneExistinDB = await checkIfPhoneExistInDB(phone);
-    console.log("phoneExistinDB", phoneExistinDB);
+    let phoneExistinDB = await checkIfPhoneExistInDB($loginData.phoneCode+$loginData.phone);
     return !phoneExistinDB;
   };
 
@@ -111,7 +114,8 @@
     loginData.aovi // use Aovi validators
       .check("userName")
       .required("Please put your username")
-      .minLength(2, "User Name should be at least 2 symbols length")
+      .minLength(3, "User Name should be at least 3 symbols length")
+      .maxLength(20, "User Name must be no more than 20 characters")
       .is(
         await validateUserNamelExistingInDB(),
         `User with user name ${$loginData.userName} exist in database`
@@ -156,10 +160,12 @@
 
   let prevStep = () => {
     decrementStep();
+    scrollToTop();
   };
 
   let nextStep = () => {
     $confirmPopUpState = true;
+    scrollToTop();
   };
 
   afterUpdate(() => {

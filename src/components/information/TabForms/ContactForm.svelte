@@ -4,7 +4,8 @@
   import intlTelInput from "intl-tel-input";
   import { afterUpdate } from "svelte";
   import { fade, slide } from "svelte/transition";
-  import { infoFormData } from "../../../stores/infoStore";
+  import { savedPassword } from "../../../stores/infoStore";
+  import { checkInputValue } from "../../../functions/checkInputValue";
   export let loginData;
 
   let input;
@@ -24,12 +25,15 @@
           onlyCountries: ["us", "de", "fr", "no", "se", "dk", "fi"],
           autoPlaceholder: " ",
         });
-        initCounter = 1;
+        initCounter = 1
       }
       if (phoneData.length != 0) {
-        $loginData.phone = phoneData;
+        $loginData.phone = phoneData
       }
-      iti.setNumber($loginData.phone);
+
+      iti.setNumber($loginData.phone)
+      
+      $loginData.phoneCode = "%2B"+iti.selectedCountryData.dialCode
     }
   });
 </script>
@@ -73,12 +77,13 @@
     <input
       type="tel"
       class="input-sv"
-      bind:this={input}
+      maxlength="20"
       autocomplete
-      bind:value={phoneData}
       class:error={$loginData.err.phone}
       on:focus={loginData.clear}
-      oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"
+      on:input={checkInputValue}
+      bind:this={input}
+      bind:value={phoneData}
     />
     {#if $loginData.err.phone}
       <p 

@@ -44,10 +44,7 @@
   <div class="tab__subhead">Please put your Password</div>
   <div class="tab__form__fields">
     <div class="input__wrapper">
-      <EyePW_ico
-        on:click={validatePasswordType}
-        class={$passwordData.err.password ? "error" : ""}
-      />
+      <EyePW_ico on:click={validatePasswordType} disabled={$savedPassword ? 'on' : 'off'} class={$passwordData.err.password ? 'error' : ''} />
       <input
         type="password"
         class="input-sv"
@@ -72,10 +69,7 @@
     {/if}
 
     <div class="input__wrapper">
-      <EyePW_ico
-        on:click={validatePasswordType}
-        class={$passwordData.err.confirm ? "error" : ""}
-      />
+      <EyePW_ico on:click={validatePasswordType} disabled={$savedPassword ? 'on' : 'off'} class={$passwordData.err.confirm ? 'error' :''}/>
       <input
         type="password"
         class="input-sv"
