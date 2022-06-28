@@ -116,6 +116,5 @@
   .country__name {
     margin: 0 15px 0 0;
   }
-  .country__code {
-  }
+
 </style>

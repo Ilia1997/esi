@@ -88,35 +88,40 @@
 
 <div class="plans__main">
   <div class="plans__main__wrapper">
-    <h2 class="h2-sv">
-      Plans <span class="green">Selector</span> and
-      <span class="green">Distributor</span>
-    </h2>
-    <div class="main__mob_h2">
-      Choose any <span class="green">plan</span> and allocate you
-      <span class="green">contribution</span>
-    </div>
-    <PlanHead />
-      <div class="plans__wrapper">
-    <div class="plans__wrapper__head">
-      <h3 class="h3-sv">
-        Please allocate you <span class="green">contribution</span> between our
-        <span class="green">plans</span>
-      </h3>
-      <div class="mob__plan__h2">Select plans</div>
-      <div class="subscribe__all" on:click={subscribeAllPlans}>
-        <div class="subscribe__checkbox">
-          <SubscribeAllIco className={$subscribeAllState ? "active__cb" : ""} />
-        </div>
-
-        <div class="subscribe__text">Subscribe to All Plan</div>
+    <div class="plans__top">
+      <h2 class="h2-sv">
+        Plans <span class="green">Selector</span> and
+        <span class="green">Distributor</span>
+      </h2>
+      <div class="main__mob_h2">
+        Choose any <span class="green">plan</span> and allocate you
+        <span class="green">contribution</span>
       </div>
+      <PlanHead />
     </div>
 
-    <PlanItems />
-  </div>
-  </div>
+    <div class="plans__wrapper">
+      <div class="plans__wrapper__head">
+        <h3 class="h3-sv">
+          Please allocate you <span class="green">contribution</span> between
+          our
+          <span class="green">plans</span>
+        </h3>
+        <div class="mob__plan__h2">Select plans</div>
+        <div class="subscribe__all" on:click={subscribeAllPlans}>
+          <div class="subscribe__checkbox">
+            <SubscribeAllIco
+              className={$subscribeAllState ? "active__cb" : ""}
+            />
+          </div>
 
+          <div class="subscribe__text">Subscribe to All Plan</div>
+        </div>
+      </div>
+
+      <PlanItems />
+    </div>
+  </div>
 
   {#if $plansModalState}
     <div transition:fade>
@@ -217,9 +222,25 @@
     .plans__wrapper {
       margin-top: 20px;
     }
-    .plans__main__wrapper,
+    .plans__top,
     .plans__wrapper__head {
       padding: 0 16px;
     }
   }
+  @media only screen and (max-width: 480px) {
+    .mob__plan__h2 {
+      font-size: var(--text-size-normal);
+      line-height: var(--text-line-height);
+    }
+    .subscribe__checkbox {
+      width: 16px;
+      height: 16px;
+      display: flex;
+    }
+    .subscribe__text {
+      font-size: var(--text-size-smaller);
+      line-height: var(--small-text-line-height);
+    }
+  }
+
 </style>
