@@ -19,8 +19,8 @@
       $headSteps.secondStep = true;
       if (changeCounter === 0) {
         incrementStep();
-        scrollToTop();
         changeCounter += 1;
+        scrollToTop()
       }
     }
   }
@@ -34,7 +34,7 @@
     if (data.amount < 20) {
       amountErrorMessage = "Amount value shoud be more than 20";
       $amountErrorMessageState = true;
-      animateScroll.scrollTo({ element: input });
+      scrollToTop()
     } else {
       return true;
     }
