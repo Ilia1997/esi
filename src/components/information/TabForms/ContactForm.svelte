@@ -4,7 +4,7 @@
   import intlTelInput from "intl-tel-input";
   import { afterUpdate } from "svelte";
   import { fade, slide } from "svelte/transition";
-  import { infoFormData } from "../../../stores/infoStore";
+  import { savedPassword } from "../../../stores/infoStore";
   import { checkInputValue } from "../../../functions/checkInputValue";
   export let loginData;
 
@@ -30,13 +30,9 @@
       if (phoneData.length != 0) {
         $loginData.phone = phoneData
       }
-      if(input.value) {
-        iti.setNumber($loginData.phone)
-      } 
-      else if(!input.value) {
-        $loginData.phone = ""
-        iti.setNumber("")
-      } 
+
+      iti.setNumber($loginData.phone)
+      
       $loginData.phoneCode = "%2B"+iti.selectedCountryData.dialCode
     }
   });
@@ -82,11 +78,11 @@
       type="tel"
       class="input-sv"
       maxlength="20"
-      bind:this={input}
       autocomplete
       class:error={$loginData.err.phone}
       on:focus={loginData.clear}
       on:input={checkInputValue}
+      bind:this={input}
       bind:value={phoneData}
     />
     {#if $loginData.err.phone}

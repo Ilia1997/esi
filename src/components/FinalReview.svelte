@@ -15,6 +15,7 @@
   import StepInformation_ico from "../../public/images/StepInformation_ico.svelte";
   import OpenAcount_ico from "../../public/images/OpenAcount_ico.svelte";
   import { priceConvertation } from "../../src/functions/priceConvertation";
+  import { scrollToTop } from "../../src/functions/scrollToTop";
 
   let changeCounter = 0;
 
@@ -38,6 +39,7 @@
       incrementStep();
       changeCounter += 1;
     }
+    scrollToTop();
   };
   let closePopUp = () => {
     $confirmPopUpState = false;
@@ -49,6 +51,7 @@
     if (stepNum === 4) {
       $clickOnPrevBtn = true;
     }
+    scrollToTop();
   };
   let safePrice = 0,
     adventurePrice = 0,

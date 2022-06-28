@@ -15,6 +15,7 @@
   import Button_back_ico from "../../../public/images/Button_back_ico.svelte";
   import { aoviSvelte } from "aovi-svelte";
   import * as animateScroll from "svelte-scrollto";
+  import { scrollToTop } from "../../functions/scrollToTop";
 
 
   let tabItems = [
@@ -57,6 +58,7 @@
         }
       }
     }
+    scrollToTop()
   }
   function prevTab() {
     if ($allowItemIndexBilling > 1) {
@@ -70,6 +72,7 @@
         nextButtonState = false;
       }
     }
+    scrollToTop()
   }
 
   const addressData = aoviSvelte({

@@ -5,6 +5,7 @@
     viewBox="0 0 24 24"
     fill="none"
     class="eye__icon {$$props.class}"
+    disabled={$$props.disabled}
     on:click
     >
     <path
@@ -15,5 +16,10 @@
 <style>
     .eye__icon.error path{
         fill: #ff2e00;
+    }
+    .eye__icon[disabled="on"] {
+        pointer-events: none;
+        filter: grayscale(1);
+        opacity: 0.25;
     }
 </style>

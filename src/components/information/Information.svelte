@@ -24,6 +24,9 @@
   import ButtonRight from "../buttons/ButtonRight.svelte";
   import { afterUpdate, onDestroy } from "svelte";
   import Arrow_left_ico from "../../../public/images/Arrow_left_ico.svelte";
+  import { hidePasswords } from "../../functions/hidePasswords";
+  import { scrollToTop } from "../../functions/scrollToTop";
+
   let tabItems = [
     // { name: "Name", component: NameForm },
     { name: "Contacts", component: ContactForm },
@@ -56,6 +59,7 @@
         doSignup();
         if ($savedPassword === true) {
           nextButtonState = true;
+          hidePasswords()
         }
       }
     }
@@ -156,10 +160,12 @@
 
   let prevStep = () => {
     decrementStep();
+    scrollToTop();
   };
 
   let nextStep = () => {
     $confirmPopUpState = true;
+    scrollToTop();
   };
 
   afterUpdate(() => {

@@ -32,10 +32,8 @@ export async function checkIfUserNameExistInDB(userName) {
         })
         .then((data) => {
           if (data.valid === "1") {
-            console.log('1')
             status = false;
           } else if (data.valid === "0") {
-            console.log('0')
             status = true;
           }
         });
