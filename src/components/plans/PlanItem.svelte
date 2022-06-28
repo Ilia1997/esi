@@ -1,7 +1,7 @@
 <script>
   import { beforeUpdate, afterUpdate } from "svelte";
   import { subscribeAllState } from "../../stores/store";
-  import {clickOutside} from '../../functions/clickOutside';
+  import { clickOutside } from "../../functions/clickOutside";
   import { priceConvertation } from "../../functions/priceConvertation";
   import {
     planData,
@@ -75,11 +75,10 @@
     $plansModalState = true;
   }
 
-// close dropdown by click ouside
-function handleClickOutside(event) {
-    activeState = false
-	}
-
+  // close dropdown by click ouside
+  function handleClickOutside(event) {
+    activeState = false;
+  }
 </script>
 
 <div class="plans__item {className}" class:active={current === currentPlan}>
@@ -94,7 +93,10 @@ function handleClickOutside(event) {
       <div class="item__head__name">Select GREEN {className}</div>
     </div>
     <div class="column">
-      <div class="item__head__checkbox" class:visible={$allocatedContributions[className] != 0}>
+      <div
+        class="item__head__checkbox"
+        class:visible={$allocatedContributions[className] != 0}
+      >
         <Checkbox_ico />
       </div>
       <div class="mob__arrow">
@@ -113,9 +115,10 @@ function handleClickOutside(event) {
           <div
             class="dropdown  {activeState ? activeClass : ''} plan__dropdown"
             on:click={() => (activeState = !activeState)}
-            use:clickOutside on:click_outside={handleClickOutside}
+            use:clickOutside
+            on:click_outside={handleClickOutside}
           >
-            <Dropdown_ico />    
+            <Dropdown_ico />
             <div class="dropdown__item--current">
               {$allocatedContributions[className]}% Total Contribution
             </div>
@@ -137,7 +140,8 @@ function handleClickOutside(event) {
         </div>
         <div class="item__current__money {className}">
           <div class="money">
-            {$contributionData.currencySymbol + priceConvertation(Math.round(currentPrice))}
+            {$contributionData.currencySymbol +
+              priceConvertation(Math.round(currentPrice))}
           </div>
         </div>
       </div>
@@ -210,23 +214,21 @@ function handleClickOutside(event) {
       rgba(244, 225, 252, 0.8) 100.33%
     );
   }
-  .item__head__checkbox,
-  .subscribe__checkbox {
+  .item__head__checkbox {
     width: 24px;
     height: 24px;
     position: relative;
     background: var(--white-color);
     border: 1px solid var(--border-color);
     border-radius: 3px;
-  }
-  .item__head__checkbox{
     opacity: 0;
     transition: all ease 0.2s;
   }
-  .item__head__checkbox.visible{
+
+  .item__head__checkbox.visible {
     opacity: 0.7;
   }
-  
+
   .item__head__name {
     color: var(--white-color);
     text-transform: uppercase;
@@ -367,8 +369,6 @@ function handleClickOutside(event) {
     }
   }
 
-
-
   @media only screen and (max-width: 991px) {
     .plans__item.adventure {
       margin: 0;
@@ -428,5 +428,11 @@ function handleClickOutside(event) {
       max-height: 55rem;
     }
   }
-  
+  @media only screen and (max-width: 480px) {
+    .item__head__checkbox {
+      width: 16px;
+      display: flex;
+      height: 16px;
+    }
+  }
 </style>

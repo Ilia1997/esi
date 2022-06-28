@@ -48,6 +48,7 @@
     class="head__step"
     class:visited={$headSteps.fourthStep}
     class:current={$stepCounter === 4}
+    class:mobactive={$stepCounter === 5}
     data-step="4"
   >
     <StepInformation_ico /><span>Information</span>
@@ -117,6 +118,9 @@
     .head__step {
       display: none;
     }
+    .head__step.mobactive {
+      display: flex;
+    }
 
     .head__step:nth-child(1) {
       max-width: none;
@@ -127,6 +131,7 @@
     .head__step.current + .head__step {
       display: flex;
     }
+ 
     .head__step:nth-child(1) {
       clip-path: polygon(0% 0%, 97% 0, 100% 50%, 97% 100%, 0% 100%);
     }
