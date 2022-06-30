@@ -1,10 +1,14 @@
 <script>
   import Contribution from "./components/contributions/Contribution.svelte";
-  import { onDestroy } from "svelte";
+  import { afterUpdate, onDestroy } from "svelte";
   import HeadSteps from "./components/HeadSteps.svelte";
   import Plan from "./components/plans/Plan.svelte";
   import FinalReview from "./components/FinalReview.svelte";
-  import { stepCounter, successMessageState } from "./stores/store";
+  import {
+    stepCounter,
+    successMessageState,
+    popUpHeight,
+  } from "./stores/store";
   import Legal from "./components/legal/Legal.svelte";
   import Information from "./components/information/Information.svelte";
   import Billing from "./components/billing/Billing.svelte";
@@ -12,13 +16,21 @@
   import SuccessMessage from "./components/SuccessMessage.svelte";
   import { fade } from "svelte/transition";
   let stepCountValue;
+  let mainHeight = "auto";
   const unsubscribe = stepCounter.subscribe((value) => {
     stepCountValue = value;
   });
+  $: {
+    if ($confirmPopUpState === true) {
+      mainHeight = $popUpHeight + "px";
+    } else {
+      mainHeight = "auto";
+    }
+  }
   onDestroy(unsubscribe);
 </script>
 
-<main>
+<main style="height: {mainHeight}">
   <div class="container__form">
     {#if $successMessageState === false}
       <div class="wrapper">
@@ -38,10 +50,10 @@
             </div>
           {:else if stepCountValue === 4}
             <div class="component__wrapper" in:fade={{ duration: 500 }}>
-              <Information />
-            </div>
+          <Information />
+          </div>
           {:else if stepCountValue === 5}
-            <div class="component__wrapper" in:fade={{ duration: 500 }}> 
+            <div class="component__wrapper" in:fade={{ duration: 500 }}>
               <Billing />
             </div>
           {/if}

@@ -8,7 +8,7 @@ export const headSteps = writable({
     fourthStep: false,
     fifthStep: false
 })
-
+export const popUpHeight = writable()
 export function incrementStep() {
     stepCounter.update(n => n + 1)
 }

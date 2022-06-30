@@ -30,7 +30,7 @@
 </script>
 
 <div class="success__message">
-  <div class="success__top"><div>You are now a Green Saver!</div></div>
+  <div class="success__top-sv"><div>You are now a Green Saver!</div></div>
   <div class="success__body">
     <div class="like_h2">
       You have opened your account <span class="green"
@@ -188,7 +188,7 @@
     line-height: var(--h2-line-height);
   }
 
-  .success__top {
+  .success__top-sv {
     position: absolute;
     left: 0%;
     top: 0%;
