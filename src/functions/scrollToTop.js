@@ -1,3 +1,3 @@
-export let scrollToTop = () => {
-    requestAnimationFrame(() => window.scrollTo(0,50));
+export let scrollToTop = (topOffset = 50) => {
+    requestAnimationFrame(() => window.scrollTo(0,topOffset));
 }

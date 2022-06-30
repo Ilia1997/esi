@@ -182,7 +182,7 @@
 
   let nextStep = () => {
     $confirmPopUpState = true;
-    scrollToTop();
+    scrollToTop(0);
   };
 
   afterUpdate(() => {
