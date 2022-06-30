@@ -387,7 +387,7 @@
 
   @media only screen and (max-width: 768px) {
     .pop__up__wrapper {
-      margin: 0;
+      margin: 70px 0 0 0;
       border-radius: 0;
     }
     .pop__up__head {
