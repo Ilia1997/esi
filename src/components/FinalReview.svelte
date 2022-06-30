@@ -5,7 +5,7 @@
   } from "../stores/contributionsStore";
   import { infoFormData } from "../stores//infoStore";
   import { confirmPopUpState, clickOnPrevBtn } from "../stores/infoStore";
-  import { headSteps, incrementStep, stepCounter } from "../stores/store";
+  import { headSteps, incrementStep, stepCounter,popUpHeight } from "../stores/store";
   import { beforeUpdate } from "svelte";
   import { fade } from "svelte/transition";
   import StepContribution_ico from "../../public/images/StepContribution_ico.svelte";
@@ -68,7 +68,7 @@
   });
 </script>
 
-<div class="pop__up" in:fade>
+<div class="pop__up" in:fade bind:clientHeight={$popUpHeight}>
   <div class="pop__up__wrapper">
     <div class="pop__up__head">
       <div class="pop__up_head__text">
