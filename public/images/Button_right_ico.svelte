@@ -14,6 +14,9 @@
     />
 </svg>
 <style>
+  svg.ico.white path{
+    fill: white;
+  }
   svg.disabled path{
     fill: #6a6a6a;
   }

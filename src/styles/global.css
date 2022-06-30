@@ -70,7 +70,9 @@
   --h2-line-height: 54px;
   --h3-line-height: 36px;
   --text-line-height: 24px;
-  
+  --small-text-line-height: 18px;
+
+
   --font-weight-normal: 400;
   --font-weight-medium: 500;
   --font-weight-bold: 600;
@@ -120,6 +122,7 @@ html,
   transition: all ease 0.3s;
   cursor: pointer;
   font-weight: var(--font-weight-bolder);
+  appearance: none;
 }
 .input-sv {
   background: var(--white-color);

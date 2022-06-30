@@ -114,9 +114,11 @@
     return !userNameExistinDB;
   };
   const validatePhoneExistingInDB = async () => {
+   
     let phoneExistinDB = await checkIfPhoneExistInDB(
       $loginData.phoneCode + $loginData.phone
     );
+    
     return !phoneExistinDB;
   };
 
@@ -124,6 +126,7 @@
   const emailrRegEx =
     /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
   async function doLoginData() {
+    formButtonText = 'Load...'
     loginData.aovi // use Aovi validators
       .check("userName")
       .required("Please put your username")
@@ -148,6 +151,7 @@
     } else {
       $infoFormErrorState = true;
     }
+    formButtonText = 'Next'
   }
   const passwordRegEx = /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
   function doSignup() {
