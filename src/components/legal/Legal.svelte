@@ -83,11 +83,14 @@
             </div>
             <Toggle_ico />
           </div>
-          <div slot="body" class="body body-sv">
-            <h3 class="body__head">{item.title}</h3>
+          <div slot="body">
+            <div class="legal__content">
+                <h3 class="body__head">{item.title}</h3>
             <p>
               {item.text}
             </p>
+            </div>
+          
           </div>
         </AccordionItem>
       {/each}
@@ -179,7 +182,7 @@
     color: var(--white-color);
   }
 
-  .body {
+  .legal__content {
     max-width: 1170px;
     margin: 0 15px;
     padding: 0px 40px;
@@ -192,21 +195,21 @@
 
   /* Custom scroll bar */
   /* width */
-  .body::-webkit-scrollbar {
+  .legal__content::-webkit-scrollbar {
     width: 5px;
   }
   /* Track */
-  .body::-webkit-scrollbar-track-piece {
+  .legal__content::-webkit-scrollbar-track-piece {
     border-radius: 10px;
     background: var(--custor-scroll-track);
   }
   /* Track */
-  .body::-webkit-scrollbar-track {
+  .legal__content::-webkit-scrollbar-track {
     border-radius: 10px;
   }
 
   /* Handle */
-  .body::-webkit-scrollbar-thumb {
+  .legal__content::-webkit-scrollbar-thumb {
     background: var(--custor-scroll-tumb);
     border-radius: 10px;
   }
@@ -225,7 +228,7 @@
       border-radius: 0;
       border-bottom: 1px solid var(--border-color-legal);
     }
-    .body {
+    .legal__content {
       padding: 0 17px;
     }
   }
