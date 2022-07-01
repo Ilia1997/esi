@@ -228,6 +228,9 @@
   }
 
   @media only screen and (max-width: 991px) {
+    .contribution__head{
+      padding: 0 1px;
+    }
     .rules {
       border: 2px solid var(--main-text-color);
       border-radius: 20px;
