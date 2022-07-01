@@ -331,4 +331,18 @@
       white-space: nowrap;
     }
   }
+  @media only screen and (max-width: 375px) {
+    .rules__top{
+      padding: 24px 25px 13px 12px;
+    }
+    
+    .rules__val {
+      line-height: 21px;
+      font-size: 15px;
+    }
+    .rules__val span {
+      font-size: 12px;
+    }
+
+  }
 </style>
