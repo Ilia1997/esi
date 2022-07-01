@@ -1,27 +1,32 @@
 <script>
   import DropdownIco from "../../../../public/images/Dropdown_ico.svelte";
   import { clickOutside } from "../../../functions/clickOutside";
-  import {calcInputPhonePadding, coutriesData,selectedCountry} from '../../../stores/infoStore'
+  import {
+    calcInputPhonePadding,
+    coutriesData,
+    selectedCountry,
+  } from "../../../stores/infoStore";
 
   let active = false;
   let countryDropdownWidth;
 
   $: {
     countryDropdownWidth;
-    $calcInputPhonePadding = countryDropdownWidth + 15
+    $calcInputPhonePadding = countryDropdownWidth + 15;
   }
 
   function setActiveCounty(ind) {
     $selectedCountry = coutriesData[ind];
-    console.log($selectedCountry)
+    console.log($selectedCountry);
   }
-    // click outside dropdown
+  // click outside dropdown
   function handleClickOutside(item) {
     if (item === "active") {
       active = false;
     }
   }
 </script>
+
 <div class="tels--dropdown__wrapper">
   <div
     class="country__tels--dropdown"
@@ -90,7 +95,7 @@
     height: 10px;
     margin: 0 10px 0 0;
   }
- 
+
   .dropdown__list {
     position: absolute;
     top: 55px;
@@ -116,5 +121,13 @@
   .country__name {
     margin: 0 15px 0 0;
   }
-
+  @media only screen and (max-width: 480px) {
+    .counry__code {
+      font-size: var(--text-size-smaller);
+      line-height: var(--small-text-line-height);
+    }
+    .country__tels--dropdown {
+      padding-left: 0;
+    }
+  }
 </style>

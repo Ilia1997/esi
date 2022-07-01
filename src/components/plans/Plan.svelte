@@ -167,7 +167,7 @@
 
   .subscribe__text {
     margin-left: 8px;
-    font-weight: 600git;
+    font-weight: var(--font-weight-bold);
     color: var(--color-dark-st5);
   }
   .plans__wrapper {

@@ -14,6 +14,7 @@
   import ErrorMessage from "../ErrorMessage.svelte";
   let changeCounter = 0;
   let amountErrorMessage = "Error message";
+  
   function changeStep() {
     if (validateAmount()) {
       $headSteps.secondStep = true;
@@ -227,6 +228,9 @@
   }
 
   @media only screen and (max-width: 991px) {
+    .contribution__head{
+      padding: 0 1px;
+    }
     .rules {
       border: 2px solid var(--main-text-color);
       border-radius: 20px;
@@ -326,5 +330,19 @@
     .h2-sv {
       white-space: nowrap;
     }
+  }
+  @media only screen and (max-width: 375px) {
+    .rules__top{
+      padding: 24px 25px 13px 12px;
+    }
+    
+    .rules__val {
+      line-height: 21px;
+      font-size: 15px;
+    }
+    .rules__val span {
+      font-size: 12px;
+    }
+
   }
 </style>

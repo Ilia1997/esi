@@ -22,4 +22,9 @@
         filter: grayscale(1);
         opacity: 0.25;
     }
+    @media only screen and (max-width: 480px) {
+        .eye__icon{
+            top: 13px;
+        }
+    }
 </style>
