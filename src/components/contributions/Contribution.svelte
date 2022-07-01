@@ -14,6 +14,7 @@
   import ErrorMessage from "../ErrorMessage.svelte";
   let changeCounter = 0;
   let amountErrorMessage = "Error message";
+  
   function changeStep() {
     if (validateAmount()) {
       $headSteps.secondStep = true;
