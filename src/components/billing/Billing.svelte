@@ -43,22 +43,25 @@
       let index = tabItems.findIndex((object) => {
         return object.name === activeItem.name;
       });
+      console.log(index)
       if (index === 0) {
         checkRequiredAddressFields();
         if ($addressFormStatus) {
           activeItem = tabItems[index + 1];
           $allowItemIndexBilling = $allowItemIndexBilling + 1;
           formButtonText = "Confirm";
+          scrollToTop()
         }
       } else if (index === 1) {
         if ($iBANAddedStatus || $cardAddedStatus) {
           nextButtonState = true;
+          scrollToTop()
         } else {
           $billingeErrorMessage.status = true;
         }
       }
     }
-    scrollToTop()
+   
   }
   function prevTab() {
     if ($allowItemIndexBilling > 1) {
@@ -109,6 +112,7 @@
     if ($addressData.valid) {
       $addressFormStatus = true;
     }else {
+      $addressFormStatus = false;
       scrollToTopInMobile()
     }
   }
@@ -121,16 +125,14 @@
 <svelte:window bind:innerWidth={windowWidth}/>
 <div class="main__wrapper">
   <div class="info__main">
-    <h2 class="h2-sv main__head">
+    <h2 class="h2-sv main__head" bind:this={formWrapper}>
       Payment/Withdrawal <span class="green">Methode</span>
     </h2>
-    <div class="main__tabs" >
-      
+    <div class="main__tabs"  >
         <Tabs {tabItems} />
-        <div bind:this={formWrapper}>
+        <div >
            <svelte:component this={activeItem.component} {addressData} />
         </div>
-       
       
     {#if $billingeErrorMessage.status}
       <div transition:slide|local class="error__message">{$billingeErrorMessage.text}</div>
