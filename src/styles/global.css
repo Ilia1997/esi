@@ -169,7 +169,9 @@ svg.active path {
 }
 .input-sv:not(.error)::placeholder {
   color: var(--black-color);
+
 }
+
 .input-sv.success {
   border: 1px solid var(--color-dark-st3);
   box-shadow: -2px 1px 20px #5b9c422b;
@@ -312,5 +314,18 @@ button:disabled,
   .accordion-item {
     margin-bottom: 0px;
   }
+
 }
+@media only screen and (max-width: 480px) {
+  .input-sv::placeholder, .input-sv {
+    font-size: var(--text-size-smaller);
+    line-height: var( --small-text-line-height);
+  }
+  .input-sv{
+    padding: 16px;
+    height: 50px;
+  }
+
+}
+
 

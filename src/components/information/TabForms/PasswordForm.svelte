@@ -125,7 +125,8 @@
   }
   @media only screen and (max-width: 768px) {
     .info__password__message {
-      padding-left: 0;
+      padding-left: 10px;
+      
     }
   }
 </style>
