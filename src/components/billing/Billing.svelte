@@ -115,6 +115,7 @@
 
   let nextStep = () => {
     $successMessageState = true;
+    scrollToTop()
   };
 </script>
 <svelte:window bind:innerWidth={windowWidth}/>
