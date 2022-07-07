@@ -14,14 +14,22 @@
   import { scrollToTop } from "../../functions/scrollToTop";
   import ErrorMessage from "../ErrorMessage.svelte";
   import Toggle_ico from "../../../public/images/Toggle_ico.svelte";
+  import TermsAndCond from "./content/TermsAndCond.svelte";
+  import Privacy from "./content/Privacy.svelte";
+  import TermOfServices from "./content/TermOfServices.svelte";
+
   let changeCounter = 0;
   let errorMessageState = false;
   let errorMessage;
-
+  const legalComponents = {
+    a: TermsAndCond,
+    b: TermOfServices,
+    c: Privacy,
+  };
   afterUpdate(() => {
     if ($checkboxStates.a && $checkboxStates.b && $checkboxStates.c) {
       $allSelected = true;
-      errorMessageState = false
+      errorMessageState = false;
     } else {
       $allSelected = false;
     }
@@ -85,12 +93,11 @@
           </div>
           <div slot="body">
             <div class="legal__content">
-                <h3 class="body__head">{item.title}</h3>
-            <p>
-              {item.text}
-            </p>
+              <h3 class="body__head">{item.title}</h3>
+              <p>
+                <svelte:component this={legalComponents[item.key]} />
+              </p>
             </div>
-          
           </div>
         </AccordionItem>
       {/each}
@@ -132,8 +139,6 @@
     height: 100%;
   }
 
-  
-
   .header {
     display: flex;
     align-items: center;
@@ -163,6 +168,7 @@
   .input-ch-sv[type="checkbox"]:checked {
     background-image: url("https://uploads-ssl.webflow.com/627ca4b5fcfd5674acf264e6/6298c07528d25ce00212030f_svgexport-6.svg");
     background-position: center;
+    background-size: cover;
   }
   h2.h2-sv {
     margin-bottom: 16px;
@@ -226,10 +232,30 @@
     }
     .header {
       border-radius: 0;
+      padding: 18px 24px 18px 24px;
       border-bottom: 1px solid var(--border-color-legal);
     }
     .legal__content {
       padding: 0 17px;
+    }
+  }
+  @media only screen and (max-width: 480px) {
+    .header .input-ch-sv,
+    .input-ch-sv[type="checkbox"] {
+      width: 16px;
+      height: 16px;
+      min-width: 16px;
+    }
+    .label-sv{
+      font-size: var( --text-size-smaller);
+      line-height: var( --small-text-line-height);
+    }
+    .legal__content {
+      margin: 20px 20px 31px 15px;
+    }
+    
+    .header {
+      padding: 22px 16px 22px 16px;
     }
   }
 </style>

@@ -38,4 +38,5 @@
   svg.active__cb {
     opacity: 1;
   }
+  
 </style>
