@@ -116,7 +116,7 @@
   const validatePhoneExistingInDB = async () => {
    
     let phoneExistinDB = await checkIfPhoneExistInDB(
-      $loginData.phoneCode + $loginData.phone
+      $loginData.phoneCode, $loginData.phone
     );
     
     return !phoneExistinDB;

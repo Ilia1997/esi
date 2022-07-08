@@ -7,7 +7,7 @@ import CountryDropdown from "./CountryDropdown.svelte";
 
 
 $:{
-  $loginData.phoneCode = "%2B"+  $selectedCountry.phoneCode;
+  $loginData.phoneCode = "%2B" +  $selectedCountry?.phoneCode;
 }
 
 </script>

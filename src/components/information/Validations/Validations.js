@@ -8,9 +8,10 @@ export async function checkIfEmailExistInDB(email) {
           return response.json();
         })
         .then((data) => {
-          if (data.valid === "1") {
+          let parsedData = JSON.parse(data)
+          if (parsedData.status === true) {
             status = false;
-          } else if (data.valid === "0") {
+          } else if (parsedData.status === false) {
             status = true;
           }
         });
@@ -44,8 +45,8 @@ export async function checkIfUserNameExistInDB(userName) {
   return status;
 }
 
-export async function checkIfPhoneExistInDB(phone) {
-  const url = `https://be.esi.kdg.com.ua/esi_public/esi_public/backend/checkPhone?phone=${phone}`;
+export async function checkIfPhoneExistInDB(phoneCode,phoneNumber) {
+  const url = `https://be.esi.kdg.com.ua/esi_public/esi_public/backend/checkPhone?phoneCode=${phoneCode}&phoneNumber=${phoneNumber}`;
   let status;
   if(phone.length >= 7)
     try {
@@ -54,9 +55,10 @@ export async function checkIfPhoneExistInDB(phone) {
           return response.json();
         })
         .then((data) => {
-          if (data.valid === "1") {
+          let parsedData = JSON.parse(data)
+          if (parsedData.status === true) {
             status = false;
-          } else if (data.valid === "0") {
+          } else if (parsedData.status === false) {
             status = true;
           }
         });
