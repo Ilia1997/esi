@@ -1,22 +1,24 @@
 <script>
   import DropdownIco from "../../../../public/images/Dropdown_ico.svelte";
   import { clickOutside } from "../../../functions/clickOutside";
+  import {onMount} from 'svelte'
   import {
     calcInputPhonePadding,
-    coutriesData,
+    
     selectedCountry,
   } from "../../../stores/infoStore";
+  import {getCountriesFromDB} from '../../billing/getListCountries'
 
   let active = false;
   let countryDropdownWidth;
-
+  let countries = [];
   $: {
     countryDropdownWidth;
     $calcInputPhonePadding = countryDropdownWidth + 15;
   }
 
   function setActiveCounty(ind) {
-    $selectedCountry = coutriesData[ind];
+    $selectedCountry = countries[ind];
     console.log($selectedCountry);
   }
   // click outside dropdown
@@ -25,6 +27,19 @@
       active = false;
     }
   }
+  
+
+onMount(async () => {
+  let allData = await getCountriesFromDB();
+  
+  let parsedData = JSON.parse(allData)
+  console.log(parsedData)
+  parsedData.data.forEach((item) => {
+    countries = [...countries, item];
+  });
+  $selectedCountry = countries[0];
+  console.log( $selectedCountry)
+});
 </script>
 
 <div class="tels--dropdown__wrapper">
@@ -36,25 +51,27 @@
     on:click_outside={() => handleClickOutside("active")}
     bind:clientWidth={countryDropdownWidth}
   >
-    <div class="current__val">
-      <img
-        src={$selectedCountry.flugImgUrl}
-        alt={$selectedCountry.name}
-        class="flag"
-      />
-      <div class="counry__code">{$selectedCountry.phoneCode}</div>
-      <DropdownIco class="country {active ? 'active' : ''}" />
-    </div>
+  {#if $selectedCountry}
+  <div class="current__val">
+    <img
+      src='data:{$selectedCountry.icon.image.mime || undefined};base64,{$selectedCountry.icon.image.data}'
+      alt={$selectedCountry.countryName}
+      class="flag"
+    />
+    <div class="counry__code">{$selectedCountry.phoneCode}</div>
+    <DropdownIco class="country {active ? 'active' : ''}" />
+  </div>
+  {/if}
     <div class="dropdown__list">
-      {#each coutriesData as county, index}
+      {#each countries as county, index}
         <div
           class="dropdown__list--item"
           on:click={() => {
             setActiveCounty(index);
           }}
         >
-          <img src={county.flugImgUrl} alt={county.name} class="flag" />
-          <div class="country__name">{county.name}</div>
+          <img src='data:{county.icon.image.mime};base64,{county.icon.image.data}' alt={county.countryName} class="flag" />
+          <div class="country__name">{county.countryName}</div>
           <div class="country__code">{county.phoneCode}</div>
         </div>
       {/each}
