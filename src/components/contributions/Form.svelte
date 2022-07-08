@@ -59,11 +59,11 @@
       input = inputNumber;
     }
     let periodData = await getPeriodsFromDB()
-    periodData.forEach((item) => {
-      periods = [...periods, item.name]
+    periodData.data.forEach((item) => {
+      periods = [...periods, item.periodName]
     })
     let currenciesData = await getCurrenciesFromDB()
-    currenciesData.forEach((item)=>{
+    currenciesData.data.forEach((item)=>{
       currencies = [...currencies, item]
     })
   });
