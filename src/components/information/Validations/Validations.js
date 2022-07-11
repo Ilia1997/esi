@@ -45,7 +45,7 @@ export async function checkIfUserNameExistInDB(userName) {
   return status;
 }
 
-export async function checkIfPhoneExistInDB(phoneCode,phoneNumber) {
+export async function checkIfPhoneExistInDB(phoneCode, phoneNumber) {
   const url = `https://be.esi.kdg.com.ua/esi_public/esi_public/backend/checkPhone?phoneCode=${phoneCode}&phoneNumber=${phoneNumber}`;
   let status;
   if(phone.length >= 7)
