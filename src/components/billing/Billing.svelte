@@ -81,6 +81,8 @@
   const addressData = aoviSvelte({
     firstName: "",
     lastName: "",
+    gender: '',
+    dateOfBirdth: "",
     streetNumber: "",
     city: "",
     country: "",
@@ -97,11 +99,13 @@
       .required("Last Name is required")
       .minLength(3, "Last Name should be at least 3 symbols length")
       .maxLength(20, "Last Name must be no more than 20 characters")
+      .check("gender")
+      .required("Gender is required")
+      .check("dateOfBirdth")
+      .required("Date of Birdth is required")
       .check("streetNumber")
       .required("Street is required")
       .check("city")
-      .required()
-      .check("country")
       .required()
       .check("postal")
       .required()
