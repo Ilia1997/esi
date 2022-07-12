@@ -36,7 +36,9 @@
   let currentDay = new Date().getDate();
   let paymentMounthIndex = currentMonthIndex + 1;
 
-  $: $contributionData.nextPaymentMonth = months[paymentMounthIndex];
+  $:{ currencies, periods
+     $contributionData.nextPaymentMonth = months[paymentMounthIndex];
+  }
 
 
   afterUpdate(() => {
