@@ -8,6 +8,7 @@
     selectedCountry,
   } from "../../../stores/infoStore";
   import {getCountriesFromDB} from '../../billing/getListCountries'
+import Preloader from "../../Preloader.svelte";
 
   let active = false;
   let countryDropdownWidth;
@@ -31,10 +32,10 @@
 
 onMount(async () => {
   let allData = await getCountriesFromDB();
-  
-  let parsedData = JSON.parse(allData)
-  console.log(parsedData)
-  parsedData.data.forEach((item) => {
+  // console.log(allData)
+  // let parsedData = JSON.parse(allData)
+  // console.log(parsedData)
+  allData.data.forEach((item) => {
     countries = [...countries, item];
   });
   $selectedCountry = countries[0];
@@ -51,6 +52,9 @@ onMount(async () => {
     on:click_outside={() => handleClickOutside("active")}
     bind:clientWidth={countryDropdownWidth}
   >
+  {#if !$selectedCountry}
+    <Preloader loaderWidth={2} loaderHeight={2}/>
+  {/if}
   {#if $selectedCountry}
   <div class="current__val">
     <img

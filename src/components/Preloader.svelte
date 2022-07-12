@@ -1,5 +1,5 @@
 <div class="loader__wrapper">
-    <div class="loader"></div>
+    <div class="loader" style="width: {$$props.loaderWidth}rem; height: {$$props.loaderHeight}rem"></div>
 </div>
 
 
@@ -8,14 +8,12 @@
   height: 100%;
   display: grid;
   place-items: center;
-  background-color: aliceblue;
 }
+
 .loader {
-  height: 9rem;
-  width: 9rem;
   border-radius: 50%;
-  border: 10px solid var(--plan-safe-bg);
-  border-top-color: var(--custor-scroll-tumb);
+  border: 5px solid var(--custor-scroll-tumb);
+  border-top-color: var(--plan-safe-bg );
   box-sizing: border-box;
   background: transparent;
   animation: loading 1s linear infinite;

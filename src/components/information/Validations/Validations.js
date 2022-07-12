@@ -7,8 +7,9 @@ export async function checkIfEmailExistInDB(email) {
         .then((response) => {
           return response.json();
         })
-        .then((data) => {
-          let parsedData = JSON.parse(data)
+        .then((parsedData) => {
+
+          // let parsedData = JSON.parse(data)
           if (parsedData.status === true) {
             status = false;
           } else if (parsedData.status === false) {
@@ -48,14 +49,14 @@ export async function checkIfUserNameExistInDB(userName) {
 export async function checkIfPhoneExistInDB(phoneCode, phoneNumber) {
   const url = `https://be.esi.kdg.com.ua/esi_public/esi_public/backend/checkPhone?phoneCode=${phoneCode}&phoneNumber=${phoneNumber}`;
   let status;
-  if(phone.length >= 7)
+  if(phoneNumber.length >= 7)
     try {
       await fetch(url)
         .then((response) => {
           return response.json();
         })
-        .then((data) => {
-          let parsedData = JSON.parse(data)
+        .then((parsedData) => {
+          // let parsedData = JSON.parse(data)
           if (parsedData.status === true) {
             status = false;
           } else if (parsedData.status === false) {
