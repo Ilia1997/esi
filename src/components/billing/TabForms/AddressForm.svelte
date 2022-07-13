@@ -4,6 +4,7 @@
   import dayjs from "dayjs";
   import DropdownIco from "../../../../public/images/Dropdown_ico.svelte";
   import { clickOutside } from "../../../functions/clickOutside";
+  import { contributionData } from "../../../stores/contributionsStore";
 
   export let addressData;
   let activeGender = false;
@@ -151,7 +152,7 @@
         class="input-sv"
         placeholder="City *"
         autocomplete
-        value={country}
+        value={$contributionData.country.countryName}
         disabled
       />
      
@@ -226,6 +227,7 @@
     display: grid;
     grid-template-columns: 240px 240px;
     grid-gap: 8px;
+    margin: 24px 0;
   }
   .input-sv__wrapper {
     width: 100%;

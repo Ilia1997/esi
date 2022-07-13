@@ -5,7 +5,12 @@
   } from "../stores/contributionsStore";
   import { infoFormData } from "../stores//infoStore";
   import { confirmPopUpState, clickOnPrevBtn } from "../stores/infoStore";
-  import { headSteps, incrementStep, stepCounter,popUpHeight } from "../stores/store";
+  import {
+    headSteps,
+    incrementStep,
+    stepCounter,
+    popUpHeight,
+  } from "../stores/store";
   import { beforeUpdate } from "svelte";
   import { fade } from "svelte/transition";
   import StepContribution_ico from "../../public/images/StepContribution_ico.svelte";
@@ -26,20 +31,27 @@
   $: currentYear;
 
   if ($contributionData.nextPaymentMonth === "January") {
-    if ($contributionData.period === "Monthly") {
+    if ($contributionData.country.period === "Monthly") {
       currentYear = currentYear + 1;
-    } else if ($contributionData.period === "Bi-Monthly" && currentDay >= 15) {
+    } else if (
+      $contributionData.country.period === "Bi-Monthly" &&
+      currentDay >= 15
+    ) {
       currentYear = currentYear + 1;
     }
   }
-  let confirmAllData = () => {
-    $confirmPopUpState = false;
+  let confirmAllData = async () => {
+    const status = await createUserInDB();
+    console.log(status)
+    if(status){
+      $confirmPopUpState = false;
     $headSteps.fifthStep = true;
     if (changeCounter === 0) {
       incrementStep();
       changeCounter += 1;
     }
     scrollToTop();
+    }
   };
   let closePopUp = () => {
     $confirmPopUpState = false;
@@ -56,6 +68,45 @@
   let safePrice = 0,
     adventurePrice = 0,
     founderPrice = 0;
+
+  // create user in db
+  async function createUserInDB() {
+    let status = false;
+    const userData = {
+      username: $infoFormData.userName,
+      phoneCode: $contributionData.country.phoneCode,
+      phoneNumber: $infoFormData.phone,
+      email: $infoFormData.email,
+      password: $infoFormData.password,
+      countryId: $contributionData.country.countryId,
+      periodId: $contributionData.period.periodId,
+      amount: $contributionData.amount,
+      greenSafe: $allocatedContributions.safe,
+      greenAdventure: $allocatedContributions.adventure,
+      greenFounder: $allocatedContributions.founder,
+    };
+    console.log(userData);
+    const mainEndpoint =
+      "https://be.esi.kdg.com.ua/esi_public/esi_public/backend/createClient";
+    try {
+      const rawResponse = await fetch(mainEndpoint, {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(userData),
+      });
+      const content = await rawResponse.json();
+      console.log('content',content)
+      status = content.status;
+      localStorage.setItem('token-register', content.data.token)
+     // console.log(content.data.token);
+    } catch (e) {
+      alert(e.message)
+    }
+    return status;
+  }
 
   beforeUpdate(() => {
     safePrice =
@@ -98,10 +149,11 @@
           </div>
           <div class="item__body">
             <div class="text">
-              {$contributionData.currencySymbol}{priceConvertation(
+              {$contributionData.country.currency.symbol}{priceConvertation(
                 $contributionData.monthlyValue
               )}
-              {$contributionData.currency} per Month Starting {$contributionData.nextPaymentDay}th {$contributionData.nextPaymentMonth}
+              {$contributionData.country.currency.code} per Month Starting {$contributionData.nextPaymentDay}th
+              {$contributionData.nextPaymentMonth}
               {currentYear}
             </div>
           </div>
@@ -128,7 +180,7 @@
               <div class="name">Safe</div>
               <div class="persentage">{$allocatedContributions.safe}%</div>
               <div class="money">
-                {$contributionData.currencySymbol}{priceConvertation(
+                {$contributionData.country.currency.symbol}{priceConvertation(
                   Math.round(safePrice)
                 )}
               </div>
@@ -137,7 +189,7 @@
               <div class="name">Adventure</div>
               <div class="persentage">{$allocatedContributions.adventure}%</div>
               <div class="money">
-                {$contributionData.currencySymbol}{priceConvertation(
+                {$contributionData.country.currency.symbol}{priceConvertation(
                   Math.round(adventurePrice)
                 )}
               </div>
@@ -146,7 +198,7 @@
               <div class="name">Founder</div>
               <div class="persentage">{$allocatedContributions.founder}%</div>
               <div class="money">
-                {$contributionData.currencySymbol}{priceConvertation(
+                {$contributionData.country.currency.symbol}{priceConvertation(
                   Math.round(founderPrice)
                 )}
               </div>
@@ -229,7 +281,11 @@
     width: 100%;
     padding: 35px;
     /* dark-green */
-    background: linear-gradient(249.52deg, var(--color-grad-dark) 0%, var(--color-grad-light) 100%);
+    background: linear-gradient(
+      249.52deg,
+      var(--color-grad-dark) 0%,
+      var(--color-grad-light) 100%
+    );
     position: relative;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;

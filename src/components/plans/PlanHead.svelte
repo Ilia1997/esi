@@ -18,7 +18,7 @@
         Contribution
       </div>
       <div class="plans__val">
-        {data.currencySymbol}{moVal ? priceConvertation(moVal) : 0}<span>/mo</span>
+        {data.country.currency.symbol}{priceConvertation(moVal)}<span>/mo</span>
       </div>
     </div>
 

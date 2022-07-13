@@ -8,6 +8,7 @@
     stepCounter,
     successMessageState,
     popUpHeight,
+    headSteps
   } from "./stores/store";
   import Legal from "./components/legal/Legal.svelte";
   import Information from "./components/information/Information.svelte";
@@ -27,6 +28,7 @@
       mainHeight = "auto";
     }
   }
+
   onDestroy(unsubscribe);
 </script>
 

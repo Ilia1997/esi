@@ -140,7 +140,7 @@
         </div>
         <div class="item__current__money {className}">
           <div class="money">
-            {$contributionData.currencySymbol +
+            {$contributionData.country.currency.symbol +
               priceConvertation(Math.round(currentPrice * 100) / 100)}
           </div>
         </div>

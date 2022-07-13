@@ -9,12 +9,13 @@
   import { clickOutside } from "../../functions/clickOutside";
   import { checkInputValue } from "../../functions/checkInputValue";
   import { onMount, text } from "svelte/internal";
-  import {getPeriodsFromDB,getCurrenciesFromDB} from './getDataFromDB'
+  import {getPeriodsFromDB,getCountriesFromDB} from './getDataFromDB'
+import Preloader from "../Preloader.svelte";
 
   let activePeriod = false;
-  let activeCurrency = false;
+  let activeCountry = false;
   let periods = [];
-  let currencies = [];
+  let countries = [];
 
   const months = [
     "January",
@@ -36,7 +37,7 @@
   let currentDay = new Date().getDate();
   let paymentMounthIndex = currentMonthIndex + 1;
 
-  $:{ currencies, periods
+  $:{ countries, periods
      $contributionData.nextPaymentMonth = months[paymentMounthIndex];
   }
 
@@ -62,29 +63,36 @@
     }
     let periodData = await getPeriodsFromDB()
     periodData.data.forEach((item) => {
-      periods = [...periods, item.periodName]
+      periods = [...periods, item]
     })
-    let currenciesData = await getCurrenciesFromDB()
-    currenciesData.data.forEach((item)=>{
-      currencies = [...currencies, item]
+    let countriesData = await getCountriesFromDB()
+    countriesData.data.forEach((item)=>{
+      countries = [...countries, item]
     })
+    $contributionData.period = periods[0]
+    let usaData ;
+    countries.forEach(item=>{
+      if(item.countryId === 5235134){
+        usaData =  item
+      }
+    })
+    $contributionData.country =  usaData
   });
 
   function setPeriod(value) {
     // set data to our store
     $contributionData.period = value;
   }
-  function showCurrency(value) {
+  function showCountry(value) {
     // set data to our store
-    $contributionData.currency = value.code;
-    $contributionData.currencySymbol = value.symbol;
+    $contributionData.country = value;
   }
   // click outside dropdown
   function handleClickOutside(item) {
     if (item === "activePeriod") {
       activePeriod = false;
-    } else if (item === "activeCurrency") {
-      activeCurrency = false;
+    } else if (item === "activeCountry") {
+      activeCountry = false;
     }
   }
 </script>
@@ -101,44 +109,56 @@
           use:clickOutside
           on:click_outside={() => handleClickOutside("activePeriod")}
         >
+        {#if periods.length === 0}
+        <Preloader  loaderWidth={1.5} loaderHeight={1.5} borderWidth={0.3} />
+        {:else}
           <Dropdown_ico class="contribution" />
-          <div class="dropdown__item--current">{$contributionData.period}</div>
+          <div class="dropdown__item--current">{$contributionData.period.periodName || 'Monthly'}</div>
           <div class="dropdown__items">
             {#each periods as period}
               <div class="dropdown__item" on:click={() => setPeriod(period)}>
-                {period}
+                {period.periodName}
               </div>
             {/each}
           </div>
+          {/if}
         </div>
       </div>
     </div>
     <div class="currency">
-      <div class="label__text">Currency*</div>
-      <div class="dropdown__wrapper">
+      <div class="label__text">Country*</div>
+     
+    
+      <div class="dropdown__wrapper country">
         <div
           class="dropdown"
-          class:activeCurrency
-          on:click={() => (activeCurrency = !activeCurrency)}
+          class:activeCountry
+          on:click={() => (activeCountry = !activeCountry)}
           use:clickOutside
-          on:click_outside={() => handleClickOutside("activeCurrency")}
+          on:click_outside={() => handleClickOutside("activeCountry")}
         >
+        {#if countries.length === 0}
+        <Preloader  loaderWidth={1.5} loaderHeight={1.5} borderWidth={0.3} />
+        {:else}
           <Dropdown_ico class="contribution" />
           <div class="dropdown__item--current">
-            {$contributionData.currency}
+            {$contributionData.country.countryName || 'Chouse country'}
           </div>
           <div class="dropdown__items">
-            {#each currencies as currency}
+            {#each countries as country}
               <div
                 class="dropdown__item"
-                on:click={() => showCurrency(currency)}
+                on:click={() => showCountry(country)}
               >
-                {currency.code}
+                {country.countryName}
               </div>
             {/each}
           </div>
+          {/if}
         </div>
       </div>
+      
+     
     </div>
 
     <div class="amount" bind:this={inputNumber}>
@@ -167,7 +187,6 @@
     *Min. <span>$20</span> and <span> $9,999</span> Total contribution
   </div>
 </div>
-
 <style>
   .contribution__form form {
     display: flex;
@@ -231,6 +250,9 @@
     width: 180px;
     height: 70px;
   }
+  .dropdown__wrapper.country {
+    width: 215px;
+  }
   .dropdown {
     position: absolute;
     width: 100%;
@@ -253,17 +275,17 @@
   }
 
   .dropdown.activePeriod,
-  .dropdown.activeCurrency {
+  .dropdown.activeCountry {
     background-color: var(--white-color);
     padding: 11px 0;
   }
 
   .dropdown.activePeriod .dropdown__item--current,
-  .dropdown.activeCurrency .dropdown__item--current {
+  .dropdown.activeCountry .dropdown__item--current {
     display: none;
   }
   .dropdown.activePeriod .dropdown__items,
-  .dropdown.activeCurrency .dropdown__items {
+  .dropdown.activeCountry .dropdown__items {
     display: block;
   }
 
