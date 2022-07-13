@@ -10,6 +10,7 @@
     incrementStep,
     stepCounter,
     popUpHeight,
+    userAuthToken,
   } from "../stores/store";
   import { beforeUpdate } from "svelte";
   import { fade } from "svelte/transition";
@@ -42,15 +43,15 @@
   }
   let confirmAllData = async () => {
     const status = await createUserInDB();
-    console.log(status)
-    if(status){
+    console.log(status);
+    if (status) {
       $confirmPopUpState = false;
-    $headSteps.fifthStep = true;
-    if (changeCounter === 0) {
-      incrementStep();
-      changeCounter += 1;
-    }
-    scrollToTop();
+      $headSteps.fifthStep = true;
+      if (changeCounter === 0) {
+        incrementStep();
+        changeCounter += 1;
+      }
+      scrollToTop();
     }
   };
   let closePopUp = () => {
@@ -98,12 +99,10 @@
         body: JSON.stringify(userData),
       });
       const content = await rawResponse.json();
-      console.log('content',content)
       status = content.status;
-      localStorage.setItem('token-register', content.data.token)
-     // console.log(content.data.token);
+      $userAuthToken = content.data.token;
     } catch (e) {
-      alert(e.message)
+      alert(e.message);
     }
     return status;
   }

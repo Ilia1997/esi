@@ -11,6 +11,7 @@
     billingeErrorMessage
   } from "../../stores/billingStore";
   import { successMessageState } from "../../stores/store";
+  import {contributionData} from '../../stores/contributionsStore'
   import ButtonRight from "../buttons/ButtonRight.svelte";
   import Button_back_ico from "../../../public/images/Button_back_ico.svelte";
   import { aoviSvelte } from "aovi-svelte";
@@ -76,6 +77,40 @@
       }
     }
     scrollToTop()
+  }
+
+  // create user in db
+  async function updateUserInDB() {
+    let status = false;
+    const userData = {
+      firstName: $addressData.firstName,
+      lastName: $addressData.lastName,
+      address : $addressData.streetNumber,
+      city : $addressData.city,
+      countryId: $contributionData.country.countryId,
+      zipCode: $addressData.postal,
+      dob : $addressData.dateOfBirdth,
+      sex : $addressData.gender,
+    };
+    console.log(userData);
+    const mainEndpoint =
+      "https://be.esi.kdg.com.ua/esi_public/esi_public/backend/updateClient";
+    try {
+      const rawResponse = await fetch(mainEndpoint, {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(userData),
+      });
+      const content = await rawResponse.json();
+      status = content.status;
+      // $userAuthToken = content.data.token;
+    } catch (e) {
+      alert(e.message);
+    }
+    return status;
   }
 
   const addressData = aoviSvelte({

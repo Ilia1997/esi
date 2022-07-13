@@ -18,6 +18,7 @@ export function decrementStep() {
     }
 }
 export const successMessageState = writable(false)
+export const userAuthToken = writable()
 
 export let subscribeAllState = writable(false)
 
