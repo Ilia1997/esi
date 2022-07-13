@@ -8,26 +8,27 @@
     selectedCountry,
   } from "../../../stores/infoStore";
   import {getCountriesFromDB} from '../../billing/getListCountries'
+  import {contributionData} from '../../../stores/contributionsStore'
 import Preloader from "../../Preloader.svelte";
 
   let active = false;
   let countryDropdownWidth;
-  let countries = [];
+ // let countries = [];
   $: {
     countryDropdownWidth;
     $calcInputPhonePadding = countryDropdownWidth + 15;
   }
 
-  function setActiveCounty(ind) {
-    $selectedCountry = countries[ind];
-    console.log($selectedCountry);
-  }
+  // function setActiveCounty(ind) {
+  //   $selectedCountry = countries[ind];
+  //   console.log($selectedCountry);
+  // }
   // click outside dropdown
-  function handleClickOutside(item) {
-    if (item === "active") {
-      active = false;
-    }
-  }
+  // function handleClickOutside(item) {
+  //   if (item === "active") {
+  //     active = false;
+  //   }
+  // }
   
 
 onMount(async () => {
@@ -41,32 +42,27 @@ onMount(async () => {
   $selectedCountry = countries[0];
   console.log( $selectedCountry)
 });
+console.log($contributionData)
 </script>
 
 <div class="tels--dropdown__wrapper">
   <div
     class="country__tels--dropdown"
-    class:active
-    on:click={() => (active = !active)}
-    use:clickOutside
-    on:click_outside={() => handleClickOutside("active")}
     bind:clientWidth={countryDropdownWidth}
   >
-  {#if !$selectedCountry}
-    <Preloader loaderWidth={2} loaderHeight={2}/>
-  {/if}
-  {#if $selectedCountry}
+ 
+
   <div class="current__val">
     <img
-      src='data:{$selectedCountry.icon.image.mime || undefined};base64,{$selectedCountry.icon.image.data}'
-      alt={$selectedCountry.countryName}
+      src='data:{$contributionData.country.icon.image.mime || undefined};base64,{$contributionData.country.icon.image.data}'
+      alt={$contributionData.country.countryName}
       class="flag"
     />
-    <div class="counry__code">{$selectedCountry.phoneCode}</div>
-    <DropdownIco class="country {active ? 'active' : ''}" />
+    <div class="counry__code">{$contributionData.country.phoneCode}</div>
+    <!-- <DropdownIco class="country {active ? 'active' : ''}" /> -->
   </div>
-  {/if}
-    <div class="dropdown__list">
+
+    <!-- <div class="dropdown__list">
       {#each countries as county, index}
         <div
           class="dropdown__list--item"
@@ -79,7 +75,7 @@ onMount(async () => {
           <div class="country__code">{county.phoneCode}</div>
         </div>
       {/each}
-    </div>
+    </div> -->
   </div>
 </div>
 
@@ -100,7 +96,7 @@ onMount(async () => {
     justify-content: flex-start;
     align-items: center;
     padding-left: 15px;
-    padding-right: 30px;
+    padding-right: 15px;
     cursor: pointer;
   }
   .country__tels--dropdown.active .dropdown__list {
