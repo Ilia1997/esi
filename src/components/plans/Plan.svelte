@@ -38,7 +38,7 @@
       errorMessageState = false;
     } else {
       errorMessageState = true;
-      errorMessage = "Chouse all 100% of your money";
+      errorMessage = "Please allocate all 100% of your money";
     }
   };
   let validate = () => {

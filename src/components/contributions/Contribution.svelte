@@ -42,16 +42,16 @@
   }
 
   let moVal = data.monthlyValue,
-    yrVal = 7200,
-    fiveYrVal = 36000;
+    yrVal = 0,
+    fiveYrVal = 0;
 
   beforeUpdate(() => {
     // if period monthly - set current value
-    if (data.period === "Monthly") {
+    if (data.period.periodName === "Monthly") {
       moVal = data.amount;
       $contributionData.monthlyValue = moVal;
       // if bi-monthly - divide value into two
-    } else if (data.period === "Bi-Monthly") {
+    } else if (data.period.periodName === "Bi-Monthly") {
       moVal = data.amount * 2;
       $contributionData.monthlyValue = moVal;
     }
@@ -66,7 +66,6 @@
 
   onDestroy(unsubscribe);
 </script>
-
 <div class="contribution__main">
   <div class="column-left">
     <div>
@@ -87,7 +86,7 @@
               </div>
               <div class="rules__val__wrapper">
                 <div class="rules__val">
-                  {data.currencySymbol}{moVal
+                  {data.country?.currency?.symbol || '$'}{moVal
                     ? priceConvertation(moVal)
                     : 0}<span>/mo</span>
                 </div>
@@ -99,7 +98,7 @@
               </div>
               <div class="rules__val__wrapper">
                 <div class="rules__val">
-                  {data.currencySymbol}{priceConvertation(yrVal)}<span>/yr</span
+                  {data.country?.currency?.symbol || '$'}{priceConvertation(yrVal)}<span>/yr</span
                   >
                 </div>
               </div>
@@ -111,7 +110,7 @@
               </div>
               <div class="rules__val__wrapper">
                 <div class="rules__val">
-                  {data.currencySymbol}{priceConvertation(fiveYrVal)}<span
+                  {data.country?.currency?.symbol || '$'}{priceConvertation(fiveYrVal)}<span
                     >/5yrs</span
                   >
                 </div>
