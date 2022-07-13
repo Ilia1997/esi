@@ -26,9 +26,9 @@
   $: currentYear;
 
   if ($contributionData.nextPaymentMonth === "January") {
-    if ($contributionData.period === "Monthly") {
+    if ($contributionData.country.period === "Monthly") {
       currentYear = currentYear + 1;
-    } else if ($contributionData.period === "Bi-Monthly" && currentDay >= 15) {
+    } else if ($contributionData.country.period === "Bi-Monthly" && currentDay >= 15) {
       currentYear = currentYear + 1;
     }
   }
@@ -98,10 +98,10 @@
           </div>
           <div class="item__body">
             <div class="text">
-              {$contributionData.currencySymbol}{priceConvertation(
+              {$contributionData.country.currency.symbol}{priceConvertation(
                 $contributionData.monthlyValue
               )}
-              {$contributionData.currency} per Month Starting {$contributionData.nextPaymentDay}th {$contributionData.nextPaymentMonth}
+              {$contributionData.country.currency.code} per Month Starting {$contributionData.nextPaymentDay}th {$contributionData.nextPaymentMonth}
               {currentYear}
             </div>
           </div>
@@ -128,7 +128,7 @@
               <div class="name">Safe</div>
               <div class="persentage">{$allocatedContributions.safe}%</div>
               <div class="money">
-                {$contributionData.currencySymbol}{priceConvertation(
+                {$contributionData.country.currency.symbol}{priceConvertation(
                   Math.round(safePrice)
                 )}
               </div>
@@ -137,7 +137,7 @@
               <div class="name">Adventure</div>
               <div class="persentage">{$allocatedContributions.adventure}%</div>
               <div class="money">
-                {$contributionData.currencySymbol}{priceConvertation(
+                {$contributionData.country.currency.symbol}{priceConvertation(
                   Math.round(adventurePrice)
                 )}
               </div>
@@ -146,7 +146,7 @@
               <div class="name">Founder</div>
               <div class="persentage">{$allocatedContributions.founder}%</div>
               <div class="money">
-                {$contributionData.currencySymbol}{priceConvertation(
+                {$contributionData.country.currency.symbol}{priceConvertation(
                   Math.round(founderPrice)
                 )}
               </div>
