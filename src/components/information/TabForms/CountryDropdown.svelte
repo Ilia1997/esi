@@ -1,19 +1,17 @@
 <script>
-  import DropdownIco from "../../../../public/images/Dropdown_ico.svelte";
-  import { clickOutside } from "../../../functions/clickOutside";
-  import {onMount} from 'svelte'
+  // import DropdownIco from "../../../../public/images/Dropdown_ico.svelte";
+  // import { clickOutside } from "../../../functions/clickOutside";
+  import { onMount } from "svelte";
   import {
     calcInputPhonePadding,
-    
     selectedCountry,
   } from "../../../stores/infoStore";
-  import {getCountriesFromDB} from '../../billing/getListCountries'
-  import {contributionData} from '../../../stores/contributionsStore'
-import Preloader from "../../Preloader.svelte";
+  import { getCountriesFromDB } from "../../billing/getListCountries";
+  import { contributionData } from "../../../stores/contributionsStore";
 
-  let active = false;
+  // let active = false;
   let countryDropdownWidth;
- // let countries = [];
+  // let countries = [];
   $: {
     countryDropdownWidth;
     $calcInputPhonePadding = countryDropdownWidth + 15;
@@ -29,38 +27,33 @@ import Preloader from "../../Preloader.svelte";
   //     active = false;
   //   }
   // }
-  
 
-onMount(async () => {
-  let allData = await getCountriesFromDB();
-  // console.log(allData)
-  // let parsedData = JSON.parse(allData)
-  // console.log(parsedData)
-  allData.data.forEach((item) => {
-    countries = [...countries, item];
+  onMount(async () => {
+    // let allData = await getCountriesFromDB();
+    // console.log(allData)
+    // let parsedData = JSON.parse(allData)
+    // console.log(parsedData)
+    // allData.data.forEach((item) => {
+    //   countries = [...countries, item];
+    // });
+    // $selectedCountry = countries[0];
+    // console.log($selectedCountry);
   });
-  $selectedCountry = countries[0];
-  console.log( $selectedCountry)
-});
-console.log($contributionData)
+  //console.log($contributionData);
 </script>
 
 <div class="tels--dropdown__wrapper">
-  <div
-    class="country__tels--dropdown"
-    bind:clientWidth={countryDropdownWidth}
-  >
- 
-
-  <div class="current__val">
-    <img
-      src='data:{$contributionData.country.icon.image.mime || undefined};base64,{$contributionData.country.icon.image.data}'
-      alt={$contributionData.country.countryName}
-      class="flag"
-    />
-    <div class="counry__code">{$contributionData.country.phoneCode}</div>
-    <!-- <DropdownIco class="country {active ? 'active' : ''}" /> -->
-  </div>
+  <div class="country__tels--dropdown" bind:clientWidth={countryDropdownWidth}>
+    <div class="current__val">
+      <img
+        src="data:{$contributionData.country.icon.image.mime ||
+          undefined};base64,{$contributionData.country.icon.image.data}"
+        alt={$contributionData.country.countryName}
+        class="flag"
+      />
+      <div class="counry__code">{$contributionData.country.phoneCode}</div>
+      <!-- <DropdownIco class="country {active ? 'active' : ''}" /> -->
+    </div>
 
     <!-- <div class="dropdown__list">
       {#each countries as county, index}

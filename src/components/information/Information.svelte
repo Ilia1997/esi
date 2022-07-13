@@ -99,7 +99,6 @@
 
   const validateEmailExistingInDB = async () => {
     let emailExistinDB = await checkIfEmailExistInDB($loginData.email);
-    console.log(emailExistinDB)
     return !emailExistinDB;
   };
   const validateUserName = async () => {

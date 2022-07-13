@@ -76,7 +76,6 @@ import Preloader from "../Preloader.svelte";
         usaData =  item
       }
     })
-    console.log(usaData)
     $contributionData.country =  usaData
   });
 

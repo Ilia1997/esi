@@ -43,7 +43,7 @@
       let index = tabItems.findIndex((object) => {
         return object.name === activeItem.name;
       });
-      console.log(index)
+     
       if (index === 0) {
         checkRequiredAddressFields();
         if ($addressFormStatus) {
