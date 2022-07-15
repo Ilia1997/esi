@@ -23,6 +23,7 @@
   "dependencies": {
     "aovi-svelte": "^0.2.5",
     "dotenv": "^16.0.1",
+    "flatpickr": "^4.6.13",
     "sirv-cli": "^2.0.0",
     "svelte-collapsible": "^0.2.1"
   }

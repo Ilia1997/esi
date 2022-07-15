@@ -141,16 +141,23 @@
     }
   }
 
-  let nextStep = () => {
-    $successMessageState = true;
-    scrollToTop();
-  };
+  // let nextStep = () => {
+  //   $successMessageState = true;
+  //   scrollToTop();
+  // };
   onMount(() => {
     getClientSecret($userAuthToken);
   });
 </script>
 
 <svelte:window bind:innerWidth={windowWidth} />
+
+<svelte:head>
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css"
+  />
+</svelte:head>
 <div class="main__wrapper">
   <div class="info__main">
     <h2 class="h2-sv main__head" bind:this={formWrapper}>
@@ -182,10 +189,10 @@
       </div>
     </div>
   </div>
-  <div class="bottom__btns billing">
-    <!-- //nextButtonState -->
-    <ButtonRight on:click={nextStep} buttonState={nextButtonState} />
-  </div>
+  <!-- <div class="bottom__btns billing"> -->
+  <!-- //nextButtonState -->
+  <!-- <ButtonRight on:click={nextStep} buttonState={nextButtonState} /> -->
+  <!-- </div> -->
 </div>
 
 <style>

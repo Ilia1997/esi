@@ -5,17 +5,18 @@
   import DropdownIco from "../../../../public/images/Dropdown_ico.svelte";
   import { clickOutside } from "../../../functions/clickOutside";
   import { contributionData } from "../../../stores/contributionsStore";
+import { onMount } from "svelte";
+import flatpickr from "flatpickr";
 
   export let addressData;
   let activeGender = false;
   let gender;
   let dob;
-  $: {
-    dob;
-    if ($dob?.hasChosen) {
-      $addressData.dateOfBirdth = dayjs($dob.selected).format("YYYY-MM-DD");
-    }
-  }
+
+  let datePicker;
+  $: datePicker;
+  
+
   let handleClickOutside = () => {
     activeGender = false;
   };
@@ -23,7 +24,17 @@
     $addressData.gender = item;
     gender = item;
   };
+  onMount(()=>{
+   flatpickr(datePicker, {
+    onChange: function(selectedDates, dateStr, instance) {
+      $addressData.dateOfBirdth = dateStr
+    },
+    defaultDate: $addressData.dateOfBirdth || null
+   });
+  })
 </script>
+
+
 
 <div class="tab__wrapper" in:fade>
   <div class="tab__head">Address</div>
@@ -73,7 +84,7 @@
           use:clickOutside
           on:click_outside={() => handleClickOutside()}
         >
-          <DropdownIco />
+          <DropdownIco class={'gender'}/>
           <div class="dropdown__item--current">{gender || "Gender*"}</div>
           <div class="dropdown__items">
             <div class="dropdown__item" on:click={() => setGender("Male")}>
@@ -92,20 +103,14 @@
       {/if}
     </div>
 
-    <div class="input-sv__wrapper">
-      <Datepicker bind:store={dob} let:key let:send let:receive>
-        <input
-          class="input-sv small"
-          style="max-width: 240px;"
-          class:error={$addressData.err.dateOfBirdth}
-          on:focus={addressData.clear}
-          in:receive|local={{ key }}
-          out:send|local={{ key }}
-          placeholder={$dob?.hasChosen
-            ? dayjs($dob.selected).format("MMM D, YYYY")
-            : "Date Of Birth*"}
-        />
-      </Datepicker>
+    <div class="input-sv__wrapper" >
+      <input
+      class="input-sv small date"
+      class:error={$addressData.err.dateOfBirdth}
+      bind:this={datePicker}
+      on:focus={addressData.clear}
+      placeholder={"Date Of Birth*"}
+    />
       {#if $addressData.err.dateOfBirdth}
         <p transition:slide|local class="error__message ">
           {$addressData.err.dateOfBirdth}
@@ -154,7 +159,6 @@
         value={$contributionData.country.countryName}
         disabled
       />
-     
     </div>
 
     <div class="input-sv__wrapper">
@@ -177,15 +181,12 @@
 </div>
 
 <style>
-  :global(.contents .container){
+  :global(.contents .container) {
     padding: 0;
     max-width: 100% !important;
     margin: 0;
-
   }
- 
 
-  
   .dropdown__wrapper {
     position: relative;
     height: 70px;
@@ -203,6 +204,9 @@
   }
   .dropdown.error {
     border: 1px solid var(--error-color);
+  }
+  .dropdown__item--current{
+    color: #000;
   }
   .dropdown.error .dropdown__item--current {
     color: red;
@@ -256,4 +260,25 @@
     margin-bottom: 0px;
     width: 100%;
   }
+  @media only screen and (max-width: 768px) {
+    .input_grid {
+      grid-template-columns: 1fr;
+    }
+  
+  }
+  @media only screen and (max-width: 480px) {
+    .dropdown__wrapper{
+      height: 50px;
+     
+    }
+    .dropdown{
+      padding: 16px;
+    }
+    .dropdown__item--current, 
+    .dropdown__item{
+      font-size: var( --text-size-smaller);
+      line-height: var(--small-text-line-height);
+    }
+  }
+
 </style>
