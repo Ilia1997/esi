@@ -31,4 +31,10 @@ import { compute_rest_props } from "svelte/internal";
       right: 15px;
     }
   }
+  @media only screen and (max-width: 480px) {
+    svg.gender {
+      top: 15px;
+      right: 15px;
+    }
+  }
 </style>
