@@ -22,12 +22,15 @@
   import OpenAcount_ico from "../../public/images/OpenAcount_ico.svelte";
   import { priceConvertation } from "../../src/functions/priceConvertation";
   import { scrollToTop } from "../../src/functions/scrollToTop";
+  import Preloader from './Preloader.svelte'
+  import {createUserInDB} from './createUserInDB'
 
   let changeCounter = 0;
 
   let currentDate = new Date();
   let currentYear = currentDate.getFullYear();
   let currentDay = currentDate.getDate();
+  let preloaderState = false;
 
   $: currentYear;
 
@@ -42,7 +45,23 @@
     }
   }
   let confirmAllData = async () => {
-    const status = await createUserInDB();
+    preloaderState = true;
+
+    const userData = {
+      username: $infoFormData.userName,
+      phoneCode: $contributionData.country.phoneCode,
+      phoneNumber: $infoFormData.phone,
+      email: $infoFormData.email,
+      password: $infoFormData.password,
+      countryId: $contributionData.country.countryId,
+      periodId: $contributionData.period.periodId,
+      amount: $contributionData.amount,
+      greenSafe: $allocatedContributions.safe,
+      greenAdventure: $allocatedContributions.adventure,
+      greenFounder: $allocatedContributions.founder,
+    };
+
+    const status = await createUserInDB(userData);
     console.log(status);
     if (status) {
       $confirmPopUpState = false;
@@ -53,6 +72,7 @@
       }
       scrollToTop();
     }
+    preloaderState = false;
   };
   let closePopUp = () => {
     $confirmPopUpState = false;
@@ -70,42 +90,6 @@
     adventurePrice = 0,
     founderPrice = 0;
 
-  // create user in db
-  async function createUserInDB() {
-    let status = false;
-    const userData = {
-      username: $infoFormData.userName,
-      phoneCode: $contributionData.country.phoneCode,
-      phoneNumber: $infoFormData.phone,
-      email: $infoFormData.email,
-      password: $infoFormData.password,
-      countryId: $contributionData.country.countryId,
-      periodId: $contributionData.period.periodId,
-      amount: $contributionData.amount,
-      greenSafe: $allocatedContributions.safe,
-      greenAdventure: $allocatedContributions.adventure,
-      greenFounder: $allocatedContributions.founder,
-    };
-    console.log(userData);
-    const mainEndpoint =
-      "https://be.esi.kdg.com.ua/esi_public/esi_public/backend/createClient";
-    try {
-      const rawResponse = await fetch(mainEndpoint, {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(userData),
-      });
-      const content = await rawResponse.json();
-      status = content.status;
-      $userAuthToken = content.data.token;
-    } catch (e) {
-      alert(e.message);
-    }
-    return status;
-  }
 
   beforeUpdate(() => {
     safePrice =
@@ -119,6 +103,7 @@
 </script>
 
 <div class="pop__up" in:fade bind:clientHeight={$popUpHeight}>
+
   <div class="pop__up__wrapper">
     <div class="pop__up__head">
       <div class="pop__up_head__text">
@@ -248,7 +233,11 @@
         </div>
       </div>
       <button class="submt__btn" on:click={confirmAllData}
-        ><span>Open Account</span><OpenAcount_ico /></button
+        >
+        {#if preloaderState}
+        <div class="preload_btn_wrapper"><Preloader  loaderWidth={1.5} loaderHeight={1.5} borderWidth={0.3} /></div>
+        {/if}
+        <span>Open Account</span><OpenAcount_ico /></button
       >
     </div>
   </div>
@@ -432,6 +421,20 @@
     display: flex;
     align-items: center;
     cursor: pointer;
+    position: relative;
+    overflow: hidden;
+  }
+  .submt__btn .preload_btn_wrapper{
+    position: absolute;
+    top: 0%;
+    left: 0%;
+    width: 100%;
+    height: 100%;
+    background: var(--btn-color);
+    z-index: 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
   .submt__btn:hover {
     background: var(--btn-color-hover);

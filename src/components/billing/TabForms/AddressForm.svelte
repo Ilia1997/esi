@@ -10,7 +10,6 @@
   let activeGender = false;
   let gender;
   let dob;
-  let country = 'USA'
   $: {
     dob;
     if ($dob?.hasChosen) {
@@ -178,6 +177,15 @@
 </div>
 
 <style>
+  :global(.contents .container){
+    padding: 0;
+    max-width: 100% !important;
+    margin: 0;
+
+  }
+ 
+
+  
   .dropdown__wrapper {
     position: relative;
     height: 70px;
