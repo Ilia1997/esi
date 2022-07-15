@@ -4,11 +4,11 @@ import resolve from '@rollup/plugin-node-resolve';
 import livereload from 'rollup-plugin-livereload';
 import { terser } from 'rollup-plugin-terser';
 import css from 'rollup-plugin-css-only';
-import {config} from 'dotenv';
+import { config as configDotenv } from 'dotenv';
 import replace from '@rollup/plugin-replace';
 
 const production = !process.env.ROLLUP_WATCH;
-
+configDotenv()
 function serve() {
 	let server;
 
@@ -45,6 +45,11 @@ export default {
 				dev: !production
 			}
 		}),
+		replace({
+			values: {
+			  'process.env.stripe_PK': process.env.STRIPE_PUBLIC_KEY,
+			}
+		  }),
 		// we'll extract any component CSS out into
 		// a separate file - better for performance
 		css({ output: 'bundle.css' }),
@@ -72,12 +77,7 @@ export default {
 		// If we're building for production (npm run build
 		// instead of npm run dev), minify
 		production && terser(),
-		replace({
-			// stringify the object       
-			'process.env.isProd': production,
-			'process.env.stripe_secret_key': process.env.STRIPE_SECRET_KEY,
-			'process.env.vite_stripe_public_key': process.env.VITE_STRIPE_PUBLIC_KEY,
-		  }),
+		
 		
 	],
 	watch: {

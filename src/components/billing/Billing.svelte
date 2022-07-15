@@ -2,21 +2,26 @@
   import Tabs from "./Tabs/Tabs.svelte";
   import AddressForm from "./TabForms/AddressForm.svelte";
   import PaymentForm from "./TabForms/PaymentForm.svelte";
-  import { fade, slide } from 'svelte/transition'
+  import { fade, slide } from "svelte/transition";
   import {
     allowItemIndexBilling,
     addressFormStatus,
-    iBANAddedStatus,
-    cardAddedStatus,
-    billingeErrorMessage
+    billingeErrorMessage,
   } from "../../stores/billingStore";
-  import { successMessageState } from "../../stores/store";
+  import {
+    successMessageState,
+    userAuthToken,
+    clientSecretToken,
+  } from "../../stores/store";
+  import { contributionData } from "../../stores/contributionsStore";
   import ButtonRight from "../buttons/ButtonRight.svelte";
   import Button_back_ico from "../../../public/images/Button_back_ico.svelte";
   import { aoviSvelte } from "aovi-svelte";
   import * as animateScroll from "svelte-scrollto";
   import { scrollToTop } from "../../functions/scrollToTop";
-
+  import { updateUserInDB } from "./updateUserInDB";
+  import { getClientSecret } from "./getClientSecret";
+  import { onMount } from "svelte";
 
   let tabItems = [
     { name: "Address", component: AddressForm },
@@ -27,14 +32,12 @@
   let nextButtonState = false;
   let windowWidth, formWrapper;
 
-
   $: nextButtonState, windowWidth;
+  //$userAuthToken = 'Basic ZXNpX3ByaXZhdGUlN0M1NTU1NTU1NTV0dDpwYXNzUDEmZmY='
 
-  const apiKey = 'process.env.api_key'
-  
-  function scrollToTopInMobile(){
-    if(windowWidth < 991){
-      animateScroll.scrollTo({element: formWrapper})
+  function scrollToTopInMobile() {
+    if (windowWidth < 991) {
+      animateScroll.scrollTo({ element: formWrapper });
     }
   }
 
@@ -43,26 +46,43 @@
       let index = tabItems.findIndex((object) => {
         return object.name === activeItem.name;
       });
-     
+
       if (index === 0) {
         checkRequiredAddressFields();
         if ($addressFormStatus) {
-          activeItem = tabItems[index + 1];
-          $allowItemIndexBilling = $allowItemIndexBilling + 1;
-          formButtonText = "Confirm";
-          scrollToTop()
+          // collect user data
+          const userData = {
+            firstName: $addressData.firstName,
+            lastName: $addressData.lastName,
+            address: $addressData.streetNumber,
+            city: $addressData.city,
+            zipCode: $addressData.postal,
+            dob: $addressData.dateOfBirdth,
+            sex: $addressData.gender,
+          };
+
+          // update user
+          let updateUserStatus = false;
+          updateUserInDB(userData, $userAuthToken).then((data) => {
+            updateUserStatus = data;
+
+            console.log("$userAuthToken", $userAuthToken);
+
+            if (updateUserStatus) {
+              activeItem = tabItems[index + 1];
+              $allowItemIndexBilling = $allowItemIndexBilling + 1;
+              formButtonText = "Confirm";
+              scrollToTop();
+            }
+          });
         }
       } else if (index === 1) {
-        if ($iBANAddedStatus || $cardAddedStatus) {
-          nextButtonState = true;
-          scrollToTop()
-        } else {
-          $billingeErrorMessage.status = true;
-        }
+        nextButtonState = true;
+        scrollToTop();
       }
     }
-   
   }
+
   function prevTab() {
     if ($allowItemIndexBilling > 1) {
       let index = tabItems.findIndex((object) => {
@@ -75,13 +95,13 @@
         nextButtonState = false;
       }
     }
-    scrollToTop()
+    scrollToTop();
   }
 
   const addressData = aoviSvelte({
     firstName: "",
     lastName: "",
-    gender: '',
+    gender: "",
     dateOfBirdth: "",
     streetNumber: "",
     city: "",
@@ -115,32 +135,38 @@
 
     if ($addressData.valid) {
       $addressFormStatus = true;
-    }else {
+    } else {
       $addressFormStatus = false;
-      scrollToTopInMobile()
+      scrollToTopInMobile();
     }
   }
 
   let nextStep = () => {
     $successMessageState = true;
-    scrollToTop()
+    scrollToTop();
   };
+  onMount(() => {
+    getClientSecret($userAuthToken);
+  });
 </script>
-<svelte:window bind:innerWidth={windowWidth}/>
+
+<svelte:window bind:innerWidth={windowWidth} />
 <div class="main__wrapper">
   <div class="info__main">
     <h2 class="h2-sv main__head" bind:this={formWrapper}>
       Payment/Withdrawal <span class="green">Methode</span>
     </h2>
-    <div class="main__tabs"  >
-        <Tabs {tabItems} />
-        <div >
-           <svelte:component this={activeItem.component} {addressData} />
+    <div class="main__tabs">
+      <Tabs {tabItems} />
+      <div>
+        <svelte:component this={activeItem.component} {addressData} />
+      </div>
+
+      {#if $billingeErrorMessage.status}
+        <div transition:slide|local class="error__message">
+          {$billingeErrorMessage.text}
         </div>
-      
-    {#if $billingeErrorMessage.status}
-      <div transition:slide|local class="error__message">{$billingeErrorMessage.text}</div>
-    {/if}
+      {/if}
       <div class="buttons__wrapper">
         {#if $allowItemIndexBilling > 1}
           <button class="btn-sv prev" on:click={prevTab}>
@@ -148,7 +174,11 @@
             Back
           </button>
         {/if}
-        <button class="btn-sv next" on:click={nextTab}>{formButtonText}</button>
+        {#if activeItem.name != "Payment"}
+          <button class="btn-sv next" on:click={nextTab}
+            >{formButtonText}</button
+          >
+        {/if}
       </div>
     </div>
   </div>
@@ -170,6 +200,7 @@
     align-items: center;
     justify-content: flex-end;
     position: relative;
+    min-height: 66px;
   }
   .btn-sv.prev {
     position: absolute;
@@ -220,12 +251,12 @@
     max-width: 100%;
   }
   .main__tabs {
-    margin-top: 14px;
+    margin: 14px auto 0 auto;
+    position: relative;
     max-width: 528px;
     width: 100%;
     padding: 0px 20px 0 20px;
   }
-
 
   @media only screen and (max-width: 768px) {
     .info__main {

@@ -1,110 +1,98 @@
 <script>
-  //  import CardsIcons from ".../CardsIcons.svelte";
-  import Card_ico from "../../../../../esi/public/images/Card_ico.svelte";
-  //import PayPal_ico from "../../../../../../public/images/PayPal_ico.svelte";
-  import USbank_ico from "../../../../../esi/public/images/USbank_ico.svelte";
-  // import Cvc_ico from "../../../../../../public/images/Cvc_ico.svelte";
-  import CardPayment from "../TabForms/paymentMethods/CardPayment.svelte";
-  import IbanPaymen from "./paymentMethods/IBANPaymen.svelte";
-
+  import { clientSecretToken,userAuthToken } from "../../../stores/store";
   import { onMount } from "svelte";
+  import Preloader from "../../Preloader.svelte";
   let currentBillingMethod = 0;
-   $: currentBillingMethod;
+  $: currentBillingMethod;
 
-  // let stripeReady = false;
-  // let mounted = false;
+  let stripeReady = false;
+  let mounted = false;
+  let preloaderState = false;
+  let stripeLoadedStatus = false;
 
-  // onMount(async () => {
-  //   mounted = true;
-  //   if (stripeReady) {
-  //     console.log("strype is ready");
-  //     loadStripeElements();
-  //   }
-  // });
+  const client_secret = $clientSecretToken;
+  console.log(client_secret)
+  onMount(async () => {
+    mounted = true;
+    if (stripeReady) {
+      console.log("strype is ready");
+      loadStripeElements();
+    }
+  });
 
-  // function stripeLoaded() {
-  //   stripeReady = true;
-  //   if (mounted) {
-  //     loadStripeElements();
-  //   }
-  // }
+  function stripeLoaded() {
+    stripeReady = true;
+    if (mounted) {
+      loadStripeElements();
+    }
+  }
 
-  // const options = {
-  //   clientSecret: '{{CLIENT_SECRET}}',
-  //   // Fully customizable with appearance API.
-  //   appearance: {
-  //     /*...*/
-  //   },
-  // };
+  const options = {
+    clientSecret: client_secret,
+    // Fully customizable with appearance API.
+    appearance: {
+    },
+  };
 
-  // function loadStripeElements() {
-  //   // await sleep(500);
-  //   // Create a Stripe client.
-  //   // Note: this merchant has been set up for demo purposes.
-  //   const stripe = Stripe("process.env.vite_stripe_public_key");
+  function loadStripeElements() {
+    // await sleep(500);
+    // Create a Stripe client.
+    // Note: this merchant has been set up for demo purposes.
+    const stripe = Stripe("process.env.stripe_PK");
 
-  //   // Create an instance of Elements.
-  //   var elements = stripe.elements({clientSecret: "{{CLIENT_SECRET}}"});
+    // Create an instance of Elements.
+    var elements = stripe.elements({ clientSecret: client_secret });
 
-  //   // Custom styling can be passed to options when creating an Element.
-  //   // (Note that this demo uses a wider set of styles than the guide below.)
-  //   // var style = {
-  //   //   base: {
-  //   //     padding: "10px 12px",
-  //   //     color: "#32325d",
-  //   //     fontFamily:
-  //   //       '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
-  //   //     fontSmoothing: "antialiased",
-  //   //     fontSize: "16px",
-  //   //     "::placeholder": {
-  //   //       color: "#aab7c4",
-  //   //     },
-  //   //   },
-  //   //   invalid: {
-  //   //     color: "#fa755a",
-  //   //   },
-  //   // };
+    // Create an instance of the idealBank Element.
+    var paymentForm = elements.create("payment");
 
-  //   // Create an instance of the idealBank Element.
-  //   var paymentForm = elements.create("payment");
+    // Add an instance of the idealBank Element into the `ideal-bank-element` <div>.
+    paymentForm.mount("#payment-element");
+    paymentForm.on("ready", function (event) {
+      setTimeout(() => {
+        stripeLoadedStatus = true;
+      }, 700);
 
-  //   // Add an instance of the idealBank Element into the `ideal-bank-element` <div>.
-  //   paymentForm.mount("#payment-element");
+    });
 
-  //   var errorMessage = document.getElementById("error-message");
+    // Handle form submission.
 
-  //   // Handle form submission.
+    const form = document.getElementById("payment-form");
 
-  //   const form = document.getElementById("payment-form");
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      preloaderState = true
+      // set data to pass to webflow
+      localStorage.setItem('stripe_PK', "process.env.stripe_PK")
+      localStorage.setItem('AuthToken', $userAuthToken)
 
-  //   form.addEventListener("submit", async (event) => {
-  //     event.preventDefault();
 
-  //     const { error } = await stripe.confirmSetup({
-  //       //`Elements` instance that was used to create the Payment Element
-  //       elements,
-  //       confirmParams: {
-  //         return_url: "https://example.com/account/payments/setup-complete",
-  //       },
-  //     });
+      const { error } = await stripe.confirmSetup({
+        //`Elements` instance that was used to create the Payment Element
+        elements,
+        confirmParams: {
+          return_url: "https://esi.webflow.io/successful-page",
+        },
+      });
 
-  //     if (error) {
-  //       // This point will only be reached if there is an immediate error when
-  //       // confirming the payment. Show error to your customer (for example, payment
-  //       // details incomplete)
-  //       const messageContainer = document.querySelector("#error-message");
-  //       messageContainer.textContent = error.message;
-  //     } else {
-  //       // Your customer will be redirected to your `return_url`. For some payment
-  //       // methods like iDEAL, your customer will be redirected to an intermediate
-  //       // site first to authorize the payment, then redirected to the `return_url`.
-  //     }
-  //   });
-  //   const clientSecret = new URLSearchParams(window.location.search).get(
-  //     "setup_intent_client_secret"
-  //   );
+      if (error) {
+        // This point will only be reached if there is an immediate error when
+        // confirming the payment. Show error to your customer (for example, payment
+        // details incomplete)
+        preloaderState = false;
+        const messageContainer = document.querySelector("#error-message");
+        messageContainer.textContent = error.message;
+      } else {
+        // Your customer will be redirected to your `return_url`. For some payment
+        // methods like iDEAL, your customer will be redirected to an intermediate
+        // site first to authorize the payment, then redirected to the `return_url`.
+      }
+    });
+    // const clientSecret = new URLSearchParams(window.location.search).get(
+    //   "setup_intent_client_secret"
+    // );
 
-  //   // Retrieve the SetupIntent
+  //  // Retrieve the SetupIntent
   //   stripe.retrieveSetupIntent(clientSecret).then(({ setupIntent }) => {
   //     const message = document.querySelector("#message");
 
@@ -134,132 +122,84 @@
   //         // Redirect your user back to your payment page to attempt collecting
   //         // payment again
 
-  //         break;
+  //         break;ф
   //       }
   //     }
   //   });
-  // }
+  }
 </script>
 
-<!-- <svelte:head>
+<svelte:head>
   <script src="https://js.stripe.com/v3/" on:load={stripeLoaded}></script>
-</svelte:head> -->
+</svelte:head>
 <div class="tab__wrapper">
-  <div class="tab__head__items">
-    <div
-      class="card"
-      on:click={() => (currentBillingMethod = 0)}
-      class:active={currentBillingMethod === 0}
-    >
-      <Card_ico class={currentBillingMethod === 0 ? "active" : ""} />
-      <div class="text">Card</div>
+  {#if !stripeLoadedStatus}
+    <div class="preloader__wrapper">
+      <Preloader loaderWidth={7} loaderHeight={7} borderWidth={0.8} />
     </div>
-
-    <div
-      class="us__bank"
-      on:click={() => (currentBillingMethod = 1)}
-      class:active={currentBillingMethod === 1}
-    >
-      <USbank_ico class={currentBillingMethod === 1 ? "active" : ""} />
-      <div class="text">Bank Account</div>
-    </div>
-  </div>
-  <div class="tab__payment__fields">
-    {#if currentBillingMethod === 0}
-      <CardPayment />
-    {:else if currentBillingMethod === 1}
-      <IbanPaymen />
-    {/if}
-  </div>
+  {/if}
 
   <!-- this is where your Stripe components go -->
-  <!-- <form on:submit|preventDefault id="payment-form">
-    <div id="payment-element"> -->
-<!-- Elements will create form elements here -->
-    <!-- </div>
-    <button id="submit">Submit</button>
-    <div id="error-message"> -->
+  <form on:submit|preventDefault id="payment-form">
+    <div id="payment-element">
+      <!-- Elements will create form elements here -->
+    </div>
+    <button class="btn-sv" id="submit">
+      {#if preloaderState}
+      <div class="preload_btn_wrapper"><Preloader  loaderWidth={1.5} loaderHeight={1.5} borderWidth={0.3} /></div>
+      {/if}
+      Confirm</button>
+    <div id="error-message">
       <!-- Display error message to your customers here -->
-    <!-- </div>
-  </form> -->
+    </div>
+  </form>
 </div>
 
 <style>
-  .tab__payment__fields {
-    display: flex;
-    flex-direction: column;
-    margin-top: 30px;
-    margin-bottom: 24px;
+  #error-message{
+    color:var( --error-color);
+    text-align: center;
   }
-
-  .tab__head__items {
+  .tab__wrapper {
+    min-height: 400px;
+    padding-top: 20px;
+  }
+  .preloader__wrapper {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    z-index: 2;
+    background: #fff;
     display: flex;
     justify-content: center;
+    align-items: center;
   }
-  .tab__head__items > div {
-    background: var(--white-color);
-    border: 1px solid var(--border-color);
-    border-radius: 10px;
-    height: 86px;
-    font-weight: var(--font-weight-bold);
+  button.btn-sv{
+    bottom: 0;
+    right: 20px;
+    position: absolute;
+    width: 182px;
+    height: 66px;
+    background: var(--btn-color);
+    border: 1px solid var(--btn-color);
+    color: white;
     display: flex;
-    flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
     justify-content: center;
+    z-index: 5;
+    overflow: hidden;
   }
-  .card {
-    width: 132px;
-    border: 1px solid var(--grey-color_2);
-    padding-left: 30px;
-    color: var(--grey-color_2);
-    margin-right: 8px;
-    cursor: pointer;
-    transition: all ease 0.2s;
+  .preload_btn_wrapper{
+    position: absolute;
+    top: 0%;
+    left: 0%;
+    width: 100%;
+    height: 100%;
+    background: var(--btn-color);
+    z-index: 6;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
-  .card.active {
-    border-color: var(--btn-color);
-    color: var(--btn-color);
-  }
-  /* .card svg {
-    margin-bottom: 5px;
-  }
-
-  .paypal {
-    width: 138px;
-    padding-left: 30px;
-    margin-right: 8px;
-  }
-  .paypal svg {
-    margin-bottom: 5px;
-  } */
-  .card:hover,
-  .us__bank:hover {
-    box-shadow: 0px 1px 15px -8px rgb(14 45 255 / 70%);
-  }
-  .us__bank {
-    transition: all ease 0.2s;
-    cursor: pointer;
-    width: 170px;
-    padding-left: 30px;
-    margin-right: 8px;
-  }
-  .us__bank .text {
-    color: var(--grey-color_2);
-  }
-  .us__bank.active {
-    border-color: var(--btn-color);
-    color: var(--btn-color);
-  }
-  .us__bank.active .text {
-    color: var(--btn-color);
-  }
-  /* .us__bank svg {
-    margin-bottom: 5px;
-  }
-
-  .more__payment {
-    width: 56px;
-    padding-left: 19px;
-    margin-right: 0px;
-  } */
 </style>

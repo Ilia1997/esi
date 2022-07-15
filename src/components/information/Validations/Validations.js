@@ -33,9 +33,9 @@ export async function checkIfUserNameExistInDB(userName) {
           return response.json();
         })
         .then((data) => {
-          if (data.valid === "1") {
+          if (data.status) {
             status = false;
-          } else if (data.valid === "0") {
+          } else if (!data.status) {
             status = true;
           }
         });
