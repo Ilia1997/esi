@@ -23,7 +23,7 @@
   });
   $: {
     if ($confirmPopUpState === true) {
-      mainHeight = $popUpHeight + "px";
+      mainHeight = ($popUpHeight -100) + "px";
     } else {
       mainHeight = "auto";
     }
