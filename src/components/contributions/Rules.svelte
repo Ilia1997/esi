@@ -16,13 +16,19 @@
         We require your periodic contribution to be invested for 12 months.
       </li>
       <li>
-        We always select investments that have a healthy balance between value and green impact.
+        We always select investments that have a healthy balance between value
+        and green impact.
       </li>
       <li>
-        Withdrawals under 20% of the total value of your wallet will be processed immediately. Any amount over that 20% will vary to no more than 30 days. 
+        Withdrawals under 20% of the total value of your wallet will be
+        processed immediately. Any amount over that 20% will vary to no more
+        than 30 days.
       </li>
-      <li>Community is an essential value. We encourage you to share the news of our ESi community so we can achieve our goal of becoming pioneers in our field</li>
-
+      <li>
+        Community is an essential value. We encourage you to share the news of
+        our ESi community so we can achieve our goal of becoming pioneers in our
+        field
+      </li>
     </ol>
   </div>
 </div>
@@ -41,9 +47,10 @@
   .contribution__right__head p {
     margin-top: 14px;
   }
-  .contribution__right ol, .rules__list__head {
+  .contribution__right ol,
+  .rules__list__head {
     padding-left: 20px;
-    font-size: var(--text-size-small); 
+    font-size: var(--text-size-small);
     color: var(--white-color);
     line-height: 30px;
     max-width: 840px;
@@ -81,15 +88,14 @@
     .contribution__right {
       padding: 11px 25.17px 24px 21px;
     }
-    .contribution__right ul {
-      color: var(--main-text-color);
+    .contribution__right ol {
       font-size: var(--text-size-smaller);
       line-height: 16px;
     }
-    .contribution__right ul li {
+    .contribution__right ol li {
       font-size: var(--text-size-smaller);
       line-height: 16px;
-      margin-bottom: 16px;
+      margin-bottom: 8px;
     }
   }
   @media only screen and (max-width: 768px) {
@@ -100,6 +106,13 @@
       font-size: var(--text-size-smaller);
       line-height: 16px;
       margin-top: 10px;
+    }
+  }
+  @media only screen and (max-width: 480px) {
+    .contribution__right ol,
+    .contribution__right ol li {
+      font-size: var(--text-size-smaller);
+      line-height: var( --small-text-line-height);
     }
   }
 </style>

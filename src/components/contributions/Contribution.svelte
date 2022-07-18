@@ -21,7 +21,7 @@
       if (changeCounter === 0) {
         incrementStep();
         changeCounter += 1;
-        scrollToTop()
+         scrollToTop()
       }
     }
   }
@@ -35,7 +35,7 @@
     if (data.amount < 20) {
       amountErrorMessage = "Amount value shoud be more than 20";
       $amountErrorMessageState = true;
-      scrollToTop()
+     // scrollToTop()
     } else {
       return true;
     }

@@ -92,7 +92,7 @@
   .plans__items {
     margin-top: 16px;
     display: flex;
-    align-items: flex-start;
+    align-items: stretch;
   }
   @media only screen and (max-width: 1100px) {
     .plans__items {

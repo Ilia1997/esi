@@ -151,12 +151,12 @@
         <div class="plan__info__text">{modalData[className].desc}</div>
       </div>
       <Portfolio name={className} />
-      <PlanBtn
-        content={btnText}
-        className={btnClass}
-        on:click={() => showModal(currentPlan)}
-      />
     </div>
+    <PlanBtn
+      content={btnText}
+      className={btnClass}
+      on:click={() => showModal(currentPlan)}
+    />
   </div>
 </div>
 
@@ -174,6 +174,8 @@
     max-width: 387px;
     border-radius: 6px;
     overflow: hidden;
+    display: flex;
+    flex-direction: column;
   }
   .plan__icon {
     width: 38px;
@@ -192,6 +194,13 @@
   }
   .plans__item.founder .item__head {
     background: var(--plan-founder-bg);
+  }
+  .plans__item .item__body {
+    height: 100%;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
   }
   .plans__item.safe .item__body {
     background: linear-gradient(
@@ -369,11 +378,10 @@
     }
   }
   @media only screen and (max-width: 1030px) and (min-width: 991px) {
-    .dropdown{
+    .dropdown {
       padding: 23px 18px;
     }
   }
- 
 
   @media only screen and (max-width: 991px) {
     .plans__item.adventure {

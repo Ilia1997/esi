@@ -9,8 +9,8 @@
   import { clickOutside } from "../../functions/clickOutside";
   import { checkInputValue } from "../../functions/checkInputValue";
   import { onMount, text } from "svelte/internal";
-  import {getPeriodsFromDB,getCountriesFromDB} from './getDataFromDB'
-import Preloader from "../Preloader.svelte";
+  import { getPeriodsFromDB, getCountriesFromDB } from "./getDataFromDB";
+  import Preloader from "../Preloader.svelte";
 
   let activePeriod = false;
   let activeCountry = false;
@@ -37,10 +37,10 @@ import Preloader from "../Preloader.svelte";
   let currentDay = new Date().getDate();
   let paymentMounthIndex = currentMonthIndex + 1;
 
-  $:{ countries, periods
-     $contributionData.nextPaymentMonth = months[paymentMounthIndex];
+  $: {
+    countries, periods;
+    $contributionData.nextPaymentMonth = months[paymentMounthIndex];
   }
-
 
   afterUpdate(() => {
     // if period bi-monthly set next payment day and payment mounth
@@ -57,26 +57,26 @@ import Preloader from "../Preloader.svelte";
       $contributionData.nextPaymentDay = 1;
     }
   });
-  onMount(async() => {
+  onMount(async () => {
     if (inputNumber) {
       input = inputNumber;
     }
-    let periodData = await getPeriodsFromDB()
+    let periodData = await getPeriodsFromDB();
     periodData.data.forEach((item) => {
-      periods = [...periods, item]
-    })
-    let countriesData = await getCountriesFromDB()
-    countriesData.data.forEach((item)=>{
-      countries = [...countries, item]
-    })
-    $contributionData.period = periods[0]
-    let usaData ;
-    countries.forEach(item=>{
-      if(item.countryId === 5235134){
-        usaData =  item
+      periods = [...periods, item];
+    });
+    let countriesData = await getCountriesFromDB();
+    countriesData.data.forEach((item) => {
+      countries = [...countries, item];
+    });
+    $contributionData.period = periods[0];
+    let usaData;
+    countries.forEach((item) => {
+      if (item.countryId === 5235134) {
+        usaData = item;
       }
-    })
-    $contributionData.country =  usaData
+    });
+    $contributionData.country = usaData;
   });
 
   function setPeriod(value) {
@@ -109,26 +109,27 @@ import Preloader from "../Preloader.svelte";
           use:clickOutside
           on:click_outside={() => handleClickOutside("activePeriod")}
         >
-        {#if periods.length === 0}
-        <Preloader  loaderWidth={1.5} loaderHeight={1.5} borderWidth={0.3} />
-        {:else}
-          <Dropdown_ico class="contribution" />
-          <div class="dropdown__item--current">{$contributionData.period.periodName || 'Monthly'}</div>
-          <div class="dropdown__items">
-            {#each periods as period}
-              <div class="dropdown__item" on:click={() => setPeriod(period)}>
-                {period.periodName}
-              </div>
-            {/each}
-          </div>
+          {#if periods.length === 0}
+            <Preloader loaderWidth={1.5} loaderHeight={1.5} borderWidth={0.3} />
+          {:else}
+            <Dropdown_ico class="contribution" />
+            <div class="dropdown__item--current">
+              {$contributionData.period.periodName || "Monthly"}
+            </div>
+            <div class="dropdown__items">
+              {#each periods as period}
+                <div class="dropdown__item" on:click={() => setPeriod(period)}>
+                  {period.periodName}
+                </div>
+              {/each}
+            </div>
           {/if}
         </div>
       </div>
     </div>
     <div class="currency">
       <div class="label__text">Country*</div>
-     
-    
+
       <div class="dropdown__wrapper country">
         <div
           class="dropdown"
@@ -137,28 +138,26 @@ import Preloader from "../Preloader.svelte";
           use:clickOutside
           on:click_outside={() => handleClickOutside("activeCountry")}
         >
-        {#if countries.length === 0}
-        <Preloader  loaderWidth={1.5} loaderHeight={1.5} borderWidth={0.3} />
-        {:else}
-          <Dropdown_ico class="contribution" />
-          <div class="dropdown__item--current">
-            {$contributionData.country.countryName || 'Chouse country'}
-          </div>
-          <div class="dropdown__items">
-            {#each countries as country}
-              <div
-                class="dropdown__item"
-                on:click={() => showCountry(country)}
-              >
-                {country.countryName}
-              </div>
-            {/each}
-          </div>
+          {#if countries.length === 0}
+            <Preloader loaderWidth={1.5} loaderHeight={1.5} borderWidth={0.3} />
+          {:else}
+            <Dropdown_ico class="contribution" />
+            <div class="dropdown__item--current">
+              {$contributionData.country.countryName || "Chouse country"}
+            </div>
+            <div class="dropdown__items">
+              {#each countries as country}
+                <div
+                  class="dropdown__item"
+                  on:click={() => showCountry(country)}
+                >
+                  {country.countryName}
+                </div>
+              {/each}
+            </div>
           {/if}
         </div>
       </div>
-      
-     
     </div>
 
     <div class="amount" bind:this={inputNumber}>
@@ -169,7 +168,6 @@ import Preloader from "../Preloader.svelte";
         on:mousewheel={(e) => {
           e.target.blur();
         }}
-        
         min="20"
         max="9999"
         maxlength="4"
@@ -177,7 +175,6 @@ import Preloader from "../Preloader.svelte";
         bind:value={$contributionData.amount}
         class:error={$amountErrorMessageState}
         on:focus={() => ($amountErrorMessageState = false)}
-
       />
     </div>
 
@@ -187,6 +184,7 @@ import Preloader from "../Preloader.svelte";
     *Min. <span>$20</span> and <span> $9,999</span> Total contribution
   </div>
 </div>
+
 <style>
   .contribution__form form {
     display: flex;
@@ -304,7 +302,8 @@ import Preloader from "../Preloader.svelte";
     .period {
       margin-right: 10px;
     }
-    .dropdown__wrapper {
+    .dropdown__wrapper,
+    .dropdown__wrapper.country {
       width: 100%;
     }
     .amount {
@@ -335,6 +334,12 @@ import Preloader from "../Preloader.svelte";
     .period,
     .currency {
       width: 48%;
+    }
+  }
+  @media only screen and (max-width: 480px) {
+    .dropdown__item--current,
+    .dropdown__item {
+      font-size: var(--text-size-small);
     }
   }
 </style>

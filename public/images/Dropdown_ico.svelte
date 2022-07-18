@@ -36,5 +36,11 @@ import { compute_rest_props } from "svelte/internal";
       top: 15px;
       right: 15px;
     }
+    svg.contribution {
+      top: 16px;
+      right: 15px;
+      max-width: 20px;
+    }
   }
+  
 </style>
