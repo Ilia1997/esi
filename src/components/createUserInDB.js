@@ -2,7 +2,7 @@ import {userAuthToken} from '../stores/store'
 
 function setAuthToken(data){
     userAuthToken.set(data)
-    console.log('updated')
+   // console.log('updated')
 }
 
 // create user in db
@@ -21,12 +21,12 @@ export async function createUserInDB(userData) {
         body: JSON.stringify(userData),
       });
       const content = await rawResponse.json();
-      console.log(content)
+      // console.log(content)
       status = content.status;
       setAuthToken(content.data.token);
      
     } catch (e) {
-      alert(e.message);
+      console.error(e.message);
     }
     return status;
   }

@@ -15,6 +15,7 @@
     confirmPopUpState,
     savedPassword,
   } from "../../stores/infoStore";
+  import {contributionData} from '../../stores/contributionsStore'
   import { headSteps, decrementStep } from "../../stores/store";
   import ButtonLeft from "../buttons/ButtonLeft.svelte";
   import {
@@ -34,6 +35,7 @@
     // { name: "Address", component: AddressForm },
     { name: "Password", component: PasswordForm },
   ];
+
 
   let formButtonText = "Next";
   let activeItem = tabItems[0];
@@ -116,7 +118,7 @@
   const validatePhoneExistingInDB = async () => {
    
     let phoneExistinDB = await checkIfPhoneExistInDB(
-      $loginData.phoneCode, $loginData.phone
+      $contributionData.country.phoneCode, $loginData.phone
     );
     
     return !phoneExistinDB;
