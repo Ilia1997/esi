@@ -5,8 +5,8 @@
   import DropdownIco from "../../../../public/images/Dropdown_ico.svelte";
   import { clickOutside } from "../../../functions/clickOutside";
   import { contributionData } from "../../../stores/contributionsStore";
-import { onMount } from "svelte";
-import flatpickr from "flatpickr";
+  import { onMount } from "svelte";
+  import flatpickr from "flatpickr";
 
   export let addressData;
   let activeGender = false;
@@ -15,7 +15,6 @@ import flatpickr from "flatpickr";
 
   let datePicker;
   $: datePicker;
-  
 
   let handleClickOutside = () => {
     activeGender = false;
@@ -24,17 +23,15 @@ import flatpickr from "flatpickr";
     $addressData.gender = item;
     gender = item;
   };
-  onMount(()=>{
-   flatpickr(datePicker, {
-    onChange: function(selectedDates, dateStr, instance) {
-      $addressData.dateOfBirdth = dateStr
-    },
-    defaultDate: $addressData.dateOfBirdth || null
-   });
-  })
+  onMount(() => {
+    flatpickr(datePicker, {
+      onChange: function (selectedDates, dateStr, instance) {
+        $addressData.dateOfBirdth = dateStr;
+      },
+      defaultDate: $addressData.dateOfBirdth || null,
+    });
+  });
 </script>
-
-
 
 <div class="tab__wrapper" in:fade>
   <div class="tab__head">Address</div>
@@ -84,7 +81,7 @@ import flatpickr from "flatpickr";
           use:clickOutside
           on:click_outside={() => handleClickOutside()}
         >
-          <DropdownIco class={'gender'}/>
+          <DropdownIco class={"gender"} />
           <div class="dropdown__item--current">{gender || "Gender*"}</div>
           <div class="dropdown__items">
             <div class="dropdown__item" on:click={() => setGender("Male")}>
@@ -103,14 +100,17 @@ import flatpickr from "flatpickr";
       {/if}
     </div>
 
-    <div class="input-sv__wrapper" >
-      <input
-      class="input-sv small date"
-      class:error={$addressData.err.dateOfBirdth}
-      bind:this={datePicker}
-      on:focus={addressData.clear}
-      placeholder={"Date Of Birth*"}
-    />
+    <div class="input-sv__wrapper">
+      <div class="input-sv small date-input">
+        <input
+          class="date"
+          class:error={$addressData.err.dateOfBirdth}
+          bind:this={datePicker}
+          on:focus={addressData.clear}
+          placeholder={$addressData.dateOfBirdth || "Date Of Birth*"}
+        />
+      </div>
+
       {#if $addressData.err.dateOfBirdth}
         <p transition:slide|local class="error__message ">
           {$addressData.err.dateOfBirdth}
@@ -186,6 +186,41 @@ import flatpickr from "flatpickr";
     max-width: 100% !important;
     margin: 0;
   }
+  .date-input {
+    position: relative;
+    padding: 0;
+  }
+  input.date {
+    width: 100%;
+    appearance: none;
+    -webkit-appearance: none;
+    border: none;
+    background: transparent;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    padding: 22px 30px;
+    top: 0%;
+    left: 0%;
+  }
+  input.date::placeholder {
+    color: #000;
+  }
+  input[type="date"] {
+    text-align: left;
+  }
+  input.date:before {
+    color: #000;
+    content: attr(placeholder) !important;
+    display: block;
+    padding: 23px 30px;
+  }
+
+  /* input[type="date"]:before {
+  color: #000;
+  content: attr(placeholder) !important;
+  margin: 1rem;
+} */
 
   .dropdown__wrapper {
     position: relative;
@@ -205,7 +240,7 @@ import flatpickr from "flatpickr";
   .dropdown.error {
     border: 1px solid var(--error-color);
   }
-  .dropdown__item--current{
+  .dropdown__item--current {
     color: #000;
   }
   .dropdown.error .dropdown__item--current {
@@ -264,21 +299,31 @@ import flatpickr from "flatpickr";
     .input_grid {
       grid-template-columns: 1fr;
     }
-  
   }
   @media only screen and (max-width: 480px) {
-    .dropdown__wrapper{
+    .dropdown__wrapper {
       height: 50px;
-     
     }
-    .dropdown{
+    .dropdown {
       padding: 16px;
     }
-    .dropdown__item--current, 
-    .dropdown__item{
-      font-size: var( --text-size-smaller);
+    .dropdown__item--current,
+    .dropdown__item {
+      font-size: var(--text-size-smaller);
       line-height: var(--small-text-line-height);
     }
-  }
+    input.date:before,
+    input.date::placeholder {
+      font-size: var(--text-size-smaller);
+      padding: 0;
+    }
+    input.date:before{
+      padding-right: 16px;
+    }
 
+    input.date {
+      padding: 1rem;
+      font-size: var(--text-size-smaller);
+    }
+  }
 </style>
