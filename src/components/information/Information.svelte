@@ -4,7 +4,7 @@
   import PasswordForm from "./TabForms/PasswordForm.svelte";
   import { fade } from "svelte/transition";
   import { aoviSvelte } from "aovi-svelte";
-  import {isNumeric} from '../../functions/isNumber'
+  import { isNumeric } from "../../functions/isNumber";
   import {
     allowItemIndex,
     infoFormErrorMessage,
@@ -15,7 +15,7 @@
     confirmPopUpState,
     savedPassword,
   } from "../../stores/infoStore";
-  import {contributionData} from '../../stores/contributionsStore'
+  import { contributionData } from "../../stores/contributionsStore";
   import { headSteps, decrementStep } from "../../stores/store";
   import ButtonLeft from "../buttons/ButtonLeft.svelte";
   import {
@@ -35,7 +35,6 @@
     // { name: "Address", component: AddressForm },
     { name: "Password", component: PasswordForm },
   ];
-
 
   let formButtonText = "Next";
   let activeItem = tabItems[0];
@@ -104,47 +103,43 @@
     return !emailExistinDB;
   };
   const validateUserName = async () => {
-    let isNumber = isNumeric(`${$loginData.userName}`)
+    let isNumber = isNumeric(`${$loginData.userName}`);
     let userNameExistinDB;
-    if (isNumber){
-      userNameErrorMessage = `Username cannot be a number`
+    if (isNumber) {
+      userNameErrorMessage = `Username cannot be a number`;
       userNameExistinDB = true;
-    }else{
-      userNameErrorMessage = `User with user name ${$loginData.userName} exist in database`
+    } else {
+      userNameErrorMessage = `User with user name ${$loginData.userName} exist in database`;
       userNameExistinDB = await checkIfUserNameExistInDB($loginData.userName);
     }
     return !userNameExistinDB;
   };
   const validatePhoneExistingInDB = async () => {
-   
     let phoneExistinDB = await checkIfPhoneExistInDB(
-      $contributionData.country.phoneCode, $loginData.phone
+      $contributionData.country.phoneCode,
+      $loginData.phone
     );
-    
+
     return !phoneExistinDB;
   };
-
 
   const emailrRegEx =
     /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
   async function doLoginData() {
-    formButtonText = 'Load...'
+    formButtonText = "Load...";
     loginData.aovi // use Aovi validators
       .check("userName")
       .required("Please put your username")
       .minLength(3, "User Name should be at least 3 symbols length")
       .maxLength(20, "User Name must be no more than 20 characters")
-      .is(
-        await validateUserName(),
-        userNameErrorMessage
-      )
+      .is(await validateUserName(), userNameErrorMessage)
       .check("email")
       .required("Please put your email")
       .match(emailrRegEx, "Incorrect E-mail format")
       .is(await validateEmailExistingInDB(), "Email exist in database")
       .check("phone")
       .required("Please put your phone")
-      .minLength(7, "Phone should be at least 7 symbols length")
+      .minLength(5, "Phone should be at least 5 symbols length")
       .is(await validatePhoneExistingInDB(), "Phone exist in database").end;
     // you must finish validation with '.end' operator
 
@@ -153,11 +148,30 @@
     } else {
       $infoFormErrorState = true;
     }
-    formButtonText = 'Next'
+    formButtonText = "Next";
   }
+  const maxValidator = (a) => {
+    return {
+      // name of the validator method
+      name: "max",
+
+      // test function gets value, must return true or false
+      test: (v) => {
+        return v.length <= a;
+      },
+
+      // error message, when test returns false
+      message: `%Label% must be less than ${a} symbols`,
+
+      // error message, when used .not and test returns true
+      notMessage: `%Label% must not be less than ${a} symbols`,
+    };
+  };
+
   const passwordRegEx = /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
   function doSignup() {
     passwordData.aovi // use Aovi validators
+      .use(maxValidator)
       .check("password")
       .required("Please put your password")
       .match(
@@ -165,9 +179,11 @@
         "Password should have at least 1 capital letter, 1 number, 1 special symbol"
       )
       .is($confirm_match, "Confirmation doesn't match password")
+      .max(16)
       .check("confirm")
       .required("Please confirm your password")
-      .minLength(8, "Password should be at least 8 symbols length").end; // you must finish validation with '.end' operator
+      .minLength(8, "Password should be at least 8 symbols length")
+      .max(16).end; // you must finish validation with '.end' operator
 
     if ($passwordData.valid) {
       // if validation success, do something
