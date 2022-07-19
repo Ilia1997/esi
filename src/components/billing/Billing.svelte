@@ -21,6 +21,7 @@
   import { scrollToTop } from "../../functions/scrollToTop";
   import { updateUserInDB } from "./updateUserInDB";
   import { getClientSecret } from "./getClientSecret";
+  import {underAgeValidate} from '../../functions/validateAge'
   import { onMount } from "svelte";
 
   let tabItems = [
@@ -122,6 +123,7 @@
       .check("gender")
       .required("Gender is required")
       .check("dateOfBirdth")
+      .is(underAgeValidate($addressData.dateOfBirdth), 'Person has to be at least 18 years old.')
       .required("Date of Birdth is required")
       .check("streetNumber")
       .required("Street is required")
