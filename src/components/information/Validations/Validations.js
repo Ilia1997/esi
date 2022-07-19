@@ -50,7 +50,7 @@ export async function checkIfPhoneExistInDB(phoneCode, phoneNumber) {
   phoneCode = phoneCode.replace("+", "");
   const url = `https://be.esi.kdg.com.ua/esi_public/esi_public/backend/checkPhone?phoneCode=%2B${phoneCode}&phoneNumber=${phoneNumber}`;
   let status;
-  if(phoneNumber.length >= 7)
+  if(phoneNumber.length >= 5)
     try {
       await fetch(url)
         .then((response) => {

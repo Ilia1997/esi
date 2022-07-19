@@ -101,10 +101,10 @@
     </div>
 
     <div class="input-sv__wrapper">
-      <div class="input-sv small date-input">
+      <div class="input-sv small date-input"  class:error={$addressData.err.dateOfBirdth}>
         <input
           class="date"
-          class:error={$addressData.err.dateOfBirdth}
+         
           bind:this={datePicker}
           on:focus={addressData.clear}
           placeholder={$addressData.dateOfBirdth || "Date Of Birth*"}
@@ -189,6 +189,9 @@
   .date-input {
     position: relative;
     padding: 0;
+  }
+  .date-input.error input::placeholder{
+    color: var(--error-color)
   }
   input.date {
     width: 100%;

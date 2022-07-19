@@ -181,7 +181,7 @@
     <NextPaymentDay />
   </form>
   <div class="contribution__help--text">
-    *Min. <span>$20</span> and <span> $9,999</span> Total contribution
+    *Min. <span>{$contributionData.country?.currency?.symbol || "$"}20</span> and <span> {$contributionData.country?.currency?.symbol || "$"}9,999</span> Total contribution
   </div>
 </div>
 
