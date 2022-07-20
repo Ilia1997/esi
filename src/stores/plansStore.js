@@ -11,7 +11,6 @@ export const plansModalState = writable(false)
 
 export const sortPersantageVariable = writable ("all")
 
-export const disableAllDropdown = writable(false)
 
 
 export let planData = [

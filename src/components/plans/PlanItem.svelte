@@ -8,7 +8,6 @@
     plansModalState,
     plansModalData,
     sortPersantageVariable,
-    disableAllDropdown,
     planModalData,
     portfolioItems,
   } from "../../stores/plansStore";
@@ -16,11 +15,13 @@
     contributionData,
     allocatedContributions,
   } from "../../stores/contributionsStore";
+  import { tooltip } from "../../functions/tooltip";
   import PlanBtn from "./PlanBtn.svelte";
   import Portfolio from "./Portfolio.svelte";
   import MobArrow_ico from "../../../public/images/MobArrow_ico.svelte";
   import Checkbox_ico from "../../../public/images/Checkbox_ico.svelte";
   import Dropdown_ico from "../../../public/images/Dropdown_ico.svelte";
+  import Tooltip from "./Tooltip.svelte";
 
   export let current,
     currentPlan,
@@ -31,11 +32,15 @@
     activeClass,
     activeState = false,
     btnText,
+    itemTitle,
     btnClass;
 
   let modalData = planModalData[0];
-  function setPercentage(item, plan) {
-    if ($disableAllDropdown === false) {
+
+  function setPercentage(item, plan, disableState) {
+    if (disableState) {
+      return false;
+    } else {
       $sortPersantageVariable = item.sortName;
       $subscribeAllState = false;
       switch (plan) {
@@ -79,6 +84,13 @@
   function handleClickOutside(event) {
     activeState = false;
   }
+  function checkItemDisableState(item) {
+    let status =
+      item.persentage > allowPercentageVal &&
+      allowPercentageVal + $allocatedContributions[className] < item.persentage;
+    console.log(status);
+    return status;
+  }
 </script>
 
 <div class="plans__item {className}" class:active={current === currentPlan}>
@@ -108,10 +120,7 @@
     <div>
       <div class="item__top">
         <div class="item__top__head">You contribute to Green Safe</div>
-        <div
-          class="dropdown__wrapper"
-          class:disabled={$disableAllDropdown === true}
-        >
+        <div class="dropdown__wrapper">
           <div
             class="dropdown  {activeState ? activeClass : ''} plan__dropdown"
             on:click={() => (activeState = !activeState)}
@@ -124,16 +133,44 @@
             </div>
             <div class="dropdown__items">
               {#each savePercentages as item}
-                <div
-                  class="dropdown__item"
-                  class:disabled={!item.visibility ||
-                    (item.persentage > allowPercentageVal &&
+              {#if item.persentage > allowPercentageVal &&
+                allowPercentageVal + $allocatedContributions[className] <
+                  item.persentage}
+                  <div style="position:relative">
+                 <Tooltip title={"Remove allocation from other plans"}>
+                  <div
+                    class="dropdown__item"
+                    title={itemTitle}
+                    class:disabled={item.persentage > allowPercentageVal &&
                       allowPercentageVal + $allocatedContributions[className] <
-                        item.persentage)}
-                  on:click={() => setPercentage(item, currentPlan)}
-                >
-                  {item.persentage}%
-                </div>
+                        item.persentage}
+                    on:click={function () {
+                      let status = checkItemDisableState(item);
+                      setPercentage(item, currentPlan, status);
+                    }}
+                    
+                  >
+                    {item.persentage}%
+                  </div>
+                </Tooltip>
+              </div>
+                {:else}
+                <div
+                class="dropdown__item"
+                title={itemTitle}
+                class:disabled={item.persentage > allowPercentageVal &&
+                  allowPercentageVal + $allocatedContributions[className] <
+                    item.persentage}
+                on:click={function () {
+                  let status = checkItemDisableState(item);
+                  setPercentage(item, currentPlan, status);
+                }}
+                
+              >
+                {item.persentage}%
+              </div>
+              {/if}
+               
               {/each}
             </div>
           </div>
@@ -318,7 +355,7 @@
   .dropdown__wrapper.disabled,
   .dropdown__wrapper.disabled * {
     opacity: 0.7;
-    pointer-events: none;
+    /* pointer-events: none; */
     user-select: none;
   }
   .dropdown {
@@ -334,11 +371,12 @@
     display: none;
   }
   .dropdown__item {
+    position: relative;
     padding: 12px 30px;
     transition: all ease-in 0.3s;
   }
   .dropdown__item.disabled {
-    pointer-events: none;
+    /* pointer-events: none; */
     opacity: 0.5;
   }
   .dropdown__item:hover {
