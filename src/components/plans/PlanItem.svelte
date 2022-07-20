@@ -1,5 +1,4 @@
 <script>
-  import { beforeUpdate, afterUpdate } from "svelte";
   import { subscribeAllState } from "../../stores/store";
   import { clickOutside } from "../../functions/clickOutside";
   import { priceConvertation } from "../../functions/priceConvertation";
@@ -15,7 +14,6 @@
     contributionData,
     allocatedContributions,
   } from "../../stores/contributionsStore";
-  import { tooltip } from "../../functions/tooltip";
   import PlanBtn from "./PlanBtn.svelte";
   import Portfolio from "./Portfolio.svelte";
   import MobArrow_ico from "../../../public/images/MobArrow_ico.svelte";
@@ -133,11 +131,26 @@
             </div>
             <div class="dropdown__items">
               {#each savePercentages as item}
-              {#if item.persentage > allowPercentageVal &&
-                allowPercentageVal + $allocatedContributions[className] <
-                  item.persentage}
+                {#if item.persentage > allowPercentageVal && allowPercentageVal + $allocatedContributions[className] < item.persentage}
                   <div style="position:relative">
-                 <Tooltip title={"Remove allocation from other plans"}>
+                    <Tooltip title={"Remove allocation from other plans"}>
+                      <div
+                        class="dropdown__item"
+                        title={itemTitle}
+                        class:disabled={item.persentage > allowPercentageVal &&
+                          allowPercentageVal +
+                            $allocatedContributions[className] <
+                            item.persentage}
+                        on:click={function () {
+                          let status = checkItemDisableState(item);
+                          setPercentage(item, currentPlan, status);
+                        }}
+                      >
+                        {item.persentage}%
+                      </div>
+                    </Tooltip>
+                  </div>
+                {:else}
                   <div
                     class="dropdown__item"
                     title={itemTitle}
@@ -148,29 +161,10 @@
                       let status = checkItemDisableState(item);
                       setPercentage(item, currentPlan, status);
                     }}
-                    
                   >
                     {item.persentage}%
                   </div>
-                </Tooltip>
-              </div>
-                {:else}
-                <div
-                class="dropdown__item"
-                title={itemTitle}
-                class:disabled={item.persentage > allowPercentageVal &&
-                  allowPercentageVal + $allocatedContributions[className] <
-                    item.persentage}
-                on:click={function () {
-                  let status = checkItemDisableState(item);
-                  setPercentage(item, currentPlan, status);
-                }}
-                
-              >
-                {item.persentage}%
-              </div>
-              {/if}
-               
+                {/if}
               {/each}
             </div>
           </div>
