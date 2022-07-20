@@ -1,6 +1,6 @@
 <script>
   import { beforeUpdate, afterUpdate } from "svelte";
-  import { planData, disableAllDropdown } from "../../stores/plansStore";
+  import { planData } from "../../stores/plansStore";
   import {
     contributionData,
     allocatedContributions,
@@ -40,11 +40,11 @@
       100;
     founderPrice =
       ($allocatedContributions.founder * $contributionData.monthlyValue) / 100;
-    if ($disableAllDropdown === true) {
+    
       activeDropdownSave = false;
       activeDropdownAdv = false;
       activeDropdownFound = false;
-    }
+    
   });
   afterUpdate(() => {});
 </script>

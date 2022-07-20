@@ -8,7 +8,6 @@
     plansModalState,
     plansModalData,
     sortPersantageVariable,
-    disableAllDropdown,
     planModalData,
     portfolioItems,
   } from "../../stores/plansStore";
@@ -35,7 +34,7 @@
 
   let modalData = planModalData[0];
   function setPercentage(item, plan) {
-    if ($disableAllDropdown === false) {
+  
       $sortPersantageVariable = item.sortName;
       $subscribeAllState = false;
       switch (plan) {
@@ -54,7 +53,7 @@
         default:
           console.log("Error");
       }
-    }
+    
   }
   let svgIcons = {
     safe: "https://uploads-ssl.webflow.com/627ca4b5fcfd5674acf264e6/627e4841370604453befc5d7_green.svg",
@@ -110,7 +109,6 @@
         <div class="item__top__head">You contribute to Green Safe</div>
         <div
           class="dropdown__wrapper"
-          class:disabled={$disableAllDropdown === true}
         >
           <div
             class="dropdown  {activeState ? activeClass : ''} plan__dropdown"

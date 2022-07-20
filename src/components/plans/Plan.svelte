@@ -5,7 +5,7 @@
     decrementStep,
     subscribeAllState,
   } from "../../stores/store";
-  import { disableAllDropdown, plansModalState } from "../../stores/plansStore";
+  import { plansModalState } from "../../stores/plansStore";
   import { allocatedContributions } from "../../stores/contributionsStore";
   import PlanHead from "./PlanHead.svelte";
   import ButtonLeft from "../buttons/ButtonLeft.svelte";
@@ -55,16 +55,14 @@
 
   function subscribeAllPlans() {
     if (!$subscribeAllState) {
-      $disableAllDropdown = true;
 
-      $allocatedContributions.safe = 33.33;
+      $allocatedContributions.safe = 25;
 
-      $allocatedContributions.adventure = 33.33;
+      $allocatedContributions.adventure = 50;
 
-      $allocatedContributions.founder = 33.33;
+      $allocatedContributions.founder = 25;
       $subscribeAllState = true;
     } else {
-      $disableAllDropdown = false;
 
       $allocatedContributions.safe = 0;
 
