@@ -256,7 +256,8 @@
     -moz-appearance: textfield;
   }
 
-  .contribution__help--text {
+  .contribution__help--text,
+  .contribution__help--left {
     font-size: var(--text-size-small);
     color: var(--color-darkest);
     margin-top: 24px;
