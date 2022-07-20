@@ -7,15 +7,20 @@
   import NextPaymentDay from "./NextPaymentDate.svelte";
   import Dropdown_ico from "../../../public/images/Dropdown_ico.svelte";
   import { clickOutside } from "../../functions/clickOutside";
-  import { checkInputValue } from "../../functions/checkInputValue";
   import { onMount, text } from "svelte/internal";
   import { getPeriodsFromDB, getCountriesFromDB } from "./getDataFromDB";
   import Preloader from "../Preloader.svelte";
 
+  export let input;
   let activePeriod = false;
   let activeCountry = false;
+  let amountMessage = false;
   let periods = [];
   let countries = [];
+  let inputNumber;
+  let currentMonthIndex = new Date().getMonth();
+  let currentDay = new Date().getDate();
+  let paymentMounthIndex = currentMonthIndex + 1;
 
   const months = [
     "January",
@@ -31,11 +36,6 @@
     "November",
     "December",
   ];
-  let inputNumber;
-  export let input;
-  let currentMonthIndex = new Date().getMonth();
-  let currentDay = new Date().getDate();
-  let paymentMounthIndex = currentMonthIndex + 1;
 
   $: {
     countries, periods;
@@ -95,8 +95,21 @@
       activeCountry = false;
     }
   }
+  function checkInputValue() {
+    this.value = this.value.replace(/[^0-9]/g, "");
+    if (this.value.length > this.maxLength) {
+      this.value = this.value.slice(0, this.maxLength);
+    } else if (parseInt(this.value) < 20) {
+      this.classList.add("error");
+      amountMessage.classList.add("error");
+    } else {
+      if (this.classList.contains("error")) {
+        this.classList.remove("error");
+        amountMessage.classList.remove("error");
+      }
+    }
+  }
 </script>
-
 <div class="contribution__form">
   <form on:submit|preventDefault>
     <div class="period">
@@ -164,7 +177,7 @@
       <label class="label__text" for="amount">Amount*</label>
       <input
         type="number"
-        class="input-sv"
+        class="input-sv amount-sv"
         on:mousewheel={(e) => {
           e.target.blur();
         }}
@@ -174,14 +187,24 @@
         on:input={checkInputValue}
         bind:value={$contributionData.amount}
         class:error={$amountErrorMessageState}
-        on:focus={() => ($amountErrorMessageState = false)}
       />
     </div>
 
     <NextPaymentDay />
   </form>
   <div class="contribution__help--text">
-    *Min. <span>{$contributionData.country?.currency?.symbol || "$"}20</span> and <span> {$contributionData.country?.currency?.symbol || "$"}9,999</span> Total contribution
+    <div
+      bind:this={amountMessage}
+      class="contribution__help--left"
+      class:error={$amountErrorMessageState}
+      style="display: inline;"
+    >
+      *Min. <span>{$contributionData.country?.currency?.symbol || "$"}20</span>
+      and
+      <span> {$contributionData.country?.currency?.symbol || "$"}9,999</span> Total
+      contribution.
+    </div>
+    Make sure your Country matches your Billing information
   </div>
 </div>
 
@@ -212,6 +235,7 @@
     border-radius: 10px;
     padding: 12px 30px;
   }
+
   .amount .input-sv.error {
     border: 1px solid var(--error-color);
     color: var(--error-color);
@@ -236,6 +260,9 @@
     font-size: var(--text-size-small);
     color: var(--color-darkest);
     margin-top: 24px;
+  }
+  .contribution__help--left.error {
+    color: var(--error-color);
   }
 
   .contribution__help--text span {

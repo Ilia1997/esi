@@ -13,7 +13,6 @@
   import ButtonRight from "../buttons/ButtonRight.svelte";
   import ErrorMessage from "../ErrorMessage.svelte";
   let changeCounter = 0;
-  let amountErrorMessage = "Error message";
   
   function changeStep() {
     if (validateAmount()) {
@@ -33,9 +32,7 @@
   });
   function validateAmount() {
     if (data.amount < 20) {
-      amountErrorMessage = "Amount value shoud be more than 20";
-      $amountErrorMessageState = true;
-     // scrollToTop()
+      scrollToTop()
     } else {
       return true;
     }
@@ -122,9 +119,6 @@
         <Rules />
       </div>
       <div class="relative__wrapper">
-        {#if $amountErrorMessageState}
-          <ErrorMessage errorMessage={amountErrorMessage} />
-        {/if}
         <div class="step__footer">
           <ButtonRight on:click={changeStep} />
         </div>

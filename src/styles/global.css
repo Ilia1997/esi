@@ -161,6 +161,9 @@ svg.active path {
   cursor: pointer;
 }
 
+input:focus, textarea:focus, select:focus{
+  outline: none;
+}
 .input-sv {
   margin-bottom: 8px;
 }
