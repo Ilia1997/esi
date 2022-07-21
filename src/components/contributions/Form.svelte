@@ -102,7 +102,7 @@
     } else if (parseInt(this.value) < 20) {
       this.classList.add("error");
       amountMessage.classList.add("error");
-    } else {
+    } else if (parseInt(this.value) >= 20){
       if (this.classList.contains("error")) {
         this.classList.remove("error");
         amountMessage.classList.remove("error");

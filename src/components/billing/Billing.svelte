@@ -34,7 +34,7 @@
   let windowWidth, formWrapper;
 
   $: nextButtonState, windowWidth;
-  //$userAuthToken = 'Basic ZXNpX3ByaXZhdGUlN0M1NTU1NTU1NTV0dDpwYXNzUDEmZmY='
+  $userAuthToken = 'Basic ZXNpX3ByaXZhdGUlN0M1NTU1NTU1NTV0dDpwYXNzUDEmZmY='
 
   function scrollToTopInMobile() {
     if (windowWidth < 991) {

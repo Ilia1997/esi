@@ -32,6 +32,7 @@
   });
   function validateAmount() {
     if (data.amount < 20) {
+      $amountErrorMessageState = true;
       scrollToTop()
     } else {
       return true;
@@ -56,7 +57,7 @@
     fiveYrVal = yrVal * 5;
   });
   afterUpdate(() => {
-    if (data.amount > 20 && data.amount < 9999) {
+    if (data.amount >= 20 && data.amount < 9999) {
       $amountErrorMessageState = false;
     }
   });

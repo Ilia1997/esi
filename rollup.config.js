@@ -47,7 +47,7 @@ export default {
 		}),
 		replace({
 			values: {
-			  'process.env.stripe_PK': process.env.STRIPE_PUBLIC_KEY,
+			  'process.env.stripe_PK': process.env.STRIPE_PUBLIC_KEY, 
 			}
 		  }),
 		// we'll extract any component CSS out into
