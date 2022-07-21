@@ -102,7 +102,7 @@
     } else if (parseInt(this.value) < 20) {
       this.classList.add("error");
       amountMessage.classList.add("error");
-    } else {
+    } else if (parseInt(this.value) >= 20){
       if (this.classList.contains("error")) {
         this.classList.remove("error");
         amountMessage.classList.remove("error");
@@ -204,7 +204,7 @@
       <span> {$contributionData.country?.currency?.symbol || "$"}9,999</span> Total
       contribution.
     </div>
-    Make sure your Country matches your Billing information
+    Make sure your <span>Country</span> matches your <span> Billing information</span>
   </div>
 </div>
 
@@ -356,7 +356,8 @@
       height: 50px;
       padding: 12px 15px;
     }
-    .contribution__help--text {
+    .contribution__help--text,
+    .contribution__help--left {
       font-size: 10px;
     }
     .period,

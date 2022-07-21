@@ -8,7 +8,7 @@ export const plansModalData = writable({
 })
 
 export const plansModalState = writable(false)
-
+export const errorMessageState = writable(false)
 export const sortPersantageVariable = writable ("all")
 
 

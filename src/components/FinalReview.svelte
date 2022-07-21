@@ -62,7 +62,6 @@
     };
 
     const status = await createUserInDB(userData);
-    console.log(status);
     if (status) {
       $confirmPopUpState = false;
       $headSteps.fifthStep = true;
