@@ -9,6 +9,7 @@
     sortPersantageVariable,
     planModalData,
     portfolioItems,
+    errorMessageState,
   } from "../../stores/plansStore";
   import {
     contributionData,
@@ -34,7 +35,6 @@
     btnClass;
 
   let modalData = planModalData[0];
-
   function setPercentage(item, plan, disableState) {
     if (disableState) {
       return false;
@@ -86,7 +86,6 @@
     let status =
       item.persentage > allowPercentageVal &&
       allowPercentageVal + $allocatedContributions[className] < item.persentage;
-    console.log(status);
     return status;
   }
 </script>
@@ -121,8 +120,12 @@
         <div class="dropdown__wrapper">
           <div
             class="dropdown  {activeState ? activeClass : ''} plan__dropdown"
-            on:click={() => (activeState = !activeState)}
+            on:click={() => {
+              $errorMessageState = false;
+              activeState = !activeState;
+            }}
             use:clickOutside
+            class:error={$errorMessageState}
             on:click_outside={handleClickOutside}
           >
             <Dropdown_ico />
@@ -360,6 +363,9 @@
     background-color: var(--white-color);
     border: 1px solid var(--border-color);
     border-radius: 10px;
+  }
+  .dropdown.error {
+    border-color: var(--error-color);
   }
   .dropdown__items {
     display: none;

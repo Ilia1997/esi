@@ -33,6 +33,9 @@
 
   onDestroy(unsubscribe);
 </script>
+<svelte:head>
+	<link rel="stylesheet" href="https://unpkg.com/mono-icons@1.0.5/iconfont/icons.css" >
+</svelte:head>
 
 <main style="height: {mainHeight}">
   <div class="container__form">

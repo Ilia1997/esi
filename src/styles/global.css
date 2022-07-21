@@ -153,13 +153,7 @@ input::-ms-clear {
 svg.active path {
   fill: var(--color-dark-st3);
 }
-.eye__icon {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  z-index: 2;
-  cursor: pointer;
-}
+
 
 input:focus, textarea:focus, select:focus{
   outline: none;

@@ -43,9 +43,11 @@
   <div class="tab__head">Password</div>
   <div class="tab__subhead">Please put your Password</div>
   <div class="tab__form__fields">
-    <div class="input__wrapper">
-      <EyePW_ico on:click={validatePasswordType} disabled={$savedPassword ? 'on' : 'off'} class={$passwordData.err.password ? 'error' : ''} />
-      <input
+    <div class="input__wrapper" >
+      <div class="eyeWrapper"on:click|capture={validatePasswordType}>
+        <EyePW_ico  disabled={$savedPassword ? 'on' : 'off'} class={$passwordData.err.password ? 'error' : ''} />
+      </div>
+           <input
         type="password"
         class="input-sv"
         placeholder="Password"
@@ -69,7 +71,9 @@
     {/if}
 
     <div class="input__wrapper">
-      <EyePW_ico on:click={validatePasswordType} disabled={$savedPassword ? 'on' : 'off'} class={$passwordData.err.confirm ? 'error' :''}/>
+      <div class="eyeWrapper"on:click|capture={validatePasswordType}>
+      <EyePW_ico disabled={$savedPassword ? 'on' : 'off'} class={$passwordData.err.confirm ? 'error' :''}/>
+      </div>
       <input
         type="password"
         class="input-sv"
@@ -102,6 +106,13 @@
     filter: grayscale(1);
     opacity: 0.25;
   }
+  .eyeWrapper {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 2;
+  cursor: pointer;
+}
   .error__message {
     margin-bottom: 8px;
     text-align: left;
@@ -123,10 +134,16 @@
   .input__wrapper:first-child {
     margin-bottom: 10px;
   }
+  
   @media only screen and (max-width: 768px) {
     .info__password__message {
       padding-left: 10px;
       
+    }
+  }
+  @media only screen and (max-width: 480px) {
+    .eyeWrapper {
+      top: 13px;
     }
   }
 </style>

@@ -5,7 +5,7 @@
     decrementStep,
     subscribeAllState,
   } from "../../stores/store";
-  import { plansModalState } from "../../stores/plansStore";
+  import { plansModalState, errorMessageState } from "../../stores/plansStore";
   import { allocatedContributions } from "../../stores/contributionsStore";
   import PlanHead from "./PlanHead.svelte";
   import ButtonLeft from "../buttons/ButtonLeft.svelte";
@@ -16,12 +16,12 @@
   import { scrollToTop } from "../../functions/scrollToTop";
   import ErrorMessage from "../ErrorMessage.svelte";
   import SubscribeAllIco from "../../../public/images/SubscribeAll_ico.svelte";
-  import { afterUpdate } from "svelte";
+  import { afterUpdate, setContext } from "svelte";
 
   let changeCounter = 0;
-  let errorMessageState = false;
   let errorMessage;
-  $: errorMessage, errorMessageState;
+  let sumOfPlans;
+  $: errorMessage, sumOfPlans;
 
   let prevStep = () => {
     decrementStep();
@@ -35,9 +35,9 @@
         changeCounter += 1;
         scrollToTop();
       }
-      errorMessageState = false;
+      $errorMessageState = false;
     } else {
-      errorMessageState = true;
+      $errorMessageState = true;
       errorMessage = "Please allocate all 100% of your money";
     }
   };
@@ -55,7 +55,6 @@
 
   function subscribeAllPlans() {
     if (!$subscribeAllState) {
-
       $allocatedContributions.safe = 25;
 
       $allocatedContributions.adventure = 50;
@@ -63,7 +62,6 @@
       $allocatedContributions.founder = 25;
       $subscribeAllState = true;
     } else {
-
       $allocatedContributions.safe = 0;
 
       $allocatedContributions.adventure = 0;
@@ -74,12 +72,12 @@
     }
   }
   afterUpdate(() => {
-    let sumOfPlans =
+    sumOfPlans =
       $allocatedContributions.safe +
       $allocatedContributions.adventure +
       $allocatedContributions.founder;
     if (sumOfPlans > 99 && sumOfPlans <= 100) {
-      errorMessageState = false;
+      $errorMessageState = false;
     }
   });
 </script>
@@ -100,11 +98,19 @@
 
     <div class="plans__wrapper">
       <div class="plans__wrapper__head">
-        <h3 class="h3-sv">
-          Please allocate you <span class="green">contribution</span> between
-          our
-          <span class="green">plans</span>
+        <h3 class="h3-sv desktop">
+          {#if sumOfPlans < 100}
+            Please allocate <span
+              class="plan_percentage_val"
+              class:error={$errorMessageState}>{100 - sumOfPlans}%</span
+            > of your contribution between our plans
+          {:else if sumOfPlans === 100}
+            You have allocated all of your <span class="green"
+              >contribution!</span
+            >
+          {/if}
         </h3>
+
         <div class="mob__plan__h2">Select plans</div>
         <div class="subscribe__all" on:click={subscribeAllPlans}>
           <div class="subscribe__checkbox">
@@ -116,6 +122,17 @@
           <div class="subscribe__text">Subscribe to All Plan</div>
         </div>
       </div>
+      <h3 class="h3-sv mob">
+        {#if sumOfPlans < 100}
+          Please allocate <span
+            class="plan_percentage_val"
+            class:error={$errorMessageState}>{100 - sumOfPlans}%</span
+          > of your contribution
+        {:else if sumOfPlans === 100}
+          You have allocated all of your <span class="green">contribution!</span
+          >
+        {/if}
+      </h3>
 
       <PlanItems />
     </div>
@@ -127,7 +144,7 @@
     </div>
   {/if}
   <div class="relative__wrapper">
-    {#if errorMessageState}
+    {#if $errorMessageState}
       <ErrorMessage {errorMessage} />
     {/if}
     <div class="bottom__btns">
@@ -138,6 +155,18 @@
 </div>
 
 <style>
+  .plan_percentage_val {
+    font-size: var(--h2-size);
+    line-height: var(--h2-line-height);
+    color: var(--plan-adventure-bg);
+    font-weight: var(--font-weight-bold);
+    position: relative;
+    bottom: -5px;
+    padding: 0 5px;
+  }
+  .plan_percentage_val.error {
+    color: var(--error-color);
+  }
   .relative__wrapper {
     position: relative;
   }
@@ -152,7 +181,8 @@
     align-items: center;
     justify-content: flex-end;
     cursor: pointer;
-    min-width: 180px;
+    min-width: 200px;
+    margin-left: 10px;
   }
   .subscribe__checkbox {
     width: 24px;
@@ -186,19 +216,30 @@
     position: relative;
   }
   .mob__plan__h2,
-  .main__mob_h2 {
+  .main__mob_h2,
+  .h3-sv.mob {
     display: none;
   }
   @media only screen and (max-width: 991px) {
-    .mob__plan__h2 {
+    .h3-sv.desktop {
+      display: none;
+    }
+    .h3-sv.mob {
+      display: block;
+    }
+    .h3-sv {
       display: block;
       font-weight: var(--font-weight-medium);
       font-size: var(--h3-size);
       line-height: 32px;
       color: var(--main-text-color);
     }
-    .h3-sv {
-      display: none;
+    .mob__plan__h2 {
+      display: block;
+      font-weight: var(--font-weight-medium);
+      font-size: var(--h3-size);
+      line-height: 32px;
+      color: var(--main-text-color);
     }
   }
   @media only screen and (max-width: 768px) {
@@ -209,6 +250,16 @@
       font-size: var(--text-size-smaller);
       line-height: 18px;
       color: var(--main-text-color);
+    }
+    .h3-sv {
+      font-size: 21px;
+      line-height: 28px;
+      padding: 16px 16px 0 16px;
+    }
+    .plan_percentage_val {
+      font-size: 26px;
+      line-height: 32px;
+      bottom: -2px;
     }
     .mob__plan__h2 {
       white-space: nowrap;
@@ -230,6 +281,28 @@
       font-size: var(--text-size-normal);
       line-height: var(--text-line-height);
     }
+    .h3-sv {
+      font-size: var(--text-size-small);
+      line-height: 21px;
+      padding: 5px 16px 0px 16px;
+    }
+    .h3-sv span.green{
+      font-size: var(--text-size-small);
+      line-height: 21px;
+    }
+    .plan_percentage_val {
+      font-size: var(--text-size-normal);
+      line-height: var(--text-line-height);
+      bottom: -1px;
+    }
+
+    .plans__items {
+      margin-top: 14px;
+    }
+    .subscribe__all {
+      min-width: 150px;
+      margin-left: 5px;
+    }
     .subscribe__checkbox {
       width: 16px;
       height: 16px;
@@ -237,8 +310,8 @@
     }
     .subscribe__text {
       font-size: var(--text-size-smaller);
+      font-weight: var(--font-weight-normal);
       line-height: var(--small-text-line-height);
     }
   }
-
 </style>

@@ -325,6 +325,11 @@
       white-space: nowrap;
     }
   }
+  @media only screen and (max-width: 480px) {
+    .rules{
+      margin-top: 24px;
+    }
+  }
   @media only screen and (max-width: 375px) {
     .rules__top{
       padding: 24px 25px 13px 12px;
