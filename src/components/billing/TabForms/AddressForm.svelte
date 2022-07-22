@@ -150,22 +150,28 @@
         </p>
       {/if}
     </div>
-    <div class="input-sv__wrapper">
+    <div class="input-sv__wrapper ">
       <input
         type="text"
-        class="input-sv"
-        placeholder="City *"
+        class="input-sv small"
+        placeholder="State*"
         autocomplete
-        value={$contributionData.country.countryName}
-        disabled
+        bind:value={$addressData.state}
+        class:error={$addressData.err.state}
+        on:focus={addressData.clear}
       />
+      {#if $addressData.err.state}
+        <p transition:slide|local class="error__message ">
+          {$addressData.err.state}
+        </p>
+      {/if}
     </div>
 
     <div class="input-sv__wrapper">
       <input
         type="text"
         class="input-sv small"
-        placeholder="Postal / Zip Code"
+        placeholder="Postal / Zip Code*"
         autocomplete
         bind:value={$addressData.postal}
         class:error={$addressData.err.postal}
@@ -176,6 +182,16 @@
           {$addressData.err.postal}
         </p>
       {/if}
+    </div>
+    <div class="input-sv__wrapper country_wrapper" >
+      <input
+        type="text"
+        class="input-sv"
+        placeholder="Country *"
+        autocomplete
+        value={$contributionData.country.countryName}
+        disabled
+      />
     </div>
   </div>
 </div>
@@ -279,6 +295,14 @@
     grid-gap: 8px;
     margin: 24px 0;
   }
+  .country_wrapper{
+   
+    grid-column-start: 1;
+    grid-column-end: 3;
+  }
+  .country_wrapper input{
+    background: #E4E4E4;
+  }
   .input-sv__wrapper {
     width: 100%;
   }
@@ -302,6 +326,10 @@
     .input_grid {
       grid-template-columns: 1fr;
     }
+    .country_wrapper{
+    grid-column-start: 1;
+    grid-column-end: 2;
+  }
   }
   @media only screen and (max-width: 480px) {
     .dropdown__wrapper {

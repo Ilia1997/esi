@@ -38,6 +38,7 @@
       $errorMessageState = false;
     } else {
       $errorMessageState = true;
+      scrollToTop(140);
       errorMessage = "Please allocate all 100% of your money";
     }
   };
@@ -176,6 +177,9 @@
   .green {
     color: var(--color-dark-st2);
   }
+  h3{
+    margin: 0;
+  }
   .subscribe__all {
     display: flex;
     align-items: center;
@@ -183,6 +187,7 @@
     cursor: pointer;
     min-width: 200px;
     margin-left: 10px;
+    margin-bottom: 10px;
   }
   .subscribe__checkbox {
     width: 24px;
@@ -204,7 +209,7 @@
   .plans__wrapper__head {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-end;
   }
 
   .plans__main {
@@ -226,6 +231,9 @@
     }
     .h3-sv.mob {
       display: block;
+    }
+    .subscribe__all {
+      margin-bottom: 0;
     }
     .h3-sv {
       display: block;

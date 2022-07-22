@@ -55,14 +55,16 @@
         if ($infoFormErrorState === false) {
           activeItem = tabItems[index + 1];
           $allowItemIndex = $allowItemIndex + 1;
-          formButtonText = "Save";
+          formButtonText = "Confirm";
+
         }
       } else if (index === 1) {
         // Validate Password
         doSignup();
         if ($savedPassword === true) {
-          nextButtonState = true;
           hidePasswords();
+          $confirmPopUpState = true;
+          scrollToTop(0);
         }
       }
     }
@@ -198,10 +200,6 @@
     scrollToTop();
   };
 
-  let nextStep = () => {
-    $confirmPopUpState = true;
-    scrollToTop(0);
-  };
 
   afterUpdate(() => {
     $infoFormData.email = $loginData.email;
@@ -244,24 +242,15 @@
           <Arrow_left_ico />
           Back
         </button>
+        {:else}
+        <ButtonLeft on:click={prevStep} bind:this={prevBtn} />
       {/if}
-      {#if $savedPassword && formButtonText === "Save"}
-        <button class="btn-sv next" disabled on:click={nextTab}
-          >{formButtonText}</button
-        >
-      {:else}
+     
         <button class="btn-sv next" on:click={nextTab}>{formButtonText}</button>
-      {/if}
+      
     </div>
   </div>
 
-  <div class="bottom__btns">
-    <ButtonLeft on:click={prevStep} bind:this={prevBtn} />
-    <ButtonRight
-      on:click={nextStep}
-      buttonState={nextButtonState || $savedPassword}
-    />
-  </div>
 </div>
 
 <style>
@@ -271,7 +260,7 @@
   .buttons__wrapper {
     display: flex;
     align-items: center;
-    justify-content: flex-end;
+    justify-content: space-between;
     position: relative;
   }
   .btn-sv.prev {
@@ -298,6 +287,7 @@
     transition: all ease 0.3s;
     display: flex;
     justify-content: center;
+    margin-left: auto;
   }
   .btn-sv.next:not(:disabled) {
     background: var(--btn-color);
@@ -323,7 +313,7 @@
   .info__main {
     max-width: 528px;
     width: 100%;
-    padding: 64px 20px 0 20px;
+    padding: 64px 20px 100px 20px;
     margin: 0 auto;
   }
   .main__tabs {
@@ -335,7 +325,7 @@
 
   @media only screen and (max-width: 768px) {
     .info__main {
-      padding: 40px 20px 0 20px;
+      padding: 40px 20px 100px 20px;
     }
     .btn-sv.prev {
       padding-left: 0;

@@ -533,7 +533,7 @@
     </p>
     <ul role="list">
       <li>
-        Delete cookies in<a
+        Delete cookies in <a
           href="https://support.google.com/chrome/answer/95647?hl=en-GB&amp;co=GENIE.Platform%3DDesktop"
           target="_blank"
         >
