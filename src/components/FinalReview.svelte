@@ -111,7 +111,7 @@
       <div class="pop__up__close" on:click={closePopUp}><span /></div>
     </div>
     <div class="pop__up__body">
-      <h3>Final Review</h3>
+      <h3>Review - Change - Confirm</h3>
       <div class="pop__up__items">
         <div class="pop__up__item">
           <div class="item__head">
@@ -236,7 +236,7 @@
         {#if preloaderState}
         <div class="preload_btn_wrapper"><Preloader  loaderWidth={1.5} loaderHeight={1.5} borderWidth={0.3} /></div>
         {/if}
-        <span>Open Account</span><OpenAcount_ico /></button
+        <span>Confirm</span><OpenAcount_ico /></button
       >
     </div>
   </div>

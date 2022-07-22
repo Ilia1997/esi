@@ -34,7 +34,7 @@
   let windowWidth, formWrapper;
 
   $: nextButtonState, windowWidth;
-  //$userAuthToken = 'Basic ZXNpX3ByaXZhdGUlN0M1NTU1NTU1NTV0dDpwYXNzUDEmZmY='
+  $userAuthToken = 'Basic ZXNpX3ByaXZhdGUlN0M1NTU1NTU1NTV0dDpwYXNzUDEmZmY='
 
   function scrollToTopInMobile() {
     if (windowWidth < 991) {
@@ -107,30 +107,33 @@
     streetNumber: "",
     city: "",
     country: "",
+    state: "",
     postal: "",
   });
 
   function checkRequiredAddressFields() {
     addressData.aovi // use Aovi validators
       .check("firstName")
-      .required("First Name is required")
+      .required("Enter first name")
       .minLength(3, "First Name should be at least 3 symbols length")
       .maxLength(20, "First Name must be no more than 20 characters")
       .check("lastName")
-      .required("Last Name is required")
+      .required("Enter last name")
       .minLength(3, "Last Name should be at least 3 symbols length")
       .maxLength(20, "Last Name must be no more than 20 characters")
       .check("gender")
-      .required("Gender is required")
+      .required("Select Gender")
       .check("dateOfBirdth")
       .is(underAgeValidate($addressData.dateOfBirdth), 'Person has to be at least 18 years old.')
-      .required("Date of Birdth is required")
+      .required("Select Date Of Birth")
       .check("streetNumber")
-      .required("Street is required")
+      .required("Enter Street Number & Street")
       .check("city")
-      .required()
+      .required('Enter City')
+      .check("state")
+      .required('Select State')
       .check("postal")
-      .required()
+      .required('Enter Postal / Zip code’')
       .minLength(2, "Postcode should be at least 2 symbols length")
       .maxLength(10, "Postcode must be no more than 10 characters")
       .match(/^\d+$/, "Postal should contain only numbers").end; // you must finish validation with '.end' operator
