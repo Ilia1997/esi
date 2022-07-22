@@ -93,7 +93,7 @@
           </div>
           <div slot="body">
             <div class="legal__content">
-              <h3 class="body__head">{item.title}</h3>
+              <!-- <h3 class="body__head">{item.title}</h3> -->
               <p>
                 <svelte:component this={legalComponents[item.key]} />
               </p>
