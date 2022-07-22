@@ -57,6 +57,7 @@
             lastName: $addressData.lastName,
             address: $addressData.streetNumber,
             city: $addressData.city,
+            state: $addressData.state,
             zipCode: $addressData.postal,
             dob: $addressData.dateOfBirdth,
             sex: $addressData.gender,
@@ -166,7 +167,7 @@
 <div class="main__wrapper">
   <div class="info__main">
     <h2 class="h2-sv main__head" bind:this={formWrapper}>
-      Payment/Withdrawal <span class="green">Methode</span>
+      Payment/Withdrawal <span class="green">Method</span>
     </h2>
     <div class="main__tabs">
       <Tabs {tabItems} />

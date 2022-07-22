@@ -171,7 +171,7 @@
       <input
         type="text"
         class="input-sv small"
-        placeholder="Postal / Zip Code"
+        placeholder="Postal / Zip Code*"
         autocomplete
         bind:value={$addressData.postal}
         class:error={$addressData.err.postal}
