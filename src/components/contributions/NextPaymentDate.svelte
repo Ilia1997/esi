@@ -6,7 +6,6 @@
   let currentDay = currentDate.getDate();
 
   $: currentYear;
-
   if ($contributionData.nextPaymentMonth === "January") {
     if ($contributionData.period === "Monthly") {
       currentYear = currentYear + 1;
@@ -14,6 +13,7 @@
       currentYear = currentYear + 1;
     }
   }
+
 </script>
 
 <div class="next__payment">
