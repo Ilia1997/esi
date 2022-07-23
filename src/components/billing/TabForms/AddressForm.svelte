@@ -121,7 +121,7 @@
       <input
         type="text"
         class="input-sv small street"
-        placeholder="Street Number & Street*"
+        placeholder="St. Number & Street*"
         autocomplete
         bind:value={$addressData.streetNumber}
         class:error={$addressData.err.streetNumber}

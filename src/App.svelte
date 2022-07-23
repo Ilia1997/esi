@@ -101,6 +101,7 @@
   }
   :global(.input-sv::placeholder) {
     color: #000000;
+    font-size: var(--text-size-normal);
   }
   main {
     padding: 36px 0 150px 0;
