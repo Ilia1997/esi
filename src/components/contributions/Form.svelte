@@ -39,7 +39,7 @@
 
   $: {
     countries, periods;
-    $contributionData.nextPaymentMonth = months[paymentMounthIndex];
+  //  $contributionData.nextPaymentMonth = months[paymentMounthIndex];
   }
 
   afterUpdate(() => {
@@ -47,14 +47,14 @@
     if ($contributionData.period === "Bi-Monthly") {
       if (currentDay < 15) {
         paymentMounthIndex = currentMonthIndex;
-        $contributionData.nextPaymentDay = 15;
+      //  $contributionData.nextPaymentDay = 15;
       } else if (currentDay >= 15) {
         paymentMounthIndex = currentMonthIndex + 1;
-        $contributionData.nextPaymentDay = 1;
+       // $contributionData.nextPaymentDay = 1;
       }
     } else {
       paymentMounthIndex = currentMonthIndex + 1;
-      $contributionData.nextPaymentDay = 1;
+    //  $contributionData.nextPaymentDay = 1;
     }
   });
   onMount(async () => {

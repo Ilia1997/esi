@@ -70,6 +70,9 @@
         changeCounter += 1;
       }
       scrollToTop();
+
+      localStorage.setItem('userName', userData.username)
+      
     }
     preloaderState = false;
   };

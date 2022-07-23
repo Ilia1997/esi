@@ -18,8 +18,9 @@ const months = [
 export const amountErrorMessageState = writable(false);
 
 let currentDate = new Date();
-let currentMonthIndex = currentDate.getMonth();
-let paymentMounthIndex = currentMonthIndex + 1;
+//let currentMonthIndex = currentDate.getMonth();
+let paymentMounthIndex = 8;
+// currentMonthIndex + 1;
 
 export const contributionData = writable({
   period: {},
