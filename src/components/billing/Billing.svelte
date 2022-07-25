@@ -7,6 +7,7 @@
     allowItemIndexBilling,
     addressFormStatus,
     billingeErrorMessage,
+    postalCode
   } from "../../stores/billingStore";
   import {
     successMessageState,
@@ -22,7 +23,7 @@
   import { updateUserInDB } from "./updateUserInDB";
   import { getClientSecret } from "./getClientSecret";
   import {underAgeValidate} from '../../functions/validateAge'
-  import { onMount } from "svelte";
+  import { afterUpdate, onMount } from "svelte";
 
   let tabItems = [
     { name: "Address", component: AddressForm },
@@ -34,7 +35,6 @@
   let windowWidth, formWrapper;
 
   $: nextButtonState, windowWidth;
-  $userAuthToken = 'Basic ZXNpX3ByaXZhdGUlN0M1NTU1NTU1NTV0dDpwYXNzUDEmZmY='
 
   function scrollToTopInMobile() {
     if (windowWidth < 991) {
@@ -146,6 +146,13 @@
       scrollToTopInMobile();
     }
   }
+
+  afterUpdate(()=>{
+    if($addressData.postal){
+      $postalCode = $addressData.postal
+    }
+    
+  })
 
   // let nextStep = () => {
   //   $successMessageState = true;
