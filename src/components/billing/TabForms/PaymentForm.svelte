@@ -2,6 +2,8 @@
   import { clientSecretToken, userAuthToken } from "../../../stores/store";
   import { onMount } from "svelte";
   import Preloader from "../../Preloader.svelte";
+  import {contributionData} from '../../../stores/contributionsStore'
+  import {postalCode} from '../../../stores/billingStore'
   let currentBillingMethod = 0;
   $: currentBillingMethod;
 
@@ -43,7 +45,16 @@
     var elements = stripe.elements({ clientSecret: client_secret });
 
     // Create an instance of the idealBank Element.
-    var paymentForm = elements.create("payment");
+    var paymentForm = elements.create("payment",{
+        defaultValues:{
+          billingDetails:{
+            address:{
+              country: $contributionData.country['2DigitCode'],
+              postal_code: $postalCode
+            }
+          }
+        }
+    });
 
     
 
