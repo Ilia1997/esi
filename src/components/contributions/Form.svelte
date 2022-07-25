@@ -21,6 +21,7 @@
   let currentMonthIndex = new Date().getMonth();
   let currentDay = new Date().getDate();
   let paymentMounthIndex = currentMonthIndex + 1;
+  let amountInputState = false
 
   const months = [
     "January",
@@ -61,6 +62,7 @@
     if (inputNumber) {
       input = inputNumber;
     }
+    amountInputState = true;
     let periodData = await getPeriodsFromDB();
     periodData.data.forEach((item) => {
       periods = [...periods, item];
@@ -69,6 +71,9 @@
     countriesData.data.forEach((item) => {
       countries = [...countries, item];
     });
+    if(periods.length > 1 && countries.length >1){
+      amountInputState = false
+    }
     $contributionData.period = periods[0];
     let usaData;
     countries.forEach((item) => {
@@ -187,6 +192,7 @@
         on:input={checkInputValue}
         bind:value={$contributionData.amount}
         class:error={$amountErrorMessageState}
+        disabled={amountInputState}
       />
     </div>
 

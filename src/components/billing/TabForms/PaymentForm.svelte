@@ -150,7 +150,7 @@
           <Preloader loaderWidth={1.5} loaderHeight={1.5} borderWidth={0.3} />
         </div>
       {/if}
-      Confirm</button
+      Open Account</button
     >
     <div id="error-message">
       <!-- Display error message to your customers here -->
