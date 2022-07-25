@@ -68,7 +68,7 @@
           updateUserInDB(userData, $userAuthToken).then((data) => {
             updateUserStatus = data;
 
-            console.log("$userAuthToken", $userAuthToken);
+           // console.log("$userAuthToken", $userAuthToken);
 
             if (updateUserStatus) {
               activeItem = tabItems[index + 1];
