@@ -44,7 +44,7 @@
   <div class="tab__subhead">Please put your Password</div>
   <div class="tab__form__fields">
     <div class="input__wrapper" >
-      <div class="eyeWrapper"on:click|capture={validatePasswordType}>
+      <div class="eyeWrapper"on:click|capture={validatePasswordType} class:disabled={$savedPassword}>
         <EyePW_ico  disabled={$savedPassword ? 'on' : 'off'} class={$passwordData.err.password ? 'error' : ''} />
       </div>
            <input
@@ -71,7 +71,7 @@
     {/if}
 
     <div class="input__wrapper">
-      <div class="eyeWrapper"on:click|capture={validatePasswordType}>
+      <div class="eyeWrapper"on:click|capture={validatePasswordType} class:disabled={$savedPassword}>
       <EyePW_ico disabled={$savedPassword ? 'on' : 'off'} class={$passwordData.err.confirm ? 'error' :''}/>
       </div>
       <input
@@ -112,6 +112,9 @@
   right: 20px;
   z-index: 2;
   cursor: pointer;
+}
+.eyeWrapper.disabled{
+  pointer-events: none;
 }
   .error__message {
     margin-bottom: 8px;
