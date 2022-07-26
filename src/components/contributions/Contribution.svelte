@@ -8,10 +8,8 @@
   import { afterUpdate, beforeUpdate, onDestroy } from "svelte";
   import { scrollToTop } from "../../functions/scrollToTop";
   import { priceConvertation } from "../../functions/priceConvertation";
-  import * as animateScroll from "svelte-scrollto";
   import Rules from "./Rules.svelte";
   import ButtonRight from "../buttons/ButtonRight.svelte";
-  import ErrorMessage from "../ErrorMessage.svelte";
   let changeCounter = 0;
   
   function changeStep() {

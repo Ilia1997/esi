@@ -3,12 +3,10 @@
   import { clickOutside } from "../../functions/clickOutside";
   import { priceConvertation } from "../../functions/priceConvertation";
   import {
-    planData,
     plansModalState,
     plansModalData,
     sortPersantageVariable,
     planModalData,
-    portfolioItems,
     errorMessageState,
   } from "../../stores/plansStore";
   import {
@@ -31,7 +29,6 @@
     activeClass,
     activeState = false,
     btnText,
-    itemTitle,
     btnClass;
 
   let modalData = planModalData[0];
@@ -58,6 +55,8 @@
           console.log("Error");
       }
     }
+    $errorMessageState = false;
+    activeState = !activeState;
   }
   let svgIcons = {
     safe: "https://uploads-ssl.webflow.com/627ca4b5fcfd5674acf264e6/627e4841370604453befc5d7_green.svg",
@@ -120,16 +119,18 @@
         <div class="dropdown__wrapper">
           <div
             class="dropdown  {activeState ? activeClass : ''} plan__dropdown"
-            on:click={() => {
-              $errorMessageState = false;
-              activeState = !activeState;
-            }}
             use:clickOutside
             class:error={$errorMessageState}
             on:click_outside={handleClickOutside}
           >
             <Dropdown_ico />
-            <div class="dropdown__item--current">
+            <div
+              class="dropdown__item--current"
+              on:click={() => {
+                $errorMessageState = false;
+                activeState = !activeState;
+              }}
+            >
               {$allocatedContributions[className]}% Total Contribution
             </div>
             <div class="dropdown__items">
@@ -139,7 +140,6 @@
                     <Tooltip title={"Remove allocation from other plans"}>
                       <div
                         class="dropdown__item"
-                        title={itemTitle}
                         class:disabled={item.persentage > allowPercentageVal &&
                           allowPercentageVal +
                             $allocatedContributions[className] <
@@ -156,7 +156,6 @@
                 {:else}
                   <div
                     class="dropdown__item"
-                    title={itemTitle}
                     class:disabled={item.persentage > allowPercentageVal &&
                       allowPercentageVal + $allocatedContributions[className] <
                         item.persentage}
@@ -352,13 +351,11 @@
   .dropdown__wrapper.disabled,
   .dropdown__wrapper.disabled * {
     opacity: 0.7;
-    /* pointer-events: none; */
     user-select: none;
   }
   .dropdown {
     position: absolute;
     width: 100%;
-    padding: 23px 30px;
     cursor: pointer;
     background-color: var(--white-color);
     border: 1px solid var(--border-color);
@@ -374,6 +371,9 @@
     position: relative;
     padding: 12px 30px;
     transition: all ease-in 0.3s;
+  }
+  .dropdown__item--current{
+    padding: 23px 30px;
   }
   .dropdown__item.disabled {
     /* pointer-events: none; */

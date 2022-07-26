@@ -1,7 +1,5 @@
 <script>
   import { fade, slide } from "svelte/transition";
-  import { Datepicker } from "svelte-calendar";
-  import dayjs from "dayjs";
   import DropdownIco from "../../../../public/images/Dropdown_ico.svelte";
   import { clickOutside } from "../../../functions/clickOutside";
   import { contributionData } from "../../../stores/contributionsStore";

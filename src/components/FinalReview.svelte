@@ -9,8 +9,7 @@
     headSteps,
     incrementStep,
     stepCounter,
-    popUpHeight,
-    userAuthToken,
+    popUpHeight
   } from "../stores/store";
   import { beforeUpdate } from "svelte";
   import { fade } from "svelte/transition";

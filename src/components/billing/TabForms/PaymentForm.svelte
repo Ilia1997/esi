@@ -13,7 +13,7 @@
   let stripeLoadedStatus = false;
 
   const client_secret = $clientSecretToken;
-  console.log(client_secret);
+
   onMount(async () => {
     mounted = true;
     if (stripeReady) {
@@ -99,44 +99,7 @@
         // site first to authorize the payment, then redirected to the `return_url`.
       }
     });
-    // const clientSecret = new URLSearchParams(window.location.search).get(
-    //   "setup_intent_client_secret"
-    // );
 
-    //  // Retrieve the SetupIntent
-    //   stripe.retrieveSetupIntent(clientSecret).then(({ setupIntent }) => {
-    //     const message = document.querySelector("#message");
-
-    //     // Inspect the SetupIntent `status` to indicate the status of the payment
-    //     // to your customer.
-    //     //
-    //     // Some payment methods will [immediately succeed or fail][0] upon
-    //     // confirmation, while others will first enter a `processing` state.
-    //     //
-    //     // [0]: https://stripe.com/docs/payments/payment-methods#payment-notification
-    //     switch (setupIntent.status) {
-    //       case "succeeded": {
-    //         message.innerText = "Success! Your payment method has been saved.";
-    //         break;
-    //       }
-
-    //       case "processing": {
-    //         message.innerText =
-    //           "Processing payment details. We'll update you when processing is complete.";
-    //         break;
-    //       }
-
-    //       case "requires_payment_method": {
-    //         message.innerText =
-    //           "Failed to process payment details. Please try another payment method.";
-
-    //         // Redirect your user back to your payment page to attempt collecting
-    //         // payment again
-
-    //         break;ф
-    //       }
-    //     }
-    //   });
   }
 </script>
 
@@ -172,7 +135,7 @@
 <style>
   #error-message {
     color: var(--error-color);
-    text-align: center;
+    text-align: left;
   }
   .tab__wrapper {
     min-height: 400px;
@@ -193,7 +156,9 @@
     bottom: 0;
     right: 20px;
     position: absolute;
-    width: 182px;
+    width: 100%;
+    max-width: 200px;
+    font-size: 16px;
     height: 66px;
     background: var(--btn-color);
     border: 1px solid var(--btn-color);

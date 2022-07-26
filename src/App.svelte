@@ -1,13 +1,12 @@
 <script>
   import Contribution from "./components/contributions/Contribution.svelte";
-  import { afterUpdate, onDestroy } from "svelte";
+  import { onDestroy } from "svelte";
   import HeadSteps from "./components/HeadSteps.svelte";
   import Plan from "./components/plans/Plan.svelte";
   import FinalReview from "./components/FinalReview.svelte";
   import {
     stepCounter,
-    popUpHeight,
-    headSteps
+    popUpHeight
   } from "./stores/store";
   import Legal from "./components/legal/Legal.svelte";
   import Information from "./components/information/Information.svelte";
@@ -26,8 +25,6 @@
       mainHeight = "auto";
     }
   }
-
-  
 
   onDestroy(unsubscribe);
 </script>

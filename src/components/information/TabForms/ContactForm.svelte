@@ -2,7 +2,7 @@
   import { fade, slide } from "svelte/transition";
   import { checkInputValue } from "../../../functions/checkInputValue";
   export let loginData;
-  import { infoFormData, calcInputPhonePadding} from "../../../stores/infoStore";
+  import { calcInputPhonePadding} from "../../../stores/infoStore";
 import CountryDropdown from "./CountryDropdown.svelte";
 
 
