@@ -10,9 +10,7 @@
     postalCode
   } from "../../stores/billingStore";
   import {
-    successMessageState,
     userAuthToken,
-    clientSecretToken,
   } from "../../stores/store";
   import { contributionData } from "../../stores/contributionsStore";
   import ButtonRight from "../buttons/ButtonRight.svelte";
@@ -154,10 +152,7 @@
     
   })
 
-  // let nextStep = () => {
-  //   $successMessageState = true;
-  //   scrollToTop();
-  // };
+
   onMount(() => {
     getClientSecret($userAuthToken);
   });
