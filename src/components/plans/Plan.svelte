@@ -16,7 +16,7 @@
   import { scrollToTop } from "../../functions/scrollToTop";
   import ErrorMessage from "../ErrorMessage.svelte";
   import SubscribeAllIco from "../../../public/images/SubscribeAll_ico.svelte";
-  import { afterUpdate, setContext } from "svelte";
+  import { afterUpdate} from "svelte";
 
   let changeCounter = 0;
   let errorMessage;

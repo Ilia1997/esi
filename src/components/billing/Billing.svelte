@@ -2,7 +2,7 @@
   import Tabs from "./Tabs/Tabs.svelte";
   import AddressForm from "./TabForms/AddressForm.svelte";
   import PaymentForm from "./TabForms/PaymentForm.svelte";
-  import { fade, slide } from "svelte/transition";
+  import { slide } from "svelte/transition";
   import {
     allowItemIndexBilling,
     addressFormStatus,
@@ -10,12 +10,9 @@
     postalCode
   } from "../../stores/billingStore";
   import {
-    successMessageState,
     userAuthToken,
-    clientSecretToken,
   } from "../../stores/store";
-  import { contributionData } from "../../stores/contributionsStore";
-  import ButtonRight from "../buttons/ButtonRight.svelte";
+
   import Button_back_ico from "../../../public/images/Button_back_ico.svelte";
   import { aoviSvelte } from "aovi-svelte";
   import * as animateScroll from "svelte-scrollto";
@@ -68,7 +65,6 @@
           updateUserInDB(userData, $userAuthToken).then((data) => {
             updateUserStatus = data;
 
-           // console.log("$userAuthToken", $userAuthToken);
 
             if (updateUserStatus) {
               activeItem = tabItems[index + 1];
@@ -154,10 +150,7 @@
     
   })
 
-  // let nextStep = () => {
-  //   $successMessageState = true;
-  //   scrollToTop();
-  // };
+
   onMount(() => {
     getClientSecret($userAuthToken);
   });
@@ -179,7 +172,7 @@
     <div class="main__tabs">
       <Tabs {tabItems} />
       <div>
-        <svelte:component this={activeItem.component} {addressData} />
+        <svelte:component this={activeItem.component} {addressData}/>
       </div>
 
       {#if $billingeErrorMessage.status}
@@ -202,19 +195,13 @@
       </div>
     </div>
   </div>
-  <!-- <div class="bottom__btns billing"> -->
-  <!-- //nextButtonState -->
-  <!-- <ButtonRight on:click={nextStep} buttonState={nextButtonState} /> -->
-  <!-- </div> -->
 </div>
 
 <style>
   .h2-sv.main__head {
     text-align: center;
   }
-  .bottom__btns.billing {
-    justify-content: flex-end;
-  }
+ 
   .buttons__wrapper {
     display: flex;
     align-items: center;
@@ -269,6 +256,7 @@
     padding-top: 64px;
     margin: 0 auto;
     max-width: 100%;
+    padding-bottom: 60px;
   }
   .main__tabs {
     margin: 14px auto 0 auto;
@@ -281,6 +269,9 @@
   @media only screen and (max-width: 768px) {
     .info__main {
       padding-top: 40px;
+    }
+    .btn-sv.prev{
+      padding: 20px 8px;
     }
   }
 </style>

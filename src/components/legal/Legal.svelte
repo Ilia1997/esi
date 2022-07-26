@@ -113,7 +113,7 @@
         checked={$allSelected}
       />
       <label class="label-sv" for="agree__all">
-        I agree to all Terms & Conditions, Contract Agreement, Privacy & Cookie
+        I agree to all Terms & Conditions, Terms of services, Privacy & Cookie
       </label>
     </div>
   </div>

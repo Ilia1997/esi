@@ -1,20 +1,17 @@
 <script>
   import Contribution from "./components/contributions/Contribution.svelte";
-  import { afterUpdate, onDestroy } from "svelte";
+  import { onDestroy } from "svelte";
   import HeadSteps from "./components/HeadSteps.svelte";
   import Plan from "./components/plans/Plan.svelte";
   import FinalReview from "./components/FinalReview.svelte";
   import {
     stepCounter,
-    successMessageState,
-    popUpHeight,
-    headSteps
+    popUpHeight
   } from "./stores/store";
   import Legal from "./components/legal/Legal.svelte";
   import Information from "./components/information/Information.svelte";
   import Billing from "./components/billing/Billing.svelte";
   import { confirmPopUpState } from "./stores/infoStore";
-  import SuccessMessage from "./components/SuccessMessage.svelte";
   import { fade } from "svelte/transition";
   let stepCountValue;
   let mainHeight = "auto";
@@ -29,8 +26,6 @@
     }
   }
 
-  
-
   onDestroy(unsubscribe);
 </script>
 <svelte:head>
@@ -39,7 +34,7 @@
 
 <main style="height: {mainHeight}">
   <div class="container__form">
-    {#if $successMessageState === false}
+
       <div class="wrapper">
         <HeadSteps />
         <div class="step__content">
@@ -66,9 +61,6 @@
           {/if}
         </div>
       </div>
-    {:else if $successMessageState === true}
-      <SuccessMessage />
-    {/if}
   </div>
 </main>
 {#if $confirmPopUpState === true}

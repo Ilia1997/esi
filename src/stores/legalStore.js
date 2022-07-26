@@ -10,8 +10,8 @@ export const legalItems = [
   {
     key: "b",
     checked: false,
-    name: "Term of services",
-    title: "Term of services",
+    name: "Terms of services",
+    title: "Terms of services",
     },
   {
     key: "c",

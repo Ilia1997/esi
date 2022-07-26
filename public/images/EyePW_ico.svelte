@@ -21,11 +21,9 @@
     fill: #ff2e00;
   }
   .eye__icon{
-    position: relative;
-    z-index: -1;
+    pointer-events: none;
   }
   .eye__icon[disabled="on"] {
-    pointer-events: none;
     filter: grayscale(1);
     opacity: 0.25;
   }

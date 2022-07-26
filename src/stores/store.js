@@ -17,7 +17,6 @@ export function decrementStep() {
         stepCounter.update(n => n - 1 )
     }
 }
-export const successMessageState = writable(false)
 export const userAuthToken = writable()
 export const clientSecretToken = writable()
 

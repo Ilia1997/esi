@@ -10,6 +10,7 @@
   import { onMount, text } from "svelte/internal";
   import { getPeriodsFromDB, getCountriesFromDB } from "./getDataFromDB";
   import Preloader from "../Preloader.svelte";
+  import {isEmpty} from '../../functions/objectIsEmpty'
 
   export let input;
   let activePeriod = false;
@@ -43,6 +44,7 @@
   //  $contributionData.nextPaymentMonth = months[paymentMounthIndex];
   }
 
+
   afterUpdate(() => {
     // if period bi-monthly set next payment day and payment mounth
     if ($contributionData.period === "Bi-Monthly") {
@@ -74,14 +76,21 @@
     if(periods.length > 1 && countries.length >1){
       amountInputState = false
     }
-    $contributionData.period = periods[0];
+
+   
     let usaData;
     countries.forEach((item) => {
       if (item.countryId === 5235134) {
         usaData = item;
       }
     });
-    $contributionData.country = usaData;
+    if(isEmpty($contributionData.period)){
+      $contributionData.period = periods[0];
+    }
+    if(isEmpty($contributionData.country)){
+      $contributionData.country = usaData;
+    }
+
   });
 
   function setPeriod(value) {

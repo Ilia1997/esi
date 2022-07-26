@@ -7,16 +7,14 @@
   import { isNumeric } from "../../functions/isNumber";
   import {
     allowItemIndex,
-    infoFormErrorMessage,
     clickOnPrevBtn,
     infoFormErrorState,
     infoFormData,
-    infoFormErrorStates,
     confirmPopUpState,
     savedPassword,
   } from "../../stores/infoStore";
   import { contributionData } from "../../stores/contributionsStore";
-  import { headSteps, decrementStep } from "../../stores/store";
+  import { decrementStep } from "../../stores/store";
   import ButtonLeft from "../buttons/ButtonLeft.svelte";
   import {
     checkIfEmailExistInDB,
@@ -30,9 +28,7 @@
   import { scrollToTop } from "../../functions/scrollToTop";
 
   let tabItems = [
-    // { name: "Name", component: NameForm },
     { name: "Contacts", component: ContactForm },
-    // { name: "Address", component: AddressForm },
     { name: "Password", component: PasswordForm },
   ];
 
@@ -41,7 +37,7 @@
   let nextButtonState = false;
   let userNameErrorMessage;
   let prevBtn;
-
+  let counterForAnimation = 0;
   $: formButtonText, nextButtonState, activeItem;
 
   async function nextTab() {
@@ -56,15 +52,20 @@
           activeItem = tabItems[index + 1];
           $allowItemIndex = $allowItemIndex + 1;
           formButtonText = "Confirm";
-
         }
       } else if (index === 1) {
         // Validate Password
         doSignup();
+        
+        let offset = 500
+        if(counterForAnimation === 1){offset = 0}
         if ($savedPassword === true) {
           hidePasswords();
-          $confirmPopUpState = true;
-          scrollToTop(0);
+          setTimeout(() => {
+            $confirmPopUpState = true;
+            scrollToTop(0);
+            counterForAnimation = 1
+          }, offset);
         }
       }
     }
@@ -200,7 +201,6 @@
     scrollToTop();
   };
 
-
   afterUpdate(() => {
     $infoFormData.email = $loginData.email;
     $infoFormData.userName = $loginData.userName;
@@ -242,15 +242,13 @@
           <Arrow_left_ico />
           Back
         </button>
-        {:else}
+      {:else}
         <ButtonLeft on:click={prevStep} bind:this={prevBtn} />
       {/if}
-     
-        <button class="btn-sv next" on:click={nextTab}>{formButtonText}</button>
-      
+
+      <button class="btn-sv next" on:click={nextTab}>{formButtonText}</button>
     </div>
   </div>
-
 </div>
 
 <style>
