@@ -176,13 +176,7 @@
   .green {
     color: var(--color-dark-st3);
   }
-  h3.body__head {
-    font-weight: var(--font-weight-medium);
-    font-size: var(--h3-size);
-    line-height: 48px;
-    color: var(--main-text-color);
-    margin-bottom: 10px;
-  }
+
   .header .label-sv {
     text-transform: uppercase;
     color: var(--white-color);

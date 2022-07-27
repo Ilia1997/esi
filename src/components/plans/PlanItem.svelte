@@ -415,11 +415,7 @@
       font-size: var(--text-size-small);
     }
   }
-  @media only screen and (max-width: 1030px) and (min-width: 991px) {
-    .dropdown {
-      padding: 23px 18px;
-    }
-  }
+  
 
   @media only screen and (max-width: 991px) {
     .plans__item.adventure {

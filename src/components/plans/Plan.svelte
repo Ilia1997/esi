@@ -304,9 +304,7 @@
       bottom: -1px;
     }
 
-    .plans__items {
-      margin-top: 14px;
-    }
+ 
     .subscribe__all {
       min-width: 150px;
       margin-left: 5px;

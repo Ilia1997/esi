@@ -312,13 +312,17 @@
     margin-top: 0px;
     text-align: left;
   }
-  .address-sel {
-    color: var(--black-color);
-  }
 
   .input-sv.small {
     margin-bottom: 0px;
     width: 100%;
+  }
+  @media only screen and (max-width: 991px) {
+    input.date:before {
+      padding-left: 0;
+      min-width: 120px;
+    }
+
   }
   @media only screen and (max-width: 768px) {
     .input_grid {

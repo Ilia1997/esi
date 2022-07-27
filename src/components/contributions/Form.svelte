@@ -7,7 +7,7 @@
   import NextPaymentDay from "./NextPaymentDate.svelte";
   import Dropdown_ico from "../../../public/images/Dropdown_ico.svelte";
   import { clickOutside } from "../../functions/clickOutside";
-  import { onMount, text } from "svelte/internal";
+  import { onMount } from "svelte/internal";
   import { getPeriodsFromDB, getCountriesFromDB } from "./getDataFromDB";
   import Preloader from "../Preloader.svelte";
   import {isEmpty} from '../../functions/objectIsEmpty'

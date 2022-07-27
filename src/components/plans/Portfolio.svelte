@@ -1,5 +1,4 @@
 <script>
-  import { each } from "svelte/internal";
   import { portfolioItems } from "../../stores/plansStore";
   let items = portfolioItems[0];
   export let name;

@@ -14,7 +14,6 @@
   function setStep() {
     let stepValue = this.getAttribute("data-step");
     $stepCounter = parseInt(stepValue);
-    console.log($stepCounter);
   }
   onDestroy(unsubscribe);
 </script>
