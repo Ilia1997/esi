@@ -317,6 +317,13 @@
     margin-bottom: 0px;
     width: 100%;
   }
+  @media only screen and (max-width: 991px) {
+    input.date:before {
+      padding-left: 0;
+      min-width: 120px;
+    }
+
+  }
   @media only screen and (max-width: 768px) {
     .input_grid {
       grid-template-columns: 1fr;
