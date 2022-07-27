@@ -2,7 +2,7 @@ import {clientSecretToken} from '../../stores/store'
 
 function setClientSecret(data){
     clientSecretToken.set(data)
-    console.log('updated')
+   
 }
 
 export async function getClientSecret(userToken) {
@@ -22,8 +22,7 @@ export async function getClientSecret(userToken) {
       });
       const content = await rawResponse.json();
       setClientSecret(content.data.clientSecret)
-      status = content.status;
-      // $userAuthToken = content.data.token;
+      status = content.status; 
     } catch (e) {
       alert(e.message);
     }

@@ -15,12 +15,11 @@
   let onInputConfirmPass = (event) => {
     $passwordData.confirm = event.target.value;
     $savedPassword = false;
-    //   console.log($passwordData.password);
+    
   };
   let onInputPass = (event) => {
     $passwordData.password = event.target.value;
     $savedPassword = false;
-    //    console.log($passwordData.confirm);
   };
 
   export const validatePasswordType = (event) => {

@@ -312,9 +312,6 @@
     margin-top: 0px;
     text-align: left;
   }
-  .address-sel {
-    color: var(--black-color);
-  }
 
   .input-sv.small {
     margin-bottom: 0px;

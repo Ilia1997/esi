@@ -1,7 +1,7 @@
 export async function updateUserInDB(userData,userToken) {
     let status = false;
   
-    console.log(userData);
+   
     const mainEndpoint =
       "https://be.esi.kdg.com.ua/esi_private/esi_private/backend/updateClient";
     try {
