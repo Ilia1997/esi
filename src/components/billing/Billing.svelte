@@ -131,7 +131,7 @@
       .required('Select State')
       .check("postal")
       .required('Enter Postal / Zip code’')
-      .minLength(2, "Postcode should be at least 2 symbols length")
+      .minLength(5, "Postcode should be at least 5 symbols length")
       .maxLength(10, "Postcode must be no more than 10 characters")
       .match(/^\d+$/, "Postal should contain only numbers").end; // you must finish validation with '.end' operator
 
