@@ -17,7 +17,6 @@ export async function updateUserInDB(userData,userToken) {
       });
       const content = await rawResponse.json();
       status = content.status;
-      // $userAuthToken = content.data.token;
     } catch (e) {
       alert(e.message);
     }
