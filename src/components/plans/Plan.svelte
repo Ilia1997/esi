@@ -79,6 +79,7 @@
       $allocatedContributions.founder;
     if (sumOfPlans > 99 && sumOfPlans <= 100) {
       $errorMessageState = false;
+      $subscribeAllState = true;
     }
   });
 </script>
