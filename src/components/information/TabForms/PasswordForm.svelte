@@ -1,10 +1,5 @@
 <script>
-  import {
-    infoFormData,
-    infoFormErrorStates,
-    infoFormErrorMessage,
-    savedPassword,
-  } from "../../../stores/infoStore";
+  import { infoFormData, savedPassword } from "../../../stores/infoStore";
   import EyePW_ico from "../../../../public/images/EyePW_ico.svelte";
   import { fade, slide } from "svelte/transition";
   export let passwordData, confirm_match;
@@ -15,7 +10,6 @@
   let onInputConfirmPass = (event) => {
     $passwordData.confirm = event.target.value;
     $savedPassword = false;
-    
   };
   let onInputPass = (event) => {
     $passwordData.password = event.target.value;
@@ -31,22 +25,24 @@
       input.setAttribute("type", "password");
     }
   };
-
-  function disableErrorState(type) {
-    $infoFormErrorStates[type] = false;
-    $infoFormErrorMessage[type] = "";
-  }
 </script>
 
 <div class="tab__wrapper" in:fade>
   <div class="tab__head">Password</div>
   <div class="tab__subhead">Please put your Password</div>
   <div class="tab__form__fields">
-    <div class="input__wrapper" >
-      <div class="eyeWrapper"on:click|capture={validatePasswordType} class:disabled={$savedPassword}>
-        <EyePW_ico  disabled={$savedPassword ? 'on' : 'off'} class={$passwordData.err.password ? 'error' : ''} />
+    <div class="input__wrapper">
+      <div
+        class="eyeWrapper"
+        on:click|capture={validatePasswordType}
+        class:disabled={$savedPassword}
+      >
+        <EyePW_ico
+          disabled={$savedPassword ? "on" : "off"}
+          class={$passwordData.err.password ? "error" : ""}
+        />
       </div>
-           <input
+      <input
         type="password"
         class="input-sv"
         placeholder="Password"
@@ -70,8 +66,15 @@
     {/if}
 
     <div class="input__wrapper">
-      <div class="eyeWrapper"on:click|capture={validatePasswordType} class:disabled={$savedPassword}>
-      <EyePW_ico disabled={$savedPassword ? 'on' : 'off'} class={$passwordData.err.confirm ? 'error' :''}/>
+      <div
+        class="eyeWrapper"
+        on:click|capture={validatePasswordType}
+        class:disabled={$savedPassword}
+      >
+        <EyePW_ico
+          disabled={$savedPassword ? "on" : "off"}
+          class={$passwordData.err.confirm ? "error" : ""}
+        />
       </div>
       <input
         type="password"
@@ -106,15 +109,15 @@
     opacity: 0.25;
   }
   .eyeWrapper {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  z-index: 2;
-  cursor: pointer;
-}
-.eyeWrapper.disabled{
-  pointer-events: none;
-}
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    z-index: 2;
+    cursor: pointer;
+  }
+  .eyeWrapper.disabled {
+    pointer-events: none;
+  }
   .error__message {
     margin-bottom: 8px;
     text-align: left;
@@ -136,11 +139,10 @@
   .input__wrapper:first-child {
     margin-bottom: 10px;
   }
-  
+
   @media only screen and (max-width: 768px) {
     .info__password__message {
       padding-left: 10px;
-      
     }
   }
   @media only screen and (max-width: 480px) {

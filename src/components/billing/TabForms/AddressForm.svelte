@@ -22,12 +22,13 @@
     gender = item;
   };
   onMount(() => {
-    flatpickr(datePicker, {
+    const fp = flatpickr(datePicker, {
       onChange: function (selectedDates, dateStr, instance) {
         $addressData.dateOfBirdth = dateStr;
       },
       defaultDate: $addressData.dateOfBirdth || null,
     });
+    fp.jumpToDate(new Date(2004, 0, 1));
   });
 </script>
 
@@ -99,10 +100,12 @@
     </div>
 
     <div class="input-sv__wrapper">
-      <div class="input-sv small date-input"  class:error={$addressData.err.dateOfBirdth}>
+      <div
+        class="input-sv small date-input"
+        class:error={$addressData.err.dateOfBirdth}
+      >
         <input
           class="date"
-         
           bind:this={datePicker}
           on:focus={addressData.clear}
           placeholder={$addressData.dateOfBirdth || "Date Of Birth*"}
@@ -181,7 +184,7 @@
         </p>
       {/if}
     </div>
-    <div class="input-sv__wrapper country_wrapper" >
+    <div class="input-sv__wrapper country_wrapper">
       <input
         type="text"
         class="input-sv"
@@ -204,8 +207,8 @@
     position: relative;
     padding: 0;
   }
-  .date-input.error input::placeholder{
-    color: var(--error-color)
+  .date-input.error input::placeholder {
+    color: var(--error-color);
   }
   input.date {
     width: 100%;
@@ -293,13 +296,12 @@
     grid-gap: 8px;
     margin: 24px 0;
   }
-  .country_wrapper{
-   
+  .country_wrapper {
     grid-column-start: 1;
     grid-column-end: 3;
   }
-  .country_wrapper input{
-    background: #E4E4E4;
+  .country_wrapper input {
+    background: #e4e4e4;
   }
   .input-sv__wrapper {
     width: 100%;
@@ -322,16 +324,15 @@
       padding-left: 0;
       min-width: 120px;
     }
-
   }
   @media only screen and (max-width: 768px) {
     .input_grid {
       grid-template-columns: 1fr;
     }
-    .country_wrapper{
-    grid-column-start: 1;
-    grid-column-end: 2;
-  }
+    .country_wrapper {
+      grid-column-start: 1;
+      grid-column-end: 2;
+    }
   }
   @media only screen and (max-width: 480px) {
     .dropdown__wrapper {
@@ -350,7 +351,7 @@
       font-size: var(--text-size-smaller);
       padding: 0;
     }
-    input.date:before{
+    input.date:before {
       padding-right: 16px;
     }
 

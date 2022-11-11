@@ -2,8 +2,9 @@
   import { clientSecretToken, userAuthToken } from "../../../stores/store";
   import { onMount } from "svelte";
   import Preloader from "../../Preloader.svelte";
-  import {contributionData} from '../../../stores/contributionsStore'
-  import {postalCode} from '../../../stores/billingStore'
+  import { contributionData } from "../../../stores/contributionsStore";
+  import { postalCode } from "../../../stores/billingStore";
+  import InfoDemo from "../InfoDemo.svelte";
   let currentBillingMethod = 0;
   $: currentBillingMethod;
 
@@ -39,29 +40,28 @@
     // await sleep(500);
     // Create a Stripe client.
     // Note: this merchant has been set up for demo purposes.
+
     const stripe = Stripe("process.env.stripe_PK");
 
     // Create an instance of Elements.
     var elements = stripe.elements({ clientSecret: client_secret });
 
     // Create an instance of the idealBank Element.
-    var paymentForm = elements.create("payment",{
-        defaultValues:{
-          billingDetails:{
-            address:{
-              country: $contributionData.country['2DigitCode'],
-              postal_code: $postalCode
-            }
-          }
-        }
+    var paymentForm = elements.create("payment", {
+      defaultValues: {
+        billingDetails: {
+          address: {
+            country: $contributionData.country["2DigitCode"],
+            postal_code: $postalCode,
+          },
+        },
+      },
     });
-
-    
 
     // Add an instance of the idealBank Element into the `ideal-bank-element` <div>.
     paymentForm.mount("#payment-element");
     paymentForm.on("ready", function (event) {
-      setTimeout(() => { 
+      setTimeout(() => {
         stripeLoadedStatus = true;
       }, 700);
     });
@@ -77,7 +77,6 @@
       localStorage.setItem("stripe_PK", "process.env.stripe_PK");
       localStorage.setItem("AuthToken", $userAuthToken);
 
-      
       const { error } = await stripe.confirmSetup({
         //`Elements` instance that was used to create the Payment Element
         elements,
@@ -99,13 +98,13 @@
         // site first to authorize the payment, then redirected to the `return_url`.
       }
     });
-
   }
 </script>
 
 <svelte:head>
   <script src="https://js.stripe.com/v3/" on:load={stripeLoaded}></script>
 </svelte:head>
+<InfoDemo />
 <div class="tab__wrapper">
   {#if !stripeLoadedStatus}
     <div class="preloader__wrapper">

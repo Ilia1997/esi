@@ -372,7 +372,7 @@
     padding: 12px 30px;
     transition: all ease-in 0.3s;
   }
-  .dropdown__item--current{
+  .dropdown__item--current {
     padding: 23px 30px;
   }
   .dropdown__item.disabled {
@@ -415,7 +415,11 @@
       font-size: var(--text-size-small);
     }
   }
-  
+  @media only screen and (max-width: 1080px) and (min-width: 991px) {
+    .dropdown__item--current {
+      padding: 23px 25px;
+    }
+  }
 
   @media only screen and (max-width: 991px) {
     .plans__item.adventure {

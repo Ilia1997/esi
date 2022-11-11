@@ -10,7 +10,7 @@
   import { onMount } from "svelte/internal";
   import { getPeriodsFromDB, getCountriesFromDB } from "./getDataFromDB";
   import Preloader from "../Preloader.svelte";
-  import {isEmpty} from '../../functions/objectIsEmpty'
+  import { isEmpty } from "../../functions/objectIsEmpty";
 
   export let input;
   let activePeriod = false;
@@ -19,10 +19,8 @@
   let periods = [];
   let countries = [];
   let inputNumber;
-  let currentMonthIndex = new Date().getMonth();
-  let currentDay = new Date().getDate();
-  let paymentMounthIndex = currentMonthIndex + 1;
-  let amountInputState = false
+
+  let amountInputState = false;
 
   const months = [
     "January",
@@ -41,25 +39,8 @@
 
   $: {
     countries, periods;
-  //  $contributionData.nextPaymentMonth = months[paymentMounthIndex];
   }
 
-
-  afterUpdate(() => {
-    // if period bi-monthly set next payment day and payment mounth
-    if ($contributionData.period === "Bi-Monthly") {
-      if (currentDay < 15) {
-        paymentMounthIndex = currentMonthIndex;
-      //  $contributionData.nextPaymentDay = 15;
-      } else if (currentDay >= 15) {
-        paymentMounthIndex = currentMonthIndex + 1;
-       // $contributionData.nextPaymentDay = 1;
-      }
-    } else {
-      paymentMounthIndex = currentMonthIndex + 1;
-    //  $contributionData.nextPaymentDay = 1;
-    }
-  });
   onMount(async () => {
     if (inputNumber) {
       input = inputNumber;
@@ -73,33 +54,42 @@
     countriesData.data.forEach((item) => {
       countries = [...countries, item];
     });
-    if(periods.length > 1 && countries.length >1){
-      amountInputState = false
+    if (periods.length > 1 && countries.length > 1) {
+      amountInputState = false;
     }
 
-   
     let usaData;
     countries.forEach((item) => {
       if (item.countryId === 5235134) {
         usaData = item;
       }
     });
-    if(isEmpty($contributionData.period)){
+    if (isEmpty($contributionData.period)) {
       $contributionData.period = periods[0];
+      setNextPaymentDate($contributionData.period.nextDate);
     }
-    if(isEmpty($contributionData.country)){
+    if (isEmpty($contributionData.country)) {
       $contributionData.country = usaData;
     }
-
   });
 
   function setPeriod(value) {
     // set data to our store
     $contributionData.period = value;
+    setNextPaymentDate($contributionData.period.nextDate);
   }
   function showCountry(value) {
     // set data to our store
     $contributionData.country = value;
+  }
+  function setNextPaymentDate(unixDate) {
+    const date = new Date(unixDate * 1000);
+
+    $contributionData.nextPaymentDate = {
+      day: date.getDate(),
+      month: months[date.getMonth()],
+      year: date.getFullYear(),
+    };
   }
   // click outside dropdown
   function handleClickOutside(item) {
@@ -116,7 +106,7 @@
     } else if (parseInt(this.value) < 20) {
       this.classList.add("error");
       amountMessage.classList.add("error");
-    } else if (parseInt(this.value) >= 20){
+    } else if (parseInt(this.value) >= 20) {
       if (this.classList.contains("error")) {
         this.classList.remove("error");
         amountMessage.classList.remove("error");
@@ -124,6 +114,7 @@
     }
   }
 </script>
+
 <div class="contribution__form">
   <form on:submit|preventDefault>
     <div class="period">
@@ -219,7 +210,8 @@
       <span> {$contributionData.country?.currency?.symbol || "$"}9,999</span> Total
       contribution.
     </div>
-    Make sure your <span>Country</span> matches your <span> Billing information</span>
+    Make sure your<span>Country</span> matches your
+    <span> Billing information</span>
   </div>
 </div>
 

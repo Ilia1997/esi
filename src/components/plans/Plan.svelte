@@ -16,7 +16,7 @@
   import { scrollToTop } from "../../functions/scrollToTop";
   import ErrorMessage from "../ErrorMessage.svelte";
   import SubscribeAllIco from "../../../public/images/SubscribeAll_ico.svelte";
-  import { afterUpdate} from "svelte";
+  import { afterUpdate } from "svelte";
 
   let changeCounter = 0;
   let errorMessage;
@@ -77,9 +77,8 @@
       $allocatedContributions.safe +
       $allocatedContributions.adventure +
       $allocatedContributions.founder;
-    if (sumOfPlans > 99 && sumOfPlans <= 100) {
+    if (sumOfPlans === 100) {
       $errorMessageState = false;
-      $subscribeAllState = true;
     }
   });
 </script>
@@ -178,7 +177,7 @@
   .green {
     color: var(--color-dark-st2);
   }
-  h3{
+  h3 {
     margin: 0;
   }
   .subscribe__all {
@@ -295,7 +294,7 @@
       line-height: 21px;
       padding: 5px 16px 0px 16px;
     }
-    .h3-sv span.green{
+    .h3-sv span.green {
       font-size: var(--text-size-small);
       line-height: 21px;
     }
@@ -305,7 +304,6 @@
       bottom: -1px;
     }
 
- 
     .subscribe__all {
       min-width: 150px;
       margin-left: 5px;

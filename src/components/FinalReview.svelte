@@ -9,7 +9,7 @@
     headSteps,
     incrementStep,
     stepCounter,
-    popUpHeight
+    popUpHeight,
   } from "../stores/store";
   import { beforeUpdate } from "svelte";
   import { fade } from "svelte/transition";
@@ -21,28 +21,13 @@
   import OpenAcount_ico from "../../public/images/OpenAcount_ico.svelte";
   import { priceConvertation } from "../../src/functions/priceConvertation";
   import { scrollToTop } from "../../src/functions/scrollToTop";
-  import Preloader from './Preloader.svelte'
-  import {createUserInDB} from './createUserInDB'
+  import Preloader from "./Preloader.svelte";
+  import { createUserInDB } from "./createUserInDB";
 
   let changeCounter = 0;
 
-  let currentDate = new Date();
-  let currentYear = currentDate.getFullYear();
-  let currentDay = currentDate.getDate();
   let preloaderState = false;
 
-  $: currentYear;
-
-  if ($contributionData.nextPaymentMonth === "January") {
-    if ($contributionData.country.period === "Monthly") {
-      currentYear = currentYear + 1;
-    } else if (
-      $contributionData.country.period === "Bi-Monthly" &&
-      currentDay >= 15
-    ) {
-      currentYear = currentYear + 1;
-    }
-  }
   let confirmAllData = async () => {
     preloaderState = true;
 
@@ -70,8 +55,7 @@
       }
       scrollToTop();
 
-      localStorage.setItem('userName', userData.username)
-      
+      localStorage.setItem("userName", userData.username);
     }
     preloaderState = false;
   };
@@ -91,7 +75,6 @@
     adventurePrice = 0,
     founderPrice = 0;
 
-
   beforeUpdate(() => {
     safePrice =
       ($allocatedContributions.safe * $contributionData.monthlyValue) / 100;
@@ -104,7 +87,6 @@
 </script>
 
 <div class="pop__up" in:fade bind:clientHeight={$popUpHeight}>
-
   <div class="pop__up__wrapper">
     <div class="pop__up__head">
       <div class="pop__up_head__text">
@@ -137,9 +119,10 @@
               {$contributionData.country.currency.symbol}{priceConvertation(
                 $contributionData.monthlyValue
               )}
-              {$contributionData.country.currency.code} per Month Starting {$contributionData.nextPaymentDay}th
-              {$contributionData.nextPaymentMonth}
-              {currentYear}
+              {$contributionData.country.currency.code} per Month Starting {$contributionData
+                .nextPaymentDate.day}th
+              {$contributionData.nextPaymentDate.month}
+              {$contributionData.nextPaymentDate.year}
             </div>
           </div>
         </div>
@@ -233,10 +216,11 @@
           </div>
         </div>
       </div>
-      <button class="submt__btn" on:click={confirmAllData}
-        >
+      <button class="submt__btn" on:click={confirmAllData}>
         {#if preloaderState}
-        <div class="preload_btn_wrapper"><Preloader  loaderWidth={1.5} loaderHeight={1.5} borderWidth={0.3} /></div>
+          <div class="preload_btn_wrapper">
+            <Preloader loaderWidth={1.5} loaderHeight={1.5} borderWidth={0.3} />
+          </div>
         {/if}
         <span>Confirm</span><OpenAcount_ico /></button
       >
@@ -276,8 +260,8 @@
       var(--color-grad-light) 100%
     );
     position: relative;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
+    border-top-left-radius: 9px;
+    border-top-right-radius: 9px;
   }
   .pop__up_head__text {
     font-weight: var(--font-weight-medium);
@@ -425,7 +409,7 @@
     position: relative;
     overflow: hidden;
   }
-  .submt__btn .preload_btn_wrapper{
+  .submt__btn .preload_btn_wrapper {
     position: absolute;
     top: 0%;
     left: 0%;

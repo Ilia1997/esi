@@ -4,10 +4,7 @@
   import HeadSteps from "./components/HeadSteps.svelte";
   import Plan from "./components/plans/Plan.svelte";
   import FinalReview from "./components/FinalReview.svelte";
-  import {
-    stepCounter,
-    popUpHeight
-  } from "./stores/store";
+  import { stepCounter, popUpHeight } from "./stores/store";
   import Legal from "./components/legal/Legal.svelte";
   import Information from "./components/information/Information.svelte";
   import Billing from "./components/billing/Billing.svelte";
@@ -20,47 +17,49 @@
   });
   $: {
     if ($confirmPopUpState === true) {
-      mainHeight = ($popUpHeight -100) + "px";
+      mainHeight = $popUpHeight - 100 + "px";
     } else {
       mainHeight = "auto";
     }
   }
-
   onDestroy(unsubscribe);
 </script>
+
 <svelte:head>
-	<link rel="stylesheet" href="https://unpkg.com/mono-icons@1.0.5/iconfont/icons.css" >
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/mono-icons@1.0.5/iconfont/icons.css"
+  />
 </svelte:head>
 
 <main style="height: {mainHeight}">
   <div class="container__form">
-
-      <div class="wrapper">
-        <HeadSteps />
-        <div class="step__content">
-          {#if stepCountValue === 1}
-            <div class="component__wrapper" in:fade={{ duration: 500 }}>
-              <Contribution />
-            </div>
-          {:else if stepCountValue === 2}
-            <div class="component__wrapper" in:fade={{ duration: 500 }}>
-              <Plan />
-            </div>
-          {:else if stepCountValue === 3}
-            <div class="component__wrapper" in:fade={{ duration: 500 }}>
-              <Legal />
-            </div>
-          {:else if stepCountValue === 4}
-            <div class="component__wrapper" in:fade={{ duration: 500 }}>
-          <Information />
+    <div class="wrapper">
+      <HeadSteps />
+      <div class="step__content">
+        {#if stepCountValue === 1}
+          <div class="component__wrapper" in:fade={{ duration: 500 }}>
+            <Contribution />
           </div>
-          {:else if stepCountValue === 5}
-            <div class="component__wrapper" in:fade={{ duration: 500 }}>
-              <Billing />
-            </div>
-          {/if}
-        </div>
+        {:else if stepCountValue === 2}
+          <div class="component__wrapper" in:fade={{ duration: 500 }}>
+            <Plan />
+          </div>
+        {:else if stepCountValue === 3}
+          <div class="component__wrapper" in:fade={{ duration: 500 }}>
+            <Legal />
+          </div>
+        {:else if stepCountValue === 4}
+          <div class="component__wrapper" in:fade={{ duration: 500 }}>
+            <Information />
+          </div>
+        {:else if stepCountValue === 5}
+          <div class="component__wrapper" in:fade={{ duration: 500 }}>
+            <Billing />
+          </div>
+        {/if}
       </div>
+    </div>
   </div>
 </main>
 {#if $confirmPopUpState === true}

@@ -7,11 +7,9 @@
     allowItemIndexBilling,
     addressFormStatus,
     billingeErrorMessage,
-    postalCode
+    postalCode,
   } from "../../stores/billingStore";
-  import {
-    userAuthToken,
-  } from "../../stores/store";
+  import { userAuthToken } from "../../stores/store";
 
   import Button_back_ico from "../../../public/images/Button_back_ico.svelte";
   import { aoviSvelte } from "aovi-svelte";
@@ -19,7 +17,7 @@
   import { scrollToTop } from "../../functions/scrollToTop";
   import { updateUserInDB } from "./updateUserInDB";
   import { getClientSecret } from "./getClientSecret";
-  import {underAgeValidate} from '../../functions/validateAge'
+  import { underAgeValidate } from "../../functions/validateAge";
   import { afterUpdate, onMount } from "svelte";
 
   let tabItems = [
@@ -65,7 +63,6 @@
           updateUserInDB(userData, $userAuthToken).then((data) => {
             updateUserStatus = data;
 
-
             if (updateUserStatus) {
               activeItem = tabItems[index + 1];
               $allowItemIndexBilling = $allowItemIndexBilling + 1;
@@ -79,21 +76,6 @@
         scrollToTop();
       }
     }
-  }
-
-  function prevTab() {
-    if ($allowItemIndexBilling > 1) {
-      let index = tabItems.findIndex((object) => {
-        return object.name === activeItem.name;
-      });
-      if (index != 0) {
-        activeItem = tabItems[index - 1];
-        $allowItemIndexBilling = $allowItemIndexBilling - 1;
-        formButtonText = "Next";
-        nextButtonState = false;
-      }
-    }
-    scrollToTop();
   }
 
   const addressData = aoviSvelte({
@@ -121,16 +103,19 @@
       .check("gender")
       .required("Select Gender")
       .check("dateOfBirdth")
-      .is(underAgeValidate($addressData.dateOfBirdth), 'Person has to be at least 18 years old.')
+      .is(
+        underAgeValidate($addressData.dateOfBirdth),
+        "Person has to be at least 18 years old."
+      )
       .required("Select Date Of Birth")
       .check("streetNumber")
       .required("Enter Street Number & Street")
       .check("city")
-      .required('Enter City')
+      .required("Enter City")
       .check("state")
-      .required('Select State')
+      .required("Enter State")
       .check("postal")
-      .required('Enter Postal / Zip code’')
+      .required("Enter Postal / Zip code’")
       .minLength(5, "Postcode should be at least 5 symbols length")
       .maxLength(10, "Postcode must be no more than 10 characters")
       .match(/^\d+$/, "Postal should contain only numbers").end; // you must finish validation with '.end' operator
@@ -143,13 +128,11 @@
     }
   }
 
-  afterUpdate(()=>{
-    if($addressData.postal){
-      $postalCode = $addressData.postal
+  afterUpdate(() => {
+    if ($addressData.postal) {
+      $postalCode = $addressData.postal;
     }
-    
-  })
-
+  });
 
   onMount(() => {
     getClientSecret($userAuthToken);
@@ -172,7 +155,7 @@
     <div class="main__tabs">
       <Tabs {tabItems} />
       <div>
-        <svelte:component this={activeItem.component} {addressData}/>
+        <svelte:component this={activeItem.component} {addressData} />
       </div>
 
       {#if $billingeErrorMessage.status}
@@ -181,12 +164,6 @@
         </div>
       {/if}
       <div class="buttons__wrapper">
-        {#if $allowItemIndexBilling > 1}
-          <button class="btn-sv prev" on:click={prevTab}>
-            <Button_back_ico />
-            Back
-          </button>
-        {/if}
         {#if activeItem.name != "Payment"}
           <button class="btn-sv next" on:click={nextTab}
             >{formButtonText}</button
@@ -201,7 +178,7 @@
   .h2-sv.main__head {
     text-align: center;
   }
- 
+
   .buttons__wrapper {
     display: flex;
     align-items: center;
@@ -270,7 +247,7 @@
     .info__main {
       padding-top: 40px;
     }
-    .btn-sv.prev{
+    .btn-sv.prev {
       padding: 20px 8px;
     }
   }

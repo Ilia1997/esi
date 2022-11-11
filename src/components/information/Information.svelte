@@ -56,15 +56,17 @@
       } else if (index === 1) {
         // Validate Password
         doSignup();
-        
-        let offset = 500
-        if(counterForAnimation === 1){offset = 0}
+
+        let offset = 500;
+        if (counterForAnimation === 1) {
+          offset = 0;
+        }
         if ($savedPassword === true) {
           hidePasswords();
           setTimeout(() => {
             $confirmPopUpState = true;
             scrollToTop(0);
-            counterForAnimation = 1
+            counterForAnimation = 1;
           }, offset);
         }
       }
@@ -112,7 +114,7 @@
       userNameErrorMessage = `Username cannot be a number`;
       userNameExistinDB = true;
     } else {
-      userNameErrorMessage = `User with user name ${$loginData.userName} exist in database`;
+      userNameErrorMessage = `User with username ${$loginData.userName} exist in database`;
       userNameExistinDB = await checkIfUserNameExistInDB($loginData.userName);
     }
     return !userNameExistinDB;
@@ -127,14 +129,16 @@
   };
 
   const emailrRegEx =
-    /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+    /^(([^<>()[\]\.,;:+%?№#&><^*\s@\"]+(\.[^<>()[\]\.,;:+%?№#&><^*\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+  const userNameRegEx = /^[a-zA-Z0-9-_]+$/;
   async function doLoginData() {
     formButtonText = "Load...";
     loginData.aovi // use Aovi validators
       .check("userName")
+      .match(userNameRegEx, "Incorrect username format")
       .required("Please put your username")
-      .minLength(3, "User Name should be at least 3 symbols length")
-      .maxLength(20, "User Name must be no more than 20 characters")
+      .minLength(3, "Username should be at least 3 symbols length")
+      .maxLength(20, "Username must be no more than 20 characters")
       .is(await validateUserName(), userNameErrorMessage)
       .check("email")
       .required("Please put your email")
@@ -176,17 +180,18 @@
     passwordData.aovi // use Aovi validators
       .use(maxValidator)
       .check("password")
-      .required("Please put your password")
       .match(
         passwordRegEx,
         "Password should have at least 1 capital letter, 1 number, 1 special symbol"
       )
+      .minLength(8, "Password should be at least 8 symbols length")
+      .max(16)
+      .required("Please put your password")
+      .check("confirm")
+      .minLength(8, "Password should be at least 8 symbols length")
       .is($confirm_match, "Confirmation doesn't match password")
       .max(16)
-      .check("confirm")
-      .required("Please confirm your password")
-      .minLength(8, "Password should be at least 8 symbols length")
-      .max(16).end; // you must finish validation with '.end' operator
+      .required("Please confirm your password").end; // you must finish validation with '.end' operator
 
     if ($passwordData.valid) {
       // if validation success, do something
