@@ -1,8 +1,8 @@
 <script>
-import { compute_rest_props } from "svelte/internal";
-
 </script>
+
 <svg
+  on:click
   xmlns="http://www.w3.org/2000/svg"
   width="24"
   height="24"
@@ -19,6 +19,8 @@ import { compute_rest_props } from "svelte/internal";
 <style>
   .country {
     position: absolute;
+
+    z-index: 5;
     right: 10px;
     width: 13px;
   }
@@ -42,5 +44,4 @@ import { compute_rest_props } from "svelte/internal";
       max-width: 20px;
     }
   }
-  
 </style>

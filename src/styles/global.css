@@ -5,9 +5,9 @@
   --color-dark: #049504;
   --color-dark-st1: #78c759;
   --color-dark-st2: #6db94f;
-  --color-dark-st3: #5B9C42;
-  --color-dark-st4: #4E8538;
-  --color-dark-st5: #3E6B2C;
+  --color-dark-st3: #5b9c42;
+  --color-dark-st4: #4e8538;
+  --color-dark-st5: #3e6b2c;
   --color-darkest: #053900;
   --black-color: #000;
   --white-color: #fff;
@@ -72,7 +72,6 @@
   --text-line-height: 24px;
   --small-text-line-height: 18px;
 
-
   --font-weight-normal: 400;
   --font-weight-medium: 500;
   --font-weight-bold: 600;
@@ -104,7 +103,8 @@ html,
   font-size: var(--h2-size);
   line-height: var(--h2-line-height);
 }
-.h3-sv, .h3-sv .green {
+.h3-sv,
+.h3-sv .green {
   font-size: var(--h3-size);
   line-height: var(--h3-line-height);
   font-weight: var(--font-weight-medium);
@@ -130,21 +130,21 @@ html,
   border-radius: 10px;
   padding: 22px 30px;
   width: 100%;
-  height: 70px; 
+  height: 70px;
 }
 input::-ms-reveal,
 input::-ms-clear {
   display: none;
 }
 
-
-.btn-sv:not(.prev):hover svg path{
+.btn-sv:not(.prev):hover svg path {
   fill: var(--white-color);
 }
 .dropdown svg {
   position: absolute;
   right: 30px;
   top: 25px;
+  z-index: 5;
 }
 .dropdown.activePeriod svg,
 .dropdown.activeCurrency svg {
@@ -154,8 +154,9 @@ svg.active path {
   fill: var(--color-dark-st3);
 }
 
-
-input:focus, textarea:focus, select:focus{
+input:focus,
+textarea:focus,
+select:focus {
   outline: none;
 }
 .input-sv {
@@ -166,7 +167,6 @@ input:focus, textarea:focus, select:focus{
 }
 .input-sv:not(.error)::placeholder {
   color: var(--black-color);
-
 }
 
 .input-sv.success {
@@ -269,7 +269,7 @@ button:disabled,
 .accordion-item {
   margin-bottom: 10px;
 }
-.item__head__checkbox svg{
+.item__head__checkbox svg {
   width: 100%;
   height: 100%;
 }
@@ -288,7 +288,7 @@ button:disabled,
 .dropdown.activeDropdownFound svg {
   transform: rotate(180deg);
 }
-@media screen and (-webkit-min-device-pixel-ratio:0) { 
+@media screen and (-webkit-min-device-pixel-ratio: 0) {
   select,
   textarea,
   input {
@@ -318,18 +318,15 @@ button:disabled,
   .accordion-item {
     margin-bottom: 0px;
   }
-
 }
 @media only screen and (max-width: 480px) {
-  .input-sv::placeholder, .input-sv {
+  .input-sv::placeholder,
+  .input-sv {
     font-size: var(--text-size-smaller);
-    line-height: var( --small-text-line-height);
+    line-height: var(--small-text-line-height);
   }
-  .input-sv{
+  .input-sv {
     padding: 16px;
     height: 50px;
   }
-
 }
-
-

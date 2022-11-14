@@ -123,7 +123,12 @@
             class:error={$errorMessageState}
             on:click_outside={handleClickOutside}
           >
-            <Dropdown_ico />
+            <Dropdown_ico
+              on:click={() => {
+                $errorMessageState = false;
+                activeState = !activeState;
+              }}
+            />
             <div
               class="dropdown__item--current"
               on:click={() => {
