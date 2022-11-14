@@ -104,7 +104,6 @@
   );
 
   const validateEmailExistingInDB = async () => {
-    console.log($loginData.email);
     let emailExistinDB = await checkIfEmailExistInDB($loginData.email);
     return !emailExistinDB;
   };
