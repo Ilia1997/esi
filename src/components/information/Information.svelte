@@ -129,8 +129,7 @@
     return !phoneExistinDB;
   };
 
-  const emailrRegEx =
-    /^(([^<>()[\]\.,;:+%?№#&><^*\s@\"]+(\.[^<>()[\]\.,;:+%?№#&><^*\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+  const emailrRegEx = /^\w+([-.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/;
   const userNameRegEx = /^[a-zA-Z0-9-_]+$/;
   async function doLoginData() {
     formButtonText = "Load...";
