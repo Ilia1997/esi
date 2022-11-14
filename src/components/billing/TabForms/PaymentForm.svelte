@@ -4,7 +4,7 @@
   import Preloader from "../../Preloader.svelte";
   import { contributionData } from "../../../stores/contributionsStore";
   import { postalCode } from "../../../stores/billingStore";
-  import InfoDemo from "../InfoDemo.svelte";
+  import InfoDemo from "../demo/InfoDemo.svelte";
   let currentBillingMethod = 0;
   $: currentBillingMethod;
 

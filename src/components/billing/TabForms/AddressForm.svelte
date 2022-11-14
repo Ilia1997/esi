@@ -138,7 +138,7 @@
     <div class="input-sv__wrapper">
       <input
         type="text"
-        class="input-sv"
+        class="input-sv small"
         placeholder="City *"
         autocomplete
         bind:value={$addressData.city}

@@ -210,7 +210,7 @@
       <span> {$contributionData.country?.currency?.symbol || "$"}9,999</span> Total
       contribution.
     </div>
-    Make sure your<span>Country</span> matches your
+    Make sure your&nbsp;<span>Country</span> matches your
     <span> Billing information</span>
   </div>
 </div>

@@ -10,8 +10,6 @@
     postalCode,
   } from "../../stores/billingStore";
   import { userAuthToken } from "../../stores/store";
-
-  import Button_back_ico from "../../../public/images/Button_back_ico.svelte";
   import { aoviSvelte } from "aovi-svelte";
   import * as animateScroll from "svelte-scrollto";
   import { scrollToTop } from "../../functions/scrollToTop";

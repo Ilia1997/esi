@@ -1,9 +1,11 @@
 export async function checkIfEmailExistInDB(email) {
-  const url = `https://be.esi.kdg.com.ua/esi_public/esi_public/backend/checkEmail?email=${email}`;
+  const url = `https://be.esi.kdg.com.ua/esi_public/esi_public/backend/checkEmail?email=${JSON.stringify(
+    email
+  )}`;
   let status;
   if (email)
     try {
-      await fetch(url)
+      await fetch(url, {})
         .then((response) => {
           return response.json();
         })
@@ -22,7 +24,9 @@ export async function checkIfEmailExistInDB(email) {
 }
 
 export async function checkIfUserNameExistInDB(userName) {
-  const url = `https://be.esi.kdg.com.ua/esi_public/esi_public/backend/checkUsername?username=${userName}`;
+  const url = `https://be.esi.kdg.com.ua/esi_public/esi_public/backend/checkUsername?username=${JSON.stringify(
+    userName
+  )}`;
   let status;
   if (userName)
     try {
