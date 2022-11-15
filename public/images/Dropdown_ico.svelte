@@ -19,8 +19,6 @@
 <style>
   .country {
     position: absolute;
-
-    z-index: 5;
     right: 10px;
     width: 13px;
   }

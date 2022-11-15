@@ -103,6 +103,9 @@
 {/if}
 
 <style>
+  input {
+    padding-right: 50px;
+  }
   .input-sv.success.disabled {
     pointer-events: none;
     filter: grayscale(1);
