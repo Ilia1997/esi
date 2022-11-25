@@ -12,7 +12,7 @@
   }
 </script>
 
-<div on:mouseover={mouseOver} on:mouseleave={mouseLeave}>
+<div on:mouseover={mouseOver} on:mouseleave={mouseLeave} class="flex">
   <slot />
 </div>
 
@@ -45,6 +45,9 @@
     border-bottom: 7px solid transparent;
     border-left: 7px solid transparent;
     border-right: 7px solid transparent;
+  }
+  .flex {
+    display: flex;
   }
   @media only screen and (max-width: 1130px) and (min-width: 991px) {
     .tooltip {

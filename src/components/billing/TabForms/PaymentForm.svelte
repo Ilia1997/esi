@@ -5,6 +5,9 @@
   import { contributionData } from "../../../stores/contributionsStore";
   import { postalCode } from "../../../stores/billingStore";
   import InfoDemo from "../demo/InfoDemo.svelte";
+  import { infoFormData } from "../../../stores/infoStore";
+  export let addressData;
+
   let currentBillingMethod = 0;
   $: currentBillingMethod;
 
@@ -50,9 +53,14 @@
     var paymentForm = elements.create("payment", {
       defaultValues: {
         billingDetails: {
+          name: `${$addressData.firstName} ${$addressData.lastName}`,
+          email: $infoFormData.email,
           address: {
             country: $contributionData.country["2DigitCode"],
             postal_code: $postalCode,
+            line1: $addressData.streetNumber,
+            city: $addressData.city,
+            state: $addressData.state,
           },
         },
       },
