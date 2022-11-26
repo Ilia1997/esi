@@ -5,7 +5,6 @@
 
   function mouseOver() {
     isHovered = true;
-    console.log("here");
   }
 
   function mouseLeave() {
@@ -13,23 +12,24 @@
   }
 </script>
 
+<!-- svelte-ignore a11y-mouse-events-have-key-events -->
 <div on:mouseover={mouseOver} on:mouseleave={mouseLeave} class="flex">
   <slot />
 </div>
 
 {#if isHovered && title != null}
-  <div in:fade={{ duration: 200 }} class="tooltip__body">{title}</div>
+  <div in:fade={{ duration: 200 }} class="tooltip">{title}</div>
 {/if}
 
 <style>
-  .tooltip__body {
+  .tooltip {
     box-shadow: 0px 10px 35px rgb(0 0 0 / 25%);
     background: white;
     border-radius: 4px;
     padding: 14px 12px 12px 12px;
     position: absolute;
     top: -50px;
-    right: -33px;
+    left: 20px;
     z-index: 99;
     width: 200px;
     color: var(--black-color);
@@ -37,7 +37,7 @@
     line-height: 20px;
     pointer-events: none;
   }
-  .tooltip__body::after {
+  .tooltip::after {
     content: "";
     position: absolute;
     bottom: -12px;
@@ -51,7 +51,7 @@
     display: flex;
   }
   @media only screen and (max-width: 1130px) and (min-width: 991px) {
-    .tooltip__body {
+    .tooltip {
       width: 200px;
       top: -60px;
     }

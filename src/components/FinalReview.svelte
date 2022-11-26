@@ -216,7 +216,10 @@
           </div>
         </div>
       </div>
-      <button class="submt__btn" on:click={confirmAllData}>
+      <button
+        class="submt__btn {preloaderState ? 'disabled_sb' : ''}"
+        on:click={confirmAllData}
+      >
         {#if preloaderState}
           <div class="preload_btn_wrapper">
             <Preloader loaderWidth={1.5} loaderHeight={1.5} borderWidth={0.3} />
@@ -420,6 +423,9 @@
     display: flex;
     justify-content: center;
     align-items: center;
+  }
+  .submt__btn.disabled_sb {
+    pointer-events: none;
   }
   .submt__btn:hover {
     background: var(--btn-color-hover);

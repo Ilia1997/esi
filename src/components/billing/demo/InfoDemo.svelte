@@ -70,6 +70,10 @@
           </CopyTooltip>
         </span>
       </div>
+      <div class="flex-row">
+        <div class="column exp">Expiration: any digits</div>
+        <div class="column">CVC: any digits</div>
+      </div>
       <div
         class="flex-row test-card"
         on:click={() => {
@@ -128,10 +132,6 @@
           </CopyTooltip>
         </span>
       </div>
-      <div class="flex-row">
-        <div class="column">Expiration: any digits</div>
-        <div class="column">CVC: any digits</div>
-      </div>
     </div>
   </div>
   <div class="use_google_pay">
@@ -178,6 +178,7 @@
   }
   .test-card svg {
     width: 16px;
+    height: 16px;
   }
   .card-content {
     width: 100%;
@@ -209,6 +210,9 @@
     }
     .column {
       margin-bottom: 4px;
+    }
+    .exp {
+      margin-bottom: 0;
     }
     .use_google_pay {
       text-align: center;
