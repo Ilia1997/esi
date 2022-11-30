@@ -107,7 +107,6 @@
     padding-right: 50px;
   }
   .input-sv.success.disabled {
-    pointer-events: none;
     filter: grayscale(1);
     opacity: 0.25;
   }
@@ -118,9 +117,7 @@
     z-index: 2;
     cursor: pointer;
   }
-  .eyeWrapper.disabled {
-    pointer-events: none;
-  }
+
   .error__message {
     margin-bottom: 8px;
     text-align: left;

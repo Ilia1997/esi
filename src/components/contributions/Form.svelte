@@ -236,7 +236,7 @@
   .amount .input-sv {
     appearance: none;
     width: 180px;
-    height: 70px;
+    height: 65px;
     background: var(--white-color);
     border: 1px solid var(--border-color);
     border-radius: 10px;
@@ -281,7 +281,7 @@
   .dropdown__wrapper {
     position: relative;
     width: 180px;
-    height: 70px;
+    height: 65px;
   }
   .dropdown__wrapper.country {
     width: 215px;
@@ -289,7 +289,7 @@
   .dropdown {
     position: absolute;
     width: 100%;
-    padding: 23px 30px;
+    padding: 19.5px 30px;
     cursor: pointer;
     background-color: var(--grey-color-lightest);
     border: 1px solid var(--border-color);

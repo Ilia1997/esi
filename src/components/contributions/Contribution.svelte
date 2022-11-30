@@ -1,6 +1,10 @@
 <script>
   import Form from "./Form.svelte";
-  import { incrementStep, headSteps } from "../../stores/store";
+  import {
+    incrementStep,
+    headSteps,
+    confirmPopUpState,
+  } from "../../stores/store";
   import {
     contributionData,
     amountErrorMessageState,
@@ -11,14 +15,21 @@
   import Rules from "./Rules.svelte";
   import ButtonRight from "../buttons/ButtonRight.svelte";
   let changeCounter = 0;
-  
+
   function changeStep() {
     if (validateAmount()) {
+      const reviewState = localStorage.getItem("review");
+      if (reviewState === "CHANGING") {
+        localStorage.removeItem("review");
+        scrollToTop();
+        $confirmPopUpState = true;
+        return;
+      }
       $headSteps.secondStep = true;
       if (changeCounter === 0) {
         incrementStep();
         changeCounter += 1;
-         scrollToTop()
+        scrollToTop();
       }
     }
   }
@@ -31,7 +42,7 @@
   function validateAmount() {
     if (data.amount < 20) {
       $amountErrorMessageState = true;
-      scrollToTop()
+      scrollToTop();
     } else {
       return true;
     }
@@ -62,6 +73,7 @@
 
   onDestroy(unsubscribe);
 </script>
+
 <div class="contribution__main">
   <div class="column-left">
     <div>
@@ -82,7 +94,7 @@
               </div>
               <div class="rules__val__wrapper">
                 <div class="rules__val">
-                  {data.country?.currency?.symbol || '$'}{moVal
+                  {data.country?.currency?.symbol || "$"}{moVal
                     ? priceConvertation(moVal)
                     : 0}<span>/mo</span>
                 </div>
@@ -94,8 +106,9 @@
               </div>
               <div class="rules__val__wrapper">
                 <div class="rules__val">
-                  {data.country?.currency?.symbol || '$'}{priceConvertation(yrVal)}<span>/yr</span
-                  >
+                  {data.country?.currency?.symbol || "$"}{priceConvertation(
+                    yrVal
+                  )}<span>/yr</span>
                 </div>
               </div>
             </div>
@@ -106,9 +119,9 @@
               </div>
               <div class="rules__val__wrapper">
                 <div class="rules__val">
-                  {data.country?.currency?.symbol || '$'}{priceConvertation(fiveYrVal)}<span
-                    >/5yrs</span
-                  >
+                  {data.country?.currency?.symbol || "$"}{priceConvertation(
+                    fiveYrVal
+                  )}<span>/5yrs</span>
                 </div>
               </div>
             </div>
@@ -220,7 +233,7 @@
   }
 
   @media only screen and (max-width: 991px) {
-    .contribution__head{
+    .contribution__head {
       padding: 0 1px;
     }
     .rules {
@@ -324,15 +337,15 @@
     }
   }
   @media only screen and (max-width: 480px) {
-    .rules{
+    .rules {
       margin-top: 24px;
     }
   }
   @media only screen and (max-width: 375px) {
-    .rules__top{
+    .rules__top {
       padding: 24px 25px 13px 12px;
     }
-    
+
     .rules__val {
       line-height: 21px;
       font-size: 15px;
@@ -340,6 +353,5 @@
     .rules__val span {
       font-size: 12px;
     }
-
   }
 </style>

@@ -228,13 +228,13 @@
     color: var(--color-dark-st3);
   }
   .info__main {
-    padding-top: 64px;
+    padding-top: 0px;
     margin: 0 auto;
     max-width: 100%;
     padding-bottom: 60px;
   }
   .main__tabs {
-    margin: 14px auto 0 auto;
+    margin: 8px auto 0 auto;
     position: relative;
     max-width: 528px;
     width: 100%;

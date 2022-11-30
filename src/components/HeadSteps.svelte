@@ -58,7 +58,8 @@
     data-step="5"
     class:current={$stepCounter === 5}
   >
-    <StepBilling_ico /><span>Billing Information</span>
+    <StepBilling_ico /><span>Billing</span>
+    <span class="billing_info">Information</span>
   </div>
 </div>
 
@@ -112,6 +113,9 @@
     margin-left: -0.7%;
     clip-path: polygon(100% 0, 100% 50%, 100% 100%, 0% 100%, 6% 50%, 0% 0%);
   }
+  .billing_info {
+    padding-left: 5px;
+  }
 
   @media only screen and (max-width: 991px) {
     .head__step {
@@ -130,7 +134,7 @@
     .head__step.current + .head__step {
       display: flex;
     }
- 
+
     .head__step:nth-child(1) {
       clip-path: polygon(0% 0%, 97% 0, 100% 50%, 97% 100%, 0% 100%);
     }

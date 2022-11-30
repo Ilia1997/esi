@@ -10,11 +10,10 @@
     clickOnPrevBtn,
     infoFormErrorState,
     infoFormData,
-    confirmPopUpState,
     savedPassword,
   } from "../../stores/infoStore";
   import { contributionData } from "../../stores/contributionsStore";
-  import { decrementStep } from "../../stores/store";
+  import { decrementStep, confirmPopUpState } from "../../stores/store";
   import ButtonLeft from "../buttons/ButtonLeft.svelte";
   import {
     checkIfEmailExistInDB,
@@ -315,11 +314,11 @@
   .info__main {
     max-width: 528px;
     width: 100%;
-    padding: 64px 20px 100px 20px;
+    padding: 20px;
     margin: 0 auto;
   }
   .main__tabs {
-    margin-top: 14px;
+    margin-top: 8px;
   }
   .main__tabs form {
     margin-bottom: 16px;

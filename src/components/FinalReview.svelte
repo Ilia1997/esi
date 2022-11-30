@@ -3,11 +3,11 @@
     contributionData,
     allocatedContributions,
   } from "../stores/contributionsStore";
-  import { infoFormData } from "../stores//infoStore";
-  import { confirmPopUpState, clickOnPrevBtn } from "../stores/infoStore";
+  import { infoFormData } from "../stores/infoStore";
+  import { clickOnPrevBtn } from "../stores/infoStore";
   import {
     headSteps,
-    incrementStep,
+    confirmPopUpState,
     stepCounter,
     popUpHeight,
   } from "../stores/store";
@@ -50,7 +50,7 @@
       $confirmPopUpState = false;
       $headSteps.fifthStep = true;
       if (changeCounter === 0) {
-        incrementStep();
+        $stepCounter = 5;
         changeCounter += 1;
       }
       scrollToTop();
@@ -66,6 +66,7 @@
   let changeStep = (stepNum) => {
     $confirmPopUpState = false;
     $stepCounter = stepNum;
+    localStorage.setItem("review", "CHANGING");
     if (stepNum === 4) {
       $clickOnPrevBtn = true;
     }

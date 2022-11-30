@@ -1,11 +1,14 @@
 export async function checkIfEmailExistInDB(email) {
-  const url = `https://be.esi.kdg.com.ua/esi_public/esi_public/backend/checkEmail?email=${JSON.stringify(
-    email
-  )}`;
+  const url = `https://be.esi.kdg.com.ua/esi_public/esi_public/backend/checkEmail`;
   let status;
   if (email)
     try {
-      await fetch(url, {})
+      await fetch(url, {
+        method: "POST",
+        body: JSON.stringify({
+          email,
+        }),
+      })
         .then((response) => {
           return response.json();
         })
@@ -24,13 +27,16 @@ export async function checkIfEmailExistInDB(email) {
 }
 
 export async function checkIfUserNameExistInDB(userName) {
-  const url = `https://be.esi.kdg.com.ua/esi_public/esi_public/backend/checkUsername?username=${JSON.stringify(
-    userName
-  )}`;
+  const url = `https://be.esi.kdg.com.ua/esi_public/esi_public/backend/checkUsername`;
   let status;
   if (userName)
     try {
-      await fetch(url)
+      await fetch(url, {
+        method: "POST",
+        body: JSON.stringify({
+          userName,
+        }),
+      })
         .then((response) => {
           return response.json();
         })
@@ -50,11 +56,17 @@ export async function checkIfUserNameExistInDB(userName) {
 
 export async function checkIfPhoneExistInDB(phoneCode, phoneNumber) {
   phoneCode = phoneCode.replace("+", "");
-  const url = `https://be.esi.kdg.com.ua/esi_public/esi_public/backend/checkPhone?phoneCode=%2B${phoneCode}&phoneNumber=${phoneNumber}`;
+  const url = `https://be.esi.kdg.com.ua/esi_public/esi_public/backend/checkPhone`;
   let status;
   if (phoneNumber.length >= 5)
     try {
-      await fetch(url)
+      await fetch(url, {
+        method: "POST",
+        body: JSON.stringify({
+          phoneCode,
+          phoneNumber,
+        }),
+      })
         .then((response) => {
           return response.json();
         })

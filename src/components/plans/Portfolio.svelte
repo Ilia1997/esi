@@ -32,9 +32,9 @@
     border: 2px solid rgba(94, 11, 201, 0.7);
   }
   .portfolio {
-    padding: 32px 20px 40px 43px;
+    padding: 24px 20px 28px 43px;
     width: 100%;
-    min-height: 257px;
+    min-height: 215px;
     background: rgba(0, 110, 255, 0.25);
     border: 2px solid rgba(0, 110, 255, 0.7);
     color: var(--white-color);
@@ -51,7 +51,7 @@
     max-width: 291px;
   }
   .portfolio ul li {
-    line-height: 30px;
+    line-height: 24px;
   }
   .portfolio__heler {
     font-size: 13px;

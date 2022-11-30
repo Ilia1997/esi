@@ -73,7 +73,7 @@
     $plansModalData.name = modalData[plan].head;
     $plansModalData.desc = modalData[plan].desc;
     $plansModalData.lottie = modalData[plan].lottie;
-
+    document.body.classList.add("o-hidden");
     $plansModalState = true;
   }
 
@@ -203,7 +203,7 @@
     display: none;
   }
   .plans__items {
-    margin-top: 16px;
+    margin-top: 8px;
     display: flex;
     align-items: flex-start;
   }
@@ -291,7 +291,7 @@
     align-items: center;
   }
   .item__top {
-    padding: 32px 43px 24px 43px;
+    padding: 24px 43px 18px 43px;
   }
   .item__top__head {
     color: var(--black-color);
@@ -300,10 +300,10 @@
   .item__current__money {
     border-radius: 10px;
     width: 100%;
-    height: 70px;
+    height: 65px;
     color: var(--black-color);
-    padding: 23px 30px;
-    margin-top: 10px;
+    padding: 19px 30px;
+    margin-top: 8px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -324,9 +324,9 @@
     background: var(--plan-founder-bg);
   }
   .portfolio {
-    padding: 32px 20px 40px 43px;
+    padding: 20px 30px;
     width: 100%;
-    min-height: 257px;
+    min-height: 240px;
     background: var(--plan-safe-portfolio-bg);
     border: 2px solid var(--plan-safe-portfolio-border);
     color: var(--white-color);
@@ -351,7 +351,7 @@
   .dropdown__wrapper {
     position: relative;
     width: 100%;
-    height: 70px;
+    height: 65px;
   }
   .dropdown__wrapper.disabled,
   .dropdown__wrapper.disabled * {
@@ -378,7 +378,7 @@
     transition: all ease-in 0.3s;
   }
   .dropdown__item--current {
-    padding: 23px 30px;
+    padding: 19px 30px;
   }
   .dropdown__item.disabled {
     /* pointer-events: none; */

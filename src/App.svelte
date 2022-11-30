@@ -1,4 +1,5 @@
 <script>
+  import PlanModal from "./components/plans/PlanModal.svelte";
   import Contribution from "./components/contributions/Contribution.svelte";
   import { onDestroy } from "svelte";
   import HeadSteps from "./components/HeadSteps.svelte";
@@ -8,8 +9,9 @@
   import Legal from "./components/legal/Legal.svelte";
   import Information from "./components/information/Information.svelte";
   import Billing from "./components/billing/Billing.svelte";
-  import { confirmPopUpState } from "./stores/infoStore";
+  import { confirmPopUpState } from "./stores/store";
   import { fade } from "svelte/transition";
+  import { plansModalState } from "./stores/plansStore";
   let stepCountValue;
   let mainHeight = "auto";
   const unsubscribe = stepCounter.subscribe((value) => {
@@ -65,6 +67,11 @@
 {#if $confirmPopUpState === true}
   <FinalReview />
 {/if}
+{#if $plansModalState}
+  <div in:fade>
+    <PlanModal />
+  </div>
+{/if}
 
 <style>
   @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap");
@@ -94,9 +101,6 @@
     color: #000000;
     font-size: var(--text-size-normal);
   }
-  main {
-    padding: 36px 0 150px 0;
-  }
   .container__form {
     max-width: 1360px;
     margin-right: auto;
@@ -106,7 +110,7 @@
   }
   .step__content {
     display: flex;
-    min-height: 810px;
+    min-height: 75vh;
     background: rgba(255, 255, 255, 0.8);
     box-shadow: 0px 25px 35px rgba(0, 0, 0, 0.15),
       inset 0px 0px 35px rgba(255, 255, 255, 0.15);

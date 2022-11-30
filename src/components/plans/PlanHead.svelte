@@ -41,7 +41,7 @@
     display: flex;
     max-width: 874px;
     min-height: 136px;
-    margin-top: 32px;
+    margin-top: 16px;
   }
   .column__item.left {
     padding-top: 8px;

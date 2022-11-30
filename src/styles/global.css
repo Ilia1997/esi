@@ -143,7 +143,7 @@ input::-ms-clear {
 .dropdown svg {
   position: absolute;
   right: 30px;
-  top: 25px;
+  top: 21px;
   z-index: 5;
 }
 .dropdown.activePeriod svg,
@@ -229,7 +229,7 @@ select:focus {
   border-radius: 10px;
 }
 main {
-  padding: 36px 0 150px 0;
+  padding: 0px 0 150px 0;
 }
 button:disabled,
 .btn-sv:disabled {

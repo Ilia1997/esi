@@ -4,6 +4,7 @@
     incrementStep,
     decrementStep,
     subscribeAllState,
+    confirmPopUpState,
   } from "../../stores/store";
   import { plansModalState, errorMessageState } from "../../stores/plansStore";
   import { allocatedContributions } from "../../stores/contributionsStore";
@@ -29,6 +30,13 @@
   };
   let nextStep = () => {
     if (validate()) {
+      const reviewState = localStorage.getItem("review");
+      if (reviewState === "CHANGING") {
+        localStorage.removeItem("review");
+        scrollToTop();
+        $confirmPopUpState = true;
+        return;
+      }
       $headSteps.thirdStep = true;
       if (changeCounter === 0) {
         incrementStep();
@@ -139,11 +147,6 @@
     </div>
   </div>
 
-  {#if $plansModalState}
-    <div transition:fade>
-      <PlanModal />
-    </div>
-  {/if}
   <div class="relative__wrapper">
     {#if $errorMessageState}
       <ErrorMessage {errorMessage} />
@@ -157,12 +160,12 @@
 
 <style>
   .plan_percentage_val {
-    font-size: var(--h2-size);
+    font-size: 28px;
     line-height: var(--h2-line-height);
     color: var(--plan-adventure-bg);
     font-weight: var(--font-weight-bold);
     position: relative;
-    bottom: -5px;
+    bottom: -1px;
     padding: 0 5px;
   }
   .plan_percentage_val.error {
@@ -204,7 +207,7 @@
     color: var(--color-dark-st5);
   }
   .plans__wrapper {
-    margin-top: 32px;
+    margin-top: 16px;
   }
   .plans__wrapper__head {
     display: flex;

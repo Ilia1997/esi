@@ -4,18 +4,23 @@
   import Close_ico from "../../../public/images/Close_ico.svelte";
   import { afterUpdate } from "svelte";
 
-  let lottieWidth = 450;
+  let lottieWidth = 350;
   let windowWidth;
   $: windowWidth;
   if ($plansModalData.class === "safe") {
-    lottieWidth = 370;
+    lottieWidth = 320;
   }
   function handleClickOutside(event) {
     $plansModalState = false;
+    document.body.classList.remove("o-hidden");
+  }
+  function handleClose(event) {
+    $plansModalState = false;
+    document.body.classList.remove("o-hidden");
   }
   afterUpdate(() => {
     if (windowWidth < 1100) {
-      lottieWidth = 350;
+      lottieWidth = 320;
       if ($plansModalData.class === "safe") {
         lottieWidth = 300;
       }
@@ -25,51 +30,69 @@
 
 <svelte:head>
   <script
-    src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+    src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"
+  ></script>
 </svelte:head>
 <svelte:window bind:scrollY={windowWidth} />
 
-<div
-  class="pop_up {$plansModalData.class}"
-  use:clickOutside
-  on:click_outside={handleClickOutside}
->
-  <div class="column">
-    <div class="content">
-      <div class="content__head">{$plansModalData.name}</div>
-      <div class="content__text">{$plansModalData.desc}</div>
+<div class="pop_up ">
+  <div
+    class="pop_up-main {$plansModalData.class} "
+    use:clickOutside
+    on:click_outside={handleClickOutside}
+  >
+    <div class="close__icon" on:click={handleClose}>
+      <Close_ico />
     </div>
-  </div>
-  <div class="column">
-    <div class="littie__wrapper">
-      <lottie-player
-        src={$plansModalData.lottie}
-        background="transparent"
-        speed="1"
-        style="width:{lottieWidth}px;"
-        loop
-        autoplay
-      />
+    <div class="column">
+      <div class="content">
+        <div class="content__head">{$plansModalData.name}</div>
+        <div class="content__text">{$plansModalData.desc}</div>
+      </div>
     </div>
-  </div>
-  <div class="close__icon" on:click={() => ($plansModalState = false)}>
-    <Close_ico />
+    <div class="column">
+      <div class="littie__wrapper">
+        <lottie-player
+          src={$plansModalData.lottie}
+          background="transparent"
+          speed="1"
+          style="width:{lottieWidth}px;"
+          loop
+          autoplay
+        />
+      </div>
+    </div>
   </div>
 </div>
 
 <style>
   .pop_up {
-    position: absolute;
+    position: fixed;
+    top: 0px;
     bottom: 0;
-    width: 100%;
-    height: auto;
-    z-index: 10;
-    margin-top: 16px;
-    padding: 64px;
+    left: 0;
+    right: 0;
+    height: 100vh;
     display: flex;
+    justify-content: center;
+    align-items: center;
     width: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+  .pop_up-main {
+    position: relative;
     box-shadow: 0px 25px 35px rgba(0, 0, 0, 0.15);
+    max-height: 90vh;
+    z-index: 10;
+    margin-top: 80px;
+    margin: 80px 20px 0 20px;
+    padding: 50px;
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    max-width: 1100px;
     background-color: var(--white-color);
+    border-radius: 10px;
   }
   .close__icon {
     position: absolute;
@@ -82,13 +105,13 @@
   .close__icon:hover {
     opacity: 0.5;
   }
-  .pop_up.safe {
+  .pop_up-main.safe {
     background: var(--plan-safe-popup-bg);
   }
-  .pop_up.adventure {
+  .pop_up-main.adventure {
     background: var(--plan-adventure-popup-bg);
   }
-  .pop_up.founder {
+  .pop_up-main.founder {
     background: var(--plan-founder-popup-bg);
   }
 
@@ -106,8 +129,8 @@
     margin-top: 16px;
   }
   .littie__wrapper {
-    width: 450px;
-    height: 650px;
+    width: 400px;
+    height: 600px;
     background: var(--white-color);
     box-shadow: 0px 25px 35px rgba(0, 0, 0, 0.15);
     border-radius: 20px;
@@ -117,20 +140,20 @@
   }
   @media only screen and (max-width: 1100px) {
     .littie__wrapper {
-      width: 400px;
-      height: 600px;
+      width: 350px;
+      height: 550px;
     }
-    .pop_up{
+    .pop_up {
       min-height: 800px;
     }
   }
   @media only screen and (max-width: 1024px) {
-    .pop_up{
+    .pop_up {
       min-height: 840px;
     }
   }
   @media only screen and (max-width: 991px) {
-    .pop_up{
+    .pop_up {
       display: none;
     }
   }

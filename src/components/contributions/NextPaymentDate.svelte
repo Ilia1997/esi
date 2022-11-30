@@ -15,7 +15,7 @@
 <style>
   .next__payment {
     max-width: 266px;
-    margin: 0 0 12px 47px;
+    margin: 0 0 7px 47px;
     color: var(--main-text-color);
   }
   .next__payment span {

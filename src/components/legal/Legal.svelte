@@ -8,7 +8,12 @@
     legalItems,
     allSelected,
   } from "../../stores/legalStore";
-  import { headSteps, incrementStep, decrementStep } from "../../stores/store";
+  import {
+    headSteps,
+    incrementStep,
+    decrementStep,
+    confirmPopUpState,
+  } from "../../stores/store";
   import ButtonLeft from "../buttons/ButtonLeft.svelte";
   import ButtonRight from "../buttons/ButtonRight.svelte";
   import { scrollToTop } from "../../functions/scrollToTop";
@@ -57,6 +62,14 @@
   let nextStep = () => {
     let state = Object.values($checkboxStates).every((value) => value === true);
     if (state) {
+      const reviewState = localStorage.getItem("review");
+      if (reviewState === "CHANGING") {
+        localStorage.removeItem("review");
+        scrollToTop();
+        $confirmPopUpState = true;
+
+        return;
+      }
       $headSteps.fourthStep = true;
       if (changeCounter === 0) {
         incrementStep();
@@ -153,6 +166,7 @@
   }
   .header .input-ch-sv,
   .input-ch-sv[type="checkbox"] {
+    padding: 0;
     width: 24px;
     height: 24px;
     min-width: 24px;
@@ -240,14 +254,14 @@
       height: 16px;
       min-width: 16px;
     }
-    .label-sv{
-      font-size: var( --text-size-smaller);
-      line-height: var( --small-text-line-height);
+    .label-sv {
+      font-size: var(--text-size-smaller);
+      line-height: var(--small-text-line-height);
     }
     .legal__content {
       margin: 20px 20px 31px 15px;
     }
-    
+
     .header {
       padding: 22px 16px 22px 16px;
     }

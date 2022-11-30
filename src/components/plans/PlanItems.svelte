@@ -40,11 +40,10 @@
       100;
     founderPrice =
       ($allocatedContributions.founder * $contributionData.monthlyValue) / 100;
-    
-      activeDropdownSave = false;
-      activeDropdownAdv = false;
-      activeDropdownFound = false;
-    
+
+    activeDropdownSave = false;
+    activeDropdownAdv = false;
+    activeDropdownFound = false;
   });
   afterUpdate(() => {});
 </script>
@@ -90,7 +89,7 @@
 
 <style>
   .plans__items {
-    margin-top: 16px;
+    margin-top: 8px;
     display: flex;
     align-items: stretch;
   }
@@ -99,7 +98,6 @@
       justify-content: center;
     }
   }
-
 
   @media only screen and (max-width: 991px) {
     .plans__items {
