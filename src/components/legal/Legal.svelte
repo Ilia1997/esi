@@ -67,7 +67,6 @@
         localStorage.removeItem("review");
         scrollToTop();
         $confirmPopUpState = true;
-
         return;
       }
       $headSteps.fourthStep = true;

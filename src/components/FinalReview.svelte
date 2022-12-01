@@ -66,7 +66,7 @@
   let changeStep = (stepNum) => {
     $confirmPopUpState = false;
     $stepCounter = stepNum;
-    localStorage.setItem("review", "CHANGING");
+    localStorage.setItem("review", `CHANGING_${stepNum}`);
     if (stepNum === 4) {
       $clickOnPrevBtn = true;
     }

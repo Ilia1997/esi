@@ -31,7 +31,7 @@
   let nextStep = () => {
     if (validate()) {
       const reviewState = localStorage.getItem("review");
-      if (reviewState === "CHANGING") {
+      if (reviewState === "CHANGING_2") {
         localStorage.removeItem("review");
         scrollToTop();
         $confirmPopUpState = true;

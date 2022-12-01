@@ -82,9 +82,8 @@
   .pop_up-main {
     position: relative;
     box-shadow: 0px 25px 35px rgba(0, 0, 0, 0.15);
-    max-height: 90vh;
+    max-height: 85vh;
     z-index: 10;
-    margin-top: 80px;
     margin: 80px 20px 0 20px;
     padding: 50px;
     display: flex;
@@ -129,8 +128,8 @@
     margin-top: 16px;
   }
   .littie__wrapper {
-    width: 400px;
-    height: 600px;
+    width: 380px;
+    height: 530px;
     background: var(--white-color);
     box-shadow: 0px 25px 35px rgba(0, 0, 0, 0.15);
     border-radius: 20px;

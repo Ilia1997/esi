@@ -48,6 +48,13 @@
         // Validate Contact
         await doLoginData();
         if ($infoFormErrorState === false) {
+          const reviewState = localStorage.getItem("review");
+          if (reviewState === "CHANGING_4") {
+            localStorage.removeItem("review");
+            scrollToTop();
+            $confirmPopUpState = true;
+            return;
+          }
           activeItem = tabItems[index + 1];
           $allowItemIndex = $allowItemIndex + 1;
           formButtonText = "Confirm";

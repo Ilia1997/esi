@@ -19,7 +19,7 @@
   function changeStep() {
     if (validateAmount()) {
       const reviewState = localStorage.getItem("review");
-      if (reviewState === "CHANGING") {
+      if (reviewState === "CHANGING_1") {
         localStorage.removeItem("review");
         scrollToTop();
         $confirmPopUpState = true;

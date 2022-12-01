@@ -422,7 +422,7 @@
   }
   @media only screen and (max-width: 1080px) and (min-width: 991px) {
     .dropdown__item--current {
-      padding: 23px 25px;
+      padding: 19px 25px;
     }
   }
 
