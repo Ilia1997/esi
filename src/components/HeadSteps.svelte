@@ -72,6 +72,9 @@
     align-items: center;
     pointer-events: none;
   }
+  .billing_info {
+    display: none;
+  }
   .head__step.visited {
     pointer-events: auto;
     color: var(--white-color);

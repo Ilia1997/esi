@@ -17,6 +17,7 @@
   const unsubscribe = stepCounter.subscribe((value) => {
     stepCountValue = value;
   });
+  // stepCountValue = 5;
   $: {
     if ($confirmPopUpState === true) {
       mainHeight = $popUpHeight - 100 + "px";

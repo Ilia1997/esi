@@ -22,6 +22,8 @@
     { name: "Address", component: AddressForm },
     { name: "Payment", component: PaymentForm },
   ];
+  let mainTabsWidth = "528px";
+  //let mainTabsWidth = "650px";
   let activeItem = tabItems[0];
   let formButtonText = "Next";
   let nextButtonState = false;
@@ -65,6 +67,7 @@
               activeItem = tabItems[index + 1];
               $allowItemIndexBilling = $allowItemIndexBilling + 1;
               formButtonText = "Confirm";
+              mainTabsWidth = "650px";
               scrollToTop();
             }
           });
@@ -113,10 +116,9 @@
       .check("state")
       .required("Enter State")
       .check("postal")
-      .required("Enter Postal / Zip code’")
+      .required("Enter Postal / Zip code")
       .minLength(5, "Postcode should be at least 5 symbols length")
-      .maxLength(10, "Postcode must be no more than 10 characters")
-      .match(/^\d+$/, "Postal should contain only numbers").end; // you must finish validation with '.end' operator
+      .maxLength(10, "Postcode must be no more than 10 characters").end; // you must finish validation with '.end' operator
 
     if ($addressData.valid) {
       $addressFormStatus = true;
@@ -150,7 +152,7 @@
     <h2 class="h2-sv main__head" bind:this={formWrapper}>
       Payment/Withdrawal <span class="green">Method</span>
     </h2>
-    <div class="main__tabs">
+    <div class="main__tabs" style="max-width: {mainTabsWidth};">
       <Tabs {tabItems} />
       <div>
         <svelte:component this={activeItem.component} {addressData} />
