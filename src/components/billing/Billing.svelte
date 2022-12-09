@@ -62,13 +62,20 @@
           let updateUserStatus = false;
           updateUserInDB(userData, $userAuthToken).then((data) => {
             updateUserStatus = data;
-
-            if (updateUserStatus) {
+            console.log("updateUserStatus", updateUserStatus);
+            if (updateUserStatus.status) {
               activeItem = tabItems[index + 1];
               $allowItemIndexBilling = $allowItemIndexBilling + 1;
               formButtonText = "Confirm";
               mainTabsWidth = "650px";
               scrollToTop();
+            } else {
+              if (
+                updateUserStatus.errorMessage === "ZIP_CODE_VALIDATION_ERROR"
+              ) {
+                $addressData.err.postal =
+                  "Postal code does not match with selected state";
+              }
             }
           });
         }
@@ -117,7 +124,7 @@
       .required("Enter State")
       .check("postal")
       .required("Enter Postal / Zip code")
-      .minLength(5, "Postcode should be at least 5 symbols length")
+      .minLength(3, "Postcode should be at least 3 symbols length")
       .maxLength(10, "Postcode must be no more than 10 characters").end; // you must finish validation with '.end' operator
 
     if ($addressData.valid) {

@@ -8,6 +8,7 @@
   export let activeItem = itemsData[0];
   export let handleClickByItem = () => {};
   $: activeItem;
+
   // click outside dropdown
   function handleClickOutside() {
     active = false;
@@ -19,7 +20,7 @@
   }
 </script>
 
-<div class="dropdown__wrapper" class:disabled>
+<div class="dropdown__wrapper" class:disabled on:click>
   <div
     class="dropdown "
     class:active={active ? active : ""}
@@ -31,7 +32,7 @@
       on:click={() => {
         active = !active;
       }}
-      class={active ? "active" : ""}
+      class="gender {active ? 'active' : ''}"
     />
     <div
       class="dropdown__item--current"
@@ -39,7 +40,7 @@
         active = !active;
       }}
     >
-      {activeItem}
+      {activeItem || "Gender*"}
     </div>
     <div class="dropdown__items">
       {#each itemsData as item}
@@ -62,7 +63,7 @@
   .dropdown__wrapper {
     position: relative;
     width: 100%;
-    height: 65px;
+    min-height: 65px;
   }
   .dropdown__wrapper.disabled,
   .dropdown__wrapper.disabled * {
@@ -74,6 +75,7 @@
   .dropdown {
     position: absolute;
     width: 100%;
+    min-height: 65px;
     cursor: pointer;
     background-color: var(--white-color);
     border: 1px solid var(--border-color);
@@ -81,7 +83,10 @@
     overflow: hidden;
   }
   .dropdown.error {
-    border-color: var(--red-color);
+    border-color: var(--error-color);
+  }
+  .dropdown.error .dropdown__item--current {
+    color: var(--error-color);
   }
   .dropdown__items {
     display: none;
@@ -98,7 +103,7 @@
   .dropdown__item--current {
     padding: 18px 30px;
     text-align: left;
-    background: var(--white);
+    background: var(--white-color);
     color: var(--black);
     position: relative;
     z-index: 1;
@@ -111,7 +116,7 @@
     background-color: var(--grey-color-lightest);
   }
   .dropdown.active {
-    background-color: var(--white);
+    background-color: var(--white-color);
     padding: 11px 0;
   }
   .dropdown.active .dropdown__item--current {
@@ -119,5 +124,20 @@
   }
   .dropdown.active .dropdown__items {
     display: block;
+  }
+  @media only screen and (max-width: 480px) {
+    .dropdown__item,
+    .dropdown__item--current {
+      padding: 1rem;
+      font-size: var(--text-size-smaller);
+      line-height: var(--small-text-line-height);
+    }
+    .dropdown__item--current {
+      height: 48px;
+    }
+    .dropdown__wrapper,
+    .dropdown {
+      min-height: 50px;
+    }
   }
 </style>

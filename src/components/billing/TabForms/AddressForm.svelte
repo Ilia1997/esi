@@ -5,23 +5,29 @@
   import { contributionData } from "../../../stores/contributionsStore";
   import { onMount } from "svelte";
   import flatpickr from "flatpickr";
+  import Svelecte from "svelecte";
+  import Dropdown from "./Dropdown.svelte";
+  import { getCountryStateList } from "./getListState";
 
   export let addressData;
   let activeGender = false;
-  let gender;
+  let gender = null;
   let dob;
 
+  let stateValue = "";
   let datePicker;
   $: datePicker;
+  $: {
+    $addressData.state = stateValue ? stateValue.name : "";
+  }
 
-  let handleClickOutside = () => {
-    activeGender = false;
-  };
+  let list = [];
+
   let setGender = (item) => {
     $addressData.gender = item;
     gender = item;
   };
-  onMount(() => {
+  onMount(async () => {
     const fp = flatpickr(datePicker, {
       onChange: function (selectedDates, dateStr, instance) {
         $addressData.dateOfBirdth = dateStr;
@@ -29,6 +35,15 @@
       defaultDate: $addressData.dateOfBirdth || null,
     });
     fp.jumpToDate(new Date(2004, 0, 1));
+
+    // get states 5235134
+    // $contributionData.country.countryId
+    const res = await getCountryStateList($contributionData.country.countryId);
+    if (res.status) {
+      res.data.forEach((item, index) => {
+        list = [...list, { id: index, name: item }];
+      });
+    }
   });
 </script>
 
@@ -71,27 +86,15 @@
       {/if}
     </div>
     <div class="input-sv__wrapper">
-      <div class="dropdown__wrapper" on:click={addressData.clear}>
-        <div
-          class="dropdown"
-          class:activeGender
-          class:error={$addressData.err.gender}
-          on:click={() => (activeGender = !activeGender)}
-          use:clickOutside
-          on:click_outside={() => handleClickOutside()}
-        >
-          <DropdownIco class={"gender"} />
-          <div class="dropdown__item--current">{gender || "Gender*"}</div>
-          <div class="dropdown__items">
-            <div class="dropdown__item" on:click={() => setGender("Male")}>
-              Male
-            </div>
-            <div class="dropdown__item" on:click={() => setGender("Female")}>
-              Female
-            </div>
-          </div>
-        </div>
-      </div>
+      <Dropdown
+        errorMessageState={$addressData.err.gender}
+        itemsData={["Male", "Female"]}
+        on:click={addressData.clear}
+        handleClickByItem={() => {
+          setGender(gender);
+        }}
+        bind:activeItem={gender}
+      />
       {#if $addressData.err.gender}
         <p transition:slide|local class="error__message">
           {$addressData.err.gender}
@@ -152,7 +155,7 @@
       {/if}
     </div>
     <div class="input-sv__wrapper ">
-      <input
+      <!-- <input
         type="text"
         class="input-sv small"
         placeholder="State*"
@@ -160,7 +163,15 @@
         bind:value={$addressData.state}
         class:error={$addressData.err.state}
         on:focus={addressData.clear}
-      />
+      /> -->
+      <div class:svelecte_error={$addressData.err.state}>
+        <Svelecte
+          options={list}
+          bind:readSelection={stateValue}
+          on:change={addressData.clear}
+          placeholder="State*"
+        />
+      </div>
       {#if $addressData.err.state}
         <p transition:slide|local class="error__message ">
           {$addressData.err.state}
@@ -198,6 +209,38 @@
 </div>
 
 <style>
+  :global(.svelecte_error .sv-control) {
+    border: 1px solid var(--error-color) !important;
+  }
+  :global(.sv-control) {
+    height: 65px;
+    border: 1px solid var(--border-color) !important;
+    border-radius: 10px !important;
+  }
+  :global(.sv-content) {
+    padding-left: 30px !important;
+  }
+  :global(.indicator) {
+    display: none !important;
+  }
+
+  :global(.sv-dropdown) {
+    z-index: 99 !important;
+  }
+  :global(.sv-content input.inputBox::placeholder) {
+    color: #000 !important;
+    font-family: "Poppins";
+    line-height: var(--text-line-height);
+    font-weight: var(--font-weight-normal);
+  }
+  :global(.svelecte_error .sv-control input.inputBox::placeholder) {
+    color: var(--error-color) !important;
+  }
+  :global(.sv-control.is-active) {
+    outline: none !important;
+    border: 1px solid #ccc !important;
+  }
+
   :global(.contents .container) {
     padding: 0;
     max-width: 100% !important;
@@ -244,12 +287,13 @@
 
   .dropdown__wrapper {
     position: relative;
-    height: 70px;
+    height: 65px;
   }
   .dropdown {
     position: absolute;
     width: 100%;
-    padding: 23px 30px;
+    height: 100%;
+    padding: 18px 30px;
     cursor: pointer;
     border: 1px solid var(--border-color);
     border-radius: 10px;
@@ -358,6 +402,20 @@
     input.date {
       padding: 1rem;
       font-size: var(--text-size-smaller);
+    }
+    :global(.sv-control) {
+      height: 50px;
+      border: 1px solid var(--border-color) !important;
+      border-radius: 10px !important;
+    }
+    :global(.sv-content) {
+      padding-left: 16px !important;
+    }
+    :global(.sv-content input.inputBox::placeholder) {
+      color: #000 !important;
+      font-family: "Poppins";
+      font-size: var(--text-size-smaller);
+      line-height: var(--small-text-line-height);
     }
   }
 </style>

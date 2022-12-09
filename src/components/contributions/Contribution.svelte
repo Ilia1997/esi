@@ -169,15 +169,13 @@
   }
   .rules__items {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
     width: 100%;
-    max-width: 653px;
+
     padding: 0;
     margin: 28px 32px 0 32px;
   }
-  .rules__item {
-    padding: 16px 50px 26px 50px;
-  }
+
   .rules__item.center {
     border-left: 1px solid var(--main-text-color);
     border-right: 1px solid var(--main-text-color);
@@ -189,6 +187,9 @@
     line-height: 27px;
     text-transform: uppercase;
     color: var(--main-text-color);
+  }
+  .rules__item {
+    padding: 16px 50px 26px 50px;
   }
   .rules__item:first-child {
     padding: 16px 50px 26px 0px;
@@ -202,15 +203,10 @@
     line-height: 27px;
   }
   .rules__val__wrapper {
-    height: 54px;
-    width: 135px;
     position: relative;
     margin-top: 10px;
   }
   .rules__val {
-    position: absolute;
-    top: 0;
-    left: 0;
     font-weight: var(--font-weight-medium);
     font-size: var(--h2-size);
     line-height: var(--h2-line-height);
@@ -230,6 +226,17 @@
     display: flex;
     justify-content: flex-end;
     position: relative;
+  }
+  @media only screen and (max-width: 1280px) and (min-width: 991px) {
+    .rules__item {
+      padding: 16px 30px 26px 30px;
+    }
+    .rules__item:first-child {
+      padding: 16px 30px 26px 0px;
+    }
+    .rules__item:last-child {
+      padding: 16px 0px 26px 30px;
+    }
   }
 
   @media only screen and (max-width: 991px) {

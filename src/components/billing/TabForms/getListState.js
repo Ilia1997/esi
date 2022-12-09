@@ -1,20 +1,16 @@
-export async function setPaymentSystem(pm1, pm2 = null, userToken) {
+export async function getCountryStateList(countryId) {
   const mainEndpoint =
-    "https://be.esi.kdg.com.ua/esi_private/esi_private/backend/setPreferredPaymentSystem";
-  const body = JSON.stringify({
-    paymentSystemId: pm1,
-    alternativePaymentSystemId: pm2,
-  });
-
+    "https://be.esi.kdg.com.ua/esi_public/esi_public/backend/getCountryStateList";
   try {
     const rawResponse = await fetch(mainEndpoint, {
       method: "POST",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
-        Authorization: userToken,
       },
-      body,
+      body: JSON.stringify({
+        countryId,
+      }),
     });
     const content = await rawResponse.json();
     return content;
