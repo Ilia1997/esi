@@ -5,7 +5,6 @@ export async function setPaymentSystem(pm1, pm2 = null, userToken) {
     paymentSystemId: pm1,
     alternativePaymentSystemId: pm2,
   });
-
   try {
     const rawResponse = await fetch(mainEndpoint, {
       method: "POST",

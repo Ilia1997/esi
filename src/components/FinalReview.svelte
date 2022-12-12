@@ -10,6 +10,7 @@
     confirmPopUpState,
     stepCounter,
     popUpHeight,
+    subscribeAllState,
   } from "../stores/store";
   import { beforeUpdate } from "svelte";
   import { fade } from "svelte/transition";
@@ -25,8 +26,14 @@
   import { createUserInDB } from "./createUserInDB";
 
   let changeCounter = 0;
-
   let preloaderState = false;
+
+  const resetPlanData = () => {
+    $allocatedContributions.safe = 0;
+    $allocatedContributions.adventure = 0;
+    $allocatedContributions.founder = 0;
+    $subscribeAllState = false;
+  };
 
   let confirmAllData = async () => {
     preloaderState = true;
@@ -64,12 +71,15 @@
   };
 
   let changeStep = (stepNum) => {
+    if (stepNum === 4) {
+      $clickOnPrevBtn = true;
+    } else if (stepNum === 2) {
+      resetPlanData();
+    }
     $confirmPopUpState = false;
     $stepCounter = stepNum;
     localStorage.setItem("review", `CHANGING_${stepNum}`);
-    if (stepNum === 4) {
-      $clickOnPrevBtn = true;
-    }
+
     scrollToTop();
   };
   let safePrice = 0,
