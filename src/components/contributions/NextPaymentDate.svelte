@@ -3,14 +3,20 @@
   import { contributionData } from "../../stores/contributionsStore";
 </script>
 
-{#if $contributionData.nextPaymentDate.month != null}
+<!-- {#if $contributionData.nextPaymentDate.month != null}
   <div class="next__payment" in:fade>
     *The next payment will be on the
     <span>{$contributionData.nextPaymentDate.month}</span>
     <span class="payment__day">{$contributionData.nextPaymentDate.day}st</span>
     <span class="currentYear">{$contributionData.nextPaymentDate.year}</span>
   </div>
-{/if}
+{/if} -->
+<div class="next__payment" in:fade>
+  *The next payment will be on the
+  <span>March</span>
+  <span class="payment__day">1st</span>
+  <span class="currentYear">2023</span>
+</div>
 
 <style>
   .next__payment {

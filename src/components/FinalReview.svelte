@@ -130,10 +130,12 @@
               {$contributionData.country.currency.symbol}{priceConvertation(
                 $contributionData.monthlyValue
               )}
-              {$contributionData.country.currency.code} per Month Starting {$contributionData
+              {$contributionData.country.currency.code} per Month Starting 1st March
+              2023
+              <!-- {$contributionData
                 .nextPaymentDate.day}th
               {$contributionData.nextPaymentDate.month}
-              {$contributionData.nextPaymentDate.year}
+              {$contributionData.nextPaymentDate.year} -->
             </div>
           </div>
         </div>
