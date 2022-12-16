@@ -155,15 +155,6 @@
       {/if}
     </div>
     <div class="input-sv__wrapper ">
-      <!-- <input
-        type="text"
-        class="input-sv small"
-        placeholder="State*"
-        autocomplete
-        bind:value={$addressData.state}
-        class:error={$addressData.err.state}
-        on:focus={addressData.clear}
-      /> -->
       <div class:svelecte_error={$addressData.err.state}>
         <Svelecte
           options={list}

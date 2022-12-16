@@ -265,7 +265,7 @@
 
   .contribution__help--text,
   .contribution__help--left {
-    font-size: var(--text-size-small);
+    font-size: var(--text-size-normal);
     color: var(--color-darkest);
     margin-top: 24px;
   }
@@ -349,7 +349,7 @@
       width: 100%;
     }
     .contribution__help--text {
-      margin-top: 0;
+      margin-top: 8px;
     }
   }
   @media only screen and (max-width: 768px) {
