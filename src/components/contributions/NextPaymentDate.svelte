@@ -22,13 +22,13 @@
   .next__payment {
     max-width: 266px;
     margin: 0 0 7px 24px;
-    font-size: 20px;
+    font-size: 16px;
     line-height: 24px;
     color: var(--main-text-color);
   }
   .next__payment span {
     font-weight: var(--font-weight-bolder);
-    font-size: 20px;
+    font-size: 16px;
     line-height: 24px;
   }
   .payment__day {
